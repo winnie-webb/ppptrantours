@@ -1,0 +1,129 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { FaStar, FaWhatsapp, FaArrowRight } from "react-icons/fa";
+import { site } from "../data/site";
+
+const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
+
+export default function Hero() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), 7000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section className="relative -mt-[4.5rem] flex min-h-[42rem] items-end overflow-hidden bg-ink lg:-mt-20 lg:min-h-[46rem]">
+      {/* Crossfading backdrop */}
+      {SLIDES.map((src, i) => (
+        <div
+          key={src}
+          aria-hidden
+          className={`absolute inset-0 transition-opacity duration-[1600ms] ease-out ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            className={`object-cover ${i === index ? "animate-slow-zoom" : ""}`}
+          />
+        </div>
+      ))}
+
+      {/* Legibility scrims */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/25 to-transparent"
+      />
+
+      <div className="shell relative w-full pb-16 pt-32 lg:pb-24 lg:pt-40">
+        <div className="max-w-3xl">
+          <div className="flex animate-fade-up items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
+              <span className="flex text-gold-400">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <FaStar key={i} className="text-[0.65rem]" />
+                ))}
+              </span>
+              {site.rating.score} · {site.rating.count} reviews
+            </span>
+            <span className="hidden text-xs font-medium uppercase tracking-[0.18em] text-white/55 sm:inline">
+              {site.tagline}
+            </span>
+          </div>
+
+          <h1
+            className="mt-6 animate-fade-up font-display text-[2.75rem] font-semibold leading-[1.03] text-white sm:text-6xl lg:text-[4.75rem]"
+            style={{ animationDelay: "80ms" }}
+          >
+            Jamaica, at your
+            <br />
+            <span className="text-gold-400">own pace.</span>
+          </h1>
+
+          <p
+            className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
+            style={{ animationDelay: "160ms" }}
+          >
+            Private airport transfers and island tours from Montego Bay to the
+            South Coast. No shared vans, no rushed schedules — just a licensed
+            local driver, an air-conditioned vehicle, and the day you actually
+            wanted.
+          </p>
+
+          <div
+            className="mt-9 flex animate-fade-up flex-wrap items-center gap-3"
+            style={{ animationDelay: "240ms" }}
+          >
+            <Link href="/tours" className="btn-gold group">
+              Explore tours
+              <FaArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link href="/category/at" className="btn-ghost-light">
+              Book an airport transfer
+            </Link>
+            <a
+              href={site.contact.whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="btn text-white/80 hover:text-white"
+            >
+              <FaWhatsapp className="text-lg" />
+              {site.contact.phone}
+            </a>
+          </div>
+
+          {/* Slide indicators */}
+          <div
+            className="mt-12 flex animate-fade-up gap-2"
+            style={{ animationDelay: "320ms" }}
+          >
+            {SLIDES.map((s, i) => (
+              <button
+                key={s}
+                type="button"
+                aria-label={`Show image ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === index ? "w-10 bg-gold-400" : "w-5 bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

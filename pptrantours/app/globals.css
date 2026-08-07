@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  }
+
+  * {
+    @apply border-black/5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink antialiased;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-[-0.02em];
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+  }
+
+  ::selection {
+    @apply bg-crimson-500/25;
+  }
+
+  /* Slim, unobtrusive scrollbar on the horizontal rails. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Page gutter — every section uses this so vertical rhythm stays consistent. */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-crimson-600;
+  }
+
+  .eyebrow-light {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-crimson-300;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-crimson-500 focus-visible:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-crimson-600 text-white hover:bg-crimson-700 hover:shadow-glow active:scale-[.98];
+  }
+
+  .btn-gold {
+    @apply btn bg-gold-400 text-ink hover:bg-gold-300 active:scale-[.98];
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink/15 bg-white/70 text-ink backdrop-blur hover:border-ink/30 hover:bg-white;
+  }
+
+  .btn-ghost-light {
+    @apply btn border border-white/25 bg-white/10 text-white backdrop-blur hover:border-white/50 hover:bg-white/20;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ink/[0.07] bg-white shadow-card;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink
+           placeholder:text-ink/35 transition
+           focus:border-crimson-500 focus:outline-none focus:ring-4 focus:ring-crimson-500/10;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink/55;
+  }
+
+  /* Thin hairline used to separate stacked sections. */
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ink/10 to-transparent;
+  }
+}
