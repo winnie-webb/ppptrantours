@@ -18,6 +18,12 @@ yarn-error.log*
 .env
 .env*.local
 
+# Design sources — kept locally, not committed.
+#   pppsignbanner.psd  10 MB binary; the exported JPEG in app/ is what ships.
+#   ppp_sig.jpg        email signature containing a personal address, and this
+#                      repo is public.
+/design/
+
 .vercel
 next-env.d.ts
 *.tsbuildinfo

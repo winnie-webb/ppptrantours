@@ -15,7 +15,8 @@ export const site = {
   owner: {
     name: "Donovan Pugh",
     short: "Mr. Pugh",
-    role: "Owner & Lead Guide",
+    // Title as he signs it himself (from his email signature block).
+    role: "Owner & Managing Director",
     bio: "A Jamaican educated in the melting pot of New York City, Donovan built PPP for travellers who crave homegrown Jamaican experiences and want to taste the richness of our passionate culture. He still drives most days.",
   },
   contact: {
