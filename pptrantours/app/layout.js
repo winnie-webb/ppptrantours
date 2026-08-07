@@ -19,7 +19,9 @@ const display = Fraunces({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://ppptrantours.com"),
+  // The live domain. Note the contact address is on a different domain
+  // (info@ppptrantours.com, hosted on Titan) — that's intentional, not a typo.
+  metadataBase: new URL("https://ppptrantoursjamaica.com"),
   title: {
     default: `${site.longName} — ${site.tagline}`,
     template: `%s | ${site.name}`,
