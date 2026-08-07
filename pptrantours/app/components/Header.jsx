@@ -32,11 +32,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close everything on navigation.
-  useEffect(() => {
+  // Close everything on navigation. Adjusted during render rather than in an
+  // effect — an effect would paint the open menu once before closing it.
+  const [renderedPath, setRenderedPath] = useState(pathname);
+  if (renderedPath !== pathname) {
+    setRenderedPath(pathname);
     setMobileOpen(false);
     setToursOpen(false);
-  }, [pathname]);
+  }
 
   // Lock body scroll while the mobile sheet is open.
   useEffect(() => {
