@@ -68,19 +68,27 @@ export default function Hero() {
             className="mt-6 animate-fade-up font-display text-[2.75rem] font-semibold leading-[1.03] text-white sm:text-6xl lg:text-[4.75rem]"
             style={{ animationDelay: "80ms" }}
           >
-            Jamaica, at your
+            Approach Jamaica
             <br />
-            <span className="text-gold-400">own pace.</span>
+            <span className="text-gold-400">with confidence.</span>
           </h1>
 
+          {/*
+            The three P's the company is named for, one per sentence. Emphasis
+            carries them instead of quotation marks — quoting "Private" reads as
+            a scare quote, which is the opposite of the intent.
+          */}
           <p
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
             style={{ animationDelay: "160ms" }}
           >
-            Private airport transfers and island tours from Montego Bay to the
-            South Coast. No shared vans, no rushed schedules — just a licensed
-            local driver, an air-conditioned vehicle, and the day you actually
-            wanted.
+            <strong className="font-semibold text-gold-300">Private</strong>{" "}
+            pickups for airport transfers and island-wide tours, from every major
+            hotel and cruise port — never a shared van. Total flexibility to{" "}
+            <strong className="font-semibold text-gold-300">personalize</strong>{" "}
+            your day. Clean, pre-cooled vehicles, driven by licensed, mature,
+            down-to-earth{" "}
+            <strong className="font-semibold text-gold-300">professionals</strong>.
           </p>
 
           <div
