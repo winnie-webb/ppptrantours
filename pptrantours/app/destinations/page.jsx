@@ -19,7 +19,7 @@ export default function DestinationsPage() {
         eyebrow="Where we go"
         title="One island, five bases, every parish."
         description="We run out of Montego Bay and reach the whole island. Pick a coast — we'll get you there and back the same day, at your pace."
-        image="/local/hero-4.jpg"
+        image="/ppp/banner-fisherman-mobay.jpg"
         breadcrumbs={[{ label: "Destinations" }]}
       />
 

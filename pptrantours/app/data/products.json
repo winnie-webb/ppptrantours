@@ -2025,7 +2025,7 @@
     "category": "ctp",
     "priceLowest": 40.0,
     "priceHighest": 80.0,
-    "image": "/ctp/ctp-15.webp",
+    "image": "/ppp/ricks-cafe.jpg",
     "pickups": [
       {
         "key": "lucea",
@@ -2990,7 +2990,7 @@
     "category": "abc",
     "priceLowest": 20.0,
     "priceHighest": 60.0,
-    "image": "/abc/abc-10.webp",
+    "image": "/ppp/mystic-mountain.jpg",
     "pickups": [
       {
         "key": "ochi",

@@ -22,7 +22,7 @@ export default function AboutPage() {
         eyebrow="About PPP"
         title="Private. Personalized. Professional."
         description="Three words the company was named for, and the only three standards we've ever needed."
-        image="/local/hero-8.jpg"
+        image="/ppp/banner-waterfall-guests.jpg"
         breadcrumbs={[{ label: "About PPP" }]}
       />
 

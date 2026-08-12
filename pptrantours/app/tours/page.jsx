@@ -18,7 +18,7 @@ export default function ToursPage() {
         eyebrow="The full catalogue"
         title="Every tour and transfer we run."
         description={`${tours.length} routes across nine parishes — from a five-dollar hotel hop on the Hip Strip to a full South Coast day at YS Falls, Black River and Appleton.`}
-        image="/local/hero-3.jpg"
+        image="/ppp/banner-ys-falls.jpg"
         breadcrumbs={[{ label: "Tours" }]}
       />
 

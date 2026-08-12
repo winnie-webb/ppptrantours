@@ -1,8 +1,50 @@
 # Image credits
 
-Every image in this repo **except `public/team/`** is a placeholder for local
-development. Replace them with licensed or original PPP Tran Tours photography
-before launch.
+Every image in this repo **except `public/team/` and `public/ppp/`** is a
+placeholder for local development. Replace them with licensed or original
+PPP Tran Tours photography before launch.
+
+## `public/ppp/` — PPP's own photography (recovered)
+
+**These are the company's own images and are cleared to use.** Recovered
+2026-08-12 from the previous WordPress site's media library, which survived
+intact on the old A2 Hosting account at
+`ppptrantoursjamaica.com/wp-content/uploads/` even though the site itself was
+serving zero-byte 200s. Names were enumerated via the Wayback CDX API, then the
+files fetched from the live server, so these are the original uploads rather
+than Wayback's re-encodes.
+
+| file | native size | subject |
+| --- | --- | --- |
+| `donovan-airport-van.jpg` | 1001×550 | Mr. Pugh in uniform at Sangster departures beside a PPP van, door decal visible |
+| `banner-ricks-cafe.jpg` | 1200×400 | Rick's Cafe cliffs, Negril |
+| `banner-ys-falls.jpg` | 1200×400 | YS Falls |
+| `banner-jerk-pit.jpg` | 1200×400 | Jerk pit, pork on the grill |
+| `banner-craft-market.jpg` | 1200×400 | Craft market vendor with wood carvings |
+| `banner-fisherman-mobay.jpg` | 1200×400 | Fisherman with snapper catch, Montego Bay |
+| `banner-waterfall-guests.jpg` | 1200×400 | Guests in PPP-branded shirts at a waterfall |
+| `banner-sunset.jpg` | 1200×400 | Sunset over open sea (no people) |
+| `river-tubing.jpg` | 700×550 | River tubing under a stone bridge — no matching product yet |
+| `ricks-cafe.jpg` | 674×446 | Rick's Cafe — wired to `ctp-15` |
+| `mystic-mountain.jpg` | 600×400 | Mystic Mountain — wired to `abc-10` |
+| `awards/tripadvisor-2017.png` | 159×138 | Tripadvisor award badge — genuine credential |
+| `awards/tripadvisor-2018.jpg` | 150×126 | Tripadvisor award badge — genuine credential |
+| `*-small.jpg` | ~220–300px | `donovan-van`, `donovan`, `blue-hole`, `black-river-croc`, `mayfield-falls`, `nine-mile` — original uploads were already this small. Reference/shot-list quality only; **do not** wire into card or banner slots, they will upscale badly. |
+
+⚠️ Several of these show **identifiable guests** (`banner-ys-falls`,
+`banner-waterfall-guests`, `donovan-airport-van`). They ran on PPP's own site for
+years, so consent was presumably obtained at the time — worth confirming with
+Mr. Pugh, as with `public/team/`.
+
+Deliberately **not** recovered, though present in the same media library: photos
+and logos belonging to third parties — `CHUKKA-River-Tubing-Safari-4.jpg`
+(Chukka Caribbean's marketing photo, and the largest file in the library at
+960×638), plus Appleton Estate, Dunn's River, Rick's Cafe, Doctor's Cave,
+Dolphin Cove and Bob Marley logo GIFs. Reusing those would recreate exactly the
+problem `public/fleet/` had. Old theme chrome (the `p_tran` / `p_tours` /
+`private` / `personalized` / `professional` text graphics, nav sprites and the
+superseded `PPP-logo-v3.png`) was also skipped — the current site draws its
+branding in markup and already has the real logo.
 
 ## `public/team/` — Donovan Pugh
 
@@ -53,10 +95,18 @@ letterboxed. Sources:
 | ctp-16, abc-11 | *Divers at Ricks Cafe in Negril — panoramio* | CC BY 3.0 |
 | ctp-22 | *Jamaica, Rio Grande1.JPG* | CC BY-SA 3.0 |
 
-## `public/fleet/*.webp` — vehicles
+## `public/fleet/` — removed
 
-Taken from bestjamaicatours.com as stand-ins for PPP's own vehicles. **These
-belong to another operator — swap them before launch.**
+Previously held three vehicle photos taken from bestjamaicatours.com. They were
+another operator's vehicles, and `van.webp` showed a legible Jamaican plate
+(P35005), making a specific third-party vehicle identifiable. **Deleted** — note
+that files under `public/` are served whether or not any component imports them,
+so leaving them in place would have kept publishing them.
+
+`FleetSection.jsx` now leads with `public/ppp/donovan-airport-van.jpg` (genuine,
+see below) and renders the three vehicle classes as spec-only tiles. Add
+per-vehicle `image` keys back once Mr. Pugh supplies photos of his own sedan,
+minivan and touring van.
 
 ## Remaining `public/{mpt,abc,ctp,cse,egt,st}/*.webp`
 

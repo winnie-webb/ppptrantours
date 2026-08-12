@@ -49,7 +49,7 @@ export default function ContactPage() {
         eyebrow="Get in touch"
         title="Tell us your dates. We'll do the rest."
         description="Send your flight number, hotel and group size and we'll come back with a plan and a firm price — usually within the hour."
-        image="/local/hero-1.jpg"
+        image="/ppp/banner-sunset.jpg"
         breadcrumbs={[{ label: "Contact" }]}
       />
 

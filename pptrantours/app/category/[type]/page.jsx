@@ -11,12 +11,12 @@ import {
 /** Editorial intro + banner image per category. */
 const CATEGORY_META = {
   mpt: {
-    image: "/local/hero-5.jpg",
+    image: "/ppp/banner-ricks-cafe.jpg",
     blurb:
       "The routes we run most often, because they are the ones people ask for by name. Dunn's River, the Blue Hole, Rick's Cafe at sunset.",
   },
   at: {
-    image: "/local/hero-1.jpg",
+    image: "/ppp/donovan-airport-van.jpg",
     blurb:
       "Flat-rate private transfers from Sangster and Norman Manley to every resort area on the island. We track your flight and meet you inside arrivals.",
   },
@@ -36,7 +36,7 @@ const CATEGORY_META = {
       "Built around your ship's clock. We collect you at the Falmouth or Montego Bay pier and have you back with time to spare.",
   },
   edt: {
-    image: "/local/hero-8.jpg",
+    image: "/ppp/banner-jerk-pit.jpg",
     blurb:
       "Jerk pits, seafood shacks and the restaurants locals actually eat at. Your driver waits while you take your time.",
   },
@@ -51,7 +51,7 @@ const CATEGORY_META = {
       "Late-night runs to the gaming lounges, waterfront bars and Friday night parties. A sober driver, waiting whenever you're done.",
   },
   st: {
-    image: "/local/hero-1.jpg",
+    image: "/ppp/banner-craft-market.jpg",
     blurb:
       "Craft markets, duty-free strips and malls, with someone to hold the bags and tell you what a fair price looks like.",
   },
