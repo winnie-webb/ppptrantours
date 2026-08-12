@@ -149,6 +149,31 @@ export default function AboutPage() {
           ))}
         </div>
 
+        {/*
+          Recovered from the old site's media library. Rendered at native size —
+          they are small originals and upscaling would show.
+        */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-8 rounded-2xl border border-ink/[0.07] bg-sand/60 px-6 py-7">
+          <Image
+            src="/ppp/awards/tripadvisor-2017.png"
+            alt="Tripadvisor Certificate of Excellence 2017 awarded to PPP Tran Tours"
+            width={159}
+            height={138}
+            className="h-[5.5rem] w-auto"
+          />
+          <Image
+            src="/ppp/awards/tripadvisor-2018.jpg"
+            alt="Tripadvisor Certificate of Excellence 2018 awarded to PPP Tran Tours"
+            width={150}
+            height={126}
+            className="h-[5.5rem] w-auto"
+          />
+          <p className="max-w-xs text-sm leading-relaxed text-ink/60">
+            Recognised by Tripadvisor in consecutive years, and still holding{" "}
+            {site.rating.score} across {site.rating.count} reviews.
+          </p>
+        </div>
+
         {/* The three P's */}
         <div className="mt-16 grid gap-5 sm:grid-cols-3">
           {promise.map((p) => (

@@ -24,11 +24,12 @@ than Wayback's re-encodes.
 | `banner-fisherman-mobay.jpg` | 1200×400 | Fisherman with snapper catch, Montego Bay |
 | `banner-waterfall-guests.jpg` | 1200×400 | Guests in PPP-branded shirts at a waterfall |
 | `banner-sunset.jpg` | 1200×400 | Sunset over open sea (no people) |
-| `river-tubing.jpg` | 700×550 | River tubing under a stone bridge — no matching product yet |
+| `guest-ppp-branded.jpg` | 1200×382 | Guest in PPP cap and shirt holding a PPP Tran Tours plate. **Left half is a flat gradient** the old theme reserved for overlaid text; the subject is in the right quarter, so this only works anchored right (`object-right`) in a portrait box. Used in the homepage `PromiseSection` collage. |
+| `river-tubing.jpg` | 700×550 | Guests river tubing — homepage `PromiseSection` collage |
 | `ricks-cafe.jpg` | 674×446 | Rick's Cafe — wired to `ctp-15` |
 | `mystic-mountain.jpg` | 600×400 | Mystic Mountain — wired to `abc-10` |
-| `awards/tripadvisor-2017.png` | 159×138 | Tripadvisor award badge — genuine credential |
-| `awards/tripadvisor-2018.jpg` | 150×126 | Tripadvisor award badge — genuine credential |
+| `awards/tripadvisor-2017.png` | 159×138 | Tripadvisor badge — genuine credential, shown on About at native size |
+| `awards/tripadvisor-2018.jpg` | 150×126 | Tripadvisor badge — genuine credential, shown on About at native size |
 | `*-small.jpg` | ~220–300px | `donovan-van`, `donovan`, `blue-hole`, `black-river-croc`, `mayfield-falls`, `nine-mile` — original uploads were already this small. Reference/shot-list quality only; **do not** wire into card or banner slots, they will upscale badly. |
 
 ⚠️ Several of these show **identifiable guests** (`banner-ys-falls`,

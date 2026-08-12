@@ -57,19 +57,24 @@ export default function PromiseSection() {
         {/* Image collage */}
         <div className="relative grid grid-cols-2 gap-4">
           <div className="space-y-4 pt-10">
+            {/*
+              Anchored right: the source is a 1200x382 banner whose left half is
+              a flat gradient the old theme used for overlaid text. The guest
+              sits in the right quarter, which is all a 3:4 crop keeps.
+            */}
             <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <Image
-                src="/local/hero-2.jpg"
-                alt="Jamaican coastline"
+                src="/ppp/guest-ppp-branded.jpg"
+                alt="A guest in a PPP Tran Tours cap and shirt at a waterfall"
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
-                className="object-cover"
+                className="object-cover object-right"
               />
             </figure>
             <figure className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src="/local/hero-6.jpg"
-                alt="Island scenery"
+                src="/ppp/river-tubing.jpg"
+                alt="Guests river tubing under a stone bridge"
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
                 className="object-cover"
@@ -79,11 +84,12 @@ export default function PromiseSection() {
           <div className="space-y-4">
             <figure className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src="/local/hero-4.jpg"
-                alt="Beach in Jamaica"
+                src="/ppp/donovan-airport-van.jpg"
+                alt={`${site.owner.name} meeting guests beside a PPP Tran Tours van at Sangster International Airport`}
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
-                className="object-cover"
+                /* A centred square crop clips Mr. Pugh at the right edge; 70% keeps his face and the van decal. */
+                className="object-cover object-[70%_center]"
               />
             </figure>
             <figure className="group relative aspect-[3/4] overflow-hidden rounded-2xl">

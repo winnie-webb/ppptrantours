@@ -8,7 +8,7 @@ export default function CtaBand() {
     <section className="shell py-16 lg:py-24">
       <div className="relative isolate overflow-hidden rounded-3xl bg-ink px-8 py-16 text-center lg:px-16 lg:py-24">
         <Image
-          src="/local/hero-8.jpg"
+          src="/ppp/banner-waterfall-guests.jpg"
           alt=""
           fill
           sizes="100vw"
