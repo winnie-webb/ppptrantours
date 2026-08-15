@@ -6,6 +6,7 @@ import TourRail from "./components/TourRail";
 import PromiseSection from "./components/PromiseSection";
 import DestinationsGrid from "./components/DestinationsGrid";
 import Testimonials from "./components/Testimonials";
+import GallerySection from "./components/GallerySection";
 import FaqAccordion from "./components/FaqAccordion";
 import CtaBand from "./components/CtaBand";
 import SectionHeading from "./components/SectionHeading";
@@ -68,6 +69,11 @@ export default function Home() {
 
       <DestinationsGrid />
       <Testimonials />
+      <GallerySection />
+
+      <div className="shell">
+        <div className="hairline" />
+      </div>
 
       <section className="shell py-16 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">

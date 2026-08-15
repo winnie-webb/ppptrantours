@@ -70,26 +70,37 @@ export default function Hero() {
           >
             Approach Jamaica
             <br />
-            <span className="text-gold-400">with confidence.</span>
+            <span className="text-gold-400">with confidence…</span>
           </h1>
 
           {/*
-            The three P's the company is named for, one per sentence. Emphasis
-            carries them instead of quotation marks — quoting "Private" reads as
-            a scare quote, which is the opposite of the intent.
+            Mr. Pugh's own wording (supplied 2026-08-12), kept verbatim: the
+            three P's fall progressively further right across the lines, so they
+            read as a diagonal down the paragraph — his stated reason for this
+            phrasing. Don't re-break the sentences without checking that holds.
+
+            He wrote the three words in quotation marks because handwriting has
+            no bold. Rendered, quoting "Private" reads as a scare quote — the
+            opposite of the intent — so the gold emphasis carries them instead.
+
+            "Never a shared van" is deliberately gone from here: it already runs
+            as a stat tile in StatsBar directly below (see `stats` in site.js),
+            and he cut it to keep this paragraph custom-fit. Don't reinstate it.
           */}
           <p
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
             style={{ animationDelay: "160ms" }}
           >
             <strong className="font-semibold text-gold-300">Private</strong>{" "}
-            pickups for airport transfers and island-wide tours, from every major
-            hotel and cruise port — never a shared van. Total flexibility to{" "}
-            <strong className="font-semibold text-gold-300">personalize</strong>{" "}
-            your day. Clean, pre-cooled vehicles, driven by licensed, mature,
+            pickups for airport transfers and island-wide tours from all major
+            hotels and cruise ports.{" "}
+            <strong className="font-semibold text-gold-300">Personalized</strong>{" "}
+            service gives you total flexibility to customize your day-trips.
+            Clean, pre-cooled vehicles driven by a licensed, mature,
             down-to-earth{" "}
-            <strong className="font-semibold text-gold-300">professionals</strong>.
+            <strong className="font-semibold text-gold-300">professional</strong>.
           </p>
+
 
           <div
             className="mt-9 flex animate-fade-up flex-wrap items-center gap-3"

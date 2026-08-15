@@ -129,6 +129,108 @@ export const destinations = [
   },
 ];
 
+/**
+ * Gallery — deliberately drawn *only* from PPP's own photography
+ * (`public/ppp/` and `public/team/`, see `public/CREDITS.md`). The Wikimedia
+ * scenery in `public/local/` is CC BY / CC BY-SA and would need visible
+ * attribution on the page, so none of it is used here.
+ *
+ * `w`/`h` are the true pixel dimensions of each file. The gallery is a masonry
+ * layout that renders every photo at its native ratio, so nothing is cropped —
+ * which matters because the recovered banners are an extreme 3:1 and would lose
+ * their subject in a uniform grid.
+ */
+export const gallery = [
+  {
+    src: "/ppp/donovan-airport-van.jpg",
+    w: 1001,
+    h: 550,
+    place: "Sangster International",
+    caption: "Meeting guests at arrivals, luggage handled.",
+    alt: "Donovan Pugh in uniform with four guests beside a PPP Tran Tours van at Sangster International Airport",
+  },
+  {
+    src: "/ppp/banner-waterfall-guests.jpg",
+    w: 1200,
+    h: 400,
+    place: "Waterfall stop",
+    caption: "Guests in PPP tees, cooling off mid-tour.",
+    alt: "Three guests in PPP Tran Tours shirts and caps sitting on rocks beside a waterfall",
+  },
+  {
+    src: "/team/donovan-portrait.jpg",
+    w: 780,
+    h: 1040,
+    place: "Montego Bay",
+    caption: "Donovan Pugh, owner and driver since 2010.",
+    alt: "Donovan Pugh, owner of PPP Tran Tours, standing with guests outside a resort in Montego Bay",
+  },
+  {
+    src: "/ppp/banner-craft-market.jpg",
+    w: 1200,
+    h: 400,
+    place: "Craft market",
+    caption: "Wood carvings, straight from the carver.",
+    alt: "A smiling craft market vendor holding a woven bag, surrounded by carved wooden faces and figures",
+  },
+  {
+    src: "/ppp/river-tubing.jpg",
+    w: 700,
+    h: 550,
+    place: "River tubing",
+    caption: "Drifting under the old stone bridge.",
+    alt: "Three guests floating on yellow tubes down a green river beneath a moss-covered stone arch bridge",
+  },
+  {
+    src: "/ppp/banner-fisherman-mobay.jpg",
+    w: 1200,
+    h: 400,
+    place: "Montego Bay",
+    caption: "The morning catch, still dripping.",
+    alt: "A fisherman on the shore at Montego Bay holding up two strings of red snapper, cruise ship behind him",
+  },
+  {
+    src: "/ppp/banner-ys-falls.jpg",
+    w: 1200,
+    h: 400,
+    place: "YS Falls, St. Elizabeth",
+    caption: "Seven tiers of cold, clear water.",
+    alt: "A couple in PPP Tran Tours caps and shirts standing in front of the tiered cascades at YS Falls",
+  },
+  {
+    src: "/ppp/mystic-mountain.jpg",
+    w: 600,
+    h: 400,
+    place: "Ocho Rios, St. Ann",
+    caption: "Bobsledding down through the canopy.",
+    alt: "Two guests riding bobsleds down a rainforest track above Ocho Rios harbour with a cruise ship below",
+  },
+  {
+    src: "/ppp/ricks-cafe.jpg",
+    w: 674,
+    h: 446,
+    place: "Negril, Westmoreland",
+    caption: "Rick's Cafe — cliff divers and rum punch.",
+    alt: "Crowds gathered on the limestone cliffs at Rick's Cafe in Negril",
+  },
+  {
+    src: "/ppp/banner-jerk-pit.jpg",
+    w: 1200,
+    h: 400,
+    place: "Roadside jerk pit",
+    caption: "Pimento wood, slow smoke, no rushing.",
+    alt: "A cook in a yellow shirt turning jerk pork over a smoking open grill at a roadside jerk pit",
+  },
+  {
+    src: "/ppp/banner-sunset.jpg",
+    w: 1200,
+    h: 400,
+    place: "West coast",
+    caption: "The last run of the day, heading home.",
+    alt: "The sun setting into a calm open sea, casting a gold path across the water",
+  },
+];
+
 /** Verbatim Tripadvisor reviews. */
 export const testimonials = [
   {
