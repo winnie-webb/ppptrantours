@@ -35,23 +35,35 @@ export async function sendBookingAlert(booking) {
       ? `, ${booking.children} child${booking.children === 1 ? "" : "ren"}`
       : "");
 
-  // Flat strings only: EmailJS templates cannot walk nested objects.
+  /*
+   * Flat strings only: EmailJS templates cannot walk nested objects.
+   *
+   * Empty optionals become an em dash rather than "". The template renders a
+   * fixed set of rows, and a blank cell reads as a broken email while "—"
+   * reads as "not supplied" — which is the actual fact. It also spares the
+   * template needing conditionals.
+   */
+  const dash = (v) => {
+    const s = typeof v === "string" ? v.trim() : v;
+    return s ? String(s) : "—";
+  };
+
   const template_params = {
     reference: booking.reference,
     kind: booking.type === "enquiry" ? "Enquiry" : "Booking",
-    tour_title: booking.tourTitle ?? "",
-    pickup: booking.pickupLabel ?? "",
-    date: booking.date ?? "",
-    time: booking.time ?? "",
+    tour_title: dash(booking.tourTitle),
+    pickup: dash(booking.pickupLabel),
+    date: dash(booking.date),
+    time: dash(booking.time),
     travellers,
     total: booking.total ? `US$${booking.total.toFixed(2)}` : "—",
-    name: booking.name ?? "",
-    email: booking.email ?? "",
-    phone: booking.phone ?? "",
-    flight: booking.flightNumber ?? "",
-    hotel: booking.hotel ?? "",
-    notes: booking.notes ?? "",
-    // Templates usually put this in "Reply To" so hitting reply answers the guest.
+    name: dash(booking.name),
+    email: dash(booking.email),
+    phone: dash(booking.phone),
+    flight: dash(booking.flightNumber),
+    hotel: dash(booking.hotel),
+    notes: dash(booking.notes),
+    // Templates put this in the "Reply To" field so hitting reply answers the guest.
     reply_to: booking.email ?? "",
   };
 

@@ -21,6 +21,16 @@ ui-debug.log*
 .env
 .env*.local
 
+# Firebase service account keys. The console downloads these as
+# <project>-firebase-adminsdk-<hash>.json straight into whatever directory you
+# are in, which is very easily this one — and this repo is public. The key
+# bypasses Firestore rules completely, so a single `git add .` would hand the
+# whole bookings collection to anyone. Its value belongs in .env.local as
+# FIREBASE_SERVICE_ACCOUNT_KEY, not in a file here.
+*firebase-adminsdk*.json
+serviceAccountKey.json
+service-account*.json
+
 # Design sources — kept locally, not committed.
 #   pppsignbanner.psd  10 MB binary; the exported JPEG in app/ is what ships.
 #   ppp_sig.jpg        email signature containing a personal address, and this

@@ -1,0 +1,143 @@
+<div style="margin:0;padding:0;background-color:#fbf7f4;">
+  <!-- Preheader: the grey line shown next to the subject in an inbox list.
+       Hidden in the body itself. -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+    {{name}} &middot; {{tour_title}} &middot; {{date}} &middot; {{total}}
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+         style="background-color:#fbf7f4;padding:24px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
+               style="width:100%;max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;">
+
+          <!-- Masthead -->
+          <tr>
+            <td align="center" style="background-color:#150a0d;padding:28px 24px;">
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;letter-spacing:2px;color:#f1d72d;">
+                PPP <span style="color:#ffffff;">TRAN TOURS</span>
+              </div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;opacity:0.55;padding-top:8px;">
+                Private &middot; Personalized &middot; Professional
+              </div>
+            </td>
+          </tr>
+
+          <!-- Reference band -->
+          <tr>
+            <td style="background-color:#a80424;padding:20px 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;opacity:0.75;">
+                    New {{kind}}
+                  </td>
+                  <td align="right" style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#f1d72d;">
+                    {{reference}}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Guest -->
+          <tr>
+            <td style="padding:28px 24px 8px 24px;">
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:#150a0d;">
+                {{name}}
+              </div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;padding-top:6px;">
+                <a href="mailto:{{email}}" style="color:#a80424;text-decoration:none;">{{email}}</a>
+                <span style="color:#150a0d;opacity:0.3;">&nbsp;&middot;&nbsp;</span>
+                <a href="tel:{{phone}}" style="color:#a80424;text-decoration:none;">{{phone}}</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Details -->
+          <tr>
+            <td style="padding:16px 24px 8px 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="font-family:Arial,Helvetica,sans-serif;font-size:14px;">
+                <tr>
+                  <td colspan="2" style="border-top:1px solid #ece5e0;height:1px;line-height:1px;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td width="38%" style="padding:10px 0;color:#150a0d;opacity:0.5;vertical-align:top;">Tour</td>
+                  <td style="padding:10px 0;color:#150a0d;font-weight:bold;vertical-align:top;">{{tour_title}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;color:#150a0d;opacity:0.5;border-top:1px solid #f4efeb;vertical-align:top;">Pickup / drop-off</td>
+                  <td style="padding:10px 0;color:#150a0d;border-top:1px solid #f4efeb;vertical-align:top;">{{pickup}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;color:#150a0d;opacity:0.5;border-top:1px solid #f4efeb;vertical-align:top;">Date</td>
+                  <td style="padding:10px 0;color:#150a0d;border-top:1px solid #f4efeb;vertical-align:top;">{{date}} &nbsp;<span style="opacity:0.55;">{{time}}</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;color:#150a0d;opacity:0.5;border-top:1px solid #f4efeb;vertical-align:top;">Flight</td>
+                  <td style="padding:10px 0;color:#150a0d;border-top:1px solid #f4efeb;vertical-align:top;">{{flight}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;color:#150a0d;opacity:0.5;border-top:1px solid #f4efeb;vertical-align:top;">Hotel / villa / pier</td>
+                  <td style="padding:10px 0;color:#150a0d;border-top:1px solid #f4efeb;vertical-align:top;">{{hotel}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;color:#150a0d;opacity:0.5;border-top:1px solid #f4efeb;vertical-align:top;">Travellers</td>
+                  <td style="padding:10px 0;color:#150a0d;border-top:1px solid #f4efeb;vertical-align:top;">{{travellers}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Total -->
+          <tr>
+            <td style="padding:16px 24px 8px 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background-color:#150a0d;border-radius:12px;">
+                <tr>
+                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#ffffff;opacity:0.6;">
+                    Estimated total &mdash; transport only
+                  </td>
+                  <td align="right" style="padding:16px 20px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:#f1d72d;">
+                    {{total}}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Notes -->
+          <tr>
+            <td style="padding:8px 24px 24px 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background-color:#fbf7f4;border-left:3px solid #a80424;border-radius:0 8px 8px 0;">
+                <tr>
+                  <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;">
+                    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#150a0d;opacity:0.45;padding-bottom:6px;">
+                      Guest notes
+                    </div>
+                    <div style="font-size:14px;line-height:22px;color:#150a0d;">{{notes}}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="background-color:#150a0d;padding:22px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:20px;color:#ffffff;">
+              <div style="opacity:0.6;">
+                Reply to this email to answer {{name}} directly.
+              </div>
+              <div style="opacity:0.35;padding-top:8px;">
+                Sent automatically by ppptrantoursjamaica.com when a booking form is submitted.
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
