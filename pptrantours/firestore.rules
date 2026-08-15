@@ -11,10 +11,15 @@ rules_version = '2';
 // NEXT_PUBLIC_FIREBASE_* config ships to anyone who looks. Those keys identify
 // the project, they do not protect it — these rules are the only thing that does.
 //
-// DEPENDENCY: lib/bookings.js currently calls addDoc() directly from the
-// browser. Deploying these rules while that path is live and the NEXT_PUBLIC_*
-// keys are present makes every booking throw. Land the server route first, or
-// keep the keys out of the environment until it exists.
+// The server route that made this safe now exists, and these rules are
+// deployed and verified: an unauthenticated read with the real web API key
+// returns 403 PERMISSION_DENIED. Bookings are written by
+// app/api/bookings/route.js and read by app/api/admin/bookings/route.js, both
+// via the Admin SDK.
+//
+// DEPENDENCY: nothing in a browser may touch Firestore. lib/firebase.js
+// deliberately exports Auth only — if you add a client getDb() and query it,
+// it will compile and then fail here at runtime.
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
