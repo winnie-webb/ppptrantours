@@ -1,0 +1,24 @@
+rules_version = '2';
+
+// Deny every client request, deliberately.
+//
+// Bookings are written server-side with the Firebase Admin SDK, which bypasses
+// rules entirely — so these denials cost us nothing and buy a lot. Guest names,
+// emails, phone numbers and flight details are never readable from a browser,
+// and there is no permissive create rule to get subtly wrong.
+//
+// This matters more than usual here: the repo is public, so the
+// NEXT_PUBLIC_FIREBASE_* config ships to anyone who looks. Those keys identify
+// the project, they do not protect it — these rules are the only thing that does.
+//
+// DEPENDENCY: lib/bookings.js currently calls addDoc() directly from the
+// browser. Deploying these rules while that path is live and the NEXT_PUBLIC_*
+// keys are present makes every booking throw. Land the server route first, or
+// keep the keys out of the environment until it exists.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

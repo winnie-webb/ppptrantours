@@ -64,6 +64,39 @@ export function getRelatedProducts(product, limit = 3) {
     .slice(0, limit);
 }
 
+/**
+ * Children travel at half the adult rate.
+ *
+ * Lives here because both the booking form and the server route that re-prices
+ * the booking need it. If the two ever disagreed, the guest would be quoted one
+ * total and charged another.
+ */
+export const CHILD_RATE = 0.5;
+
+/**
+ * Authoritative price for a booking. The browser sends what it thinks the total
+ * is, but the server recomputes with this and stores its own answer — a posted
+ * total is an unverified number from a stranger.
+ *
+ * @returns {{rate: number, total: number, pickup: object}|null} null if the
+ *   tour or pickup key is unknown.
+ */
+export function priceBooking({ tourId, pickupKey, adults, children }) {
+  const tour = filterProductById(tourId);
+  if (!tour) return null;
+
+  const pickup =
+    tour.pickups?.find((p) => p.key === pickupKey) ?? tour.pickups?.[0];
+  if (!pickup) return null;
+
+  const rate = pickup.price ?? tour.priceLowest;
+  return {
+    rate,
+    pickup,
+    total: rate * adults + rate * CHILD_RATE * children,
+  };
+}
+
 export function formatPrice(value) {
   const n = Number(value);
   return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;

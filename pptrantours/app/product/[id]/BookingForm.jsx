@@ -11,11 +11,9 @@ import {
   FaSpinner,
   FaExclamationTriangle,
 } from "react-icons/fa";
-import { formatPrice } from "@/app/products/product";
+import { CHILD_RATE, formatPrice } from "@/app/products/product";
 import { createBooking } from "@/lib/bookings";
 import { site } from "@/app/data/site";
-
-const CHILD_RATE = 0.5; // children travel at half the adult rate
 
 export default function BookingForm({ tour }) {
   const isTransfer = tour.category === "at";

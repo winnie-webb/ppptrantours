@@ -1,15 +1,18 @@
 /**
- * Firebase bootstrap.
+ * Firebase bootstrap — browser side.
  *
  * Nothing here runs until a real config is present, so the whole site builds
  * and renders with no Firebase project attached. Drop the keys into
- * `.env.local` (see `.env.local.example`) and every consumer below wakes up
- * without another code change.
+ * `.env.local` (see `.env.local.example`).
+ *
+ * This file deliberately exposes **Auth only**. There is no client Firestore
+ * accessor, because `firestore.rules` denies every client request: any query
+ * from a browser fails by design. Reads and writes go through the server routes
+ * in `app/api/`, which use the Admin SDK (`lib/firebase-admin.js`). If you find
+ * yourself wanting a `getDb()` here, you want an API route instead.
  */
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -36,17 +39,7 @@ export function getFirebaseApp() {
   return app;
 }
 
-export function getDb() {
-  const a = getFirebaseApp();
-  return a ? getFirestore(a) : null;
-}
-
 export function getFirebaseAuth() {
   const a = getFirebaseApp();
   return a ? getAuth(a) : null;
-}
-
-export function getFirebaseStorage() {
-  const a = getFirebaseApp();
-  return a ? getStorage(a) : null;
 }
