@@ -79,10 +79,14 @@ export default function Hero() {
             read as a diagonal down the paragraph — his stated reason for this
             phrasing. Don't re-break the sentences without checking that holds.
 
-            All three stay capitalized mid-sentence: they are the company's own
-            name, not adjectives. He wrote them in quotation marks because
-            handwriting has no bold — but rendered, quoting "Private" reads as a
-            scare quote, so the gold emphasis carries them instead.
+            All three are set in caps: they are the company's own name, not
+            adjectives. The caps come from `uppercase` rather than being typed
+            in — the DOM text stays "Private" so screen readers say the word
+            instead of spelling it, and copied text keeps its normal case.
+            Letter-spacing is opened slightly because caps set tight at this
+            size close up. He wrote them in quotation marks because handwriting
+            has no bold; rendered, quoting "Private" reads as a scare quote, so
+            the gold and the caps carry the emphasis instead.
 
             "Never a shared van" is deliberately gone from here: it already runs
             as a stat tile in StatsBar directly below (see `stats` in site.js),
@@ -92,14 +96,14 @@ export default function Hero() {
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
             style={{ animationDelay: "160ms" }}
           >
-            <strong className="font-semibold text-gold-300">Private</strong>{" "}
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Private</strong>{" "}
             pickups for airport transfers and island-wide tours from all major
             hotels and cruise ports.{" "}
-            <strong className="font-semibold text-gold-300">Personalized</strong>{" "}
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Personalized</strong>{" "}
             service gives you total flexibility to customize your day-trips.
             Clean, pre-cooled vehicles driven by a licensed, mature,
             down-to-earth{" "}
-            <strong className="font-semibold text-gold-300">Professional</strong>.
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Professional</strong>.
           </p>
 
 
