@@ -79,9 +79,10 @@ export default function Hero() {
             read as a diagonal down the paragraph — his stated reason for this
             phrasing. Don't re-break the sentences without checking that holds.
 
-            He wrote the three words in quotation marks because handwriting has
-            no bold. Rendered, quoting "Private" reads as a scare quote — the
-            opposite of the intent — so the gold emphasis carries them instead.
+            All three stay capitalized mid-sentence: they are the company's own
+            name, not adjectives. He wrote them in quotation marks because
+            handwriting has no bold — but rendered, quoting "Private" reads as a
+            scare quote, so the gold emphasis carries them instead.
 
             "Never a shared van" is deliberately gone from here: it already runs
             as a stat tile in StatsBar directly below (see `stats` in site.js),
@@ -98,7 +99,7 @@ export default function Hero() {
             service gives you total flexibility to customize your day-trips.
             Clean, pre-cooled vehicles driven by a licensed, mature,
             down-to-earth{" "}
-            <strong className="font-semibold text-gold-300">professional</strong>.
+            <strong className="font-semibold text-gold-300">Professional</strong>.
           </p>
 
 
