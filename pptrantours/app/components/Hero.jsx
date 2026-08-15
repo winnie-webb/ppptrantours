@@ -74,10 +74,18 @@ export default function Hero() {
           </h1>
 
           {/*
-            Mr. Pugh's own wording (supplied 2026-08-12), kept verbatim: the
-            three P's fall progressively further right across the lines, so they
-            read as a diagonal down the paragraph — his stated reason for this
-            phrasing. Don't re-break the sentences without checking that holds.
+            Mr. Pugh's own wording (supplied 2026-08-12), kept verbatim.
+
+            The slant is the point: he wants the three P's stepping down and to
+            the right, as they do in his notebook. There it happens by accident
+            of where the lines break, which would not survive a change of
+            viewport width — so each sentence is its own block with a stepped
+            indent, and the diagonal holds at every size. PRIVATE opens the
+            flush-left block, PERSONALIZED opens the indented one, PROFESSIONAL
+            closes the most-indented one, landing furthest right.
+
+            Indents are suppressed below `sm`: on a phone the column is too
+            narrow to give away, and the steps would just cause ragged wrapping.
 
             All three are set in caps: they are the company's own name, not
             adjectives. The caps come from `uppercase` rather than being typed
@@ -93,17 +101,23 @@ export default function Hero() {
             and he cut it to keep this paragraph custom-fit. Don't reinstate it.
           */}
           <p
-            className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
+            className="mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-white/75"
             style={{ animationDelay: "160ms" }}
           >
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Private</strong>{" "}
-            pickups for airport transfers and island-wide tours from all major
-            hotels and cruise ports.{" "}
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Personalized</strong>{" "}
-            service gives you total flexibility to customize your day-trips.
-            Clean, pre-cooled vehicles driven by a licensed, mature,
-            down-to-earth{" "}
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Professional</strong>.
+            <span className="block">
+              <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Private</strong>{" "}
+              pickups for airport transfers and island-wide tours from all major
+              hotels and cruise ports.
+            </span>
+            <span className="mt-1.5 block sm:pl-8 lg:pl-14">
+              <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Personalized</strong>{" "}
+              service gives you total flexibility to customize your day-trips.
+            </span>
+            <span className="mt-1.5 block sm:pl-16 lg:pl-28">
+              Clean, pre-cooled vehicles driven by a licensed, mature,
+              down-to-earth{" "}
+              <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Professional</strong>.
+            </span>
           </p>
 
 
