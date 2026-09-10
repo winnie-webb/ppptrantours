@@ -219,7 +219,8 @@
     "confirmWhatsApp": "Confirmar por WhatsApp",
     "browseMore": "Ver más tours",
     "worksOutAt": "Sale a",
-    "estimatedNote": "Orientativo para tu hotel: no hay tarifa publicada desde aquí, así que confirmamos el precio exacto antes de que pagues nada."
+    "estimatedNote": "Orientativo para tu hotel: no hay tarifa publicada desde aquí, así que confirmamos el precio exacto antes de que pagues nada.",
+    "requiredNote": "Obligatorio. Todo lo demás ayuda, pero es opcional."
   },
   "fare": {
     "from": "Desde Sangster International (MBJ)",
@@ -350,12 +351,14 @@
     "eyebrow": "Dónde vamos",
     "title": "Cada parroquia que merece el viaje.",
     "description": "Cubrimos toda la isla desde nuestra base en Montego Bay: elige una costa y te llevamos y te traemos el mismo día.",
-    "browse": "Ver los tours"
+    "browse": "Ver los tours",
+    "seeTours": "Ver tours"
   },
   "testimonials": {
     "eyebrow": "Opiniones de clientes",
     "title": "680 opiniones. Ninguna por debajo de cinco estrellas.",
-    "description": "La mayoría mencionan al Sr. Pugh por su nombre. Las opiniones se muestran en el idioma en que fueron escritas."
+    "description": "La mayoría mencionan al Sr. Pugh por su nombre. Las opiniones se muestran en el idioma en que fueron escritas.",
+    "readAllReviews": "Leer todas las reseñas en Tripadvisor"
   },
   "gallery": {
     "eyebrow": "La galería",
@@ -601,7 +604,8 @@
     "doneBody": "Solemos responder en menos de una hora dentro del horario de atención.",
     "notPersisted": "El almacenamiento de mensajes todavía no está activo en esta web: mándalo por WhatsApp para que nos llegue de inmediato.",
     "sendWhatsApp": "Enviar por WhatsApp",
-    "footnote": "O escribe directamente al {phone} por WhatsApp"
+    "footnote": "O escribe directamente al {phone} por WhatsApp",
+    "requiredNote": "Obligatorio. Todo lo demás ayuda, pero es opcional."
   },
   "faqs": [
     {

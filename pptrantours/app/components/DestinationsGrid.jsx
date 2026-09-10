@@ -69,7 +69,7 @@ export default function DestinationsGrid({ heading = true, locale = "en", dict }
                 {d.blurb}
               </p>
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white">
-                See tours
+                {t.seeTours ?? "See tours"}
                 <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
               </span>
             </div>

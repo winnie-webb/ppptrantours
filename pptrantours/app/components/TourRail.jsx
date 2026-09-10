@@ -89,6 +89,8 @@ export default function TourRail({
           <TourCard
             key={tour.id}
             tour={tour}
+            locale={locale}
+            dict={dict}
             priority={i < 3}
             className="w-[19rem] shrink-0 snap-start sm:w-[21rem]"
           />

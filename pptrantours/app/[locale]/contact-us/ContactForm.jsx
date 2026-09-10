@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaCheckCircle,
   FaSpinner,
@@ -10,13 +10,43 @@ import {
 import { createBooking } from "@/lib/bookings";
 import { site } from "@/app/data/site";
 
-const SUBJECTS = [
+/**
+ * Canonical, English, and index-aligned with `contactForm.subjects` in every
+ * `app/i18n/messages/*.json`.
+ *
+ * The select's value is the *index*, not the label. Two reasons. The guest reads
+ * their own language while `subject` still reaches the inbox in one language the
+ * owner can sort on. And the control is genuinely controlled: previously `value`
+ * was seeded from an English label while the options rendered from the
+ * dictionary, so in nine of ten locales the value matched no option at all, and
+ * a guest who never opened the dropdown silently submitted English.
+ *
+ * DEPENDENCY: keep the length and order in step with the dictionaries.
+ */
+const SUBJECTS_EN = [
   "Airport transfer",
-  "A tour or excursion",
+  "Tour or excursion",
+  "Combo tour package",
   "Cruise shore excursion",
-  "Custom multi-day plan",
+  "Group or wedding transport",
   "Something else",
 ];
+
+/** Today in the guest's timezone, as `<input type="date">` wants it. */
+function todayISO() {
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+/** Asterisk beside a required label; the input carries the real ARIA. */
+function Req() {
+  return (
+    <span aria-hidden="true" className="ml-0.5 text-crimson-600">
+      *
+    </span>
+  );
+}
 
 export default function ContactForm({ dict }) {
   const t = dict?.contactForm ?? {};
@@ -24,7 +54,7 @@ export default function ContactForm({ dict }) {
     name: "",
     email: "",
     phone: "",
-    subject: SUBJECTS[0],
+    subject: 0,
     date: "",
     adults: 2,
     notes: "",
@@ -33,7 +63,14 @@ export default function ContactForm({ dict }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
 
+  // Filled in after mount so the first client render matches the prerender.
+  const [minDate, setMinDate] = useState("");
+  useEffect(() => setMinDate(todayISO()), []);
+
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const subjectLabel =
+    SUBJECTS_EN[Number(form.subject)] ?? SUBJECTS_EN[SUBJECTS_EN.length - 1];
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -41,14 +78,17 @@ export default function ContactForm({ dict }) {
     setError("");
 
     try {
+      // `...form` goes first: spreading it last used to overwrite the coerced
+      // `adults` with the raw string straight back out of the input.
       const res = await createBooking({
+        ...form,
         type: "enquiry",
-        tourTitle: form.subject,
+        subject: subjectLabel,
+        tourTitle: subjectLabel,
         pickupLabel: "To be confirmed",
         adults: Number(form.adults) || 1,
         children: 0,
         total: 0,
-        ...form,
       });
       setResult(res);
       setStatus("done");
@@ -101,11 +141,14 @@ export default function ContactForm({ dict }) {
         <div>
           <label htmlFor="c-name" className="label">
             {t.name ?? "Full name"}
+            <Req />
           </label>
           <input
             id="c-name"
             type="text"
             required
+            aria-required="true"
+            autoComplete="name"
             value={form.name}
             onChange={set("name")}
             className="field"
@@ -114,11 +157,14 @@ export default function ContactForm({ dict }) {
         <div>
           <label htmlFor="c-email" className="label">
             {t.email ?? "Email"}
+            <Req />
           </label>
           <input
             id="c-email"
             type="email"
             required
+            aria-required="true"
+            autoComplete="email"
             value={form.email}
             onChange={set("email")}
             className="field"
@@ -134,6 +180,7 @@ export default function ContactForm({ dict }) {
           <input
             id="c-phone"
             type="tel"
+            autoComplete="tel"
             value={form.phone}
             onChange={set("phone")}
             className="field"
@@ -149,8 +196,10 @@ export default function ContactForm({ dict }) {
             onChange={set("subject")}
             className="field"
           >
-            {(t.subjects ?? SUBJECTS).map((s) => (
-              <option key={s}>{s}</option>
+            {SUBJECTS_EN.map((fallback, i) => (
+              <option key={i} value={i}>
+                {t.subjects?.[i] ?? fallback}
+              </option>
             ))}
           </select>
         </div>
@@ -164,6 +213,7 @@ export default function ContactForm({ dict }) {
           <input
             id="c-date"
             type="date"
+            min={minDate || undefined}
             value={form.date}
             onChange={set("date")}
             className="field"
@@ -188,11 +238,13 @@ export default function ContactForm({ dict }) {
       <div>
         <label htmlFor="c-notes" className="label">
           {t.notes ?? "Tell us about your trip"}
+          <Req />
         </label>
         <textarea
           id="c-notes"
           rows={5}
           required
+          aria-required="true"
           placeholder={
             t.notesPlaceholder ??
             "Where you're staying, what you'd like to see, your flight times — as much or as little as you have."
@@ -204,11 +256,21 @@ export default function ContactForm({ dict }) {
       </div>
 
       {status === "error" && (
-        <p className="flex items-start gap-2.5 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p
+          role="alert"
+          className="flex items-start gap-2.5 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
           <FaExclamationTriangle className="mt-0.5 shrink-0" />
           {error}
         </p>
       )}
+
+      <p className="text-xs text-ink/60">
+        <span aria-hidden="true" className="text-crimson-600">
+          *
+        </span>{" "}
+        {t.requiredNote ?? "Required. Everything else helps but is optional."}
+      </p>
 
       <button
         type="submit"

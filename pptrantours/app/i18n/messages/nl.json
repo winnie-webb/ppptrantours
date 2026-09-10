@@ -219,7 +219,8 @@
     "confirmWhatsApp": "Bevestigen via WhatsApp",
     "browseMore": "Meer tours bekijken",
     "worksOutAt": "Dat is",
-    "estimatedNote": "Indicatief voor uw hotel — vanaf hier is geen vast tarief gepubliceerd, dus we bevestigen de exacte prijs voordat u iets betaalt."
+    "estimatedNote": "Indicatief voor uw hotel — vanaf hier is geen vast tarief gepubliceerd, dus we bevestigen de exacte prijs voordat u iets betaalt.",
+    "requiredNote": "Verplicht. Al het andere helpt, maar is optioneel."
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
@@ -350,12 +351,14 @@
     "eyebrow": "Waar we heen gaan",
     "title": "Elke parish die de rit waard is.",
     "description": "Vanuit onze basis in Montego Bay bestrijken we het hele eiland — kies een kust en we brengen u er dezelfde dag heen en weer terug.",
-    "browse": "Tours bekijken"
+    "browse": "Tours bekijken",
+    "seeTours": "Bekijk tours"
   },
   "testimonials": {
     "eyebrow": "Beoordelingen van gasten",
     "title": "680 beoordelingen. Geen enkele onder de vijf sterren.",
-    "description": "De meeste noemen Mr. Pugh bij naam. Beoordelingen worden getoond in de taal waarin ze zijn geschreven."
+    "description": "De meeste noemen Mr. Pugh bij naam. Beoordelingen worden getoond in de taal waarin ze zijn geschreven.",
+    "readAllReviews": "Lees alle reviews op Tripadvisor"
   },
   "gallery": {
     "eyebrow": "De galerij",
@@ -601,7 +604,8 @@
     "doneBody": "Binnen kantoortijden antwoorden we meestal binnen het uur.",
     "notPersisted": "De opslag van berichten staat op deze site nog niet aan — stuur het via WhatsApp, dan bereikt het ons meteen.",
     "sendWhatsApp": "Versturen via WhatsApp",
-    "footnote": "Of stuur rechtstreeks een bericht naar {phone} op WhatsApp"
+    "footnote": "Of stuur rechtstreeks een bericht naar {phone} op WhatsApp",
+    "requiredNote": "Verplicht. Al het andere helpt, maar is optioneel."
   },
   "faqs": [
     {

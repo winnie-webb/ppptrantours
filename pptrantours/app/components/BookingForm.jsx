@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   FaWhatsapp,
@@ -37,6 +37,39 @@ import { usePlace } from "./PlaceProvider";
  * The two share every guest-detail field and the whole submit path, which is
  * why they are one component rather than two that drift apart.
  */
+/**
+ * Today, in the guest's own timezone, as the `yyyy-mm-dd` that `<input
+ * type="date">` wants. Used as `min` so nobody can request a trip for last
+ * Tuesday — the server rejects past dates too, this just stops the mistake
+ * being made.
+ *
+ * Deliberately NOT computed during render: the server prerenders this form, and
+ * a date baked in at build time would be wrong by the time anyone sees it and
+ * would mismatch on hydration. It is filled in from an effect after mount, so
+ * the first client render matches the server's exactly.
+ */
+function todayISO() {
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+/**
+ * The asterisk beside a required field's label.
+ *
+ * `aria-hidden` because the input already carries `required` + `aria-required`,
+ * which is what a screen reader announces; the glyph is for everyone reading
+ * the form with their eyes. Only three of the eight fields here are required
+ * and there was previously no way at all to tell which.
+ */
+function Req() {
+  return (
+    <span aria-hidden="true" className="ml-0.5 text-crimson-600">
+      *
+    </span>
+  );
+}
+
 export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }) {
   const isTransfer = mode === "transfer";
   const t = dict?.booking ?? {};
@@ -66,6 +99,11 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+
+  // Empty on the server and on the first client render, so hydration matches;
+  // see todayISO() above.
+  const [minDate, setMinDate] = useState("");
+  useEffect(() => setMinDate(todayISO()), []);
 
   const quote = useMemo(() => {
     if (isTransfer) {
@@ -295,11 +333,14 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           <div>
             <label htmlFor="date" className="label">
               {isTransfer ? t.arrivalDate ?? "Arrival date" : t.tourDate ?? "Tour date"}
+              <Req />
             </label>
             <input
               id="date"
               type="date"
               required
+              aria-required="true"
+              min={minDate || undefined}
               value={form.date}
               onChange={set("date")}
               className="field"
@@ -348,6 +389,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
                   <input
                     id="returnDate"
                     type="date"
+                    min={form.date || minDate || undefined}
                     value={form.returnDate}
                     onChange={set("returnDate")}
                     className="field"
@@ -376,11 +418,14 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
         <div>
           <label htmlFor="name" className="label">
             {t.name ?? "Full name"}
+            <Req />
           </label>
           <input
             id="name"
             type="text"
             required
+            aria-required="true"
+            autoComplete="name"
             value={form.name}
             onChange={set("name")}
             className="field"
@@ -391,11 +436,14 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           <div>
             <label htmlFor="email" className="label">
               {t.email ?? "Email"}
+              <Req />
             </label>
             <input
               id="email"
               type="email"
               required
+              aria-required="true"
+              autoComplete="email"
               value={form.email}
               onChange={set("email")}
               className="field"
@@ -408,6 +456,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
             <input
               id="phone"
               type="tel"
+              autoComplete="tel"
               value={form.phone}
               onChange={set("phone")}
               className="field"
@@ -444,11 +493,21 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
         />
 
         {status === "error" && (
-          <p className="flex items-start gap-2.5 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p
+            role="alert"
+            className="flex items-start gap-2.5 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
             <FaExclamationTriangle className="mt-0.5 shrink-0" />
             {error}
           </p>
         )}
+
+        <p className="text-xs text-ink/60">
+          <span aria-hidden="true" className="text-crimson-600">
+            *
+          </span>{" "}
+          {t.requiredNote ?? "Required. Everything else helps but is optional."}
+        </p>
 
         <button
           type="submit"
@@ -467,7 +526,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           )}
         </button>
 
-        <p className="flex items-center justify-center gap-2 text-xs text-ink/45">
+        <p className="flex items-center justify-center gap-2 text-xs text-ink/60">
           <FaLock className="text-[0.65rem]" />
           {t.noPayment ?? "No payment taken now — we confirm availability first."}
         </p>

@@ -219,7 +219,8 @@
     "confirmWhatsApp": "Confirm on WhatsApp",
     "browseMore": "Browse more tours",
     "worksOutAt": "Works out at",
-    "estimatedNote": "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything."
+    "estimatedNote": "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything.",
+    "requiredNote": "Required. Everything else helps but is optional."
   },
   "fare": {
     "from": "From Sangster International (MBJ)",
@@ -350,12 +351,14 @@
     "eyebrow": "Where we go",
     "title": "Every parish worth the drive.",
     "description": "We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day.",
-    "browse": "Browse tours"
+    "browse": "Browse tours",
+    "seeTours": "See tours"
   },
   "testimonials": {
     "eyebrow": "Guest reviews",
     "title": "680 reviews. Not one below five stars.",
-    "description": "Most of them mention Mr. Pugh by name. Reviews are shown in the language they were written in."
+    "description": "Most of them mention Mr. Pugh by name. Reviews are shown in the language they were written in.",
+    "readAllReviews": "Read all reviews on Tripadvisor"
   },
   "gallery": {
     "eyebrow": "The gallery",
@@ -601,7 +604,8 @@
     "doneBody": "We usually reply within the hour during dispatch hours.",
     "notPersisted": "Message storage isn't switched on for this site yet — send it through on WhatsApp so it reaches us right away.",
     "sendWhatsApp": "Send on WhatsApp",
-    "footnote": "Or message {phone} directly on WhatsApp"
+    "footnote": "Or message {phone} directly on WhatsApp",
+    "requiredNote": "Required. Everything else helps but is optional."
   },
   "faqs": [
     {

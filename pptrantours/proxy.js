@@ -13,18 +13,8 @@ import { DEFAULT_LOCALE, LOCALE_CODES } from "@/app/i18n/config";
  * link anyone to the page they are looking at, and it splits the English URL's
  * ranking. The header only sets a hint cookie the switcher reads.
  */
-const PUBLIC_FILE = /\.(?:png|jpe?g|webp|gif|svg|ico|txt|xml|json|webmanifest)$/i;
-
 export function proxy(request) {
   const { pathname } = request.nextUrl;
-
-  if (
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    PUBLIC_FILE.test(pathname)
-  ) {
-    return NextResponse.next();
-  }
 
   const first = pathname.split("/")[1];
   if (LOCALE_CODES.includes(first)) {
@@ -43,6 +33,29 @@ export function proxy(request) {
   return NextResponse.rewrite(url);
 }
 
+/**
+ * Everything that is NOT localized has to be excluded here, because the rewrite
+ * above is unconditional: anything that reaches it and is not already
+ * locale-prefixed gets `/en` bolted on, and `/en/<that>` is not a route.
+ *
+ * That is not hypothetical. `app/admin/` lives outside `app/[locale]/`, so
+ * `/admin` was being rewritten to `/en/admin` and served a 404 in production —
+ * the owner's bookings console was simply unreachable, and nothing failed
+ * loudly. `/CREDITS.md` went the same way.
+ *
+ *   api, _next          route handlers and build assets
+ *   admin               the bookings console, outside [locale] on purpose
+ *   _not-found,
+ *   _global-error       Next's own generated routes
+ *   .*[.]               anything with a file extension, i.e. all of `public/`
+ *
+ * The trailing `.*[.]` is deliberately an extension *test* rather than a list of
+ * known extensions. The previous version allowlisted eleven of them and
+ * silently 404'd the twelfth.
+ *
+ * DEPENDENCY: any new top-level route added outside `app/[locale]/` must be
+ * added here too, or it will 404 with no error anywhere.
+ */
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next|admin|_not-found|_global-error|.*[.]).*)"],
 };

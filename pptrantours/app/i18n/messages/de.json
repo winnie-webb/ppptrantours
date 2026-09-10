@@ -219,7 +219,8 @@
     "confirmWhatsApp": "Über WhatsApp bestätigen",
     "browseMore": "Weitere Touren ansehen",
     "worksOutAt": "Das sind",
-    "estimatedNote": "Richtwert für Ihr Hotel — von hier ist kein fester Preis veröffentlicht, wir bestätigen den genauen Betrag, bevor Sie etwas zahlen."
+    "estimatedNote": "Richtwert für Ihr Hotel — von hier ist kein fester Preis veröffentlicht, wir bestätigen den genauen Betrag, bevor Sie etwas zahlen.",
+    "requiredNote": "Pflichtfeld. Alles andere hilft uns, ist aber freiwillig."
   },
   "fare": {
     "from": "Ab Sangster International (MBJ)",
@@ -350,12 +351,14 @@
     "eyebrow": "Wohin wir fahren",
     "title": "Jede Gemeinde, für die sich die Fahrt lohnt.",
     "description": "Von unserer Basis in Montego Bay decken wir die ganze Insel ab — wählen Sie eine Küste, und wir bringen Sie am selben Tag hin und zurück.",
-    "browse": "Touren ansehen"
+    "browse": "Touren ansehen",
+    "seeTours": "Touren ansehen"
   },
   "testimonials": {
     "eyebrow": "Gästebewertungen",
     "title": "680 Bewertungen. Keine einzige unter fünf Sternen.",
-    "description": "Die meisten nennen Mr. Pugh beim Namen. Die Bewertungen erscheinen in der Sprache, in der sie geschrieben wurden."
+    "description": "Die meisten nennen Mr. Pugh beim Namen. Die Bewertungen erscheinen in der Sprache, in der sie geschrieben wurden.",
+    "readAllReviews": "Alle Bewertungen auf Tripadvisor lesen"
   },
   "gallery": {
     "eyebrow": "Die Galerie",
@@ -601,7 +604,8 @@
     "doneBody": "Innerhalb der Servicezeiten antworten wir meist innerhalb einer Stunde.",
     "notPersisted": "Die Nachrichtenspeicherung ist auf dieser Seite noch nicht aktiv — schicken Sie sie über WhatsApp, dann erreicht sie uns sofort.",
     "sendWhatsApp": "Über WhatsApp senden",
-    "footnote": "Oder schreiben Sie direkt an {phone} auf WhatsApp"
+    "footnote": "Oder schreiben Sie direkt an {phone} auf WhatsApp",
+    "requiredNote": "Pflichtfeld. Alles andere hilft uns, ist aber freiwillig."
   },
   "faqs": [
     {

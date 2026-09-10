@@ -97,14 +97,23 @@
     @apply rounded-2xl border border-ink/[0.07] bg-white shadow-card;
   }
 
+  /*
+   * `text-base` on mobile is load-bearing, not a style choice: iOS Safari
+   * auto-zooms the viewport whenever a focused input's font-size is under 16px,
+   * and it does not zoom back out afterwards. At `text-sm` every field on the
+   * booking form wrenched the layout sideways on the first tap. `sm:text-sm`
+   * keeps the intended desktop size, where no such behaviour exists.
+   */
   .field {
-    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink
-           placeholder:text-ink/35 transition
+    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base text-ink
+           placeholder:text-ink/45 transition sm:text-sm
            focus:border-crimson-500 focus:outline-none focus:ring-4 focus:ring-crimson-500/10;
   }
 
+  /* text-ink/70, not /55: at text-xs the lighter tint measured 4.28:1 on white,
+     under the 4.5:1 AA floor, and these label price-critical fields. */
   .label {
-    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink/55;
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink/70;
   }
 
   /* Thin hairline used to separate stacked sections. */

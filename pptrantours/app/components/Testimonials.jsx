@@ -15,19 +15,19 @@ export default function Testimonials({ dict }) {
         />
 
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {testimonials.map((t) => (
+          {testimonials.map((review) => (
             <figure
-              key={t.author}
+              key={review.author}
               className="break-inside-avoid rounded-2xl border border-ink/[0.07] bg-white p-6 shadow-card transition-shadow hover:shadow-lift"
             >
               <FaQuoteLeft className="text-lg text-crimson-200" />
               <blockquote className="mt-4 text-[0.95rem] leading-relaxed text-ink/80">
-                “{t.quote}”
+                “{review.quote}”
               </blockquote>
               <figcaption className="mt-5 flex items-center justify-between border-t border-ink/[0.07] pt-4">
                 <div>
-                  <p className="text-sm font-semibold text-ink">{t.author}</p>
-                  <p className="text-xs text-ink/45">{t.date}</p>
+                  <p className="text-sm font-semibold text-ink">{review.author}</p>
+                  <p className="text-xs text-ink/60">{review.date}</p>
                 </div>
                 <div className="flex text-gold-400">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -47,7 +47,7 @@ export default function Testimonials({ dict }) {
             className="btn-ghost"
           >
             <FaTripadvisor className="text-base text-crimson-600" />
-            Read all reviews on Tripadvisor
+            {t.readAllReviews ?? "Read all reviews on Tripadvisor"}
           </a>
         </div>
       </div>

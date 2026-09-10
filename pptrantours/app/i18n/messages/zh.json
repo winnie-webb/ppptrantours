@@ -219,7 +219,8 @@
     "confirmWhatsApp": "通过 WhatsApp 确认",
     "browseMore": "浏览更多行程",
     "worksOutAt": "折合",
-    "estimatedNote": "这是您酒店的参考价——从这里出发尚未公布固定价格，我们会在您付款前确认准确金额。"
+    "estimatedNote": "这是您酒店的参考价——从这里出发尚未公布固定价格，我们会在您付款前确认准确金额。",
+    "requiredNote": "必填。其余信息有助于我们安排，但可以不填。"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
@@ -350,12 +351,14 @@
     "eyebrow": "我们去哪些地方",
     "title": "每一个值得跑一趟的教区。",
     "description": "我们以蒙特哥贝为基地，覆盖全岛——选一条海岸线，我们当天送您去、当天带您回。",
-    "browse": "浏览行程"
+    "browse": "浏览行程",
+    "seeTours": "查看行程"
   },
   "testimonials": {
     "eyebrow": "客人评价",
     "title": "680 条评价，没有一条低于五星。",
-    "description": "其中大多数都直接提到了 Pugh 先生的名字。评价按原文语言显示。"
+    "description": "其中大多数都直接提到了 Pugh 先生的名字。评价按原文语言显示。",
+    "readAllReviews": "在 Tripadvisor 上查看全部评价"
   },
   "gallery": {
     "eyebrow": "相册",
@@ -601,7 +604,8 @@
     "doneBody": "在服务时间内，我们通常一小时内回复。",
     "notPersisted": "本网站的消息存储功能尚未开启——请通过 WhatsApp 发送，这样能立刻送达我们。",
     "sendWhatsApp": "通过 WhatsApp 发送",
-    "footnote": "或通过 WhatsApp 直接联系 {phone}"
+    "footnote": "或通过 WhatsApp 直接联系 {phone}",
+    "requiredNote": "必填。其余信息有助于我们安排，但可以不填。"
   },
   "faqs": [
     {
