@@ -4,7 +4,13 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { FaArrowRight, FaWhatsapp, FaPlane, FaMinus, FaPlus } from "react-icons/fa";
 import { AREAS, PLACES } from "@/app/data/places";
-import { priceTransfer, money, VEHICLE_CAPACITY, MAX_PARTY } from "@/app/products/pricing";
+import {
+  priceTransfer,
+  money,
+  perPerson,
+  VEHICLE_CAPACITY,
+  MAX_PARTY,
+} from "@/app/products/pricing";
 import { localePath } from "@/app/i18n/config";
 import { site } from "@/app/data/site";
 
@@ -142,7 +148,17 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                   : t.oneWayLabel ?? "One-way private transfer"}
               </p>
               <p className="mt-1.5 font-display text-5xl font-semibold text-gold-400">
-                {money(quote.total)}
+                {money(perPerson(quote.total, pax))}
+                <span className="ml-1.5 text-lg font-medium text-white/50">
+                  {t.perPerson ?? "/ person"}
+                </span>
+              </p>
+              <p className="mt-1 text-sm font-semibold text-white/75">
+                {money(quote.total)}{" "}
+                <span className="font-normal text-white/45">
+                  {t.totalFor?.replace("{n}", String(pax)) ??
+                    `total for ${pax}`}
+                </span>
               </p>
               <p className="mt-2 text-sm text-white/60">{place.name}</p>
 

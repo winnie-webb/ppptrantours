@@ -17,6 +17,7 @@ import {
   quoteExcursion,
   quoteTransfer,
   money,
+  perPerson,
   VEHICLE_CAPACITY,
   MAX_PARTY,
 } from "@/app/products/pricing";
@@ -489,6 +490,11 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
 
 function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
   const t = dict?.booking ?? {};
+  // The party size is known here, so this per-head figure is exact rather
+  // than the "from" estimate the cards have to use.
+  const each = quote.transport
+    ? perPerson(quote.transport.total, quote.pax)
+    : null;
 
   return (
     <div className="border-b border-ink/[0.07] bg-sand px-6 py-5">
@@ -500,12 +506,18 @@ function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
               : t.transportLabel ?? "Transport"}
           </p>
           {quote.transport ? (
-            <p className="font-display text-3xl font-semibold text-crimson-700">
-              {money(quote.transport.total)}
-              <span className="ml-1.5 text-sm font-medium text-ink/45">
+            <>
+              <p className="font-display text-3xl font-semibold text-crimson-700">
+                {money(each)}
+                <span className="ml-1.5 text-sm font-medium text-ink/45">
+                  {dict?.price?.perPerson ?? "/ person"}
+                </span>
+              </p>
+              <p className="text-xs text-ink/45">
+                {money(quote.transport.total)}{" "}
                 {t.perVehicleLong ?? "per vehicle"}
-              </span>
-            </p>
+              </p>
+            </>
           ) : (
             <p className="font-display text-2xl font-semibold text-crimson-700">
               {needsPlace
@@ -583,6 +595,14 @@ function Breakdown({
           </span>
         </div>
 
+        <div className="flex items-baseline justify-between gap-4 text-xs text-white/45">
+          <span>{dict?.booking?.worksOutAt ?? "Works out at"}</span>
+          <span className="shrink-0">
+            {money(perPerson(transport.total, adults + children))}{" "}
+            {dict?.price?.perPerson ?? "/ person"}
+          </span>
+        </div>
+
         {transport.extraPax > 0 && (
           <p className="text-xs text-white/40">
             {t.extraBreakdown ??
@@ -593,7 +613,11 @@ function Breakdown({
         )}
 
         <p className="text-[0.7rem] leading-relaxed text-white/45">
-          {t.transportIsOurs ?? "This is what PPP charges. Nothing is added to it."}
+          {transport.est
+            ? t.estimatedNote ??
+              "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything."
+            : t.transportIsOurs ??
+              "This is what PPP charges. Nothing is added to it."}
         </p>
       </div>
 
@@ -632,13 +656,19 @@ function Breakdown({
             ? t.dayTotal ?? "Your day, all in"
             : t.total ?? "Total"}
         </span>
-        <span className="font-display text-3xl font-semibold text-gold-400">
-          {quote.from ? (
-            <span className="mr-1 text-base font-medium text-white/50">
-              {t.fromWord ?? "from"}
-            </span>
-          ) : null}
-          {money(quote.dayTotal)}
+        <span className="text-right">
+          <span className="block font-display text-3xl font-semibold text-gold-400">
+            {quote.from ? (
+              <span className="mr-1 text-base font-medium text-white/50">
+                {t.fromWord ?? "from"}
+              </span>
+            ) : null}
+            {money(quote.dayTotal)}
+          </span>
+          <span className="block text-xs text-white/45">
+            {money(perPerson(quote.dayTotal, adults + children))}{" "}
+            {dict?.price?.perPerson ?? "/ person"}
+          </span>
         </span>
       </div>
     </div>

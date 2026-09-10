@@ -1,16 +1,26 @@
 "use client";
 
-import { money, lowestTransport } from "@/app/products/pricing";
+import {
+  money,
+  perPerson,
+  lowestTransport,
+  VEHICLE_CAPACITY,
+} from "@/app/products/pricing";
 import { usePlace } from "./PlaceProvider";
 
 /**
  * The price on a card.
  *
- * Three states, and the third is the one that matters. Before the guest names
- * a resort we can only show the cheapest run anywhere ("from $180"). Once they
- * have, we show their actual price. And where the owner never published a rate
- * from their resort we say so and invite the question, rather than quietly
- * falling back to a number that is not theirs.
+ * Leads with the per-head figure, because that is the unit every other tour
+ * site quotes in and a bare "$200" reads as four times a competitor's "$50pp"
+ * when it is the same money. The vehicle total sits directly underneath, so the
+ * card never implies that two travellers pay half of four.
+ *
+ * Three states, and the third is the one that matters. Before the guest names a
+ * resort we can only show the cheapest run anywhere. Once they have, we show
+ * their actual price. And where the owner never published a rate from their
+ * resort we say so and invite the question, rather than quietly falling back to
+ * a number that is not theirs.
  */
 export default function TourPrice({ tour, dict, align = "left" }) {
   const { place, zone, ready } = usePlace();
@@ -39,8 +49,8 @@ export default function TourPrice({ tour, dict, align = "left" }) {
     );
   }
 
-  const amount = band ? band.price : floor;
-  if (amount == null) {
+  const vehicle = band ? band.price : floor;
+  if (vehicle == null) {
     return (
       <div className={wrap}>
         <span className="font-display text-lg font-semibold text-crimson-700">
@@ -50,16 +60,23 @@ export default function TourPrice({ tour, dict, align = "left" }) {
     );
   }
 
+  const basis = (t.vehicleBasis ?? "{amount} per vehicle · up to {capacity}")
+    .replace("{amount}", money(vehicle))
+    .replace("{capacity}", String(VEHICLE_CAPACITY));
+
   return (
     <div className={wrap}>
       <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-ink/45">
         {band ? t.fromYourResort ?? "From your resort" : t.from ?? "From"}
       </span>
       <span className="font-display text-2xl font-semibold text-crimson-700">
-        {money(amount)}
+        {money(perPerson(vehicle, VEHICLE_CAPACITY))}
       </span>
       <span className="ml-1 text-xs text-ink/45">
-        {t.perVehicle ?? "for up to 4"}
+        {t.perPerson ?? "/ person"}
+      </span>
+      <span className="mt-0.5 block text-[0.68rem] leading-snug text-ink/40">
+        {basis}
       </span>
     </div>
   );

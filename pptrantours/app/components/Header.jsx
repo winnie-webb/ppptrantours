@@ -56,12 +56,35 @@ export default function Header({ locale = "en", dict }) {
     };
   }, [mobileOpen]);
 
+  // Two label sets: the bar is tight, the mobile sheet has room. Without the
+  // short forms "Airport transfers" and "About PPP" wrap onto two lines and
+  // the whole row loses its baseline.
   const links = [
-    { href: path("/tours"), label: nav.tours ?? "Things to do" },
-    { href: path("/transfers"), label: nav.transfers ?? "Airport transfers" },
-    { href: path("/destinations"), label: nav.destinations ?? "Destinations" },
-    { href: path("/about-us"), label: nav.about ?? "About PPP" },
-    { href: path("/contact-us"), label: nav.contact ?? "Contact" },
+    {
+      href: path("/tours"),
+      label: nav.tours ?? "Things to do",
+      short: nav.toursShort ?? nav.tours ?? "Things to do",
+    },
+    {
+      href: path("/transfers"),
+      label: nav.transfers ?? "Airport transfers",
+      short: nav.transfersShort ?? "Transfers",
+    },
+    {
+      href: path("/destinations"),
+      label: nav.destinations ?? "Destinations",
+      short: nav.destinationsShort ?? nav.destinations ?? "Destinations",
+    },
+    {
+      href: path("/about-us"),
+      label: nav.about ?? "About PPP",
+      short: nav.aboutShort ?? "About",
+    },
+    {
+      href: path("/contact-us"),
+      label: nav.contact ?? "Contact",
+      short: nav.contact ?? "Contact",
+    },
   ];
 
   const isActive = (href) =>
@@ -71,12 +94,18 @@ export default function Header({ locale = "en", dict }) {
     <>
       {/* Utility strip */}
       <div className="hidden bg-ink text-white/70 lg:block">
-        <div className="shell flex h-9 items-center justify-between text-xs">
-          <p className="tracking-wide">
-            {nav.licensed ??
-              "Licensed by the Jamaica Tourist Board & Transport Authority"}
-          </p>
-          <div className="flex items-center gap-6">
+        <div className="shell flex h-9 items-center justify-between gap-4 text-xs">
+          <div className="flex min-w-0 items-center gap-3">
+            <p className="hidden truncate tracking-wide 2xl:block">
+              {nav.licensed ??
+                "Licensed by the Jamaica Tourist Board & Transport Authority"}
+            </p>
+            {/* The resort picker lives here rather than in the main row: it is a
+                persistent setting, not navigation, and the row below has no space
+                left once the nav and the booking button are in it. */}
+            <PlaceChip dict={dict} compact />
+          </div>
+          <div className="flex shrink-0 items-center gap-5">
             <a
               href={site.contact.phoneHref}
               className="flex items-center gap-2 transition hover:text-white"
@@ -93,7 +122,10 @@ export default function Header({ locale = "en", dict }) {
               <FaWhatsapp className="text-sm" />
               WhatsApp
             </a>
-            <a href={site.contact.emailHref} className="transition hover:text-white">
+            <a
+              href={site.contact.emailHref}
+              className="hidden transition hover:text-white xl:block"
+            >
               {site.contact.email}
             </a>
           </div>
@@ -107,13 +139,13 @@ export default function Header({ locale = "en", dict }) {
             : "border-b border-ink/[0.07] bg-white/85 shadow-[0_1px_24px_-12px_rgba(7,17,13,.25)] backdrop-blur-xl"
         }`}
       >
-        <div className="shell flex h-[4.5rem] items-center gap-3 lg:h-20 lg:gap-5">
+        <div className="shell flex h-[4.5rem] items-center gap-2 lg:h-20 lg:gap-3">
           <Link href={path("/")} aria-label={`${site.name} home`} className="shrink-0">
             <Logo light={overHero} />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="ml-1 hidden items-center gap-0.5 xl:flex">
+          <nav className="ml-1 hidden items-center gap-0.5 lg:flex">
             <div
               className="relative"
               onMouseEnter={() => setToursOpen(true)}
@@ -123,13 +155,13 @@ export default function Header({ locale = "en", dict }) {
                 type="button"
                 onClick={() => setToursOpen((v) => !v)}
                 aria-expanded={toursOpen}
-                className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition ${
+                className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium transition ${
                   overHero
                     ? "text-white/90 hover:bg-white/10 hover:text-white"
                     : "text-ink/75 hover:bg-ink/5 hover:text-ink"
                 }`}
               >
-                {nav.tours ?? "Things to do"}
+                {nav.toursShort ?? nav.tours ?? "Things to do"}
                 <FaChevronDown
                   className={`text-[0.6rem] transition-transform duration-200 ${
                     toursOpen ? "rotate-180" : ""
@@ -171,7 +203,7 @@ export default function Header({ locale = "en", dict }) {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
+                className={`whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium transition ${
                   overHero
                     ? `text-white/90 hover:bg-white/10 hover:text-white ${
                         isActive(l.href) ? "bg-white/10" : ""
@@ -181,15 +213,12 @@ export default function Header({ locale = "en", dict }) {
                       }`
                 }`}
               >
-                {l.label}
+                {l.short}
               </Link>
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-1.5">
-            <div className="hidden lg:block">
-              <PlaceChip dict={dict} light={overHero} />
-            </div>
+          <div className="ml-auto flex shrink-0 items-center gap-1.5">
             <div className="hidden md:block">
               <SearchBar compact light={overHero} locale={locale} dict={dict} />
             </div>
@@ -199,7 +228,7 @@ export default function Header({ locale = "en", dict }) {
               href={site.contact.whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="hidden shrink-0 items-center gap-2 rounded-full bg-crimson-600 px-4 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:bg-crimson-700 lg:flex"
+              className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-crimson-600 px-4 py-2.5 text-[0.9rem] font-semibold text-white shadow-glow transition hover:bg-crimson-700 lg:flex"
             >
               <FaWhatsapp className="text-base" />
               {nav.book ?? "Book now"}
@@ -209,7 +238,7 @@ export default function Header({ locale = "en", dict }) {
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label={nav.openMenu ?? "Open menu"}
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition xl:hidden ${
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition lg:hidden ${
                 overHero
                   ? "bg-white/15 text-white hover:bg-white/25"
                   : "bg-ink/5 text-ink/70 hover:bg-ink/10"
@@ -223,7 +252,7 @@ export default function Header({ locale = "en", dict }) {
 
       {/* Mobile sheet */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[70] xl:hidden">
+        <div className="fixed inset-0 z-[70] lg:hidden">
           <div
             className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}

@@ -13,7 +13,7 @@ import {
 import { TOURS } from "@/app/data/catalogue";
 import { ZONES } from "@/app/data/places";
 import { filterProductById, getRelatedProducts } from "@/app/products/product";
-import { money, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import TourCard from "@/app/components/TourCard";
@@ -229,7 +229,7 @@ export default async function TourPage({ params }) {
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-ink/55">
                   {t.transportTableNote ??
-                    `One private vehicle, up to ${VEHICLE_CAPACITY} people, in US dollars. A fifth passenger and each one after adds the second figure.`}
+                    `Per person is the vehicle price shared between ${VEHICLE_CAPACITY} — the vehicle costs the same whether one of you travels or four. A fifth passenger and each one after adds the last figure.`}
                 </p>
 
                 <div className="mt-5 overflow-x-auto rounded-2xl border border-ink/[0.07] shadow-card">
@@ -238,6 +238,9 @@ export default async function TourPage({ params }) {
                       <tr>
                         <th className="px-5 py-3.5 font-semibold text-ink/70">
                           {t.pickingUpFrom ?? "Picking you up from"}
+                        </th>
+                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
+                          {t.perPersonCol ?? "Per person"}
                         </th>
                         <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
                           {t.upToFour ?? `Up to ${VEHICLE_CAPACITY}`}
@@ -254,8 +257,16 @@ export default async function TourPage({ params }) {
                           <tr key={zoneDef.key} className="transition hover:bg-crimson-50/50">
                             <td className="px-5 py-3.5 text-ink/75">
                               {dict.zones?.[zoneDef.key] ?? zoneDef.label}
+                              {band.est && (
+                                <span className="ml-2 rounded bg-gold-200/50 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-ink/50">
+                                  {t.estimatedMark ?? "indicative"}
+                                </span>
+                              )}
                             </td>
                             <td className="px-5 py-3.5 text-right font-semibold text-crimson-700">
+                              {money(perPerson(band.price, VEHICLE_CAPACITY))}
+                            </td>
+                            <td className="px-5 py-3.5 text-right text-ink/70">
                               {money(band.price)}
                             </td>
                             <td className="px-5 py-3.5 text-right text-ink/60">

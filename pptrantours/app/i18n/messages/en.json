@@ -13,7 +13,6 @@
       "PPP Tran Tours"
     ]
   },
-
   "common": {
     "reviews": "reviews",
     "seeAll": "See all",
@@ -22,7 +21,6 @@
     "whatsappAria": "Chat with us on WhatsApp",
     "chatWithUs": "Chat with us"
   },
-
   "nav": {
     "home": "Home",
     "tours": "Things to do",
@@ -34,24 +32,28 @@
     "browse": "Browse",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "licensed": "Licensed by the Jamaica Tourist Board & Transport Authority"
+    "licensed": "Licensed by the Jamaica Tourist Board & Transport Authority",
+    "toursShort": "Things to do",
+    "transfersShort": "Transfers",
+    "destinationsShort": "Destinations",
+    "aboutShort": "About"
   },
-
   "durations": {
     "Full day": "Full day",
     "Half day": "Half day",
     "Evening": "Evening",
     "Door to door": "Door to door"
   },
-
   "zones": {
     "mobay-hotels": "Montego Bay hotels",
     "mobay-pier": "Montego Bay cruise pier",
     "falmouth-hotels": "Falmouth & Trelawny hotels",
     "falmouth-pier": "Falmouth cruise pier",
-    "palladium": "Grand Palladium / Lady Hamilton"
+    "palladium": "Grand Palladium / Lady Hamilton",
+    "ocho-rios-hotels": "Ocho Rios & St. Ann hotels",
+    "negril-hotels": "Negril hotels",
+    "south-coast-hotels": "South Coast hotels"
   },
-
   "areas": {
     "montego-bay": "Montego Bay",
     "falmouth": "Falmouth & Trelawny",
@@ -61,7 +63,6 @@
     "south-coast": "South Coast",
     "piers": "Cruise piers"
   },
-
   "categories": {
     "popular": {
       "title": "Most Popular Tours",
@@ -104,15 +105,16 @@
       "blurb": "YS Falls, the Black River crocodile safari and the Appleton Estate. The quiet side of the island, and worth the longer drive."
     }
   },
-
   "price": {
     "from": "From",
     "fromYourResort": "From your resort",
     "askUs": "Ask us",
     "weWillQuote": "we'll quote it",
-    "perVehicle": "for up to 4"
+    "perVehicle": "for up to 4",
+    "perPerson": "/ person",
+    "vehicleBasis": "{amount} per vehicle · up to {capacity}",
+    "estimated": "indicative"
   },
-
   "place": {
     "title": "Where are you staying?",
     "subtitle": "Pick your resort and every price on the site becomes yours — no zones to work out.",
@@ -123,7 +125,6 @@
     "prompt": "Where are you staying?",
     "change": "Change your resort"
   },
-
   "placePrompt": {
     "title": "Where are you staying?",
     "body": "Tell us your hotel, resort or cruise pier and every price on the site becomes yours — no zones, no guessing.",
@@ -132,7 +133,6 @@
     "choose": "Choose your resort",
     "change": "Change resort"
   },
-
   "search": {
     "label": "Search",
     "placeholder": "Search tours or your resort…",
@@ -144,7 +144,6 @@
     "oneWay": "one way",
     "askUs": "ask us"
   },
-
   "grid": {
     "filter": "Filter by name or keyword…",
     "filterCategory": "Filter by category",
@@ -161,7 +160,6 @@
     "prev": "Previous page",
     "next": "Next page"
   },
-
   "booking": {
     "transportLabel": "Transport",
     "transferPrice": "Private transfer",
@@ -219,9 +217,10 @@
     "doneBody": "Keep it — quoting it gets you an answer fastest. We'll confirm your driver and exact pickup time by email.",
     "notPersisted": "Online booking storage isn't switched on for this site yet. Send the details straight to us on WhatsApp below and we'll lock it in.",
     "confirmWhatsApp": "Confirm on WhatsApp",
-    "browseMore": "Browse more tours"
+    "browseMore": "Browse more tours",
+    "worksOutAt": "Works out at",
+    "estimatedNote": "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything."
   },
-
   "fare": {
     "from": "From Sangster International (MBJ)",
     "destination": "Which resort are we taking you to?",
@@ -239,9 +238,10 @@
     "upTo": "Up to 4 passengers",
     "extraPassenger": "extra passenger",
     "book": "Book this transfer",
-    "ask": "Ask a question"
+    "ask": "Ask a question",
+    "perPerson": "/ person",
+    "totalFor": "total for {n}"
   },
-
   "hero": {
     "tagline": "Private. Personalized. Professional.",
     "h1a": "Approach Jamaica",
@@ -254,14 +254,24 @@
     "explore": "Explore tours",
     "transfer": "Book an airport transfer"
   },
-
   "stats": {
-    "rating": { "label": "Tripadvisor rating", "sub": "680 reviews" },
-    "years": { "label": "Years on the road", "sub": "Since 2010" },
-    "private": { "label": "Private service", "sub": "Never a shared van" },
-    "guests": { "label": "Guests driven", "sub": "From 30+ countries" }
+    "rating": {
+      "label": "Tripadvisor rating",
+      "sub": "680 reviews"
+    },
+    "years": {
+      "label": "Years on the road",
+      "sub": "Since 2010"
+    },
+    "private": {
+      "label": "Private service",
+      "sub": "Never a shared van"
+    },
+    "guests": {
+      "label": "Guests driven",
+      "sub": "From 30+ countries"
+    }
   },
-
   "promise": {
     "eyebrow": "What PPP stands for",
     "title": "Three promises, in the name itself.",
@@ -282,7 +292,6 @@
       }
     }
   },
-
   "browse": {
     "eyebrow": "Things to do in Jamaica",
     "title": "Where do you want to spend the day?",
@@ -291,7 +300,6 @@
     "option": "option",
     "options": "options"
   },
-
   "home": {
     "popularEyebrow": "Guest favourites",
     "popularTitle": "The tours people book twice.",
@@ -308,7 +316,6 @@
     "faqDescription": "Anything else, just message us — someone answers seven days a week.",
     "askUs": "Ask us something"
   },
-
   "transparency": {
     "eyebrow": "No hidden fees",
     "title": "We keep it real. Always transparent.",
@@ -317,13 +324,11 @@
     "seeCombos": "See the combo packages",
     "seeRates": "See every transfer rate"
   },
-
   "slogan": {
     "line": "Approach Jamaica",
     "emphasis": "with Confidence",
     "full": "Approach Jamaica with confidence."
   },
-
   "comboPitch": {
     "eyebrow": "Top sellers",
     "title": "PPP's best-selling combinations.",
@@ -341,26 +346,22 @@
     "groups": "Accommodations for any size group, big or small.",
     "buildMyDay": "Build my day"
   },
-
   "destinations": {
     "eyebrow": "Where we go",
     "title": "Every parish worth the drive.",
     "description": "We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day.",
     "browse": "Browse tours"
   },
-
   "testimonials": {
     "eyebrow": "Guest reviews",
     "title": "680 reviews. Not one below five stars.",
     "description": "Most of them mention Mr. Pugh by name. Reviews are shown in the language they were written in."
   },
-
   "gallery": {
     "eyebrow": "The gallery",
     "title": "Real days out, real guests.",
     "description": "Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
   },
-
   "fleet": {
     "eyebrow": "Our fleet",
     "title": "Sized to your group, not the other way round.",
@@ -387,7 +388,6 @@
       }
     }
   },
-
   "cta": {
     "eyebrow": "Ready when you are",
     "title": "Tell us your flight number. We'll handle the rest.",
@@ -395,7 +395,6 @@
     "send": "Send a message",
     "hours": "Dispatch answers 7 days a week, 6:00am – 10:00pm. Flights are met at any hour."
   },
-
   "footer": {
     "tours": "Things to do",
     "destinations": "Destinations",
@@ -406,7 +405,6 @@
     "rights": "All rights reserved.",
     "licensed": "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."
   },
-
   "tourPage": {
     "about": "About this tour",
     "highlights": "Highlights",
@@ -416,7 +414,7 @@
     "inc3": "Pickup and drop-off at your door",
     "inc4": "No fixed departure — you set the pace",
     "transportTable": "What the transport costs",
-    "transportTableNote": "One private vehicle, up to 4 people, in US dollars. A fifth passenger and each one after adds the second figure.",
+    "transportTableNote": "Per person is the vehicle price shared between 4 — the vehicle costs the same whether one of you travels or four. A fifth passenger and each one after adds the last figure.",
     "pickingUpFrom": "Picking you up from",
     "upToFour": "Up to 4",
     "eachExtra": "Each extra",
@@ -429,9 +427,10 @@
     "entryChild": "Child",
     "optional": "optional",
     "alsoLike": "You might also like",
-    "moreTours": "More tours"
+    "moreTours": "More tours",
+    "perPersonCol": "Per person",
+    "estimatedMark": "indicative"
   },
-
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
     "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per vehicle, entry fees listed separately.",
@@ -445,11 +444,9 @@
     "tour": "tour",
     "toursWord": "tours"
   },
-
   "categoryPage": {
     "eyebrow": "Browse"
   },
-
   "transfersPage": {
     "metaTitle": "Montego Bay Airport Transfers",
     "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Flat rates for up to four passengers, flight tracked, met inside arrivals.",
@@ -466,20 +463,20 @@
     "p4Body": "One flat fare for up to four people. No fuel levy, no airport surcharge.",
     "ratesEyebrow": "Every rate we publish",
     "ratesTitle": "The whole price list, in the open.",
-    "ratesDescription": "One private vehicle for up to four passengers. The second figure is what each passenger beyond the fourth adds.",
+    "ratesDescription": "Per person is the fare shared between four — the vehicle costs the same whether one of you travels or four. The last column is what each passenger beyond the fourth adds.",
     "resort": "Resort",
     "oneWay": "One way",
     "roundTrip": "Round trip",
     "each": "Each extra",
     "book": "Book",
-    "notListed": "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day."
+    "notListed": "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day.",
+    "totalWord": "total"
   },
-
   "transferPage": {
     "metaTitle": "{fare} Airport Transfer to {resort}",
     "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met inside arrivals.",
     "h1": "Private airport transfer to {resort}",
-    "intro": "From Sangster International (MBJ) to {resort} — {fare} one way for up to {capacity} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.",
+    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person, or {fare} for the whole vehicle with up to {capacity} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.",
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
@@ -498,9 +495,9 @@
     "nearby": "Other resorts we serve nearby",
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
-    "toursDescription": "Prices below are for your resort specifically — transport for the whole vehicle, with the gate fees listed separately."
+    "toursDescription": "Prices below are for your resort specifically — transport for the whole vehicle, with the gate fees listed separately.",
+    "totalWord": "total"
   },
-
   "destinationsPage": {
     "metaTitle": "Destinations",
     "metaDescription": "Montego Bay, Ocho Rios, Negril, Falmouth and the South Coast — every parish PPP Tran Tours covers, and what's worth seeing in each.",
@@ -512,7 +509,6 @@
     "startTitle": "The tours we'd book first.",
     "startDescription": "If it's your first time on the island, these are the days that make the trip."
   },
-
   "aboutPage": {
     "metaTitle": "About PPP",
     "metaDescription": "PPP Tran Tours Jamaica — private, personalized, professional transport since 2010, run out of Montego Bay by owner Donovan Pugh.",
@@ -557,7 +553,6 @@
       }
     }
   },
-
   "contactPage": {
     "metaTitle": "Contact & FAQ",
     "metaDescription": "Reach PPP Tran Tours Jamaica by phone, WhatsApp or email — or send us your dates and we'll build the day around them.",
@@ -581,7 +576,6 @@
     "faqEyebrow": "FAQ",
     "faqTitle": "Everything else, answered."
   },
-
   "contactForm": {
     "name": "Full name",
     "email": "Email",
@@ -609,7 +603,6 @@
     "sendWhatsApp": "Send on WhatsApp",
     "footnote": "Or message {phone} directly on WhatsApp"
   },
-
   "faqs": [
     {
       "key": "pricing",
@@ -667,6 +660,5 @@
       "a": "As early as you can. Our days sell out in high season, and airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead."
     }
   ],
-
   "tours": {}
 }

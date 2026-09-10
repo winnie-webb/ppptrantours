@@ -16,6 +16,8 @@
  * owner published no price for that run, and the site asks instead of guessing.
  */
 
+import { ESTIMATED } from "./estimated-zones.js";
+
 /** Transport for up to 4 people, plus a per-head rate from the 5th onward. */
 const z = (price, extra) => ({ price, extra });
 
@@ -100,7 +102,7 @@ const ENTRY_TUBING = {
   child: 80,
 };
 
-export const TOURS = [
+const QUOTED = [
   // ══ Ocho Rios & St. Ann ═══════════════════════════════════════════════════
   {
     id: "blue-hole",
@@ -853,6 +855,26 @@ export const TRANSFERS = [
     places: ["negril-beach", "negril-west-end", "sandals-south-coast"],
   },
 ];
+
+/**
+ * His quoted prices, with our derived ones filled in behind them.
+ *
+ * A band that came from him has no `est`; one we worked out carries
+ * `est: true` all the way to the page, where it is shown as indicative rather
+ * than published. Merging here rather than editing `QUOTED` above keeps his
+ * numbers auditable against the WhatsApp thread they came from.
+ */
+export const TOURS = QUOTED.map((tour) => {
+  const derived = ESTIMATED[tour.id];
+  if (!derived) return tour;
+
+  const zones = { ...tour.zones };
+  for (const [zone, price] of Object.entries(derived)) {
+    if (zones[zone]) continue; // never override a figure he gave us
+    zones[zone] = { price, extra: price / 4, est: true };
+  }
+  return { ...tour, zones };
+});
 
 /** Everything bookable, tours and transfers alike. */
 export const CATALOGUE = [...TOURS, ...TRANSFERS];

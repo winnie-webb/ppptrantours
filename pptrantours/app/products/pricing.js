@@ -219,6 +219,25 @@ export function describeVehicle(pax) {
     : `${pax} people`;
 }
 
+/**
+ * The same money, divided by heads.
+ *
+ * A whole-vehicle figure is what the guest actually pays, but $200 next to a
+ * competitor's "$50pp" reads as four times the price when it is the same price.
+ * So the per-head figure leads and the vehicle total sits beside it — the
+ * division is presentation, never a separate charge, and both numbers are
+ * always shown together so nobody can mistake one for the other.
+ *
+ * Where the party size is not yet known (a card in a grid), callers pass
+ * `VEHICLE_CAPACITY`: four is the most people the base price covers, so it
+ * yields the lowest per-head figure the tour can reach — which is exactly what
+ * "from" means, and why it must never appear without that qualifier.
+ */
+export function perPerson(total, pax) {
+  const heads = Math.max(1, Number.parseInt(pax, 10) || 1);
+  return total / heads;
+}
+
 function clampPax(n) {
   const v = Number.parseInt(n, 10);
   if (!Number.isFinite(v)) return 1;

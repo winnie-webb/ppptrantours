@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaArrowRight, FaPlane, FaClock, FaShieldAlt, FaTag } from "react-icons/fa";
 import { AREAS, PLACES } from "@/app/data/places";
-import { money } from "@/app/products/pricing";
+import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import PageHeader from "@/app/components/PageHeader";
 import FareCalculator from "@/app/components/FareCalculator";
 import CtaBand from "@/app/components/CtaBand";
@@ -76,7 +76,7 @@ export default async function TransfersPage({ params }) {
         title={t.title ?? "Sangster International to your front door."}
         description={
           t.description ??
-          `Flat, published rates to every resort we serve, from ${money(cheapest)}. Pick your hotel below and see the fare before you give us a single detail.`
+          `Flat, published rates to every resort we serve, from ${money(perPerson(cheapest, VEHICLE_CAPACITY))} per person. Pick your hotel below and see the fare before you give us a single detail.`
         }
         image="/ppp/donovan-airport-van.jpg"
       />
@@ -110,7 +110,7 @@ export default async function TransfersPage({ params }) {
             title={t.ratesTitle ?? "The whole price list, in the open."}
             description={
               t.ratesDescription ??
-              "One private vehicle for up to four passengers. The second figure is what each passenger beyond the fourth adds."
+              "Per person is the fare shared between four — the vehicle costs the same whether one of you travels or four. The last column is what each passenger beyond the fourth adds."
             }
           />
 
@@ -150,11 +150,25 @@ export default async function TransfersPage({ params }) {
                               {p.name}
                             </Link>
                           </td>
-                          <td className="px-5 py-3.5 text-right font-semibold text-crimson-700">
-                            {money(p.transfer.oneWay)}
+                          <td className="px-5 py-3.5 text-right">
+                            <span className="font-semibold text-crimson-700">
+                              {money(
+                                perPerson(p.transfer.oneWay, VEHICLE_CAPACITY)
+                              )}
+                            </span>
+                            <span className="block text-xs text-ink/45">
+                              {money(p.transfer.oneWay)} {t.totalWord ?? "total"}
+                            </span>
                           </td>
-                          <td className="px-5 py-3.5 text-right font-semibold text-ink/80">
-                            {money(p.transfer.roundTrip)}
+                          <td className="px-5 py-3.5 text-right">
+                            <span className="font-semibold text-ink/80">
+                              {money(
+                                perPerson(p.transfer.roundTrip, VEHICLE_CAPACITY)
+                              )}
+                            </span>
+                            <span className="block text-xs text-ink/45">
+                              {money(p.transfer.roundTrip)} {t.totalWord ?? "total"}
+                            </span>
                           </td>
                           <td className="px-5 py-3.5 text-right text-ink/50">
                             {money(p.transfer.oneWayExtra)} / {money(p.transfer.roundTripExtra)}

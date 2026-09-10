@@ -11,7 +11,12 @@ import { usePlace } from "./PlaceProvider";
  * the stored resort afterwards is a one-frame change nobody notices; getting it
  * wrong is a hydration mismatch that blanks the header.
  */
-export default function PlaceChip({ dict, light = false, className = "" }) {
+export default function PlaceChip({
+  dict,
+  light = false,
+  compact = false,
+  className = "",
+}) {
   const { place, ready, openPicker } = usePlace();
   const t = dict?.place ?? {};
 
@@ -22,14 +27,16 @@ export default function PlaceChip({ dict, light = false, className = "" }) {
       type="button"
       onClick={openPicker}
       title={t.change ?? "Change your resort"}
-      className={`flex max-w-[15rem] items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium transition ${
-        light
-          ? "text-white/90 hover:bg-white/10 hover:text-white"
-          : "text-ink/75 hover:bg-ink/5 hover:text-ink"
+      className={`flex items-center gap-2 whitespace-nowrap rounded-full font-medium transition ${
+        compact
+          ? "max-w-[16rem] px-2.5 py-1 text-xs text-white/70 hover:bg-white/10 hover:text-white"
+          : light
+            ? "max-w-[15rem] px-3.5 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white"
+            : "max-w-[15rem] px-3.5 py-2 text-sm text-ink/75 hover:bg-ink/5 hover:text-ink"
       } ${className}`}
     >
       <FaMapMarkerAlt
-        className={`shrink-0 text-xs ${
+        className={`shrink-0 ${compact ? "text-[0.7rem]" : "text-xs"} ${
           ready && place ? "text-crimson-500" : "opacity-50"
         }`}
       />

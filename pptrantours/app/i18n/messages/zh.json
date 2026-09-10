@@ -13,7 +13,6 @@
       "PPP Tran Tours"
     ]
   },
-
   "common": {
     "reviews": "条评价",
     "seeAll": "查看全部",
@@ -22,7 +21,6 @@
     "whatsappAria": "通过 WhatsApp 联系我们",
     "chatWithUs": "联系我们"
   },
-
   "nav": {
     "home": "首页",
     "tours": "玩什么",
@@ -34,24 +32,28 @@
     "browse": "浏览",
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
-    "licensed": "持有牙买加旅游局与交通管理局颁发的执照"
+    "licensed": "持有牙买加旅游局与交通管理局颁发的执照",
+    "toursShort": "玩什么",
+    "transfersShort": "接送",
+    "destinationsShort": "目的地",
+    "aboutShort": "关于我们"
   },
-
   "durations": {
     "Full day": "全天",
     "Half day": "半天",
     "Evening": "夜间",
     "Door to door": "门到门"
   },
-
   "zones": {
     "mobay-hotels": "蒙特哥贝酒店",
     "mobay-pier": "蒙特哥贝邮轮码头",
     "falmouth-hotels": "法尔茅斯与特里劳尼酒店",
     "falmouth-pier": "法尔茅斯邮轮码头",
-    "palladium": "Grand Palladium / Lady Hamilton"
+    "palladium": "Grand Palladium / Lady Hamilton",
+    "ocho-rios-hotels": "奥乔里奥斯与圣安酒店",
+    "negril-hotels": "尼格瑞尔酒店",
+    "south-coast-hotels": "南海岸酒店"
   },
-
   "areas": {
     "montego-bay": "蒙特哥贝",
     "falmouth": "法尔茅斯与特里劳尼",
@@ -61,7 +63,6 @@
     "south-coast": "南海岸",
     "piers": "邮轮码头"
   },
-
   "categories": {
     "popular": {
       "title": "最热门行程",
@@ -104,15 +105,16 @@
       "blurb": "YS 瀑布、黑河鳄鱼游船和 Appleton 庄园。岛上安静的一面，值得多开一段路。"
     }
   },
-
   "price": {
     "from": "起价",
     "fromYourResort": "从您的酒店出发",
     "askUs": "请咨询",
     "weWillQuote": "我们为您报价",
-    "perVehicle": "四人以内"
+    "perVehicle": "四人以内",
+    "perPerson": "／人",
+    "vehicleBasis": "整车 {amount}・最多 {capacity} 人",
+    "estimated": "参考价"
   },
-
   "place": {
     "title": "您住在哪里？",
     "subtitle": "选择您的酒店，网站上的每个价格就都是您的价格——不必研究什么区域划分。",
@@ -123,7 +125,6 @@
     "prompt": "您住在哪里？",
     "change": "更换酒店"
   },
-
   "placePrompt": {
     "title": "您住在哪里？",
     "body": "告诉我们您的酒店、度假村或邮轮码头，网站上的每个价格就都是您的价格——没有区域划分，也不用猜。",
@@ -132,7 +133,6 @@
     "choose": "选择您的酒店",
     "change": "更换酒店"
   },
-
   "search": {
     "label": "搜索",
     "placeholder": "搜索行程或您的酒店…",
@@ -144,7 +144,6 @@
     "oneWay": "单程",
     "askUs": "请咨询"
   },
-
   "grid": {
     "filter": "按名称或关键词筛选…",
     "filterCategory": "按类别筛选",
@@ -161,7 +160,6 @@
     "prev": "上一页",
     "next": "下一页"
   },
-
   "booking": {
     "transportLabel": "车费",
     "transferPrice": "私人接送",
@@ -219,9 +217,10 @@
     "doneBody": "请保存好——提供这个编号能最快得到回复。司机和准确的接车时间我们会通过邮件确认。",
     "notPersisted": "本网站的预订存储功能尚未开启。请用下方的 WhatsApp 把详情直接发给我们，我们立刻为您锁定。",
     "confirmWhatsApp": "通过 WhatsApp 确认",
-    "browseMore": "浏览更多行程"
+    "browseMore": "浏览更多行程",
+    "worksOutAt": "折合",
+    "estimatedNote": "这是您酒店的参考价——从这里出发尚未公布固定价格，我们会在您付款前确认准确金额。"
   },
-
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
     "destination": "我们送您到哪家酒店？",
@@ -239,9 +238,10 @@
     "upTo": "最多 4 位乘客",
     "extraPassenger": "位额外乘客",
     "book": "预订此接送",
-    "ask": "提个问题"
+    "ask": "提个问题",
+    "perPerson": "／人",
+    "totalFor": "{n} 人合计"
   },
-
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",
     "h1a": "放心畅游牙买加",
@@ -254,14 +254,24 @@
     "explore": "浏览行程",
     "transfer": "预订机场接送"
   },
-
   "stats": {
-    "rating": { "label": "Tripadvisor 评分", "sub": "680 条评价" },
-    "years": { "label": "年行车经验", "sub": "自 2010 年起" },
-    "private": { "label": "全程私人服务", "sub": "从不拼车" },
-    "guests": { "label": "服务过的客人", "sub": "来自 30 多个国家" }
+    "rating": {
+      "label": "Tripadvisor 评分",
+      "sub": "680 条评价"
+    },
+    "years": {
+      "label": "年行车经验",
+      "sub": "自 2010 年起"
+    },
+    "private": {
+      "label": "全程私人服务",
+      "sub": "从不拼车"
+    },
+    "guests": {
+      "label": "服务过的客人",
+      "sub": "来自 30 多个国家"
+    }
   },
-
   "promise": {
     "eyebrow": "PPP 代表什么",
     "title": "三个承诺，就写在名字里。",
@@ -282,7 +292,6 @@
       }
     }
   },
-
   "browse": {
     "eyebrow": "牙买加有什么好玩的",
     "title": "这一天您想在哪里度过？",
@@ -291,7 +300,6 @@
     "option": "个选择",
     "options": "个选择"
   },
-
   "home": {
     "popularEyebrow": "客人之选",
     "popularTitle": "会被订上第二次的行程。",
@@ -308,7 +316,6 @@
     "faqDescription": "其他任何问题，直接发消息给我们——一周七天都有人回复。",
     "askUs": "向我们提问"
   },
-
   "transparency": {
     "eyebrow": "没有隐藏费用",
     "title": "我们实话实说，始终透明。",
@@ -317,13 +324,11 @@
     "seeCombos": "查看组合套餐",
     "seeRates": "查看全部接送价目"
   },
-
   "slogan": {
     "line": "放心畅游牙买加",
     "emphasis": "从容自在",
     "full": "放心畅游牙买加。"
   },
-
   "comboPitch": {
     "eyebrow": "热销之选",
     "title": "PPP 最受欢迎的组合行程。",
@@ -341,26 +346,22 @@
     "groups": "无论团队大小，我们都能安排。",
     "buildMyDay": "帮我安排这一天"
   },
-
   "destinations": {
     "eyebrow": "我们去哪些地方",
     "title": "每一个值得跑一趟的教区。",
     "description": "我们以蒙特哥贝为基地，覆盖全岛——选一条海岸线，我们当天送您去、当天带您回。",
     "browse": "浏览行程"
   },
-
   "testimonials": {
     "eyebrow": "客人评价",
     "title": "680 条评价，没有一条低于五星。",
     "description": "其中大多数都直接提到了 Pugh 先生的名字。评价按原文语言显示。"
   },
-
   "gallery": {
     "eyebrow": "相册",
     "title": "真实的行程，真实的客人。",
     "description": "这里的每一张照片都拍摄于我们自己的行程中——没有图库里的海岛，也没有借来的车辆。这一天真实的样子就是如此。"
   },
-
   "fleet": {
     "eyebrow": "我们的车队",
     "title": "按您的人数配车，而不是反过来。",
@@ -387,7 +388,6 @@
       }
     }
   },
-
   "cta": {
     "eyebrow": "随时为您准备",
     "title": "把航班号告诉我们，其余交给我们。",
@@ -395,7 +395,6 @@
     "send": "发送消息",
     "hours": "调度每周 7 天、6:00–22:00 有人接听。航班无论几点都有人接机。"
   },
-
   "footer": {
     "tours": "玩什么",
     "destinations": "目的地",
@@ -406,7 +405,6 @@
     "rights": "保留所有权利。",
     "licensed": "持有牙买加旅游局与牙买加交通管理局颁发的执照。"
   },
-
   "tourPage": {
     "about": "关于这条行程",
     "highlights": "行程亮点",
@@ -416,7 +414,7 @@
     "inc3": "酒店门口接送",
     "inc4": "没有固定发车时间——节奏由您决定",
     "transportTable": "车费是多少",
-    "transportTableNote": "一辆专车，4 人以内，以美元计价。第五位乘客起，每多一位加收第二列的金额。",
+    "transportTableNote": "每人价格是整车价格除以 4——无论是一位还是四位同行，车费都一样。第五位乘客起，每多一位加收最后一列的金额。",
     "pickingUpFrom": "接您的地点",
     "upToFour": "4 人以内",
     "eachExtra": "每多一位",
@@ -429,9 +427,10 @@
     "entryChild": "儿童",
     "optional": "可选",
     "alsoLike": "您可能还会喜欢",
-    "moreTours": "更多行程"
+    "moreTours": "更多行程",
+    "perPersonCol": "每人",
+    "estimatedMark": "参考价"
   },
-
   "toursPage": {
     "metaTitle": "牙买加有什么好玩的",
     "metaDescription": "PPP Tran Tours 的全部行程，按教区分类——蒙特哥贝、奥乔里奥斯、法尔茅斯、尼格瑞尔和南海岸。车费按车计价，门票单独列出。",
@@ -445,11 +444,9 @@
     "tour": "条行程",
     "toursWord": "条行程"
   },
-
   "categoryPage": {
     "eyebrow": "浏览"
   },
-
   "transfersPage": {
     "metaTitle": "蒙特哥贝机场接送",
     "metaDescription": "从桑斯特国际机场（MBJ）到牙买加各大度假村的私人接送。四人以内固定价格，航班追踪，到达大厅接机。",
@@ -466,20 +463,20 @@
     "p4Body": "四人以内一口价。没有燃油附加费，也没有机场附加费。",
     "ratesEyebrow": "我们公布的全部价格",
     "ratesTitle": "完整价目表，公开透明。",
-    "ratesDescription": "一辆专车最多载四位乘客。第二个数字是第四位之后每多一位乘客需要加收的金额。",
+    "ratesDescription": "每人价格是车费除以四——无论是一位还是四位同行，车费都一样。最后一列是第四位之后每多一位乘客需要加收的金额。",
     "resort": "酒店",
     "oneWay": "单程",
     "roundTrip": "往返",
     "each": "每多一位",
     "book": "预订",
-    "notListed": "别墅、Airbnb 或列表里没有的酒店？岛上任何地方我们都去——把地址发给我们，当天就给您报价。"
+    "notListed": "别墅、Airbnb 或列表里没有的酒店？岛上任何地方我们都去——把地址发给我们，当天就给您报价。",
+    "totalWord": "合计"
   },
-
   "transferPage": {
     "metaTitle": "{fare} 起｜前往 {resort} 的机场接送",
     "metaDescription": "从蒙特哥贝桑斯特国际机场（MBJ）到 {resort} 的私人接送。单程 {fare}，4 人以内；往返 {roundTrip}。航班追踪，到达大厅接机。",
     "h1": "前往 {resort} 的私人机场接送",
-    "intro": "从桑斯特国际机场（MBJ）到 {resort}——单程 {fare}，最多 {capacity} 位乘客。司机会举着名牌在到达大厅等您，直接送您抵达。",
+    "intro": "从桑斯特国际机场（MBJ）到 {resort}——每人 {perPerson}，或整车 {fare}，最多 {capacity} 位乘客。司机会举着名牌在到达大厅等您，直接送您抵达。",
     "transferTo": "机场接送前往",
     "oneWay": "单程",
     "roundTrip": "往返",
@@ -498,9 +495,9 @@
     "nearby": "我们服务的附近其他酒店",
     "toursEyebrow": "既然来了",
     "toursTitle": "从 {resort} 出发的行程",
-    "toursDescription": "下方价格专门对应您的酒店——车费按整车计算，门票单独列出。"
+    "toursDescription": "下方价格专门对应您的酒店——车费按整车计算，门票单独列出。",
+    "totalWord": "合计"
   },
-
   "destinationsPage": {
     "metaTitle": "目的地",
     "metaDescription": "蒙特哥贝、奥乔里奥斯、尼格瑞尔、法尔茅斯和南海岸——PPP Tran Tours 覆盖的每个教区，以及每个教区值得一看的地方。",
@@ -512,7 +509,6 @@
     "startTitle": "我们会最先预订的行程。",
     "startDescription": "如果是第一次上岛，这几天的行程最能代表这趟旅程。"
   },
-
   "aboutPage": {
     "metaTitle": "关于 PPP",
     "metaDescription": "PPP Tran Tours Jamaica——自 2010 年起提供私人、定制、专业的交通服务，由店主 Donovan Pugh 在蒙特哥贝经营。",
@@ -557,7 +553,6 @@
       }
     }
   },
-
   "contactPage": {
     "metaTitle": "联系与常见问题",
     "metaDescription": "通过电话、WhatsApp 或电子邮件联系 PPP Tran Tours Jamaica——或者把日期发给我们，我们围绕它为您安排行程。",
@@ -581,7 +576,6 @@
     "faqEyebrow": "常见问题",
     "faqTitle": "其余问题，都在这里。"
   },
-
   "contactForm": {
     "name": "姓名",
     "email": "电子邮箱",
@@ -609,7 +603,6 @@
     "sendWhatsApp": "通过 WhatsApp 发送",
     "footnote": "或通过 WhatsApp 直接联系 {phone}"
   },
-
   "faqs": [
     {
       "key": "pricing",
@@ -667,7 +660,6 @@
       "a": "越早越好。旺季我们的档期很快就满，而机场接送在提前至少 48 小时拿到航班信息时最容易安排。"
     }
   ],
-
   "tours": {
     "blue-hole": {
       "subtitle": "Irie Blue Hole，圣安教区",

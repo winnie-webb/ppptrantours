@@ -13,7 +13,6 @@
       "PPP Tran Tours"
     ]
   },
-
   "common": {
     "reviews": "件のレビュー",
     "seeAll": "すべて見る",
@@ -22,7 +21,6 @@
     "whatsappAria": "WhatsAppでお問い合わせ",
     "chatWithUs": "お問い合わせ"
   },
-
   "nav": {
     "home": "ホーム",
     "tours": "楽しみ方",
@@ -34,24 +32,28 @@
     "browse": "一覧",
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
-    "licensed": "ジャマイカ政府観光局および運輸局の認可事業者"
+    "licensed": "ジャマイカ政府観光局および運輸局の認可事業者",
+    "toursShort": "楽しみ方",
+    "transfersShort": "送迎",
+    "destinationsShort": "エリア",
+    "aboutShort": "PPPについて"
   },
-
   "durations": {
     "Full day": "1日",
     "Half day": "半日",
     "Evening": "夜",
     "Door to door": "ドアツードア"
   },
-
   "zones": {
     "mobay-hotels": "モンテゴベイのホテル",
     "mobay-pier": "モンテゴベイ・クルーズ埠頭",
     "falmouth-hotels": "ファルマス／トレローニーのホテル",
     "falmouth-pier": "ファルマス・クルーズ埠頭",
-    "palladium": "Grand Palladium / Lady Hamilton"
+    "palladium": "Grand Palladium / Lady Hamilton",
+    "ocho-rios-hotels": "オーチョリオス／セントアンのホテル",
+    "negril-hotels": "ネグリルのホテル",
+    "south-coast-hotels": "サウスコーストのホテル"
   },
-
   "areas": {
     "montego-bay": "モンテゴベイ",
     "falmouth": "ファルマス／トレローニー",
@@ -61,7 +63,6 @@
     "south-coast": "サウスコースト",
     "piers": "クルーズ埠頭"
   },
-
   "categories": {
     "popular": {
       "title": "人気のツアー",
@@ -104,15 +105,16 @@
       "blurb": "YSフォールズ、ブラックリバーのワニ観察クルーズ、アップルトン蒸溜所。島の静かな側で、長めのドライブに見合う価値があります。"
     }
   },
-
   "price": {
     "from": "〜より",
     "fromYourResort": "ご滞在先から",
     "askUs": "お問い合わせを",
     "weWillQuote": "お見積りします",
-    "perVehicle": "4名まで"
+    "perVehicle": "4名まで",
+    "perPerson": "／人",
+    "vehicleBasis": "車両1台 {amount}・{capacity}名まで",
+    "estimated": "目安"
   },
-
   "place": {
     "title": "どちらにご滞在ですか？",
     "subtitle": "ご滞在先を選ぶだけで、サイト上のすべての価格がお客様専用の価格になります。エリア区分を調べる必要はありません。",
@@ -123,7 +125,6 @@
     "prompt": "どちらにご滞在ですか？",
     "change": "滞在先を変更"
   },
-
   "placePrompt": {
     "title": "どちらにご滞在ですか？",
     "body": "ホテル・リゾート・クルーズ埠頭をお知らせいただければ、サイト上のすべての価格がお客様専用の価格になります。エリア区分も、あてずっぽうも不要です。",
@@ -132,7 +133,6 @@
     "choose": "滞在先を選ぶ",
     "change": "滞在先を変更"
   },
-
   "search": {
     "label": "検索",
     "placeholder": "ツアー名やご滞在先を検索…",
@@ -144,7 +144,6 @@
     "oneWay": "片道",
     "askUs": "お問い合わせを"
   },
-
   "grid": {
     "filter": "名称・キーワードで絞り込み…",
     "filterCategory": "カテゴリーで絞り込み",
@@ -161,7 +160,6 @@
     "prev": "前のページ",
     "next": "次のページ"
   },
-
   "booking": {
     "transportLabel": "移動費",
     "transferPrice": "プライベート送迎",
@@ -219,9 +217,10 @@
     "doneBody": "こちらをお控えください——この番号をお伝えいただくと最も早くご回答できます。ドライバーと正確なお迎え時刻はメールでご連絡します。",
     "notPersisted": "このサイトの予約保存機能はまだ有効になっていません。下のWhatsAppから詳細をお送りいただければ、確実にお取りします。",
     "confirmWhatsApp": "WhatsAppで確定する",
-    "browseMore": "ほかのツアーを見る"
+    "browseMore": "ほかのツアーを見る",
+    "worksOutAt": "お一人あたり",
+    "estimatedNote": "ご滞在先からの目安です。ここからの定額は公開していないため、お支払い前に正確な金額をご確認いただきます。"
   },
-
   "fare": {
     "from": "サングスター国際空港（MBJ）発",
     "destination": "どちらのホテルへお送りしますか？",
@@ -239,9 +238,10 @@
     "upTo": "4名様まで",
     "extraPassenger": "名の追加",
     "book": "この送迎を予約する",
-    "ask": "質問する"
+    "ask": "質問する",
+    "perPerson": "／人",
+    "totalFor": "{n}名の合計"
   },
-
   "hero": {
     "tagline": "プライベート。パーソナル。プロフェッショナル。",
     "h1a": "安心してジャマイカへ",
@@ -254,14 +254,24 @@
     "explore": "ツアーを見る",
     "transfer": "空港送迎を予約する"
   },
-
   "stats": {
-    "rating": { "label": "Tripadvisor 評価", "sub": "680件のレビュー" },
-    "years": { "label": "年の運行実績", "sub": "2010年から" },
-    "private": { "label": "完全プライベート", "sub": "相乗りは一切なし" },
-    "guests": { "label": "ご案内したお客様", "sub": "30か国以上から" }
+    "rating": {
+      "label": "Tripadvisor 評価",
+      "sub": "680件のレビュー"
+    },
+    "years": {
+      "label": "年の運行実績",
+      "sub": "2010年から"
+    },
+    "private": {
+      "label": "完全プライベート",
+      "sub": "相乗りは一切なし"
+    },
+    "guests": {
+      "label": "ご案内したお客様",
+      "sub": "30か国以上から"
+    }
   },
-
   "promise": {
     "eyebrow": "PPPが意味するもの",
     "title": "社名そのものが、3つの約束です。",
@@ -282,7 +292,6 @@
       }
     }
   },
-
   "browse": {
     "eyebrow": "ジャマイカの楽しみ方",
     "title": "この1日をどこで過ごしますか？",
@@ -291,7 +300,6 @@
     "option": "件",
     "options": "件"
   },
-
   "home": {
     "popularEyebrow": "お客様に人気",
     "popularTitle": "二度目も選ばれるツアー。",
@@ -308,7 +316,6 @@
     "faqDescription": "そのほかのことは、お気軽にメッセージをどうぞ——週7日、誰かがお答えします。",
     "askUs": "質問してみる"
   },
-
   "transparency": {
     "eyebrow": "隠れた費用はありません",
     "title": "包み隠さず、つねに透明に。",
@@ -317,13 +324,11 @@
     "seeCombos": "コンボ・パッケージを見る",
     "seeRates": "送迎料金をすべて見る"
   },
-
   "slogan": {
     "line": "安心してジャマイカへ",
     "emphasis": "自信を持って",
     "full": "安心してジャマイカへ。"
   },
-
   "comboPitch": {
     "eyebrow": "人気の組み合わせ",
     "title": "PPPで最もよく選ばれるコンボ。",
@@ -341,26 +346,22 @@
     "groups": "大人数でも少人数でも、どんな規模のグループにも対応します。",
     "buildMyDay": "1日を組み立てる"
   },
-
   "destinations": {
     "eyebrow": "お連れする場所",
     "title": "足を延ばす価値のある教区ばかり。",
     "description": "モンテゴベイの拠点から島全体をカバーしています——海岸を選んでいただければ、その日のうちに往復でお連れします。",
     "browse": "ツアーを見る"
   },
-
   "testimonials": {
     "eyebrow": "お客様のレビュー",
     "title": "680件のレビュー。五つ星未満はひとつもありません。",
     "description": "その多くがピュー氏を名指しで挙げてくださっています。レビューは書かれた言語のまま掲載しています。"
   },
-
   "gallery": {
     "eyebrow": "ギャラリー",
     "title": "実際の1日、実際のお客様。",
     "description": "ここにある写真はすべて当社のツアーで撮影したものです。ストック写真の島も、借り物の車両もありません。実際の1日はこのとおりです。"
   },
-
   "fleet": {
     "eyebrow": "車両",
     "title": "グループに合わせた車を。その逆ではありません。",
@@ -387,7 +388,6 @@
       }
     }
   },
-
   "cta": {
     "eyebrow": "いつでもご準備を",
     "title": "便名をお知らせください。あとはこちらで。",
@@ -395,7 +395,6 @@
     "send": "メッセージを送る",
     "hours": "受付は週7日、6:00〜22:00。フライトのお迎えは時間を問わず対応します。"
   },
-
   "footer": {
     "tours": "楽しみ方",
     "destinations": "エリア",
@@ -406,7 +405,6 @@
     "rights": "All rights reserved.",
     "licensed": "ジャマイカ政府観光局およびジャマイカ運輸局の認可事業者です。"
   },
-
   "tourPage": {
     "about": "このツアーについて",
     "highlights": "見どころ",
@@ -416,7 +414,7 @@
     "inc3": "ご滞在先の入口での送迎",
     "inc4": "出発時刻の縛りなし——ペースはお客様次第",
     "transportTable": "移動費の目安",
-    "transportTableNote": "プライベート車両1台、4名まで、米ドル建て。5人目以降はお一人ごとに2列目の金額が加算されます。",
+    "transportTableNote": "「お一人あたり」は車両料金を4で割った額です。1名でも4名でも車両料金は同じです。5人目以降はお一人ごとに右端の金額が加算されます。",
     "pickingUpFrom": "お迎え場所",
     "upToFour": "4名まで",
     "eachExtra": "追加1名につき",
@@ -429,9 +427,10 @@
     "entryChild": "子ども",
     "optional": "任意",
     "alsoLike": "こちらもおすすめ",
-    "moreTours": "ほかのツアー"
+    "moreTours": "ほかのツアー",
+    "perPersonCol": "お一人あたり",
+    "estimatedMark": "目安"
   },
-
   "toursPage": {
     "metaTitle": "ジャマイカの楽しみ方",
     "metaDescription": "PPP Tran Tours の全ツアーを教区別に——モンテゴベイ、オーチョリオス、ファルマス、ネグリル、サウスコースト。移動費は車両単位、入場料は別記です。",
@@ -445,11 +444,9 @@
     "tour": "件のツアー",
     "toursWord": "件のツアー"
   },
-
   "categoryPage": {
     "eyebrow": "一覧"
   },
-
   "transfersPage": {
     "metaTitle": "モンテゴベイ空港送迎",
     "metaDescription": "サングスター国際空港（MBJ）からジャマイカの主要リゾートへのプライベート送迎。4名まで定額、フライト追跡、到着ロビーでお出迎え。",
@@ -466,20 +463,20 @@
     "p4Body": "4名まで一律の定額。燃油サーチャージも空港追加料金もありません。",
     "ratesEyebrow": "公開しているすべての料金",
     "ratesTitle": "料金表のすべてを、そのまま公開。",
-    "ratesDescription": "プライベート車両1台につき4名様まで。2つ目の数字は、5人目以降お一人ごとに加算される金額です。",
+    "ratesDescription": "「お一人あたり」は料金を4で割った額です。1名でも4名でも車両料金は同じです。右端の列は、5人目以降お一人ごとに加算される金額です。",
     "resort": "ホテル",
     "oneWay": "片道",
     "roundTrip": "往復",
     "each": "追加1名",
     "book": "予約",
-    "notListed": "ヴィラやAirbnb、一覧にないホテルでしょうか。島内どこへでも伺います——住所をお送りいただければ、その日のうちにお見積りします。"
+    "notListed": "ヴィラやAirbnb、一覧にないホテルでしょうか。島内どこへでも伺います——住所をお送りいただければ、その日のうちにお見積りします。",
+    "totalWord": "合計"
   },
-
   "transferPage": {
     "metaTitle": "{resort} への空港送迎 {fare}〜",
     "metaDescription": "モンテゴベイのサングスター国際空港（MBJ）から {resort} へのプライベート送迎。片道 {fare}（4名まで）、往復 {roundTrip}。フライト追跡、到着ロビーでお出迎え。",
     "h1": "{resort} へのプライベート空港送迎",
-    "intro": "サングスター国際空港（MBJ）から {resort} まで——片道 {fare}、{capacity} 名様まで。ドライバーが到着ロビーで名前を書いたボードを持ってお待ちし、そのままお送りします。",
+    "intro": "サングスター国際空港（MBJ）から {resort} まで——お一人あたり {perPerson}、車両1台なら {capacity} 名まで {fare} です。ドライバーが到着ロビーで名前を書いたボードを持ってお待ちし、そのままお送りします。",
     "transferTo": "空港送迎：",
     "oneWay": "片道",
     "roundTrip": "往復",
@@ -498,9 +495,9 @@
     "nearby": "近隣で対応しているほかのホテル",
     "toursEyebrow": "せっかくのご滞在に",
     "toursTitle": "{resort} 発のツアー",
-    "toursDescription": "以下の料金はお客様のご滞在先に対応したものです。移動費は車両1台分で、入場料は別記しています。"
+    "toursDescription": "以下の料金はお客様のご滞在先に対応したものです。移動費は車両1台分で、入場料は別記しています。",
+    "totalWord": "合計"
   },
-
   "destinationsPage": {
     "metaTitle": "エリア",
     "metaDescription": "モンテゴベイ、オーチョリオス、ネグリル、ファルマス、サウスコースト——PPP Tran Tours が対応するすべての教区と、それぞれの見どころ。",
@@ -512,7 +509,6 @@
     "startTitle": "私たちなら最初に選ぶツアー。",
     "startDescription": "はじめての島なら、この数日の行程が旅の中心になります。"
   },
-
   "aboutPage": {
     "metaTitle": "PPPについて",
     "metaDescription": "PPP Tran Tours Jamaica——2010年から続く、プライベートで、パーソナルで、プロフェッショナルな交通サービス。モンテゴベイを拠点にオーナーのドノヴァン・ピューが運営しています。",
@@ -557,7 +553,6 @@
       }
     }
   },
-
   "contactPage": {
     "metaTitle": "お問い合わせ・よくある質問",
     "metaDescription": "PPP Tran Tours Jamaica へは電話、WhatsApp、メールでご連絡いただけます。日程をお送りいただければ、それに合わせて1日を組み立てます。",
@@ -581,7 +576,6 @@
     "faqEyebrow": "よくある質問",
     "faqTitle": "そのほかのことは、こちらで。"
   },
-
   "contactForm": {
     "name": "お名前",
     "email": "メールアドレス",
@@ -609,7 +603,6 @@
     "sendWhatsApp": "WhatsAppで送る",
     "footnote": "WhatsAppで {phone} へ直接ご連絡いただくこともできます"
   },
-
   "faqs": [
     {
       "key": "pricing",
@@ -667,7 +660,6 @@
       "a": "できるだけ早めにお願いします。ハイシーズンは予約が埋まりますし、空港送迎はフライト情報を48時間以上前にいただけると最も確実にお取りできます。"
     }
   ],
-
   "tours": {
     "blue-hole": {
       "subtitle": "Irie Blue Hole、セントアン",

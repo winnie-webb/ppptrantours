@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { PLACES, getPlace, getAreaLabel, transferPlaces } from "@/app/data/places";
 import { TOURS } from "@/app/data/catalogue";
-import { money, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import TourCard from "@/app/components/TourCard";
@@ -162,6 +162,10 @@ export default async function TransferPage({ params }) {
             {t.intro
               ?.replace("{resort}", place.name)
               .replace("{fare}", money(oneWay))
+              .replace(
+                "{perPerson}",
+                money(perPerson(oneWay, VEHICLE_CAPACITY))
+              )
               .replace("{capacity}", String(VEHICLE_CAPACITY)) ??
               `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} one way for up to ${VEHICLE_CAPACITY} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.`}
           </p>
@@ -169,13 +173,15 @@ export default async function TransferPage({ params }) {
           <div className="mt-7 flex flex-wrap gap-3">
             <FarePill
               label={t.oneWay ?? "One way"}
-              value={money(oneWay)}
-              extra={`+${money(oneWayExtra)} ${t.perExtra ?? "per extra"}`}
+              value={money(perPerson(oneWay, VEHICLE_CAPACITY))}
+              unit={dict.price?.perPerson ?? "/ person"}
+              extra={`${money(oneWay)} ${t.totalWord ?? "total"}`}
             />
             <FarePill
               label={t.roundTrip ?? "Round trip"}
-              value={money(roundTrip)}
-              extra={`+${money(roundTripExtra)} ${t.perExtra ?? "per extra"}`}
+              value={money(perPerson(roundTrip, VEHICLE_CAPACITY))}
+              unit={dict.price?.perPerson ?? "/ person"}
+              extra={`${money(roundTrip)} ${t.totalWord ?? "total"}`}
               highlight
             />
           </div>
@@ -235,11 +241,23 @@ export default async function TransferPage({ params }) {
                               </span>
                             )}
                           </td>
-                          <td className="px-5 py-3.5 text-right font-semibold text-crimson-700">
-                            {money(oneWay + oneWayExtra * extras)}
+                          <td className="px-5 py-3.5 text-right">
+                            <span className="font-semibold text-crimson-700">
+                              {money(perPerson(oneWay + oneWayExtra * extras, n))}
+                            </span>
+                            <span className="block text-xs text-ink/45">
+                              {money(oneWay + oneWayExtra * extras)} {t.totalWord ?? "total"}
+                            </span>
                           </td>
-                          <td className="px-5 py-3.5 text-right font-semibold text-ink/80">
-                            {money(roundTrip + roundTripExtra * extras)}
+                          <td className="px-5 py-3.5 text-right">
+                            <span className="font-semibold text-ink/80">
+                              {money(
+                                perPerson(roundTrip + roundTripExtra * extras, n)
+                              )}
+                            </span>
+                            <span className="block text-xs text-ink/45">
+                              {money(roundTrip + roundTripExtra * extras)} {t.totalWord ?? "total"}
+                            </span>
                           </td>
                         </tr>
                       );
@@ -314,7 +332,7 @@ export default async function TransferPage({ params }) {
   );
 }
 
-function FarePill({ label, value, extra, highlight = false }) {
+function FarePill({ label, value, unit, extra, highlight = false }) {
   return (
     <div
       className={`rounded-2xl border px-5 py-3.5 ${
@@ -326,7 +344,12 @@ function FarePill({ label, value, extra, highlight = false }) {
       <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-white/50">
         {label}
       </p>
-      <p className="font-display text-2xl font-semibold text-gold-400">{value}</p>
+      <p className="font-display text-2xl font-semibold text-gold-400">
+        {value}
+        {unit && (
+          <span className="ml-1 text-sm font-medium text-white/50">{unit}</span>
+        )}
+      </p>
       <p className="text-[0.7rem] text-white/40">{extra}</p>
     </div>
   );

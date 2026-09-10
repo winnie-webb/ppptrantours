@@ -13,7 +13,6 @@
       "PPP Tran Tours"
     ]
   },
-
   "common": {
     "reviews": "beoordelingen",
     "seeAll": "Alles bekijken",
@@ -22,7 +21,6 @@
     "whatsappAria": "Stuur ons een bericht op WhatsApp",
     "chatWithUs": "Stuur ons een bericht"
   },
-
   "nav": {
     "home": "Home",
     "tours": "Wat te doen",
@@ -34,24 +32,28 @@
     "browse": "Bekijken",
     "openMenu": "Menu openen",
     "closeMenu": "Menu sluiten",
-    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority"
+    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority",
+    "toursShort": "Wat te doen",
+    "transfersShort": "Transfers",
+    "destinationsShort": "Bestemmingen",
+    "aboutShort": "Over ons"
   },
-
   "durations": {
     "Full day": "Hele dag",
     "Half day": "Halve dag",
     "Evening": "'s Avonds",
     "Door to door": "Van deur tot deur"
   },
-
   "zones": {
     "mobay-hotels": "Hotels in Montego Bay",
     "mobay-pier": "Cruisekade Montego Bay",
     "falmouth-hotels": "Hotels in Falmouth en Trelawny",
     "falmouth-pier": "Cruisekade Falmouth",
-    "palladium": "Grand Palladium / Lady Hamilton"
+    "palladium": "Grand Palladium / Lady Hamilton",
+    "ocho-rios-hotels": "Hotels in Ocho Rios en St. Ann",
+    "negril-hotels": "Hotels in Negril",
+    "south-coast-hotels": "Hotels aan de Zuidkust"
   },
-
   "areas": {
     "montego-bay": "Montego Bay",
     "falmouth": "Falmouth en Trelawny",
@@ -61,7 +63,6 @@
     "south-coast": "Zuidkust",
     "piers": "Cruisekades"
   },
-
   "categories": {
     "popular": {
       "title": "De populairste tours",
@@ -104,15 +105,16 @@
       "blurb": "YS Falls, de krokodillensafari op de Black River en het Appleton-landgoed. De rustige kant van het eiland, en de langere rit waard."
     }
   },
-
   "price": {
     "from": "Vanaf",
     "fromYourResort": "Vanaf uw hotel",
     "askUs": "Vraag het ons",
     "weWillQuote": "wij geven u de prijs",
-    "perVehicle": "voor maximaal 4"
+    "perVehicle": "voor maximaal 4",
+    "perPerson": "/ persoon",
+    "vehicleBasis": "{amount} per voertuig · tot {capacity}",
+    "estimated": "indicatief"
   },
-
   "place": {
     "title": "Waar logeert u?",
     "subtitle": "Kies uw hotel en elke prijs op de site wordt de uwe — geen zones om uit te puzzelen.",
@@ -123,7 +125,6 @@
     "prompt": "Waar logeert u?",
     "change": "Hotel wijzigen"
   },
-
   "placePrompt": {
     "title": "Waar logeert u?",
     "body": "Noem uw hotel, resort of cruisekade en elke prijs op de site wordt de uwe — geen zones, geen giswerk.",
@@ -132,7 +133,6 @@
     "choose": "Kies uw hotel",
     "change": "Hotel wijzigen"
   },
-
   "search": {
     "label": "Zoeken",
     "placeholder": "Zoek tours of uw hotel…",
@@ -144,7 +144,6 @@
     "oneWay": "enkele reis",
     "askUs": "vraag het ons"
   },
-
   "grid": {
     "filter": "Filter op naam of trefwoord…",
     "filterCategory": "Filter op categorie",
@@ -161,7 +160,6 @@
     "prev": "Vorige pagina",
     "next": "Volgende pagina"
   },
-
   "booking": {
     "transportLabel": "Vervoer",
     "transferPrice": "Privétransfer",
@@ -219,9 +217,10 @@
     "doneBody": "Bewaar hem — wie hem noemt, krijgt het snelst antwoord. We bevestigen uw chauffeur en de precieze ophaaltijd per e-mail.",
     "notPersisted": "De opslag van boekingen staat op deze site nog niet aan. Stuur ons de gegevens hieronder via WhatsApp, dan zetten we het vast.",
     "confirmWhatsApp": "Bevestigen via WhatsApp",
-    "browseMore": "Meer tours bekijken"
+    "browseMore": "Meer tours bekijken",
+    "worksOutAt": "Dat is",
+    "estimatedNote": "Indicatief voor uw hotel — vanaf hier is geen vast tarief gepubliceerd, dus we bevestigen de exacte prijs voordat u iets betaalt."
   },
-
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
     "destination": "Naar welk hotel brengen we u?",
@@ -239,9 +238,10 @@
     "upTo": "Tot 4 passagiers",
     "extraPassenger": "extra passagier",
     "book": "Deze transfer boeken",
-    "ask": "Een vraag stellen"
+    "ask": "Een vraag stellen",
+    "perPerson": "/ persoon",
+    "totalFor": "totaal voor {n}"
   },
-
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
     "h1a": "Ontdek Jamaica",
@@ -254,14 +254,24 @@
     "explore": "Tours bekijken",
     "transfer": "Luchthaventransfer boeken"
   },
-
   "stats": {
-    "rating": { "label": "Tripadvisor-score", "sub": "680 beoordelingen" },
-    "years": { "label": "Jaar onderweg", "sub": "Sinds 2010" },
-    "private": { "label": "Privéservice", "sub": "Nooit een gedeeld busje" },
-    "guests": { "label": "Vervoerde gasten", "sub": "Uit meer dan 30 landen" }
+    "rating": {
+      "label": "Tripadvisor-score",
+      "sub": "680 beoordelingen"
+    },
+    "years": {
+      "label": "Jaar onderweg",
+      "sub": "Sinds 2010"
+    },
+    "private": {
+      "label": "Privéservice",
+      "sub": "Nooit een gedeeld busje"
+    },
+    "guests": {
+      "label": "Vervoerde gasten",
+      "sub": "Uit meer dan 30 landen"
+    }
   },
-
   "promise": {
     "eyebrow": "Waar PPP voor staat",
     "title": "Drie beloften, al in de naam.",
@@ -282,7 +292,6 @@
       }
     }
   },
-
   "browse": {
     "eyebrow": "Wat te doen op Jamaica",
     "title": "Waar wilt u de dag doorbrengen?",
@@ -291,7 +300,6 @@
     "option": "optie",
     "options": "opties"
   },
-
   "home": {
     "popularEyebrow": "Favorieten van gasten",
     "popularTitle": "De tours die mensen twee keer boeken.",
@@ -308,7 +316,6 @@
     "faqDescription": "Voor al het andere kunt u ons gewoon een bericht sturen — er antwoordt iemand, zeven dagen per week.",
     "askUs": "Stel ons een vraag"
   },
-
   "transparency": {
     "eyebrow": "Geen verborgen kosten",
     "title": "Wij houden het eerlijk. Altijd transparant.",
@@ -317,13 +324,11 @@
     "seeCombos": "Bekijk de combipakketten",
     "seeRates": "Bekijk alle transfertarieven"
   },
-
   "slogan": {
     "line": "Ontdek Jamaica",
     "emphasis": "met Vertrouwen",
     "full": "Ontdek Jamaica met vertrouwen."
   },
-
   "comboPitch": {
     "eyebrow": "Best verkocht",
     "title": "De topcombinaties van PPP.",
@@ -341,26 +346,22 @@
     "groups": "We nemen groepen van elke omvang aan, groot of klein.",
     "buildMyDay": "Mijn dag samenstellen"
   },
-
   "destinations": {
     "eyebrow": "Waar we heen gaan",
     "title": "Elke parish die de rit waard is.",
     "description": "Vanuit onze basis in Montego Bay bestrijken we het hele eiland — kies een kust en we brengen u er dezelfde dag heen en weer terug.",
     "browse": "Tours bekijken"
   },
-
   "testimonials": {
     "eyebrow": "Beoordelingen van gasten",
     "title": "680 beoordelingen. Geen enkele onder de vijf sterren.",
     "description": "De meeste noemen Mr. Pugh bij naam. Beoordelingen worden getoond in de taal waarin ze zijn geschreven."
   },
-
   "gallery": {
     "eyebrow": "De galerij",
     "title": "Echte dagen, echte gasten.",
     "description": "Elke foto hier is op onze eigen tours gemaakt — geen stockeilanden, geen geleende voertuigen. Zo ziet de dag er echt uit."
   },
-
   "fleet": {
     "eyebrow": "Ons wagenpark",
     "title": "Afgestemd op uw groep, niet andersom.",
@@ -387,7 +388,6 @@
       }
     }
   },
-
   "cta": {
     "eyebrow": "Wanneer u maar wilt",
     "title": "Geef ons uw vluchtnummer. De rest regelen wij.",
@@ -395,7 +395,6 @@
     "send": "Bericht sturen",
     "hours": "De centrale is 7 dagen per week bereikbaar van 6:00 tot 22:00 uur. Vluchten worden op elk uur opgehaald."
   },
-
   "footer": {
     "tours": "Wat te doen",
     "destinations": "Bestemmingen",
@@ -406,7 +405,6 @@
     "rights": "Alle rechten voorbehouden.",
     "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority of Jamaica."
   },
-
   "tourPage": {
     "about": "Over deze tour",
     "highlights": "Hoogtepunten",
@@ -416,7 +414,7 @@
     "inc3": "Ophalen en terugbrengen voor de deur",
     "inc4": "Geen vast vertrektijdstip — u bepaalt het tempo",
     "transportTable": "Wat het vervoer kost",
-    "transportTableNote": "Eén privévoertuig, tot 4 personen, in Amerikaanse dollars. Vanaf de vijfde passagier komt er per persoon het tweede bedrag bij.",
+    "transportTableNote": "De prijs per persoon is de voertuigprijs gedeeld door 4 — het voertuig kost hetzelfde of er nu één of vier meegaan. Vanaf de vijfde passagier komt er per persoon het laatste bedrag bij.",
     "pickingUpFrom": "We halen u op bij",
     "upToFour": "Tot 4",
     "eachExtra": "Elke extra",
@@ -429,9 +427,10 @@
     "entryChild": "Kind",
     "optional": "optioneel",
     "alsoLike": "Misschien ook iets voor u",
-    "moreTours": "Meer tours"
+    "moreTours": "Meer tours",
+    "perPersonCol": "Per persoon",
+    "estimatedMark": "indicatief"
   },
-
   "toursPage": {
     "metaTitle": "Wat te doen op Jamaica",
     "metaDescription": "Alle tours van PPP Tran Tours, per parish — Montego Bay, Ocho Rios, Falmouth, Negril en de Zuidkust. Vervoer geprijsd per voertuig, entreegelden apart vermeld.",
@@ -445,11 +444,9 @@
     "tour": "tour",
     "toursWord": "tours"
   },
-
   "categoryPage": {
     "eyebrow": "Bekijken"
   },
-
   "transfersPage": {
     "metaTitle": "Luchthaventransfers Montego Bay",
     "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar alle grote Jamaicaanse resorts. Vaste tarieven tot vier passagiers, vlucht gevolgd, ontvangst in de aankomsthal.",
@@ -466,20 +463,20 @@
     "p4Body": "Eén vast tarief voor maximaal vier personen. Geen brandstoftoeslag, geen luchthaventoeslag.",
     "ratesEyebrow": "Al onze tarieven",
     "ratesTitle": "De volledige prijslijst, open en bloot.",
-    "ratesDescription": "Eén privévoertuig voor maximaal vier passagiers. Het tweede bedrag is wat elke passagier boven de vierde erbij kost.",
+    "ratesDescription": "De prijs per persoon is het tarief gedeeld door vier — het voertuig kost hetzelfde of er nu één of vier meegaan. De laatste kolom is wat elke passagier boven de vierde erbij kost.",
     "resort": "Hotel",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
     "each": "Elke extra",
     "book": "Boeken",
-    "notListed": "Villa, Airbnb of een hotel dat er niet bij staat? We komen overal op het eiland — stuur ons het adres en we geven u dezelfde dag nog de prijs."
+    "notListed": "Villa, Airbnb of een hotel dat er niet bij staat? We komen overal op het eiland — stuur ons het adres en we geven u dezelfde dag nog de prijs.",
+    "totalWord": "totaal"
   },
-
   "transferPage": {
     "metaTitle": "Luchthaventransfer naar {resort} voor {fare}",
     "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst in de aankomsthal.",
     "h1": "Privé-luchthaventransfer naar {resort}",
-    "intro": "Van Sangster International (MBJ) naar {resort} — {fare} enkele reis voor maximaal {capacity} passagiers. Uw chauffeur staat met een naambord in de aankomsthal en brengt u er rechtstreeks heen.",
+    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon, of {fare} voor het hele voertuig met maximaal {capacity} passagiers. Uw chauffeur staat met een naambord in de aankomsthal en brengt u er rechtstreeks heen.",
     "transferTo": "Luchthaventransfer naar",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
@@ -498,9 +495,9 @@
     "nearby": "Andere hotels in de buurt die we bedienen",
     "toursEyebrow": "Nu u er toch bent",
     "toursTitle": "Tours vanaf {resort}",
-    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer voor het hele voertuig, met de entreegelden apart vermeld."
+    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer voor het hele voertuig, met de entreegelden apart vermeld.",
+    "totalWord": "totaal"
   },
-
   "destinationsPage": {
     "metaTitle": "Bestemmingen",
     "metaDescription": "Montego Bay, Ocho Rios, Negril, Falmouth en de Zuidkust — elke parish die PPP Tran Tours bedient, en wat er in elk de moeite waard is.",
@@ -512,7 +509,6 @@
     "startTitle": "De tours die wij als eerste zouden boeken.",
     "startDescription": "Bent u voor het eerst op het eiland, dan zijn dit de dagen die de reis maken."
   },
-
   "aboutPage": {
     "metaTitle": "Over PPP",
     "metaDescription": "PPP Tran Tours Jamaica — privé, persoonlijk en professioneel vervoer sinds 2010, geleid vanuit Montego Bay door eigenaar Donovan Pugh.",
@@ -557,7 +553,6 @@
       }
     }
   },
-
   "contactPage": {
     "metaTitle": "Contact en FAQ",
     "metaDescription": "Bereik PPP Tran Tours Jamaica via telefoon, WhatsApp of e-mail — of stuur ons uw data en wij bouwen de dag eromheen.",
@@ -581,7 +576,6 @@
     "faqEyebrow": "FAQ",
     "faqTitle": "Al het andere, beantwoord."
   },
-
   "contactForm": {
     "name": "Volledige naam",
     "email": "E-mail",
@@ -609,7 +603,6 @@
     "sendWhatsApp": "Versturen via WhatsApp",
     "footnote": "Of stuur rechtstreeks een bericht naar {phone} op WhatsApp"
   },
-
   "faqs": [
     {
       "key": "pricing",
@@ -667,7 +660,6 @@
       "a": "Zo vroeg mogelijk. In het hoogseizoen zijn onze dagen snel vol, en luchthaventransfers zijn het makkelijkst te garanderen als we uw vluchtgegevens minstens 48 uur van tevoren hebben."
     }
   ],
-
   "tours": {
     "blue-hole": {
       "subtitle": "Irie Blue Hole, St. Ann",
