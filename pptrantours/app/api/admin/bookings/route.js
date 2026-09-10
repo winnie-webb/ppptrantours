@@ -1,53 +1,16 @@
 import { NextResponse } from "next/server";
 import { getAdminDb } from "@/lib/firebase-admin";
+import { requireAdmin } from "@/lib/admin-auth";
+import { sweepAbandoned, paymentsForBooking } from "@/lib/payments/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/**
- * Who is allowed in. Checked on the server against the *verified* token, not
- * against anything the page claims — hiding the UI is not access control.
+/*
+ * requireAdmin now lives in lib/admin-auth.js. It moved because the status
+ * transition and manual-payment routes need the identical check, and an access
+ * check that exists in two copies is one that will diverge.
  */
-function allowedEmails() {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-async function requireAdmin(request) {
-  const header = request.headers.get("authorization") ?? "";
-  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  if (!token) return { error: "Not signed in.", status: 401 };
-
-  const allow = allowedEmails();
-  if (allow.length === 0) {
-    // Fail closed. An empty allowlist must lock everyone out, never let
-    // everyone in — this is the difference between a bug and a data breach.
-    return { error: "No admin accounts are configured.", status: 503 };
-  }
-
-  const { getAuth } = await import("firebase-admin/auth");
-  const { getApps } = await import("firebase-admin/app");
-
-  // getAdminDb() initialises the named app; call it first so getAuth() finds one.
-  if (!getAdminDb()) return { error: "Server is not configured.", status: 503 };
-  const app = getApps().find((a) => a.name === "ppp-admin");
-
-  let decoded;
-  try {
-    decoded = await getAuth(app).verifyIdToken(token);
-  } catch {
-    return { error: "That sign-in is not valid.", status: 401 };
-  }
-
-  const email = (decoded.email ?? "").toLowerCase();
-  if (!decoded.email_verified || !allow.includes(email)) {
-    return { error: "That account is not permitted.", status: 403 };
-  }
-
-  return { email };
-}
 
 export async function GET(request) {
   const auth = await requireAdmin(request);
@@ -58,6 +21,13 @@ export async function GET(request) {
   const db = getAdminDb();
 
   try {
+    // The owner opening /admin is a frequent enough trigger to retire payments
+    // the guest walked away from, so this needs no scheduler. Never allowed to
+    // fail the read.
+    await sweepAbandoned(20).catch((err) =>
+      console.error("[payments] sweep failed", err)
+    );
+
     const snap = await db
       .collection("bookings")
       .orderBy("createdAt", "desc")
@@ -69,12 +39,44 @@ export async function GET(request) {
       return {
         id: doc.id,
         ...d,
+        // Never send these to the browser. `lookupToken` is what authorises the
+        // guest's own result page, and `userAgent` is noise the console does
+        // not display.
+        lookupToken: undefined,
+        userAgent: undefined,
         // Firestore Timestamps do not survive JSON.stringify intact.
         createdAt: d.createdAt?.toDate?.().toISOString() ?? null,
+        payment: d.payment
+          ? {
+              ...d.payment,
+              updatedAt: d.payment.updatedAt?.toDate?.().toISOString() ?? null,
+            }
+          : null,
       };
     });
 
-    return NextResponse.json({ bookings });
+    /*
+     * The two states that cost real money if they are ignored.
+     *
+     * Paid-but-still-new is the important one: the guest has been charged and
+     * nobody has confirmed the date yet, so every hour there is refund risk.
+     * It is a normal state — paying deliberately does not confirm a booking —
+     * which is exactly why it needs surfacing rather than hiding.
+     */
+    const attention = {
+      paidUnconfirmed: bookings
+        .filter(
+          (b) =>
+            (b.payment?.state === "paid" || b.payment?.state === "part-paid") &&
+            b.status === "new"
+        )
+        .map((b) => b.reference),
+      paymentPending: bookings
+        .filter((b) => b.payment?.state === "pending")
+        .map((b) => b.reference),
+    };
+
+    return NextResponse.json({ bookings, attention });
   } catch (err) {
     console.error("[admin] booking read failed", err);
     return NextResponse.json(

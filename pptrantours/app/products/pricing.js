@@ -38,6 +38,16 @@ export function priceTransport(tour, zoneKey, pax) {
     extra: band.extra,
     extraPax,
     total: band.price + band.extra * extraPax,
+    /*
+     * True when this band was derived by us rather than quoted by him.
+     *
+     * This used not to be returned at all, which meant `booking.estimatedNote`
+     * in the booking form — already translated into ten languages, and reading
+     * "we confirm the exact price before you pay anything" — had never once
+     * rendered. Harmless while nothing could be charged. Load-bearing now:
+     * `payable()` below refuses to collect against a figure carrying this flag.
+     */
+    est: Boolean(band.est),
   };
 }
 
@@ -158,10 +168,27 @@ function describeHeads(rate, adults, children) {
  * Transport plus gates, kept apart in the result so the UI can be honest about
  * which half of the money is ours.
  */
-export function quoteExcursion(tour, { zoneKey, adults, children, choices, addons }) {
+export function quoteExcursion(
+  tour,
+  { zoneKey, zoneEst = false, adults, children, choices, addons }
+) {
   const pax = clampPax(adults + children);
-  const transport = priceTransport(tour, zoneKey, pax);
+  const base = priceTransport(tour, zoneKey, pax);
   const entry = priceEntry(tour, { adults, children, choices, addons });
+
+  /*
+   * Two independent ways a transport figure can be provisional, and either is
+   * enough to make it so:
+   *
+   *   band.est   he never published a price for this zone, so we derived one
+   *   zoneEst    he never said which price list this resort belongs to, so we
+   *              inferred that too — the figure is his, the mapping is not
+   *
+   * 19 of the 46 resorts carry `zoneEst`. The 46 airport-transfer rates
+   * themselves are all his, transcribed from the WhatsApp thread, so nothing
+   * equivalent is needed on `priceTransfer`.
+   */
+  const transport = base ? { ...base, est: base.est || Boolean(zoneEst) } : null;
 
   return {
     pax,
@@ -177,6 +204,63 @@ export function quoteTransfer(placeKey, { tripType, adults, children }) {
   const pax = clampPax(adults + children);
   const transport = priceTransfer(placeKey, tripType, pax);
   return { pax, transport, entry: null, dayTotal: transport?.total ?? null };
+}
+
+/* ── What may actually be collected ────────────────────────────────────────── */
+
+/**
+ * Money is handled in integer cents everywhere past this point.
+ *
+ * A one-cent float error in a payment path surfaces as a hash or amount check
+ * that fails at 3am against a real card, so dollars never reach the provider or
+ * a comparison — they are converted once, here.
+ */
+export function toCents(dollars) {
+  return Math.round(Number(dollars) * 100);
+}
+
+export function fromCents(cents) {
+  return Number(cents) / 100;
+}
+
+/**
+ * What PPP may charge online for a quote, and whether it may charge at all.
+ *
+ * THE BASIS IS `transport.total`, AND ONLY `transport.total`.
+ *
+ * Entry fees are the attraction's money, handed over at the gate (see the
+ * header of this file). Collecting a share of them into PPP's merchant account
+ * would mean owing it straight back out again, and it would break the promise
+ * made on every tour page that PPP never touches gate money. Never pass
+ * `quote.dayTotal` to this function.
+ *
+ * Three reasons a booking is not collectible, all already representable in the
+ * data rather than invented here:
+ *
+ *   no-transport    the owner publishes no rate from that resort for that tour.
+ *                   The page shows "Ask us" and there is no number to charge.
+ *   estimated       the figure is our inference, not his rate, and the form
+ *                   already promises the guest we confirm it before they pay.
+ *   below-minimum   WiPay rejects anything under $1.00 USD.
+ *
+ * @returns {{collectible: boolean, reason: string|null, payableCents: number}}
+ */
+export function payable(quote) {
+  const total = quote?.transport?.total;
+
+  if (total == null) {
+    return { collectible: false, reason: "no-transport", payableCents: 0 };
+  }
+  if (quote.transport.est) {
+    return { collectible: false, reason: "estimated", payableCents: 0 };
+  }
+
+  const payableCents = toCents(total);
+  if (!Number.isFinite(payableCents) || payableCents < 100) {
+    return { collectible: false, reason: "below-minimum", payableCents: 0 };
+  }
+
+  return { collectible: true, reason: null, payableCents };
 }
 
 /* ── Shop-window figures ───────────────────────────────────────────────────── */

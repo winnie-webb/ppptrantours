@@ -220,7 +220,13 @@
     "browseMore": "Meer tours bekijken",
     "worksOutAt": "Dat is",
     "estimatedNote": "Indicatief voor uw hotel — vanaf hier is geen vast tarief gepubliceerd, dus we bevestigen de exacte prijs voordat u iets betaalt.",
-    "requiredNote": "Verplicht. Al het andere helpt, maar is optioneel."
+    "requiredNote": "Verplicht. Al het andere helpt, maar is optioneel.",
+    "payHow": "Hoe wilt u betalen?",
+    "payOptional": "Nu betalen is optioneel — u kunt altijd op de dag zelf contant met uw chauffeur afrekenen.",
+    "payNow": "Nu {amount} met kaart betalen",
+    "payRedirecting": "Beveiligde betaling wordt geopend…",
+    "paySecureNote": "Kaartgegevens voert u in op de pagina van onze betaalprovider en komen nooit op deze site.",
+    "payStartFailed": "We konden de betaalpagina niet openen. Uw boeking staat vast — betaal uw chauffeur op de dag of stuur ons een bericht."
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
@@ -633,7 +639,7 @@
     {
       "key": "payment",
       "q": "Hoe en wanneer betaal ik?",
-      "a": "Bij het versturen van een aanvraag wordt er niets afgeschreven — we bevestigen eerst de beschikbaarheid en de exacte prijs. Afrekenen doet u op de dag zelf bij uw chauffeur, contant (USD of JMD), tenzij we vooraf iets anders met u afspreken."
+      "a": "Er wordt niets afgeschreven wanneer u een aanvraag stuurt — we bevestigen eerst de beschikbaarheid en de exacte prijs. Daarna heeft u twee keuzes, en beide zijn voor ons goed: op de dag zelf contant afrekenen met uw chauffeur, in Amerikaanse of Jamaicaanse dollars, of het vervoer met kaart betalen via onze beveiligde betaalpagina. Online betalen is optioneel en nooit nodig om een boeking vast te zetten. In beide gevallen worden entreegelden bij de ingang betaald en horen ze nooit bij wat wij innen."
     },
     {
       "key": "confirm",
@@ -913,5 +919,21 @@
         "Stuur ons een bericht en we prijzen uw dag"
       ]
     }
+  },
+  "bookingResult": {
+    "paidTitle": "Payment received. Thank you.",
+    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "failedTitle": "That payment did not go through",
+    "failedBody": "Your card was not charged and your booking request is still with us. You can try again, or simply settle with your driver on the day.",
+    "cancelledTitle": "Payment cancelled",
+    "cancelledBody": "Nothing was charged, and your booking request is still with us. You can pay on the day instead, or try again.",
+    "unconfirmedTitle": "We could not confirm that payment",
+    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
+    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
+    "reference": "Your reference",
+    "amountPaid": "Paid",
+    "balance": "To your driver on the day",
+    "whatsapp": "Message us on WhatsApp",
+    "home": "Back to home"
   }
 }

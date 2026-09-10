@@ -220,7 +220,13 @@
     "browseMore": "Guarda altri tour",
     "worksOutAt": "Fanno",
     "estimatedNote": "Indicativo per il tuo hotel: da qui non c'è una tariffa pubblicata, quindi confermiamo il prezzo esatto prima che tu paghi qualcosa.",
-    "requiredNote": "Obbligatorio. Tutto il resto ci aiuta, ma è facoltativo."
+    "requiredNote": "Obbligatorio. Tutto il resto ci aiuta, ma è facoltativo.",
+    "payHow": "Come preferisci pagare?",
+    "payOptional": "Pagare ora è facoltativo: puoi sempre pagare l'autista il giorno stesso, in contanti.",
+    "payNow": "Paga {amount} con carta ora",
+    "payRedirecting": "Apertura del pagamento sicuro…",
+    "paySecureNote": "I dati della carta si inseriscono sulla pagina del nostro fornitore di pagamenti e non passano mai da questo sito.",
+    "payStartFailed": "Non è stato possibile aprire la pagina di pagamento. La tua prenotazione è al sicuro: paga l'autista il giorno stesso o scrivici."
   },
   "fare": {
     "from": "Da Sangster International (MBJ)",
@@ -633,7 +639,7 @@
     {
       "key": "payment",
       "q": "Come e quando si paga?",
-      "a": "Non viene addebitato nulla quando invii la richiesta: prima confermiamo disponibilità e prezzo esatto. Il pagamento avviene all'autista il giorno stesso, in contanti (dollari statunitensi o giamaicani), salvo diverso accordo preso in anticipo."
+      "a": "Non addebitiamo nulla quando invii una richiesta: prima confermiamo la disponibilità e il prezzo esatto. Poi hai due possibilità, e per noi vanno bene entrambe: pagare l'autista in contanti il giorno stesso, in dollari statunitensi o giamaicani, oppure pagare il trasporto con carta tramite la nostra pagina di pagamento sicura. Pagare online è facoltativo e non serve mai per tenere una prenotazione. In ogni caso i biglietti d'ingresso si pagano all'entrata e non fanno mai parte di quanto incassiamo."
     },
     {
       "key": "confirm",
@@ -913,5 +919,21 @@
         "Scrivici e ti facciamo il prezzo della tua giornata"
       ]
     }
+  },
+  "bookingResult": {
+    "paidTitle": "Payment received. Thank you.",
+    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "failedTitle": "That payment did not go through",
+    "failedBody": "Your card was not charged and your booking request is still with us. You can try again, or simply settle with your driver on the day.",
+    "cancelledTitle": "Payment cancelled",
+    "cancelledBody": "Nothing was charged, and your booking request is still with us. You can pay on the day instead, or try again.",
+    "unconfirmedTitle": "We could not confirm that payment",
+    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
+    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
+    "reference": "Your reference",
+    "amountPaid": "Paid",
+    "balance": "To your driver on the day",
+    "whatsapp": "Message us on WhatsApp",
+    "home": "Back to home"
   }
 }

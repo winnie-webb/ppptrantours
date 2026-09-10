@@ -220,7 +220,13 @@
     "browseMore": "ほかのツアーを見る",
     "worksOutAt": "お一人あたり",
     "estimatedNote": "ご滞在先からの目安です。ここからの定額は公開していないため、お支払い前に正確な金額をご確認いただきます。",
-    "requiredNote": "必須項目です。その他はご記入いただけると助かりますが任意です。"
+    "requiredNote": "必須項目です。その他はご記入いただけると助かりますが任意です。",
+    "payHow": "お支払い方法をお選びください",
+    "payOptional": "今のお支払いは任意です。当日ドライバーに現金でお支払いいただくこともできます。",
+    "payNow": "カードで{amount}を支払う",
+    "payRedirecting": "安全な決済ページを開いています…",
+    "paySecureNote": "カード情報は決済事業者のページで入力され、当サイトを経由することはありません。",
+    "payStartFailed": "決済ページを開けませんでした。ご予約は保存されています。当日ドライバーにお支払いいただくか、ご連絡ください。"
   },
   "fare": {
     "from": "サングスター国際空港（MBJ）発",
@@ -633,7 +639,7 @@
     {
       "key": "payment",
       "q": "支払い方法とタイミングを教えてください。",
-      "a": "ご依頼の送信時点では何も請求されません——まず空き状況と正確な料金を確認します。お支払いは当日ドライバーへ現金（米ドルまたはジャマイカドル）で。事前に別途取り決めた場合はその限りではありません。"
+      "a": "リクエストを送信した時点では請求は発生しません。まず空き状況と正確な料金をお知らせします。そのうえで方法は二つあり、どちらでも構いません。当日ドライバーに現金（米ドルまたはジャマイカドル）でお支払いいただくか、当社の安全な決済ページでカードにより送迎料金をお支払いいただけます。オンライン決済は任意で、予約の確保に必須ではありません。いずれの場合も、観光施設の入場料は現地でお支払いいただき、当社が受け取る金額には一切含まれません。"
     },
     {
       "key": "confirm",
@@ -913,5 +919,21 @@
         "メッセージをいただければ1日分をお見積りします"
       ]
     }
+  },
+  "bookingResult": {
+    "paidTitle": "Payment received. Thank you.",
+    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "failedTitle": "That payment did not go through",
+    "failedBody": "Your card was not charged and your booking request is still with us. You can try again, or simply settle with your driver on the day.",
+    "cancelledTitle": "Payment cancelled",
+    "cancelledBody": "Nothing was charged, and your booking request is still with us. You can pay on the day instead, or try again.",
+    "unconfirmedTitle": "We could not confirm that payment",
+    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
+    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
+    "reference": "Your reference",
+    "amountPaid": "Paid",
+    "balance": "To your driver on the day",
+    "whatsapp": "Message us on WhatsApp",
+    "home": "Back to home"
   }
 }

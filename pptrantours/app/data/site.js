@@ -351,7 +351,7 @@ export const faqs = [
   {
     key: "payment",
     q: "How and when do I pay?",
-    a: "Nothing is charged when you send a request — we confirm availability and the exact price first. Settlement is with your driver on the day, in cash (USD or JMD), unless we agree something else with you in advance.",
+    a: "Nothing is charged when you send a request — we confirm availability and the exact price first. After that you have two choices, and both are fine with us: settle with your driver on the day in cash, US or Jamaican dollars, or pay the transport by card through our secure payment page. Paying online is optional and never required to hold a booking. Either way, attraction entry fees are paid at the gate and are never part of what we collect.",
   },
   {
     key: "confirm",

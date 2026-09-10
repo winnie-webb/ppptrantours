@@ -5,13 +5,38 @@
  */
 import { site } from "@/app/data/site";
 
-/** Short human-quotable reference, e.g. PPP-K3F9QX. */
+// No I, O, 0 or 1 — these get read down a phone line.
+const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+/**
+ * Short human-quotable reference, e.g. PPP-K3F9QX.
+ *
+ * `Math.random()` on purpose. This function runs in the browser as the fallback
+ * when the API is unreachable, and that path never writes to Firestore — the
+ * reference is only something for the guest to quote over WhatsApp. The server
+ * mints its own with `crypto.randomInt` (see makeServerReference), because
+ * there the value becomes a document id and a payment order_id.
+ *
+ * Keep it at 10 characters. It is used as the WiPay `order_id` prefix, and that
+ * field is capped at 16 on the hosted page Jamaica uses.
+ */
 export function makeReference() {
-  // No I, O, 0 or 1 — these get read down a phone line.
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let out = "";
   for (let i = 0; i < 6; i += 1) {
-    out += chars[Math.floor(Math.random() * chars.length)];
+    out += REF_ALPHABET[Math.floor(Math.random() * REF_ALPHABET.length)];
+  }
+  return `PPP-${out}`;
+}
+
+/**
+ * The same shape, from a real CSPRNG. Server-only — `node:crypto` is imported
+ * lazily so this module stays safe to bundle for the browser.
+ */
+export async function makeServerReference() {
+  const { randomInt } = await import("node:crypto");
+  let out = "";
+  for (let i = 0; i < 6; i += 1) {
+    out += REF_ALPHABET[randomInt(REF_ALPHABET.length)];
   }
   return `PPP-${out}`;
 }

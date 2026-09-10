@@ -99,3 +99,71 @@ export async function sendBookingAlert(booking) {
     return { sent: false, reason: err?.message ?? "fetch-failed" };
   }
 }
+
+/**
+ * The owner's alert that a card payment has been STARTED.
+ *
+ * This exists because WiPay has no webhook. The outcome reaches us only through
+ * the guest's browser, so a closed tab or a dropped mobile connection can leave
+ * a real charge with nothing recorded on our side. If this email arrives and no
+ * settlement follows it, the owner has a specific `order_id` to search in the
+ * WiPay dashboard — which is the difference between reconciling a payment and
+ * never knowing it happened.
+ *
+ * Uses its own template. `EMAILJS_TEMPLATE_ID_PAYMENT` is deliberately NOT part
+ * of `isNotifyConfigured()`: if it were, adding payments would silently switch
+ * off the booking alerts on every deployment that had not set it yet.
+ */
+export function isPaymentNotifyConfigured() {
+  return isNotifyConfigured() && Boolean(process.env.EMAILJS_TEMPLATE_ID_PAYMENT);
+}
+
+export async function sendPaymentAlert({
+  reference,
+  orderId,
+  amountCents,
+  currency,
+  provider,
+  environment,
+  name,
+  tourTitle,
+  date,
+}) {
+  if (!isPaymentNotifyConfigured()) {
+    return { sent: false, reason: "not-configured" };
+  }
+
+  const template_params = {
+    reference: reference ?? "—",
+    order_id: orderId ?? "—",
+    amount: `${currency} ${(Number(amountCents ?? 0) / 100).toFixed(2)}`,
+    provider: provider ?? "—",
+    environment: environment ?? "—",
+    name: name ?? "—",
+    tour: tourTitle ?? "—",
+    date: date ?? "—",
+    started_at: new Date().toISOString(),
+  };
+
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: process.env.EMAILJS_SERVICE_ID,
+        template_id: process.env.EMAILJS_TEMPLATE_ID_PAYMENT,
+        user_id: process.env.EMAILJS_PUBLIC_KEY,
+        accessToken: process.env.EMAILJS_PRIVATE_KEY,
+        template_params,
+      }),
+    });
+
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      return { sent: false, reason: `${res.status} ${detail}`.trim() };
+    }
+    return { sent: true };
+  } catch (err) {
+    return { sent: false, reason: err?.message ?? "fetch-failed" };
+  }
+}

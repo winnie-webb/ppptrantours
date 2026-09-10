@@ -220,7 +220,13 @@
     "browseMore": "浏览更多行程",
     "worksOutAt": "折合",
     "estimatedNote": "这是您酒店的参考价——从这里出发尚未公布固定价格，我们会在您付款前确认准确金额。",
-    "requiredNote": "必填。其余信息有助于我们安排，但可以不填。"
+    "requiredNote": "必填。其余信息有助于我们安排，但可以不填。",
+    "payHow": "您希望如何付款？",
+    "payOptional": "现在付款是可选的——您也可以在出行当天以现金付给司机。",
+    "payNow": "立即用银行卡支付 {amount}",
+    "payRedirecting": "正在打开安全支付页面…",
+    "paySecureNote": "银行卡信息在我们支付服务商的页面上填写，绝不会经过本网站。",
+    "payStartFailed": "无法打开支付页面。您的预订已保存——可在当天付给司机，或与我们联系。"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
@@ -633,7 +639,7 @@
     {
       "key": "payment",
       "q": "怎么付款、什么时候付？",
-      "a": "提交申请时不收取任何费用——我们会先确认档期和准确价格。费用在当天付给司机，现金支付（美元或牙买加元），除非我们事先与您另有约定。"
+      "a": "提交预订请求时不会收取任何费用——我们会先确认档期和确切价格。之后您有两种选择，两种我们都接受：出行当天以现金（美元或牙买加元）付给司机，或通过我们的安全支付页面用银行卡支付车费。在线支付是可选的，绝不是保留预订的条件。无论哪种方式，景点门票都在入口处自行支付，从不包含在我们收取的费用中。"
     },
     {
       "key": "confirm",
@@ -913,5 +919,21 @@
         "给我们发消息，我们为您这一天报价"
       ]
     }
+  },
+  "bookingResult": {
+    "paidTitle": "Payment received. Thank you.",
+    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "failedTitle": "That payment did not go through",
+    "failedBody": "Your card was not charged and your booking request is still with us. You can try again, or simply settle with your driver on the day.",
+    "cancelledTitle": "Payment cancelled",
+    "cancelledBody": "Nothing was charged, and your booking request is still with us. You can pay on the day instead, or try again.",
+    "unconfirmedTitle": "We could not confirm that payment",
+    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
+    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
+    "reference": "Your reference",
+    "amountPaid": "Paid",
+    "balance": "To your driver on the day",
+    "whatsapp": "Message us on WhatsApp",
+    "home": "Back to home"
   }
 }

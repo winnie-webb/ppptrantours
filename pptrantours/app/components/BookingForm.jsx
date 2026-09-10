@@ -12,6 +12,7 @@ import {
   FaExclamationTriangle,
   FaMapMarkerAlt,
   FaInfoCircle,
+  FaCreditCard,
 } from "react-icons/fa";
 import {
   quoteExcursion,
@@ -22,7 +23,7 @@ import {
   MAX_PARTY,
 } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
-import { createBooking } from "@/lib/bookings";
+import { createBooking, startPayment } from "@/lib/bookings";
 import { site } from "@/app/data/site";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
@@ -99,6 +100,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   /*
    * The date floors are written straight onto the DOM nodes rather than held in
@@ -109,6 +111,26 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
    */
   const dateRef = useRef(null);
   const returnDateRef = useRef(null);
+
+  /*
+   * One idempotency key per submission attempt, regenerated after a successful
+   * one so a guest booking two tours in the same session gets two bookings
+   * rather than a replay of the first.
+   *
+   * Both this and the dwell timestamp are set in an effect, not during render:
+   * crypto.randomUUID() and Date.now() would differ between the server render
+   * and the client and mismatch on hydration.
+   */
+  const idemKey = useRef(null);
+  const openedAt = useRef(0);
+  useEffect(() => {
+    if (!idemKey.current) {
+      idemKey.current =
+        globalThis.crypto?.randomUUID?.() ??
+        `k-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+    openedAt.current = Date.now();
+  }, []);
 
   useEffect(() => {
     const today = todayISO();
@@ -160,10 +182,19 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           (l) => `${l.label}${l.option ? ` (${l.option})` : ""}: ${money(l.amount)}`
         ),
         total: quote.dayTotal,
+        // Abuse signals. `company` is the honeypot and must stay empty; a real
+        // guest never sees the field.
+        company: honeypot,
+        formOpenedAt: openedAt.current,
         ...form,
-      });
+      }, { idempotencyKey: idemKey.current });
       setResult(res);
       setStatus("done");
+      // A fresh key, so a second booking in the same session is a second
+      // booking rather than a replay of this one.
+      idemKey.current =
+        globalThis.crypto?.randomUUID?.() ??
+        `k-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     } catch (err) {
       console.error("Booking failed", err);
       setError(
@@ -179,7 +210,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   }
 
   return (
-    <form onSubmit={onSubmit} className="card overflow-hidden">
+    <form onSubmit={onSubmit} className="card relative overflow-hidden">
       <PriceHeader
         quote={quote}
         tour={tour}
@@ -513,6 +544,29 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           </p>
         )}
 
+        {/*
+          Honeypot. Positioned off-screen rather than display:none, because some
+          form-fillers skip hidden fields but not absolutely-positioned ones.
+          aria-hidden and tabIndex -1 keep it away from screen readers and the
+          tab order, so no real guest can reach it. autoComplete off stops a
+          browser helpfully filling it in and locking someone out.
+        */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden"
+        >
+          <label htmlFor="company">Company</label>
+          <input
+            id="company"
+            name="company"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+          />
+        </div>
+
         <p className="text-xs text-ink/60">
           <span aria-hidden="true" className="text-crimson-600">
             *
@@ -745,8 +799,46 @@ function Breakdown({
   );
 }
 
+/**
+ * The screen after a booking is accepted.
+ *
+ * Two equal choices are offered, and paying is always the optional one: the
+ * booking already exists by the time this renders, so a guest who closes the
+ * tab loses nothing. That ordering is the whole design — the booking is written
+ * first, the payment session second, never the other way round.
+ *
+ * The card option only appears when the SERVER said it could. `collectible`
+ * comes back from /api/bookings, where payable() has already refused anything
+ * that is a quote request, carries an indicative price, or has nowhere to be
+ * recorded because no service account is configured.
+ */
 function Success({ result, locale, dict }) {
   const t = dict?.booking ?? {};
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState("");
+
+  const options = result.paymentOptions;
+  const canPay = Boolean(options?.collectible && options.amountCents > 0);
+
+  const goToPayment = async () => {
+    setPaying(true);
+    setPayError("");
+    try {
+      const url = await startPayment(result.reference);
+      // A top-level navigation, not an iframe: the hosted page sets framing
+      // headers. Assigned here in the handler's continuation rather than from
+      // an effect, or Safari may treat it as a popup.
+      window.location.assign(url);
+    } catch (err) {
+      console.error("Payment could not start", err);
+      setPaying(false);
+      setPayError(
+        t.payStartFailed ??
+          "We couldn't open the payment page. Your booking is safe — you can pay your driver on the day, or message us."
+      );
+    }
+  };
+
   return (
     <div className="card p-8 text-center">
       <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-crimson-50 text-2xl text-crimson-600">
@@ -759,7 +851,7 @@ function Success({ result, locale, dict }) {
         {t.doneRef ?? "Your reference is"}{" "}
         <span className="font-semibold text-ink">{result.reference}</span>.{" "}
         {t.doneBody ??
-          "Keep it — quoting it gets you an answer fastest. We'll confirm your driver and exact pickup time by email."}
+          "Keep it — quoting it gets you an answer fastest. We confirm your driver and exact pickup time before anything is final."}
       </p>
 
       {!result.persisted && (
@@ -769,12 +861,61 @@ function Success({ result, locale, dict }) {
         </p>
       )}
 
+      {canPay && (
+        <div className="mt-7 rounded-xl bg-sand px-5 py-5">
+          <p className="text-sm font-semibold text-ink">
+            {t.payHow ?? "How would you like to pay?"}
+          </p>
+          <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
+            {t.payOptional ??
+              "Paying now is optional — you can always settle with your driver on the day, in cash."}
+          </p>
+
+          <button
+            type="button"
+            onClick={goToPayment}
+            disabled={paying}
+            className="btn-primary mt-4 w-full disabled:opacity-60"
+          >
+            {paying ? (
+              <>
+                <FaSpinner className="animate-spin" />
+                {t.payRedirecting ?? "Opening secure payment…"}
+              </>
+            ) : (
+              <>
+                <FaCreditCard className="text-base" />
+                {(t.payNow ?? "Pay {amount} by card now").replace(
+                  "{amount}",
+                  money(options.amount)
+                )}
+              </>
+            )}
+          </button>
+
+          <p className="mt-3 flex items-center justify-center gap-2 text-[0.7rem] text-ink/60">
+            <FaLock className="text-[0.6rem]" />
+            {t.paySecureNote ??
+              "Card details are entered on our payment provider's own page and never touch this site."}
+          </p>
+
+          {payError && (
+            <p
+              role="alert"
+              className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700"
+            >
+              {payError}
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="mt-7 flex flex-wrap justify-center gap-3">
         <a
           href={result.whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          className="btn-primary"
+          className={canPay ? "btn-ghost" : "btn-primary"}
         >
           <FaWhatsapp className="text-lg" />
           {t.confirmWhatsApp ?? "Confirm on WhatsApp"}

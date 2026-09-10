@@ -220,7 +220,13 @@
     "browseMore": "Посмотреть другие экскурсии",
     "worksOutAt": "Это",
     "estimatedNote": "Ориентировочно для вашего отеля: отсюда фиксированный тариф не публиковался, поэтому мы подтвердим точную цену до любой оплаты.",
-    "requiredNote": "Обязательное поле. Остальное поможет нам, но не обязательно."
+    "requiredNote": "Обязательное поле. Остальное поможет нам, но не обязательно.",
+    "payHow": "Как вам удобнее заплатить?",
+    "payOptional": "Оплата сейчас необязательна — вы всегда можете расплатиться с водителем наличными в день поездки.",
+    "payNow": "Оплатить {amount} картой",
+    "payRedirecting": "Открываем защищённую оплату…",
+    "paySecureNote": "Данные карты вводятся на странице нашего платёжного провайдера и никогда не попадают на этот сайт.",
+    "payStartFailed": "Не удалось открыть страницу оплаты. Ваша бронь сохранена — заплатите водителю в день поездки или напишите нам."
   },
   "fare": {
     "from": "Из аэропорта Сангстер (MBJ)",
@@ -633,7 +639,7 @@
     {
       "key": "payment",
       "q": "Как и когда оплачивать?",
-      "a": "При отправке заявки ничего не списывается — сначала мы подтверждаем наличие мест и точную цену. Расчёт с водителем в день поездки, наличными (доллары США или ямайские доллары), если мы заранее не договорились об ином."
+      "a": "При отправке заявки ничего не списывается — сначала мы подтверждаем наличие мест и точную цену. Дальше у вас два варианта, и оба нас устраивают: расплатиться с водителем в день поездки наличными, в долларах США или Ямайки, либо оплатить трансфер картой на нашей защищённой платёжной странице. Оплата онлайн необязательна и никогда не требуется для брони. В любом случае входные билеты на объекты оплачиваются на месте и никогда не входят в то, что получаем мы."
     },
     {
       "key": "confirm",
@@ -913,5 +919,21 @@
         "Напишите нам, и мы рассчитаем цену вашего дня"
       ]
     }
+  },
+  "bookingResult": {
+    "paidTitle": "Payment received. Thank you.",
+    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "failedTitle": "That payment did not go through",
+    "failedBody": "Your card was not charged and your booking request is still with us. You can try again, or simply settle with your driver on the day.",
+    "cancelledTitle": "Payment cancelled",
+    "cancelledBody": "Nothing was charged, and your booking request is still with us. You can pay on the day instead, or try again.",
+    "unconfirmedTitle": "We could not confirm that payment",
+    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
+    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
+    "reference": "Your reference",
+    "amountPaid": "Paid",
+    "balance": "To your driver on the day",
+    "whatsapp": "Message us on WhatsApp",
+    "home": "Back to home"
   }
 }

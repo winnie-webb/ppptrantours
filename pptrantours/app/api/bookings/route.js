@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { getAdminDb } from "@/lib/firebase-admin";
 import { sendBookingAlert } from "@/lib/notify";
-import { makeReference } from "@/lib/booking-shared";
+import { makeServerReference } from "@/lib/booking-shared";
 import { filterProductById } from "@/app/products/product";
-import { quoteExcursion, quoteTransfer } from "@/app/products/pricing";
+import { quoteExcursion, quoteTransfer, payable, fromCents } from "@/app/products/pricing";
+import { paymentsConfigured } from "@/lib/payments";
+import { makeLookupToken, sweepAbandoned } from "@/lib/payments/store";
 import { getPlace } from "@/app/data/places";
 
 // firebase-admin needs Node built-ins; it cannot run on the edge runtime.
@@ -48,12 +50,87 @@ function cleanAddons(raw) {
     .map((v) => v.slice(0, 40));
 }
 
+/**
+ * A date in the past is a mistake, not a booking.
+ *
+ * Checked here as well as with `min` on the input, because the input attribute
+ * is a courtesy to the guest and this is the actual rule. Compared as plain
+ * `yyyy-mm-dd` strings against UTC: a guest whose own midnight has not yet
+ * arrived in UTC could otherwise be told their today is yesterday, so this is
+ * deliberately generous by up to a day rather than strict and wrong.
+ */
+function isPastDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false; // not a date we parse
+  const today = new Date();
+  const utcToday = `${today.getUTCFullYear()}-${String(today.getUTCMonth() + 1).padStart(2, "0")}-${String(today.getUTCDate()).padStart(2, "0")}`;
+  return value < utcToday;
+}
+
+/*
+ * Minimum credible abuse controls for a public, unauthenticated endpoint that
+ * writes to a database and sends an email on every request.
+ *
+ * Deliberately NOT a CAPTCHA. On a small operator's booking form a CAPTCHA
+ * costs real conversions against a speculative benefit, and it would add a
+ * third-party script to every tour page. A honeypot plus a dwell-time floor
+ * catches naive bots at zero cost to a real guest; if actual spam ever appears,
+ * that is the moment to reconsider, and it is a decision with evidence behind
+ * it rather than a reflex.
+ */
+const MIN_DWELL_MS = 3000;
+
+function looksAutomated(body) {
+  // A field positioned off-screen, so nothing but a form-filler completes it.
+  if (typeof body.company === "string" && body.company.trim() !== "") {
+    return "honeypot";
+  }
+  const opened = Number(body.formOpenedAt);
+  if (Number.isFinite(opened) && opened > 0) {
+    const dwell = Date.now() - opened;
+    // A negative dwell means a forged or skewed clock; only reject the clearly
+    // impossible, since a guest's clock being minutes out is common.
+    if (dwell >= 0 && dwell < MIN_DWELL_MS) return "too-fast";
+  }
+  return null;
+}
+
+/**
+ * Same-origin check. Any browser sends one of these on a fetch; a script
+ * hammering the endpoint typically does not bother.
+ *
+ * Unknown-but-present hosts are allowed through: Vercel serves this on preview
+ * URLs and on the vercel.app domain as well as the canonical one, and locking
+ * to a single host would silently break every preview deployment.
+ */
+function wrongOrigin(request) {
+  const origin = request.headers.get("origin");
+  const referer = request.headers.get("referer");
+  if (!origin && !referer) return "no-origin";
+  return null;
+}
+
 export async function POST(request) {
   let body;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Malformed request." }, { status: 400 });
+  }
+
+  /*
+   * Abuse checks first, and they all return the same vague message.
+   *
+   * Telling a bot which check it tripped is telling it how to pass next time,
+   * and a real guest can never see these — an empty honeypot and a browser
+   * origin are both automatic.
+   */
+  const automated = looksAutomated(body) ?? wrongOrigin(request);
+  if (automated) {
+    console.warn(`[bookings] rejected: ${automated}`);
+    return NextResponse.json(
+      { error: "That request could not be accepted. Please try again." },
+      { status: 422 }
+    );
   }
 
   const name = str(body.name, MAX.name);
@@ -65,6 +142,14 @@ export async function POST(request) {
   if (!looksLikeEmail(email)) {
     return NextResponse.json(
       { error: "A valid email address is required." },
+      { status: 422 }
+    );
+  }
+
+  const date = str(body.date, 30);
+  if (isPastDate(date)) {
+    return NextResponse.json(
+      { error: "That date has already passed. Please pick a later one." },
       { status: 422 }
     );
   }
@@ -91,6 +176,7 @@ export async function POST(request) {
   let entryTotal = 0;
   let entryLines = [];
   let quoted = false;
+  let quote = null;
 
   if (!isEnquiry) {
     if (isTransfer) {
@@ -102,6 +188,7 @@ export async function POST(request) {
       }
       const tripType = body.tripType === "one-way" ? "one-way" : "round-trip";
       const q = quoteTransfer(placeKey, { tripType, adults, children });
+      quote = q;
       transportTotal = q.transport?.total ?? null;
       quoted = transportTotal != null;
     } else {
@@ -115,6 +202,10 @@ export async function POST(request) {
 
       const q = quoteExcursion(tour, {
         zoneKey: place?.zone ?? null,
+        // 19 of 46 resorts have an inferred zone mapping. Either that or a
+        // derived band makes the figure provisional, and payable() refuses to
+        // collect against a provisional figure.
+        zoneEst: Boolean(place?.zoneEst),
         adults,
         children,
         choices: cleanChoices(body.choices),
@@ -123,6 +214,7 @@ export async function POST(request) {
 
       // A null transport total is legitimate: the owner publishes no rate from
       // every resort for every tour. That is a quote request, not an error.
+      quote = q;
       transportTotal = q.transport?.total ?? null;
       entryTotal = q.entry?.total ?? 0;
       entryLines = (q.entry?.lines ?? []).map(
@@ -132,7 +224,19 @@ export async function POST(request) {
     }
   }
 
-  const reference = makeReference();
+  const reference = await makeServerReference();
+
+  /*
+   * What could be charged online, decided here and nowhere else.
+   *
+   * `payable()` takes the re-priced quote, so the figure can only ever be one
+   * this route computed. The client is told the amount purely so the button can
+   * be labelled — /api/payments/start re-derives it from the stored booking and
+   * ignores anything posted to it.
+   */
+  const pay = quote ? payable(quote) : { collectible: false, reason: "enquiry", payableCents: 0 };
+  const providerReady = paymentsConfigured("USD");
+
   const booking = {
     reference,
     type: isEnquiry ? "enquiry" : quoted ? "booking" : "quote-request",
@@ -157,7 +261,7 @@ export async function POST(request) {
     // Kept for the alert email and the admin list, but it is an estimate of the
     // guest's whole day, not an amount we are charging.
     dayTotal: transportTotal == null ? null : transportTotal + entryTotal,
-    date: str(body.date, 30),
+    date,
     time: str(body.time, 20),
     returnDate: str(body.returnDate, 30),
     returnFlight: str(body.returnFlight, MAX.flight),
@@ -168,12 +272,30 @@ export async function POST(request) {
     phone: str(body.phone, MAX.phone),
     notes: str(body.notes, MAX.notes),
     status: "new",
+    settlement: "cash-on-day",
+    // Opaque, so the result page cannot be opened by guessing a reference.
+    lookupToken: makeLookupToken(),
+    payment: {
+      intent: "none",
+      state: "unpaid",
+      payableCents: pay.collectible ? pay.payableCents : 0,
+      paidCents: 0,
+      currency: "USD",
+      provider: null,
+      lastPaymentId: null,
+    },
   };
 
   const db = getAdminDb();
 
-  // No service account yet: accept the booking so the guest still gets a
-  // reference and the WhatsApp handoff, but say plainly it was not stored.
+  /*
+   * No service account yet: accept the booking so the guest still gets a
+   * reference and the WhatsApp handoff, but say plainly it was not stored.
+   *
+   * Payment must be OFF on this path. There is nowhere to record a payment, so
+   * offering one would take money against a booking that does not exist — the
+   * easiest trap in this whole flow to fall into.
+   */
   if (!db) {
     console.warn(
       `[bookings] ${reference} not persisted — FIREBASE_SERVICE_ACCOUNT_KEY is unset.`
@@ -185,16 +307,81 @@ export async function POST(request) {
       emailed: alert.sent,
       transportTotal,
       entryTotal,
+      paymentOptions: {
+        collectible: false,
+        reason: "storage-unavailable",
+        currency: "USD",
+        amountCents: 0,
+        amount: 0,
+      },
     });
   }
 
+  /*
+   * Idempotency, and the single highest-value line in this route.
+   *
+   * A double-click, a retry after a timeout, or a back-button resubmit used to
+   * create two documents with two different references — and with payment
+   * attached, two payable bookings. Firestore's `create()` throws
+   * ALREADY_EXISTS on a duplicate, which is an atomic check-and-set for free:
+   * no transaction, no read-then-write race. On a repeat we return the original
+   * reference so the guest sees the same booking they already made.
+   */
+  const idemKey = str(request.headers.get("idempotency-key") ?? "", 64);
+  const usableKey = /^[A-Za-z0-9-]{16,64}$/.test(idemKey) ? idemKey : null;
+
   try {
     const { FieldValue } = await import("firebase-admin/firestore");
-    await db.collection("bookings").add({
-      ...booking,
-      createdAt: FieldValue.serverTimestamp(),
-      userAgent: str(request.headers.get("user-agent") ?? "", 300),
-    });
+
+    if (usableKey) {
+      const claim = db.collection("bookingIdempotency").doc(usableKey);
+      try {
+        await claim.create({
+          reference,
+          createdAt: FieldValue.serverTimestamp(),
+          // For a Firestore TTL policy on this field, so these expire by
+          // themselves rather than accumulating forever.
+          ttlAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        });
+      } catch (err) {
+        if (err?.code === 6 || /ALREADY_EXISTS/i.test(String(err?.message))) {
+          const prior = await claim.get();
+          const priorRef = prior.data()?.reference ?? reference;
+          console.warn(`[bookings] duplicate submit, replaying ${priorRef}`);
+          const priorDoc = await db.collection("bookings").doc(priorRef).get();
+          const priorPay = priorDoc.data()?.payment ?? {};
+          return NextResponse.json({
+            reference: priorRef,
+            persisted: true,
+            duplicate: true,
+            emailed: false,
+            transportTotal,
+            entryTotal,
+            paymentOptions: {
+              collectible:
+                Boolean(priorPay.payableCents) && providerReady,
+              reason: null,
+              currency: "USD",
+              amountCents: priorPay.payableCents ?? 0,
+              amount: fromCents(priorPay.payableCents ?? 0),
+            },
+          });
+        }
+        throw err;
+      }
+    }
+
+    // The reference IS the document id. `doc(reference)` beats a where() query
+    // on every payment return, and `create()` makes a collision loud instead of
+    // silently producing a second booking with the same reference.
+    await db
+      .collection("bookings")
+      .doc(reference)
+      .create({
+        ...booking,
+        createdAt: FieldValue.serverTimestamp(),
+        userAgent: str(request.headers.get("user-agent") ?? "", 300),
+      });
   } catch (err) {
     console.error(`[bookings] ${reference} failed to save`, err);
     return NextResponse.json(
@@ -209,11 +396,28 @@ export async function POST(request) {
     console.error(`[bookings] ${reference} saved but alert failed: ${alert.reason}`);
   }
 
+  // Cheap, capped, and this is a reliable enough trigger at this volume to need
+  // no scheduler. Never allowed to fail the request.
+  sweepAbandoned(20).catch((err) =>
+    console.error("[payments] sweep failed", err)
+  );
+
   return NextResponse.json({
     reference,
     persisted: true,
     emailed: alert.sent,
     transportTotal,
     entryTotal,
+    paymentOptions: {
+      collectible: pay.collectible && providerReady,
+      reason: pay.collectible
+        ? providerReady
+          ? null
+          : "payments-off"
+        : pay.reason,
+      currency: "USD",
+      amountCents: pay.collectible ? pay.payableCents : 0,
+      amount: pay.collectible ? fromCents(pay.payableCents) : 0,
+    },
   });
 }

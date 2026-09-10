@@ -14,16 +14,27 @@
 import { buildWhatsAppMessage, makeReference } from "./booking-shared";
 
 /**
- * @returns {Promise<{reference: string, persisted: boolean, whatsappUrl: string}>}
+ * @returns {Promise<{reference: string, persisted: boolean, paymentOptions: object|null, whatsappUrl: string}>}
  */
-export async function createBooking(booking) {
+export async function createBooking(booking, { idempotencyKey } = {}) {
   let reference = null;
   let persisted = false;
+  let paymentOptions = null;
 
   try {
     const res = await fetch("/api/bookings", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        /*
+         * Makes a double-click, a retry after a timeout and a back-button
+         * resubmit all resolve to one booking. The server claims this key
+         * atomically and replays the original reference on a repeat, so the
+         * guest never ends up with two bookings — or, now that payment exists,
+         * two payable ones.
+         */
+        ...(idempotencyKey ? { "Idempotency-Key": idempotencyKey } : {}),
+      },
       body: JSON.stringify(booking),
     });
 
@@ -40,6 +51,7 @@ export async function createBooking(booking) {
 
     reference = data.reference ?? null;
     persisted = Boolean(data.persisted);
+    paymentOptions = data.paymentOptions ?? null;
   } catch (err) {
     // A validation message is worth showing; anything else, we degrade quietly
     // rather than telling the guest their booking vanished.
@@ -51,8 +63,28 @@ export async function createBooking(booking) {
   return {
     reference,
     persisted,
+    paymentOptions,
     whatsappUrl: buildWhatsAppMessage({ ...booking, reference }),
   };
 }
 
 export { makeReference, buildWhatsAppMessage };
+
+/**
+ * Ask the server to open a hosted payment page, then hand back the URL.
+ *
+ * No amount is sent. The server re-derives it from the stored booking, so a
+ * tampered request can only ever pay the real price.
+ */
+export async function startPayment(reference) {
+  const res = await fetch("/api/payments/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reference }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.redirectUrl) {
+    throw new Error(data.error ?? "payment-start-failed");
+  }
+  return data.redirectUrl;
+}
