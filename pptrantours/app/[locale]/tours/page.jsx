@@ -10,6 +10,9 @@ import { TOURS } from "@/app/data/catalogue";
 import { PARISH_CATEGORIES, filterProductByCategory } from "@/app/products/product";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
+import JsonLd from "@/app/components/JsonLd";
+import { site } from "@/app/data/site";
+import { tourListSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../layout";
 
@@ -52,6 +55,10 @@ export default async function ToursPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={tourListSchema(site.url, (path) => localePath(locale, path))}
+      />
+
       <PageHeader
         eyebrow={t.eyebrow ?? "The catalogue"}
         title={t.title ?? "Things to do in Jamaica."}

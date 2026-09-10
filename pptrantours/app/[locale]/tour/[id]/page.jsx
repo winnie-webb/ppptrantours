@@ -18,8 +18,10 @@ import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
+import JsonLd from "@/app/components/JsonLd";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
+import { breadcrumbSchema, tourSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../../layout";
 
@@ -92,6 +94,28 @@ export default async function TourPage({ params }) {
   const entryComponents = base.entry?.components ?? [];
   const entryAddons = base.entry?.addons ?? [];
 
+  // Mirrors the visible breadcrumb below, one for one. Absolute URLs, as
+  // BreadcrumbList requires.
+  const abs = (path) => `${site.url}${localePath(locale, path)}`;
+  const jsonLd = [
+    tourSchema(
+      tour,
+      abs(`/tour/${id}`),
+      site.url,
+      tour.title,
+      (tour.desc ?? "").slice(0, 300)
+    ),
+    breadcrumbSchema([
+      { name: dict.nav?.home ?? "Home", url: abs("/") },
+      { name: dict.nav?.tours ?? "Things to do", url: abs("/tours") },
+      {
+        name: dict.categories?.[base.region]?.title ?? base.region,
+        url: abs(`/category/${base.region}`),
+      },
+      { name: tour.title, url: abs(`/tour/${id}`) },
+    ]),
+  ];
+
   const included = [
     { Icon: FaCar, text: t.inc1 ?? "Private air-conditioned vehicle, yours alone" },
     { Icon: FaUserTie, text: t.inc2 ?? "Licensed, insured local driver and guide" },
@@ -101,6 +125,8 @@ export default async function TourPage({ params }) {
 
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       {/* Hero */}
       <section className="relative isolate -mt-[4.5rem] overflow-hidden bg-ink pb-12 pt-28 lg:-mt-20 lg:pb-16 lg:pt-40">
         {/*

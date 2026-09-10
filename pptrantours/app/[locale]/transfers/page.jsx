@@ -8,6 +8,9 @@ import CtaBand from "@/app/components/CtaBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
+import JsonLd from "@/app/components/JsonLd";
+import { site } from "@/app/data/site";
+import { transferListSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../layout";
 
@@ -71,6 +74,10 @@ export default async function TransfersPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={transferListSchema(site.url, (path) => localePath(locale, path))}
+      />
+
       <PageHeader
         eyebrow={t.eyebrow ?? "Airport transfers"}
         title={t.title ?? "Sangster International to your front door."}

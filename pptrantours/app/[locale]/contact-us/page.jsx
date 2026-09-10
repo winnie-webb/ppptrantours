@@ -10,10 +10,12 @@ import FaqAccordion from "@/app/components/FaqAccordion";
 import SectionHeading from "@/app/components/SectionHeading";
 import ContactForm from "./ContactForm";
 import { site } from "@/app/data/site";
+import { faqSchema } from "@/app/data/schema";
 import SloganBand from "@/app/components/SloganBand";
 import CtaBand from "@/app/components/CtaBand";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
+import JsonLd from "@/app/components/JsonLd";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../layout";
 
@@ -71,6 +73,9 @@ export default async function ContactPage({ params }) {
 
   return (
     <>
+      {/* The eleven Q&As rendered by the accordion below, same source. */}
+      <JsonLd data={faqSchema(dict.faqs)} />
+
       <PageHeader
         eyebrow={t.eyebrow ?? "Get in touch"}
         title={t.title ?? "Tell us your dates. We'll do the rest."}

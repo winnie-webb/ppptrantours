@@ -15,10 +15,12 @@ import { TOURS } from "@/app/data/catalogue";
 import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
+import JsonLd from "@/app/components/JsonLd";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
+import { breadcrumbSchema, transferSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../../layout";
 
@@ -92,6 +94,25 @@ export default async function TransferPage({ params }) {
     place,
   };
 
+  // The last breadcrumb crumb is the area label, which is plain text rather
+  // than a link on the page; BreadcrumbList wants an item for it either way, so
+  // it points at the transfers hub it belongs under.
+  const abs = (path) => `${site.url}${localePath(locale, path)}`;
+  const jsonLd = [
+    transferSchema(
+      place,
+      abs(`/transfer/${place.key}`),
+      site.url,
+      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWay} USD one way per vehicle, ${roundTrip} USD round trip.`
+    ),
+    breadcrumbSchema([
+      { name: dict.nav?.home ?? "Home", url: abs("/") },
+      { name: dict.nav?.transfers ?? "Airport transfers", url: abs("/transfers") },
+      { name: getAreaLabel(place.area), url: abs("/transfers") },
+      { name: place.name, url: abs(`/transfer/${place.key}`) },
+    ]),
+  ];
+
   const included = [
     { Icon: FaPlane, text: t.inc1 ?? "Met inside the arrivals hall with a name board" },
     { Icon: FaClock, text: t.inc2 ?? "Flight tracked — delays cost you nothing" },
@@ -101,6 +122,8 @@ export default async function TransferPage({ params }) {
 
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       {/* Hero */}
       <section className="relative isolate -mt-[4.5rem] overflow-hidden bg-ink pb-12 pt-28 lg:-mt-20 lg:pb-16 lg:pt-36">
         <Image

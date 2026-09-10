@@ -1,3 +1,5 @@
+import { site } from "./data/site";
+
 /**
  * Passthrough root.
  *
@@ -16,5 +18,5 @@ export default function RootLayout({ children }) {
  * localhost.
  */
 export const metadata = {
-  metadataBase: new URL("https://ppptrantoursjamaica.com"),
+  metadataBase: new URL(site.url),
 };

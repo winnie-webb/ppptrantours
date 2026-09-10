@@ -6,7 +6,9 @@ import Footer from "@/app/components/Footer";
 import WhatsAppFab from "@/app/components/WhatsAppFab";
 import { PlaceProvider } from "@/app/components/PlaceProvider";
 import PlacePicker from "@/app/components/PlacePicker";
+import JsonLd from "@/app/components/JsonLd";
 import { site } from "@/app/data/site";
+import { organizationSchema, websiteSchema } from "@/app/data/schema";
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -30,7 +32,7 @@ const display = Fraunces({
   axes: ["SOFT", "WONK", "opsz"],
 });
 
-const BASE = "https://ppptrantoursjamaica.com";
+const BASE = site.url;
 
 export function generateStaticParams() {
   return LOCALES.map((l) => ({ locale: l.code }));
@@ -125,6 +127,13 @@ export default async function LocaleLayout({ children, params }) {
           <WhatsAppFab dict={client} />
           <PlacePicker dict={client} />
         </PlaceProvider>
+
+        {/*
+          One organization node for the whole site, referenced by @id from the
+          per-page Product/Service graphs rather than repeated in each. Emitted
+          once per locale, which is correct: each locale is its own document.
+        */}
+        <JsonLd data={[organizationSchema(BASE), websiteSchema(BASE)]} />
       </body>
     </html>
   );

@@ -1,4 +1,6 @@
-const BASE = "https://ppptrantoursjamaica.com";
+import { site } from "./data/site";
+
+const BASE = site.url;
 
 export default function robots() {
   return {

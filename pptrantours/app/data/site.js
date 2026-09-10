@@ -5,6 +5,19 @@
  */
 
 export const site = {
+  /*
+   * Canonical origin. The 2014 domain, not ppptrantours.com — it carries twelve
+   * years of backlinks and the Tripadvisor references, and the other domain
+   * redirects to it.
+   *
+   * Overridable by SITE_URL so a tunnel can stand in during local testing of
+   * anything that needs an absolute callback URL. No trailing slash: every
+   * caller concatenates a path that starts with one.
+   */
+  url: (process.env.SITE_URL || "https://ppptrantoursjamaica.com").replace(
+    /\/+$/,
+    ""
+  ),
   name: "PPP Tran Tours",
   legalName: "PPP Tran Tours Jamaica",
   longName: "PPP Transfers & Tours Jamaica",

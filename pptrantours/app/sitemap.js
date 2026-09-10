@@ -1,9 +1,10 @@
+import { site } from "./data/site";
 import { TOURS } from "./data/catalogue";
 import { transferPlaces } from "./data/places";
 import { CATEGORIES } from "./products/product";
 import { DEFAULT_LOCALE, LOCALES, localePath } from "./i18n/config";
 
-const BASE = "https://ppptrantoursjamaica.com";
+const BASE = site.url;
 
 /**
  * Every indexable route, in every language.
