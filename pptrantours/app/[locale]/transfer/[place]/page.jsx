@@ -108,7 +108,7 @@ export default async function TransferPage({ params }) {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="640px"
           className="scale-105 object-cover opacity-20 blur-sm"
         />
         <div

@@ -37,6 +37,12 @@ export function PlaceProvider({ children }) {
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
+      /*
+       * Reading an external store on mount is the case this rule cannot see:
+       * the value does not exist during render, and the server render must not
+       * depend on it. `ready` below is what gates every consumer.
+       */
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (stored && getPlace(stored)) setPlaceKey(stored);
     } catch {
       // Private mode, or storage disabled. The site works without it.

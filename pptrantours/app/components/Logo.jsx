@@ -16,12 +16,20 @@ export default function Logo({ light = false, className = "" }) {
           light ? "shadow-md" : "shadow-sm ring-1 ring-ink/[0.06]"
         }`}
       >
+        {/*
+          Rendered at 36 CSS px, so the intrinsic size only needs to cover a
+          high-DPI tile — 288 is 8x. The declared dimensions used to be
+          1085x1071 while the file was actually 900x888, and at that declared
+          width Next generates a 1085px and a 2170px candidate for a 36px mark.
+          The 1531x1502 original is kept in public/brand/logo-master.png.
+        */}
         <Image
           src="/logo.png"
           alt=""
-          width={1085}
-          height={1071}
+          width={288}
+          height={284}
           priority
+          sizes="36px"
           className="h-9 w-9 object-contain"
         />
       </span>

@@ -44,7 +44,22 @@ export async function generateMetadata({ params }) {
       canonical: localePath(locale, `/tour/${id}`),
       languages: languageAlternates(`/tour/${id}`),
     },
+    /*
+     * Next replaces `openGraph` wholesale rather than merging it, so the
+     * type/locale/siteName/url that `[locale]/layout.js` sets are gone unless
+     * they are repeated here — same trap as `alternates.languages` above.
+     */
     openGraph: {
+      title,
+      description: desc.slice(0, 155),
+      type: "article",
+      locale,
+      siteName: site.legalName,
+      url: localePath(locale, `/tour/${id}`),
+      images: [tour.image],
+    },
+    twitter: {
+      card: "summary_large_image",
       title,
       description: desc.slice(0, 155),
       images: [tour.image],
@@ -88,12 +103,18 @@ export default async function TourPage({ params }) {
     <>
       {/* Hero */}
       <section className="relative isolate -mt-[4.5rem] overflow-hidden bg-ink pb-12 pt-28 lg:-mt-20 lg:pb-16 lg:pt-40">
+        {/*
+          A fixed 640px `sizes` rather than 100vw. This is the same photo as the
+          figure below, rendered blurred at 25% opacity, so nothing above 640
+          survives the blur — and asking for 100vw made the hero fetch a second
+          full-width variant of an image the page already loads sharp.
+        */}
         <Image
           src={tour.image}
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="640px"
           className="scale-105 object-cover opacity-25 blur-sm"
         />
         <div
@@ -169,7 +190,6 @@ export default async function TourPage({ params }) {
                 src={tour.image}
                 alt={tour.title}
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
                 className="object-cover"
               />

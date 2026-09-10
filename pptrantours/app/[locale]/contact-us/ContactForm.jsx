@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaCheckCircle,
   FaSpinner,
@@ -63,9 +63,12 @@ export default function ContactForm({ dict }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
 
-  // Filled in after mount so the first client render matches the prerender.
-  const [minDate, setMinDate] = useState("");
-  useEffect(() => setMinDate(todayISO()), []);
+  // Written onto the node directly: a client-only value that would otherwise
+  // cost a whole extra render of the form to add one attribute.
+  const dateRef = useRef(null);
+  useEffect(() => {
+    if (dateRef.current) dateRef.current.min = todayISO();
+  }, []);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -212,8 +215,8 @@ export default function ContactForm({ dict }) {
           </label>
           <input
             id="c-date"
+            ref={dateRef}
             type="date"
-            min={minDate || undefined}
             value={form.date}
             onChange={set("date")}
             className="field"

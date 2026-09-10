@@ -172,7 +172,7 @@ export default function TourGrid({
               tour={tour}
               locale={locale}
               dict={dict}
-              priority={i < 6}
+              priority={i < 3}
             />
           ))}
         </div>

@@ -21,6 +21,11 @@ export default function PlacePicker({ dict }) {
 
   useEffect(() => {
     if (pickerOpen) {
+      /*
+       * The dialog stays mounted so it can animate, so there is no unmount to
+       * clear the query for us. Reopening it must not show the last search.
+       */
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery("");
       // Focus after paint, or the dialog animates with a caret already in it.
       const id = window.requestAnimationFrame(() => inputRef.current?.focus());

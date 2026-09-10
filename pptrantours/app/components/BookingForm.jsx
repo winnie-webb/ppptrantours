@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   FaWhatsapp,
@@ -100,10 +100,21 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
 
-  // Empty on the server and on the first client render, so hydration matches;
-  // see todayISO() above.
-  const [minDate, setMinDate] = useState("");
-  useEffect(() => setMinDate(todayISO()), []);
+  /*
+   * The date floors are written straight onto the DOM nodes rather than held in
+   * state. `min` is a client-only value — a date baked in at build time would be
+   * stale — and setting it through state would mean an extra render of the whole
+   * form on mount purely to add one attribute. The outbound leg cannot be in the
+   * past; the return leg cannot precede the outbound.
+   */
+  const dateRef = useRef(null);
+  const returnDateRef = useRef(null);
+
+  useEffect(() => {
+    const today = todayISO();
+    if (dateRef.current) dateRef.current.min = today;
+    if (returnDateRef.current) returnDateRef.current.min = form.date || today;
+  }, [form.date, tripType]);
 
   const quote = useMemo(() => {
     if (isTransfer) {
@@ -337,10 +348,10 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
             </label>
             <input
               id="date"
+              ref={dateRef}
               type="date"
               required
               aria-required="true"
-              min={minDate || undefined}
               value={form.date}
               onChange={set("date")}
               className="field"
@@ -388,8 +399,8 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
                   </label>
                   <input
                     id="returnDate"
+                    ref={returnDateRef}
                     type="date"
-                    min={form.date || minDate || undefined}
                     value={form.returnDate}
                     onChange={set("returnDate")}
                     className="field"
@@ -486,7 +497,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           isTransfer={isTransfer}
           tripType={tripType}
           adults={adults}
-          children={children}
+          childCount={children}
           needsPlace={needsPlace}
           unpriced={unpriced}
           dict={dict}
@@ -598,7 +609,7 @@ function Breakdown({
   isTransfer,
   tripType,
   adults,
-  children,
+  childCount,
   needsPlace,
   unpriced,
   dict,
@@ -631,9 +642,9 @@ function Breakdown({
 
   const party =
     `${adults} ${adults === 1 ? t.adult ?? "adult" : t.adults ?? "adults"}` +
-    (children > 0
-      ? `, ${children} ${
-          children === 1 ? t.child ?? "child" : t.childrenWord ?? "children"
+    (childCount > 0
+      ? `, ${childCount} ${
+          childCount === 1 ? t.child ?? "child" : t.childrenWord ?? "children"
         }`
       : "");
 
@@ -657,7 +668,7 @@ function Breakdown({
         <div className="flex items-baseline justify-between gap-4 text-xs text-white/45">
           <span>{dict?.booking?.worksOutAt ?? "Works out at"}</span>
           <span className="shrink-0">
-            {money(perPerson(transport.total, adults + children))}{" "}
+            {money(perPerson(transport.total, adults + childCount))}{" "}
             {dict?.price?.perPerson ?? "/ person"}
           </span>
         </div>
@@ -725,7 +736,7 @@ function Breakdown({
             {money(quote.dayTotal)}
           </span>
           <span className="block text-xs text-white/45">
-            {money(perPerson(quote.dayTotal, adults + children))}{" "}
+            {money(perPerson(quote.dayTotal, adults + childCount))}{" "}
             {dict?.price?.perPerson ?? "/ person"}
           </span>
         </span>

@@ -53,14 +53,38 @@ export async function generateMetadata({ params }) {
       canonical: localePath(locale, "/"),
       languages: languageAlternates("/"),
     },
+    /*
+     * `images` and `url` are not optional here.
+     *
+     * Setting an explicit `openGraph` object supersedes the
+     * `app/opengraph-image.jpg` file convention entirely, so this block
+     * previously shipped a `twitter:card` of `summary_large_image` with no
+     * image to put in it — and WhatsApp is where this company's links actually
+     * get pasted. Every page except `tour/[id]` (which sets its own) inherits
+     * this one.
+     */
     openGraph: {
       title: `${site.longName} — ${meta.tagline}`,
       description: meta.description,
       type: "website",
       locale,
       siteName: site.legalName,
+      url: localePath(locale, "/"),
+      images: [
+        {
+          url: "/opengraph-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: `${site.longName} — ${meta.tagline}`,
+        },
+      ],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: {
+      card: "summary_large_image",
+      title: `${site.longName} — ${meta.tagline}`,
+      description: meta.description,
+      images: ["/opengraph-image.jpg"],
+    },
     robots: { index: true, follow: true },
   };
 }
