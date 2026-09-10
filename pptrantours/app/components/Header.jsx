@@ -9,21 +9,29 @@ import {
   FaChevronDown,
   FaPhoneAlt,
   FaWhatsapp,
+  FaPlane,
 } from "react-icons/fa";
 import { CATEGORIES } from "../products/product";
 import { site } from "../data/site";
+import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
+import PlaceChip from "./PlaceChip";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Header() {
+export default function Header({ locale = "en", dict }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toursOpen, setToursOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const nav = dict?.nav ?? {};
+  const cats = dict?.categories ?? {};
+  const path = (p) => localePath(locale, p);
+
   // The homepage hero sits behind a transparent header; every other page needs
   // the solid treatment from the first pixel.
-  const overHero = pathname === "/" && !scrolled;
+  const overHero = pathname === path("/") && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -41,7 +49,6 @@ export default function Header() {
     setToursOpen(false);
   }
 
-  // Lock body scroll while the mobile sheet is open.
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
@@ -49,8 +56,16 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  const links = [
+    { href: path("/tours"), label: nav.tours ?? "Things to do" },
+    { href: path("/transfers"), label: nav.transfers ?? "Airport transfers" },
+    { href: path("/destinations"), label: nav.destinations ?? "Destinations" },
+    { href: path("/about-us"), label: nav.about ?? "About PPP" },
+    { href: path("/contact-us"), label: nav.contact ?? "Contact" },
+  ];
+
   const isActive = (href) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === path("/") ? pathname === href : pathname.startsWith(href);
 
   return (
     <>
@@ -58,7 +73,8 @@ export default function Header() {
       <div className="hidden bg-ink text-white/70 lg:block">
         <div className="shell flex h-9 items-center justify-between text-xs">
           <p className="tracking-wide">
-            Licensed by the Jamaica Tourist Board &amp; Transport Authority
+            {nav.licensed ??
+              "Licensed by the Jamaica Tourist Board & Transport Authority"}
           </p>
           <div className="flex items-center gap-6">
             <a
@@ -77,10 +93,7 @@ export default function Header() {
               <FaWhatsapp className="text-sm" />
               WhatsApp
             </a>
-            <a
-              href={site.contact.emailHref}
-              className="transition hover:text-white"
-            >
+            <a href={site.contact.emailHref} className="transition hover:text-white">
               {site.contact.email}
             </a>
           </div>
@@ -94,13 +107,13 @@ export default function Header() {
             : "border-b border-ink/[0.07] bg-white/85 shadow-[0_1px_24px_-12px_rgba(7,17,13,.25)] backdrop-blur-xl"
         }`}
       >
-        <div className="shell flex h-[4.5rem] items-center gap-4 lg:h-20 lg:gap-8">
-          <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
+        <div className="shell flex h-[4.5rem] items-center gap-3 lg:h-20 lg:gap-5">
+          <Link href={path("/")} aria-label={`${site.name} home`} className="shrink-0">
             <Logo light={overHero} />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="ml-2 hidden items-center gap-1 lg:flex">
+          <nav className="ml-1 hidden items-center gap-0.5 xl:flex">
             <div
               className="relative"
               onMouseEnter={() => setToursOpen(true)}
@@ -110,13 +123,13 @@ export default function Header() {
                 type="button"
                 onClick={() => setToursOpen((v) => !v)}
                 aria-expanded={toursOpen}
-                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition ${
+                className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition ${
                   overHero
                     ? "text-white/90 hover:bg-white/10 hover:text-white"
                     : "text-ink/75 hover:bg-ink/5 hover:text-ink"
                 }`}
               >
-                Tours
+                {nav.tours ?? "Things to do"}
                 <FaChevronDown
                   className={`text-[0.6rem] transition-transform duration-200 ${
                     toursOpen ? "rotate-180" : ""
@@ -131,36 +144,37 @@ export default function Header() {
                       {CATEGORIES.map((c) => (
                         <Link
                           key={c.type}
-                          href={`/category/${c.type}`}
-                          className="rounded-xl px-3 py-2.5 text-sm text-ink/75 transition hover:bg-crimson-50 hover:text-crimson-700"
+                          href={
+                            c.type === "transfers"
+                              ? path("/transfers")
+                              : path(`/category/${c.type}`)
+                          }
+                          className="rounded-xl px-3 py-2.5 transition hover:bg-crimson-50"
                         >
-                          {c.title}
+                          <span className="block text-sm font-medium text-ink">
+                            {cats[c.type]?.title ?? c.title}
+                          </span>
+                          {c.parish && (
+                            <span className="mt-0.5 block text-xs text-ink/45">
+                              {c.parish}
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>
-                    <Link
-                      href="/tours"
-                      className="mt-1 block rounded-xl bg-ink px-3 py-3 text-center text-sm font-semibold text-white transition hover:bg-ink-700"
-                    >
-                      Browse all 100+ tours &amp; transfers
-                    </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {[
-              { href: "/destinations", label: "Destinations" },
-              { href: "/about-us", label: "About PPP" },
-              { href: "/contact-us", label: "Contact" },
-            ].map((l) => (
+            {links.slice(1).map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
                   overHero
                     ? `text-white/90 hover:bg-white/10 hover:text-white ${
-                        isActive(l.href) ? "bg-white/10 text-white" : ""
+                        isActive(l.href) ? "bg-white/10" : ""
                       }`
                     : `text-ink/75 hover:bg-ink/5 hover:text-ink ${
                         isActive(l.href) ? "bg-ink/5 text-ink" : ""
@@ -172,96 +186,117 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-3 lg:flex">
-            <SearchBar compact light={overHero} />
-            <Link href="/tours" className="btn-primary whitespace-nowrap">
-              Book Now
-            </Link>
-          </div>
+          <div className="ml-auto flex items-center gap-1.5">
+            <div className="hidden lg:block">
+              <PlaceChip dict={dict} light={overHero} />
+            </div>
+            <div className="hidden md:block">
+              <SearchBar compact light={overHero} locale={locale} dict={dict} />
+            </div>
+            <LanguageSwitcher locale={locale} light={overHero} />
 
-          {/* Mobile trigger */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            className={`ml-auto grid h-11 w-11 place-items-center rounded-full transition lg:hidden ${
-              overHero ? "bg-white/15 text-white" : "bg-ink/5 text-ink"
-            }`}
-          >
-            <FaBars />
-          </button>
+            <a
+              href={site.contact.whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden shrink-0 items-center gap-2 rounded-full bg-crimson-600 px-4 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:bg-crimson-700 lg:flex"
+            >
+              <FaWhatsapp className="text-base" />
+              {nav.book ?? "Book now"}
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              aria-label={nav.openMenu ?? "Open menu"}
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition xl:hidden ${
+                overHero
+                  ? "bg-white/15 text-white hover:bg-white/25"
+                  : "bg-ink/5 text-ink/70 hover:bg-ink/10"
+              }`}
+            >
+              <FaBars />
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Mobile sheet */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] lg:hidden">
+        <div className="fixed inset-0 z-[70] xl:hidden">
           <div
             className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
+            role="presentation"
           />
-          <div className="absolute inset-y-0 right-0 flex w-full max-w-sm animate-fade-in flex-col bg-white shadow-lift">
-            <div className="flex h-[4.5rem] items-center justify-between border-b border-ink/[0.07] px-5">
+          <div className="absolute inset-y-0 right-0 flex w-[min(22rem,88vw)] flex-col overflow-y-auto bg-white shadow-lift">
+            <div className="flex items-center justify-between border-b border-ink/[0.07] px-5 py-4">
               <Logo />
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
-                className="grid h-10 w-10 place-items-center rounded-full bg-ink/5 text-ink"
+                aria-label={nav.closeMenu ?? "Close menu"}
+                className="grid h-9 w-9 place-items-center rounded-full bg-ink/5 text-ink/60 transition hover:bg-ink/10"
               >
                 <FaTimes />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-5 py-6">
-              <SearchBar onNavigate={() => setMobileOpen(false)} />
-
-              <p className="eyebrow mt-8">Tours &amp; Transfers</p>
-              <div className="mt-3 space-y-0.5">
-                {CATEGORIES.map((c) => (
-                  <Link
-                    key={c.type}
-                    href={`/category/${c.type}`}
-                    className="block rounded-xl px-3 py-2.5 text-[0.95rem] text-ink/80 transition hover:bg-crimson-50 hover:text-crimson-700"
-                  >
-                    {c.title}
-                  </Link>
-                ))}
-              </div>
-
-              <p className="eyebrow mt-8">Company</p>
-              <div className="mt-3 space-y-0.5">
-                {[
-                  { href: "/tours", label: "All Tours" },
-                  { href: "/destinations", label: "Destinations" },
-                  { href: "/about-us", label: "About PPP" },
-                  { href: "/contact-us", label: "Contact" },
-                ].map((l) => (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    className="block rounded-xl px-3 py-2.5 text-[0.95rem] text-ink/80 transition hover:bg-crimson-50 hover:text-crimson-700"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-              </div>
+            <div className="border-b border-ink/[0.07] px-4 py-3">
+              <PlaceChip dict={dict} className="w-full !max-w-none justify-start" />
             </div>
 
-            <div className="space-y-2 border-t border-ink/[0.07] p-5">
+            <div className="px-4 py-3">
+              <SearchBar locale={locale} dict={dict} onNavigate={() => setMobileOpen(false)} />
+            </div>
+
+            <nav className="flex-1 px-3 pb-4">
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-crimson-50"
+                >
+                  {l.label}
+                </Link>
+              ))}
+
+              <p className="px-4 pb-2 pt-5 text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40">
+                {nav.browse ?? "Browse"}
+              </p>
+              {CATEGORIES.map((c) => (
+                <Link
+                  key={c.type}
+                  href={
+                    c.type === "transfers"
+                      ? path("/transfers")
+                      : path(`/category/${c.type}`)
+                  }
+                  className="block rounded-xl px-4 py-2.5 text-sm text-ink/70 transition hover:bg-crimson-50"
+                >
+                  {cats[c.type]?.title ?? c.title}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="space-y-2 border-t border-ink/[0.07] p-4">
               <a
                 href={site.contact.whatsappHref}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary w-full"
               >
-                <FaWhatsapp className="text-base" />
-                WhatsApp {site.contact.phone}
+                <FaWhatsapp className="text-lg" />
+                {nav.book ?? "Book now"}
               </a>
               <a href={site.contact.phoneHref} className="btn-ghost w-full">
                 <FaPhoneAlt className="text-xs" />
-                Call us
+                {site.contact.phone}
               </a>
+              <Link href={path("/transfers")} className="btn-ghost w-full">
+                <FaPlane className="text-xs" />
+                {nav.transfers ?? "Airport transfers"}
+              </Link>
             </div>
           </div>
         </div>

@@ -16,21 +16,50 @@ export function makeReference() {
   return `PPP-${out}`;
 }
 
+const money = (n) => `US$${Number(n ?? 0).toFixed(2)}`;
+
+/**
+ * Pre-filled WhatsApp message.
+ *
+ * Transport and gate fees are listed on separate lines on purpose. Mr. Pugh
+ * reads these messages on his phone and quotes back from them; a single blended
+ * total would have him quoting a number that includes money he never collects.
+ */
 export function buildWhatsAppMessage(booking) {
+  const isTransfer = booking.kind === "transfer";
+
+  const travellers =
+    `${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
+    (booking.children
+      ? `, ${booking.children} child${booking.children === 1 ? "" : "ren"}`
+      : "");
+
   const lines = [
     `Hi PPP Tran Tours, I'd like to book:`,
     ``,
-    `Tour: ${booking.tourTitle}`,
+    `${isTransfer ? "Transfer" : "Tour"}: ${booking.tourTitle}`,
     `Reference: ${booking.reference}`,
-    `Pickup: ${booking.pickupLabel}`,
+    booking.placeLabel
+      ? `${isTransfer ? "Destination" : "Staying at"}: ${booking.placeLabel}`
+      : null,
+    isTransfer && booking.tripType
+      ? `Trip: ${booking.tripType === "one-way" ? "One way" : "Round trip"}`
+      : null,
     `Date: ${booking.date}${booking.time ? ` at ${booking.time}` : ""}`,
-    `Travellers: ${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
-      (booking.children
-        ? `, ${booking.children} child${booking.children === 1 ? "" : "ren"}`
-        : ""),
+    booking.returnDate ? `Return: ${booking.returnDate}` : null,
+    `Travellers: ${travellers}`,
     booking.flightNumber ? `Flight: ${booking.flightNumber}` : null,
-    booking.hotel ? `Staying at: ${booking.hotel}` : null,
-    `Estimated total: US$${Number(booking.total ?? 0).toFixed(2)}`,
+    booking.returnFlight ? `Return flight: ${booking.returnFlight}` : null,
+    ``,
+    booking.transportTotal != null
+      ? `Transport (PPP): ${money(booking.transportTotal)}`
+      : `Transport: please quote me`,
+    ...(booking.entryLines?.length
+      ? [`Entry fees at the gate:`, ...booking.entryLines.map((l) => `  · ${l}`)]
+      : []),
+    booking.transportTotal != null && booking.entryTotal
+      ? `Estimated day total: ${money(booking.transportTotal + booking.entryTotal)}`
+      : null,
     ``,
     `Name: ${booking.name}`,
     `Email: ${booking.email}`,

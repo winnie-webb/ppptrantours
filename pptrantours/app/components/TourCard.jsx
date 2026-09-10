@@ -1,12 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaClock, FaArrowRight } from "react-icons/fa";
-import { formatPrice, getCategoryShort } from "../products/product";
+import { localePath } from "@/app/i18n/config";
+import { getCategoryShort } from "../products/product";
+import TourPrice from "./TourPrice";
 
-export default function TourCard({ tour, priority = false, className = "" }) {
+export default function TourCard({
+  tour,
+  locale = "en",
+  dict,
+  priority = false,
+  className = "",
+}) {
+  const href =
+    tour.kind === "transfer"
+      ? localePath(locale, `/transfers#${tour.id}`)
+      : localePath(locale, `/tour/${tour.id}`);
+
+  const badge =
+    tour.kind === "combo"
+      ? dict?.categories?.combos?.short ?? "Combo"
+      : dict?.categories?.[tour.region]?.short ?? getCategoryShort(tour.region);
+
   return (
     <Link
-      href={`/product/${tour.id}`}
+      href={href}
       className={`group flex flex-col overflow-hidden rounded-2xl border border-ink/[0.07] bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift ${className}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-ink/5">
@@ -23,11 +41,11 @@ export default function TourCard({ tour, priority = false, className = "" }) {
           className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent opacity-70"
         />
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-ink/70 backdrop-blur">
-          {getCategoryShort(tour.category)}
+          {badge}
         </span>
         <span className="absolute bottom-3 left-3 flex items-center gap-1.5 text-xs font-medium text-white/90">
           <FaClock className="text-[0.65rem]" />
-          {tour.duration}
+          {dict?.durations?.[tour.duration] ?? tour.duration}
         </span>
       </div>
 
@@ -35,20 +53,15 @@ export default function TourCard({ tour, priority = false, className = "" }) {
         <h3 className="font-display text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-crimson-700">
           {tour.title}
         </h3>
+        {tour.subtitle && (
+          <p className="mt-0.5 text-xs font-medium text-ink/40">{tour.subtitle}</p>
+        )}
         <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink/60">
           {tour.desc}
         </p>
 
         <div className="mt-5 flex items-end justify-between border-t border-ink/[0.07] pt-4">
-          <div>
-            <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-ink/45">
-              From
-            </span>
-            <span className="font-display text-2xl font-semibold text-crimson-700">
-              {formatPrice(tour.priceLowest)}
-            </span>
-            <span className="ml-1 text-xs text-ink/45">/ person</span>
-          </div>
+          <TourPrice tour={tour} dict={dict} />
           <span className="grid h-9 w-9 place-items-center rounded-full bg-crimson-50 text-crimson-700 transition-all duration-300 group-hover:bg-crimson-600 group-hover:text-white">
             <FaArrowRight className="text-xs" />
           </span>

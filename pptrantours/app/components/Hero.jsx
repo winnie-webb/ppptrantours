@@ -5,10 +5,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaStar, FaWhatsapp, FaArrowRight } from "react-icons/fa";
 import { site } from "../data/site";
+import { localePath } from "@/app/i18n/config";
 
 const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
 
-export default function Hero() {
+export default function Hero({ locale = "en", dict }) {
+  const t = dict?.hero ?? {};
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -57,10 +59,10 @@ export default function Hero() {
                   <FaStar key={i} className="text-[0.65rem]" />
                 ))}
               </span>
-              {site.rating.score} · {site.rating.count} reviews
+              {site.rating.score} · {site.rating.count} {dict?.common?.reviews ?? "reviews"}
             </span>
             <span className="hidden text-xs font-medium uppercase tracking-[0.18em] text-white/55 sm:inline">
-              {site.tagline}
+              {t.tagline ?? site.tagline}
             </span>
           </div>
 
@@ -68,9 +70,9 @@ export default function Hero() {
             className="mt-6 animate-fade-up font-display text-[2.75rem] font-semibold leading-[1.03] text-white sm:text-6xl lg:text-[4.75rem]"
             style={{ animationDelay: "80ms" }}
           >
-            Approach Jamaica
+            {t.h1a ?? "Approach Jamaica"}
             <br />
-            <span className="text-gold-400">with confidence…</span>
+            <span className="text-gold-400">{t.h1b ?? "with confidence…"}</span>
           </h1>
 
           {/*
@@ -98,14 +100,20 @@ export default function Hero() {
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
             style={{ animationDelay: "160ms" }}
           >
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Private</strong>{" "}
-            pickups for airport transfers and island-wide tours from all major
-            hotels and cruise ports.{" "}
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Personalized</strong>{" "}
-            service gives you total flexibility to customize your day-trips.
-            Clean, pre-cooled vehicles driven by a licensed, mature,
-            down-to-earth{" "}
-            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">Professional</strong>.
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">
+              {t.p1 ?? "Private"}
+            </strong>{" "}
+            {t.lead1 ??
+              "pickups for airport transfers and island-wide tours from all major hotels and cruise ports."}{" "}
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">
+              {t.p2 ?? "Personalized"}
+            </strong>{" "}
+            {t.lead2 ??
+              "service gives you total flexibility to customize your day-trips. Clean, pre-cooled vehicles driven by a licensed, mature, down-to-earth"}{" "}
+            <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">
+              {t.p3 ?? "Professional"}
+            </strong>
+            .
           </p>
 
 
@@ -113,12 +121,12 @@ export default function Hero() {
             className="mt-9 flex animate-fade-up flex-wrap items-center gap-3"
             style={{ animationDelay: "240ms" }}
           >
-            <Link href="/tours" className="btn-gold group">
-              Explore tours
+            <Link href={localePath(locale, "/tours")} className="btn-gold group">
+              {t.explore ?? "Explore tours"}
               <FaArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/category/at" className="btn-ghost-light">
-              Book an airport transfer
+            <Link href={localePath(locale, "/transfers")} className="btn-ghost-light">
+              {t.transfer ?? "Book an airport transfer"}
             </Link>
             <a
               href={site.contact.whatsappHref}

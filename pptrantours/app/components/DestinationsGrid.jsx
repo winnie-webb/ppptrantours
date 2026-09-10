@@ -2,22 +2,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import { destinations } from "../data/site";
+import { localePath } from "@/app/i18n/config";
 import SectionHeading from "./SectionHeading";
 
 /**
  * Editorial mosaic: the first destination takes a double-height feature tile,
  * the rest fill in around it.
  */
-export default function DestinationsGrid({ heading = true }) {
+export default function DestinationsGrid({ heading = true, locale = "en", dict }) {
+  const t = dict?.destinations ?? {};
   return (
     <section className="shell py-16 lg:py-24">
       {heading && (
         <SectionHeading
-          eyebrow="Where we go"
-          title="Every parish worth the drive."
-          description="We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day."
-          href="/tours"
-          linkLabel="Browse tours"
+          eyebrow={t.eyebrow ?? "Where we go"}
+          title={t.title ?? "Every parish worth the drive."}
+          description={
+            t.description ??
+            "We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day."
+          }
+          href={localePath(locale, "/tours")}
+          linkLabel={t.browse ?? "Browse tours"}
         />
       )}
 
@@ -28,7 +33,7 @@ export default function DestinationsGrid({ heading = true }) {
           <Link
             key={d.slug}
             id={d.slug}
-            href="/tours"
+            href={localePath(locale, `/category/${d.slug}`)}
             className={`group relative isolate overflow-hidden rounded-2xl scroll-mt-28 ${
               i === 0 ? "lg:col-span-2 lg:row-span-2 min-h-[20rem]" : "min-h-[15rem]"
             }`}

@@ -1,0 +1,919 @@
+{
+  "meta": {
+    "tagline": "Privé. Persoonlijk. Professioneel.",
+    "description": "Privétransfers vanaf de luchthaven, excursies over het eiland en tochten vanaf de cruisekades op Jamaica — één prijs voor het hele voertuig, entreegelden altijd apart vermeld en nooit met opslag.",
+    "keywords": [
+      "luchthaventransfer Jamaica",
+      "privétours Montego Bay",
+      "transfer luchthaven Sangster",
+      "wat te doen op Jamaica",
+      "excursies Negril",
+      "excursies Ocho Rios",
+      "cruise-excursies Falmouth",
+      "PPP Tran Tours"
+    ]
+  },
+
+  "common": {
+    "reviews": "beoordelingen",
+    "seeAll": "Alles bekijken",
+    "scrollLeft": "Naar links scrollen",
+    "scrollRight": "Naar rechts scrollen",
+    "whatsappAria": "Stuur ons een bericht op WhatsApp",
+    "chatWithUs": "Stuur ons een bericht"
+  },
+
+  "nav": {
+    "home": "Home",
+    "tours": "Wat te doen",
+    "transfers": "Luchthaventransfers",
+    "destinations": "Bestemmingen",
+    "about": "Over PPP",
+    "contact": "Contact",
+    "book": "Boeken",
+    "browse": "Bekijken",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority"
+  },
+
+  "durations": {
+    "Full day": "Hele dag",
+    "Half day": "Halve dag",
+    "Evening": "'s Avonds",
+    "Door to door": "Van deur tot deur"
+  },
+
+  "zones": {
+    "mobay-hotels": "Hotels in Montego Bay",
+    "mobay-pier": "Cruisekade Montego Bay",
+    "falmouth-hotels": "Hotels in Falmouth en Trelawny",
+    "falmouth-pier": "Cruisekade Falmouth",
+    "palladium": "Grand Palladium / Lady Hamilton"
+  },
+
+  "areas": {
+    "montego-bay": "Montego Bay",
+    "falmouth": "Falmouth en Trelawny",
+    "hanover": "Hanover en Green Island",
+    "ocho-rios": "Ocho Rios en St. Ann",
+    "negril": "Negril",
+    "south-coast": "Zuidkust",
+    "piers": "Cruisekades"
+  },
+
+  "categories": {
+    "popular": {
+      "title": "De populairste tours",
+      "short": "Populairst",
+      "blurb": "De dagen waar mensen bij naam om vragen. Dunn's River, het Blue Hole, Rick's Cafe bij zonsondergang — de dagen die in het fotoalbum belanden."
+    },
+    "transfers": {
+      "title": "Luchthaventransfers",
+      "short": "Transfers",
+      "blurb": "Vaste, gepubliceerde tarieven vanaf Sangster International naar elk resort dat we bedienen. Eén prijs voor maximaal vier personen."
+    },
+    "combos": {
+      "title": "Combipakketten",
+      "short": "Combi's",
+      "blurb": "Twee attracties op één dag, in dezelfde streek en een halfuur van elkaar. U betaalt iets meer voor de rit, niet het dubbele voor de dag."
+    },
+    "montego-bay": {
+      "title": "Wat te doen in Montego Bay",
+      "short": "Montego Bay",
+      "blurb": "Onze eigen parish. Rose Hall, Doctor's Cave, de Hip Strip en de dolfijnen — de korte ritten die naast een halve strandmiddag passen."
+    },
+    "ocho-rios": {
+      "title": "Wat te doen in Ocho Rios",
+      "short": "Ocho Rios",
+      "blurb": "Dunn's River Falls, het Blue Hole, Mystic Mountain, Dolphin Cove en Bob Marleys Nine Mile — St. Ann heeft meer publiekstrekkers dan welke andere parish ook."
+    },
+    "falmouth": {
+      "title": "Wat te doen in Falmouth",
+      "short": "Falmouth",
+      "blurb": "Het beste van Trelawny: bamboevlotten op de Martha Brae, tubing op de rivier en de Lichtgevende Lagune na zonsondergang."
+    },
+    "negril": {
+      "title": "Wat te doen in Negril",
+      "short": "Negril",
+      "blurb": "Seven Mile Beach en de kliffen van West End. Geen van beide vraagt entree — u betaalt ons de rit en verder niets."
+    },
+    "south-coast": {
+      "title": "Wat te doen aan de Zuidkust",
+      "short": "Zuidkust",
+      "blurb": "YS Falls, de krokodillensafari op de Black River en het Appleton-landgoed. De rustige kant van het eiland, en de langere rit waard."
+    }
+  },
+
+  "price": {
+    "from": "Vanaf",
+    "fromYourResort": "Vanaf uw hotel",
+    "askUs": "Vraag het ons",
+    "weWillQuote": "wij geven u de prijs",
+    "perVehicle": "voor maximaal 4"
+  },
+
+  "place": {
+    "title": "Waar logeert u?",
+    "subtitle": "Kies uw hotel en elke prijs op de site wordt de uwe — geen zones om uit te puzzelen.",
+    "search": "Zoek hotels, resorts en kades…",
+    "close": "Sluiten",
+    "noMatch": "Geen resultaat. Kies het dichtstbijzijnde hotel of vermeld het bij de opmerkingen — we rijden het hele eiland rond.",
+    "footnote": "Staat het er niet bij? Kies het dichtstbijzijnde voor een prijsindicatie en stuur ons dan een bericht — we komen in elke uithoek van het eiland.",
+    "prompt": "Waar logeert u?",
+    "change": "Hotel wijzigen"
+  },
+
+  "placePrompt": {
+    "title": "Waar logeert u?",
+    "body": "Noem uw hotel, resort of cruisekade en elke prijs op de site wordt de uwe — geen zones, geen giswerk.",
+    "showingFor": "Prijzen voor",
+    "chosenBody": "Alle prijzen op de site zijn nu de echte prijs vanaf uw hotel, met vervoer en entree apart vermeld.",
+    "choose": "Kies uw hotel",
+    "change": "Hotel wijzigen"
+  },
+
+  "search": {
+    "label": "Zoeken",
+    "placeholder": "Zoek tours of uw hotel…",
+    "clear": "Zoekopdracht wissen",
+    "noResults": "Niets gevonden. Probeer „Dunn's River”, „Negril” of de naam van uw hotel.",
+    "tours": "Tours",
+    "transfers": "Luchthaventransfers",
+    "from": "vanaf",
+    "oneWay": "enkele reis",
+    "askUs": "vraag het ons"
+  },
+
+  "grid": {
+    "filter": "Filter op naam of trefwoord…",
+    "filterCategory": "Filter op categorie",
+    "allCategories": "Alle categorieën",
+    "sort": "Resultaten sorteren",
+    "priceAsc": "Prijs: laag naar hoog",
+    "priceDesc": "Prijs: hoog naar laag",
+    "az": "Naam: A–Z",
+    "showing": "Weergegeven",
+    "of": "van",
+    "emptyTitle": "Niets komt overeen met deze filters.",
+    "emptyBody": "Probeer een bredere zoekopdracht — of vraag het ons rechtstreeks, we stellen voortdurend dagen op maat samen.",
+    "clear": "Filters wissen",
+    "prev": "Vorige pagina",
+    "next": "Volgende pagina"
+  },
+
+  "booking": {
+    "transportLabel": "Vervoer",
+    "transferPrice": "Privétransfer",
+    "perVehicleLong": "per voertuig",
+    "pickResortFirst": "Kies uw hotel",
+    "askUsPrice": "Wij geven u de prijs",
+    "stayingAt": "Waar logeert u?",
+    "choosePlace": "Kies uw hotel of kade",
+    "choose": "Kiezen",
+    "change": "Wijzigen",
+    "tripType": "Soort rit",
+    "roundTrip": "Heen en terug",
+    "oneWay": "Enkele reis",
+    "transferTo": "Naar",
+    "adults": "Volwassenen",
+    "adult": "volwassene",
+    "children": "Kinderen",
+    "child": "kind",
+    "childrenWord": "kinderen",
+    "vehicleNote": "Eén privévoertuig dekt tot 4 personen voor dezelfde prijs.",
+    "extraNote": "Grotere groep — de prijs hierboven bevat de extra passagiers al.",
+    "gateNote": "Wordt bij de ingang betaald, niet aan ons.",
+    "addons": "Optionele extra's",
+    "fromWord": "vanaf",
+    "childWord": "kind",
+    "tourDate": "Datum van de tour",
+    "arrivalDate": "Aankomstdatum",
+    "pickupTime": "Ophaaltijd",
+    "landingTime": "Landingstijd",
+    "flightNumber": "Vluchtnummer aankomst",
+    "flightNote": "We volgen de vlucht en passen ons zonder meerkosten aan bij vertraging.",
+    "returnDate": "Terugreisdatum",
+    "returnFlight": "Terugvlucht",
+    "name": "Volledige naam",
+    "email": "E-mail",
+    "phone": "Telefoon / WhatsApp",
+    "notes": "Is er iets wat we moeten weten?",
+    "notesPlaceholder": "Kinderzitjes, extra stops, een tweede attractie die u erbij wilt…",
+    "pickResortHint": "Vertel ons in welk hotel u logeert en hier verschijnt de exacte prijs voor uw groep.",
+    "unpricedHint": "Voor deze tour hebben we vanaf uw hotel geen vast tarief gepubliceerd. Stuur de aanvraag door, dan komen we met een vaste prijs — dezelfde dag nog, zonder opslag.",
+    "extraBreakdown": "Inclusief de passagiers boven de eerste vier.",
+    "transportIsOurs": "Dit is wat PPP rekent. Er komt niets bij.",
+    "gatesLabel": "Bij de ingang te betalen",
+    "gatesNote": "Toegangskaarten van de attracties, op de dag zelf te betalen. We verkopen ze nooit door en rekenen er niets bovenop.",
+    "dayTotal": "Uw dag, alles bij elkaar",
+    "total": "Totaal",
+    "errorSaving": "We konden die boeking niet opslaan. Probeer het opnieuw, of stuur hem ons via WhatsApp — dan bevestigen we hem handmatig.",
+    "sending": "Bezig met verzenden…",
+    "submit": "Deze boeking aanvragen",
+    "requestQuote": "Prijs opvragen",
+    "noPayment": "Er wordt nu niets afgeschreven — we bevestigen eerst de beschikbaarheid.",
+    "ratherMessage": "Liever gewoon een bericht sturen?",
+    "doneTitle": "Aanvraag ontvangen.",
+    "doneRef": "Uw referentie is",
+    "doneBody": "Bewaar hem — wie hem noemt, krijgt het snelst antwoord. We bevestigen uw chauffeur en de precieze ophaaltijd per e-mail.",
+    "notPersisted": "De opslag van boekingen staat op deze site nog niet aan. Stuur ons de gegevens hieronder via WhatsApp, dan zetten we het vast.",
+    "confirmWhatsApp": "Bevestigen via WhatsApp",
+    "browseMore": "Meer tours bekijken"
+  },
+
+  "fare": {
+    "from": "Vanaf Sangster International (MBJ)",
+    "destination": "Naar welk hotel brengen we u?",
+    "choose": "Kies uw hotel of resort…",
+    "tripType": "Soort rit",
+    "roundTrip": "Retour",
+    "oneWay": "Enkele reis",
+    "passengers": "Passagiers",
+    "fewer": "Minder passagiers",
+    "more": "Meer passagiers",
+    "note": "Eén privévoertuig dekt tot 4 passagiers voor een vaste prijs. De tarieven zijn in Amerikaanse dollars en zijn inclusief ontvangst in de aankomsthal.",
+    "prompt": "Kies uw hotel en het exacte tarief verschijnt hier — geen formulieren, geen wachten op een e-mail.",
+    "roundTripLabel": "Privétransfer heen en terug",
+    "oneWayLabel": "Privétransfer enkele reis",
+    "upTo": "Tot 4 passagiers",
+    "extraPassenger": "extra passagier",
+    "book": "Deze transfer boeken",
+    "ask": "Een vraag stellen"
+  },
+
+  "hero": {
+    "tagline": "Privé. Persoonlijk. Professioneel.",
+    "h1a": "Ontdek Jamaica",
+    "h1b": "met vertrouwen…",
+    "p1": "Privé",
+    "p2": "Persoonlijke",
+    "p3": "Professional",
+    "lead1": "ophaalservice voor luchthaventransfers en tours over het hele eiland, vanaf alle grote hotels en cruisehavens.",
+    "lead2": "service geeft u alle vrijheid om uw dagtochten zelf in te vullen. Schone, vooraf gekoelde voertuigen, gereden door een vergunde, ervaren en nuchtere",
+    "explore": "Tours bekijken",
+    "transfer": "Luchthaventransfer boeken"
+  },
+
+  "stats": {
+    "rating": { "label": "Tripadvisor-score", "sub": "680 beoordelingen" },
+    "years": { "label": "Jaar onderweg", "sub": "Sinds 2010" },
+    "private": { "label": "Privéservice", "sub": "Nooit een gedeeld busje" },
+    "guests": { "label": "Vervoerde gasten", "sub": "Uit meer dan 30 landen" }
+  },
+
+  "promise": {
+    "eyebrow": "Waar PPP voor staat",
+    "title": "Drie beloften, al in de naam.",
+    "description": "Sinds 2010 is de lat niet verschoven: uw eigen voertuig, een dag rond wat u echt wilt zien, en een vergunde professional achter het stuur.",
+    "meet": "Maak kennis met Mr. Pugh",
+    "words": {
+      "Private": {
+        "word": "Privé",
+        "body": "Uw groep, uw voertuig, uw schema. Niemand anders aan boord en geen vast vertrektijdstip om te halen."
+      },
+      "Personalized": {
+        "word": "Persoonlijk",
+        "body": "Twee attracties op één dag? Onderweg terug stoppen bij een jerk-grill? Combidagen zijn geen probleem en blijven redelijk geprijsd."
+      },
+      "Professional": {
+        "word": "Professioneel",
+        "body": "Opgeleid, vergund, verzekerd. Vluchten worden gevolgd, ophalen gebeurt op tijd, en er is één nummer dat altijd opneemt."
+      }
+    }
+  },
+
+  "browse": {
+    "eyebrow": "Wat te doen op Jamaica",
+    "title": "Waar wilt u de dag doorbrengen?",
+    "description": "Blader per parish, of op het soort dag dat u zoekt. Alle prijzen zijn vervoerprijzen voor het hele voertuig, met de entreegelden ernaast vermeld.",
+    "seeEverything": "Alles bekijken",
+    "option": "optie",
+    "options": "opties"
+  },
+
+  "home": {
+    "popularEyebrow": "Favorieten van gasten",
+    "popularTitle": "De tours die mensen twee keer boeken.",
+    "popularDescription": "Dunn's River, het Blue Hole, Rick's Cafe bij zonsondergang — de dagen die in het fotoalbum belanden.",
+    "transfersEyebrow": "Luchthaventransfers",
+    "transfersTitle": "Van Sangster tot aan uw deur.",
+    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één vaste prijs voor maximaal vier personen, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
+    "allRates": "Alle tarieven",
+    "combosEyebrow": "Twee op één dag",
+    "combosTitle": "Combipakketten, zonder haast.",
+    "combosDescription": "De meeste van onze combitours liggen in dezelfde streek, hooguit 20–30 minuten rijden uit elkaar. Zo doet u ze allebei op één dag en rekenen wij alleen iets extra voor de rit en het wachten.",
+    "faqEyebrow": "Goed om te weten",
+    "faqTitle": "De vragen die we het vaakst krijgen.",
+    "faqDescription": "Voor al het andere kunt u ons gewoon een bericht sturen — er antwoordt iemand, zeven dagen per week.",
+    "askUs": "Stel ons een vraag"
+  },
+
+  "transparency": {
+    "eyebrow": "Geen verborgen kosten",
+    "title": "Wij houden het eerlijk. Altijd transparant.",
+    "body": "PPP Tran Tours Jamaica is een betrouwbaar particulier vervoersbedrijf dat niet in verborgen kosten gelooft. Naast de vrijheid om uw eigen route te bepalen, vertellen we u wat alles rond uw dagtocht gaat kosten — zodat u altijd weet wat u te wachten staat en hoeveel contant geld u eventueel mee moet nemen. Wij verkopen activiteiten, entreegelden of maaltijden nooit door en rekenen er nooit iets bovenop.",
+    "groups": "We nemen groepen van elke omvang aan, groot of klein.",
+    "seeCombos": "Bekijk de combipakketten",
+    "seeRates": "Bekijk alle transfertarieven"
+  },
+
+  "slogan": {
+    "line": "Ontdek Jamaica",
+    "emphasis": "met Vertrouwen",
+    "full": "Ontdek Jamaica met vertrouwen."
+  },
+
+  "comboPitch": {
+    "eyebrow": "Best verkocht",
+    "title": "De topcombinaties van PPP.",
+    "sellers": [
+      "YS Falls en Black River-safari",
+      "YS Falls en rumlandgoed Appleton",
+      "Paardrijden met zwemmen en tubing bij River Rapids",
+      "Seven Mile Beach in Negril en Rick's Cafe",
+      "Blue Hole en Dunn's River Falls",
+      "Dunn's River Falls en Mystic Mountain",
+      "Vlotvaren op de Martha Brae en Doctor's Cave Beach"
+    ],
+    "body": "De meeste van onze combitours liggen in dezelfde streek, hooguit 20–30 minuten rijden van elkaar, dus u kunt ze allebei op dezelfde dag doen en wij rekenen alleen iets extra voor het vervoer en het wachten.",
+    "challenge": "Daag onze flexibiliteit uit en vertel ons welke tours u zou willen combineren. Als het kan, regelen we het voor een redelijke prijs.",
+    "groups": "We nemen groepen van elke omvang aan, groot of klein.",
+    "buildMyDay": "Mijn dag samenstellen"
+  },
+
+  "destinations": {
+    "eyebrow": "Waar we heen gaan",
+    "title": "Elke parish die de rit waard is.",
+    "description": "Vanuit onze basis in Montego Bay bestrijken we het hele eiland — kies een kust en we brengen u er dezelfde dag heen en weer terug.",
+    "browse": "Tours bekijken"
+  },
+
+  "testimonials": {
+    "eyebrow": "Beoordelingen van gasten",
+    "title": "680 beoordelingen. Geen enkele onder de vijf sterren.",
+    "description": "De meeste noemen Mr. Pugh bij naam. Beoordelingen worden getoond in de taal waarin ze zijn geschreven."
+  },
+
+  "gallery": {
+    "eyebrow": "De galerij",
+    "title": "Echte dagen, echte gasten.",
+    "description": "Elke foto hier is op onze eigen tours gemaakt — geen stockeilanden, geen geleende voertuigen. Zo ziet de dag er echt uit."
+  },
+
+  "fleet": {
+    "eyebrow": "Ons wagenpark",
+    "title": "Afgestemd op uw groep, niet andersom.",
+    "description": "Elk voertuig is geklimatiseerd, gekeurd en verzekerd voor personenvervoer. Voor bruiloften en groepen tot dertig personen zijn grotere bussen beschikbaar.",
+    "caption": "Mr. Pugh verwelkomt gasten op Sangster International, Montego Bay.",
+    "vehicles": {
+      "sedan": {
+        "name": "Executive sedan",
+        "blurb": "Personenauto voor stellen en alleenreizenden die rustig willen rijden.",
+        "seats": "1–3 gasten",
+        "bags": "3 koffers"
+      },
+      "minivan": {
+        "name": "Privé-minivan",
+        "blurb": "Ons werkpaard. Ruimte om er goed bij te zitten op de lange ritten over het eiland.",
+        "seats": "4–6 gasten",
+        "bags": "6 koffers"
+      },
+      "touring": {
+        "name": "Touringbus",
+        "blurb": "Voor gezinnen en groepen die samen reizen, met bagageruimte die daarbij past.",
+        "seats": "7–14 gasten",
+        "bags": "14 koffers"
+      }
+    }
+  },
+
+  "cta": {
+    "eyebrow": "Wanneer u maar wilt",
+    "title": "Geef ons uw vluchtnummer. De rest regelen wij.",
+    "body": "In het hoogseizoen zijn onze dagen snel vol. Stuur ons uw data en de groepsgrootte, dan komen we met een plan en een prijs — meestal binnen het uur.",
+    "send": "Bericht sturen",
+    "hours": "De centrale is 7 dagen per week bereikbaar van 6:00 tot 22:00 uur. Vluchten worden op elk uur opgehaald."
+  },
+
+  "footer": {
+    "tours": "Wat te doen",
+    "destinations": "Bestemmingen",
+    "about": "Over PPP",
+    "contact": "Contact en FAQ",
+    "getInTouch": "Neem contact op",
+    "viewAll": "Alles bekijken",
+    "rights": "Alle rechten voorbehouden.",
+    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority of Jamaica."
+  },
+
+  "tourPage": {
+    "about": "Over deze tour",
+    "highlights": "Hoogtepunten",
+    "included": "Wat is inbegrepen",
+    "inc1": "Privé, geklimatiseerd voertuig, alleen voor u",
+    "inc2": "Vergunde, verzekerde lokale chauffeur en gids",
+    "inc3": "Ophalen en terugbrengen voor de deur",
+    "inc4": "Geen vast vertrektijdstip — u bepaalt het tempo",
+    "transportTable": "Wat het vervoer kost",
+    "transportTableNote": "Eén privévoertuig, tot 4 personen, in Amerikaanse dollars. Vanaf de vijfde passagier komt er per persoon het tweede bedrag bij.",
+    "pickingUpFrom": "We halen u op bij",
+    "upToFour": "Tot 4",
+    "eachExtra": "Elke extra",
+    "otherResorts": "Logeert u ergens anders? We rijden deze tocht gewoon — stuur ons een bericht en we geven u de prijs voor uw hotel.",
+    "entryTable": "Wat de attractie rekent",
+    "entryTableNote": "Op de dag zelf bij de ingang te betalen, rechtstreeks aan de attractie. We verkopen deze kaartjes nooit door en rekenen er niets bovenop.",
+    "noEntry": "Niets. Hier is geen entreegeld.",
+    "entryItem": "Ticket",
+    "entryAdult": "Volwassene",
+    "entryChild": "Kind",
+    "optional": "optioneel",
+    "alsoLike": "Misschien ook iets voor u",
+    "moreTours": "Meer tours"
+  },
+
+  "toursPage": {
+    "metaTitle": "Wat te doen op Jamaica",
+    "metaDescription": "Alle tours van PPP Tran Tours, per parish — Montego Bay, Ocho Rios, Falmouth, Negril en de Zuidkust. Vervoer geprijsd per voertuig, entreegelden apart vermeld.",
+    "eyebrow": "De catalogus",
+    "title": "Wat te doen op Jamaica.",
+    "description": "Alle tours die we rijden, met de vervoerprijs en het entreegeld apart vermeld, zodat u precies ziet wat van ons is en wat van de attractie.",
+    "crumb": "Wat te doen",
+    "parishEyebrow": "Per parish",
+    "parishTitle": "Kies een hoek van het eiland.",
+    "parishDescription": "Onze basis is Montego Bay en we rijden overal heen. Dit zijn de dagen die we het vaakst doen.",
+    "tour": "tour",
+    "toursWord": "tours"
+  },
+
+  "categoryPage": {
+    "eyebrow": "Bekijken"
+  },
+
+  "transfersPage": {
+    "metaTitle": "Luchthaventransfers Montego Bay",
+    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar alle grote Jamaicaanse resorts. Vaste tarieven tot vier passagiers, vlucht gevolgd, ontvangst in de aankomsthal.",
+    "eyebrow": "Luchthaventransfers",
+    "title": "Van Sangster International tot aan uw deur.",
+    "description": "Vaste, gepubliceerde tarieven naar elk resort dat we bedienen. Kies hieronder uw hotel en zie het tarief voordat u ons ook maar één gegeven geeft.",
+    "p1Title": "Ontvangst in de aankomsthal",
+    "p1Body": "Uw chauffeur staat in de hal met een naambord, niet ergens op een parkeerplaats.",
+    "p2Title": "Vlucht gevolgd",
+    "p2Body": "Landt u later, dan weten wij het eerder dan u — en wachten kost niets.",
+    "p3Title": "Altijd privé",
+    "p3Body": "Alleen uw groep. Geen gedeeld busje, geen rondje langs andere hotels eerst.",
+    "p4Title": "De prijs is de prijs",
+    "p4Body": "Eén vast tarief voor maximaal vier personen. Geen brandstoftoeslag, geen luchthaventoeslag.",
+    "ratesEyebrow": "Al onze tarieven",
+    "ratesTitle": "De volledige prijslijst, open en bloot.",
+    "ratesDescription": "Eén privévoertuig voor maximaal vier passagiers. Het tweede bedrag is wat elke passagier boven de vierde erbij kost.",
+    "resort": "Hotel",
+    "oneWay": "Enkele reis",
+    "roundTrip": "Retour",
+    "each": "Elke extra",
+    "book": "Boeken",
+    "notListed": "Villa, Airbnb of een hotel dat er niet bij staat? We komen overal op het eiland — stuur ons het adres en we geven u dezelfde dag nog de prijs."
+  },
+
+  "transferPage": {
+    "metaTitle": "Luchthaventransfer naar {resort} voor {fare}",
+    "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst in de aankomsthal.",
+    "h1": "Privé-luchthaventransfer naar {resort}",
+    "intro": "Van Sangster International (MBJ) naar {resort} — {fare} enkele reis voor maximaal {capacity} passagiers. Uw chauffeur staat met een naambord in de aankomsthal en brengt u er rechtstreeks heen.",
+    "transferTo": "Luchthaventransfer naar",
+    "oneWay": "Enkele reis",
+    "roundTrip": "Retour",
+    "perExtra": "per extra",
+    "whatYouGet": "Wat het tarief dekt",
+    "inc1": "Ontvangst in de aankomsthal met een naambord",
+    "inc2": "Vlucht gevolgd — vertraging kost u niets",
+    "inc3": "Privé, geklimatiseerd voertuig, alleen uw groep",
+    "inc4": "Vergunde, verzekerde chauffeur die de bagage aanpakt",
+    "pricing": "Hoe de prijs werkt",
+    "party": "Uw gezelschap",
+    "passenger": "passagier",
+    "passengers": "passagiers",
+    "sameAsOne": "gelijk aan één",
+    "pricingNote": "Geen brandstoftoeslag, geen luchthaventoeslag, geen nachttarief. Wat u ziet is het volledige tarief.",
+    "nearby": "Andere hotels in de buurt die we bedienen",
+    "toursEyebrow": "Nu u er toch bent",
+    "toursTitle": "Tours vanaf {resort}",
+    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer voor het hele voertuig, met de entreegelden apart vermeld."
+  },
+
+  "destinationsPage": {
+    "metaTitle": "Bestemmingen",
+    "metaDescription": "Montego Bay, Ocho Rios, Negril, Falmouth en de Zuidkust — elke parish die PPP Tran Tours bedient, en wat er in elk de moeite waard is.",
+    "eyebrow": "Waar we heen gaan",
+    "title": "Eén eiland, vijf uitvalsbases, elke parish.",
+    "description": "We vertrekken vanuit Montego Bay en bereiken het hele eiland. Kies een kust — we brengen u er dezelfde dag heen en weer terug, in uw eigen tempo.",
+    "crumb": "Bestemmingen",
+    "startEyebrow": "Begin hier",
+    "startTitle": "De tours die wij als eerste zouden boeken.",
+    "startDescription": "Bent u voor het eerst op het eiland, dan zijn dit de dagen die de reis maken."
+  },
+
+  "aboutPage": {
+    "metaTitle": "Over PPP",
+    "metaDescription": "PPP Tran Tours Jamaica — privé, persoonlijk en professioneel vervoer sinds 2010, geleid vanuit Montego Bay door eigenaar Donovan Pugh.",
+    "eyebrow": "Over PPP",
+    "title": "Privé. Persoonlijk. Professioneel.",
+    "description": "Drie woorden waarnaar het bedrijf is genoemd, en de enige drie maatstaven die we ooit nodig hebben gehad.",
+    "crumb": "Over PPP",
+    "historyEyebrow": "Onze geschiedenis",
+    "historyTitle": "Gebouwd op terugkerende gasten, niet op reclame.",
+    "history": [
+      "Vanaf het begin zijn persoonlijke service en tevreden klanten de hoekstenen geweest waarop de standaard en de reputatie van PPP Tran Tours Jamaica zijn gebouwd.",
+      "Al onze diensten zijn privé: luchthaventransfers, tours en excursies vanaf hotels, resorts en cruisekades. We zijn vergund door het Jamaica Tourist Board en door de Transport Authority van Jamaica. Elk voertuig is geklimatiseerd, schoon, comfortabel en van deze tijd, en elke chauffeur is geduldig, beleefd en goed op de hoogte.",
+      "Combitours op maat — twee of drie attracties op dezelfde dag — zijn geen probleem en blijven redelijk geprijsd. Boeken bij PPP betekent dat u in uw eigen tempo Jamaica van parish tot parish verkent, met opgeleide professionals."
+    ],
+    "yearsCaption": "Jaar gasten over het eiland rijden",
+    "ownerCaption": "Mr. Pugh met gasten aan het eind van een dag op pad.",
+    "meetOwner": "Maak kennis met de eigenaar",
+    "ownerRole": "Eigenaar en algemeen directeur",
+    "ownerBio": "Als Jamaicaan opgeleid in de smeltkroes New York bouwde Donovan PPP voor reizigers die hunkeren naar echte Jamaicaanse ervaringen en de rijkdom van onze gepassioneerde cultuur willen proeven. Hij rijdt nog bijna elke dag zelf.",
+    "ownerNote": "Doordat we uitsluitend privéservice leveren, kunnen we goed letten op wat onze klanten willen. Het is ook de reden dat in {count} Tripadvisor-beoordelingen de meesten Mr. Pugh bij naam noemen.",
+    "planDay": "Plan een dag met ons",
+    "whyEyebrow": "Waarom PPP",
+    "whyTitle": "De lat is in vijftien jaar niet verschoven.",
+    "whyDescription": "Vergund, verzekerd, geklimatiseerd en privé — bij elke rit.",
+    "awards": "Meerdere jaren op rij onderscheiden door Tripadvisor, en nog altijd {score} over {count} beoordelingen.",
+    "credentials": {
+      "licensed": {
+        "title": "Vergund en gereguleerd",
+        "body": "Vergund door het Jamaica Tourist Board en de Transport Authority of Jamaica. Elk voertuig is gekeurd en verzekerd voor personenvervoer."
+      },
+      "private": {
+        "title": "Altijd privé, zonder uitzondering",
+        "body": "U deelt nooit een voertuig met vreemden. Geen ophaalronde langs andere hotels, geen wachten tot het busje vol is."
+      },
+      "aircon": {
+        "title": "Geklimatiseerd en goed onderhouden",
+        "body": "Schone, moderne, volledig geklimatiseerde voertuigen op maat van uw groep — van een sedan voor twee tot een bus voor dertig."
+      },
+      "drivers": {
+        "title": "Chauffeurs die het eiland kennen",
+        "body": "Geduldig, beleefd en goed op de hoogte. Onze chauffeurs zijn ook gidsen en vertellen u het verhaal achter wat u ziet."
+      }
+    }
+  },
+
+  "contactPage": {
+    "metaTitle": "Contact en FAQ",
+    "metaDescription": "Bereik PPP Tran Tours Jamaica via telefoon, WhatsApp of e-mail — of stuur ons uw data en wij bouwen de dag eromheen.",
+    "eyebrow": "Neem contact op",
+    "title": "Geef ons uw data. Wij doen de rest.",
+    "description": "Stuur uw vluchtnummer, hotel en groepsgrootte, dan komen we met een plan en een vaste prijs — meestal binnen het uur.",
+    "crumb": "Contact",
+    "whatsapp": "WhatsApp / Messenger",
+    "whatsappNote": "De snelste manier om ons te bereiken",
+    "call": "Bel ons",
+    "callNote": "Centrale, dagelijks van 6 tot 22 uur",
+    "email": "E-mail",
+    "emailNote": "Antwoord binnen enkele uren",
+    "sendEyebrow": "Stuur een bericht",
+    "sendTitle": "Plan uw dag met ons.",
+    "sendDescription": "Hier wordt niets afgeschreven — we bevestigen eerst beschikbaarheid en prijs.",
+    "whereTitle": "Waar u ons vindt",
+    "transferTitle": "Boekt u een luchthaventransfer?",
+    "transferBody": "Houd uw vluchtnummer, landingstijd en hotelnaam bij de hand. Met die drie gegevens bevestigen we meteen — en omdat we de vlucht volgen, kost vertraging u niets.",
+    "sendFlight": "Vluchtgegevens sturen",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Al het andere, beantwoord."
+  },
+
+  "contactForm": {
+    "name": "Volledige naam",
+    "email": "E-mail",
+    "phone": "Telefoon / WhatsApp",
+    "subject": "Waar kunnen we mee helpen?",
+    "subjects": [
+      "Luchthaventransfer",
+      "Tour of excursie",
+      "Combipakket",
+      "Excursie vanaf de cruise",
+      "Groeps- of bruiloftsvervoer",
+      "Iets anders"
+    ],
+    "date": "Reisdatum",
+    "groupSize": "Groepsgrootte",
+    "notes": "Vertel ons over uw reis",
+    "notesPlaceholder": "Waar u logeert, wat u zou willen zien, uw vluchttijden — zoveel of zo weinig als u hebt.",
+    "sending": "Bezig met verzenden…",
+    "submit": "Bericht versturen",
+    "error": "Er ging iets mis bij het verzenden. Probeer het opnieuw of bereik ons via WhatsApp.",
+    "doneTitle": "Bericht verzonden.",
+    "doneRef": "Uw referentie is",
+    "doneBody": "Binnen kantoortijden antwoorden we meestal binnen het uur.",
+    "notPersisted": "De opslag van berichten staat op deze site nog niet aan — stuur het via WhatsApp, dan bereikt het ons meteen.",
+    "sendWhatsApp": "Versturen via WhatsApp",
+    "footnote": "Of stuur rechtstreeks een bericht naar {phone} op WhatsApp"
+  },
+
+  "faqs": [
+    {
+      "key": "pricing",
+      "q": "Zijn uw prijzen per persoon of per voertuig?",
+      "a": "Per voertuig. Eén gepubliceerde prijs dekt de hele groep tot vier personen, dus twee reizigers en vier reizigers betalen precies hetzelfde voor het vervoer. Vanaf de vijfde passagier komt er per persoon een klein vast bedrag bij, dat naast elk tarief staat vermeld."
+    },
+    {
+      "key": "entry",
+      "q": "Zijn de entreegelden van de attracties bij uw prijzen inbegrepen?",
+      "a": "Nee, en dat is bewust. Wat u ons betaalt is het vervoer en de begeleiding. Entreegelden betaalt u bij de kassa, rechtstreeks aan de attractie, en wij verkopen ze nooit door en rekenen er niets bovenop. Op elke tourpagina staan de entreeprijzen naast de onze, zodat u de echte kosten van de dag ziet en weet hoeveel contant geld u mee moet nemen."
+    },
+    {
+      "key": "quote",
+      "q": "Waarom verandert de prijs afhankelijk van mijn hotel?",
+      "a": "Omdat de rit verandert. Een dag bij Dunn's River is vanaf een hotel in Falmouth een kortere rit dan dezelfde dag vanaf Grand Palladium, dus kost hij minder. Vertel de site waar u logeert en elke prijs wordt uw echte prijs."
+    },
+    {
+      "key": "notlisted",
+      "q": "Mijn hotel staat niet op de lijst. Kunt u me toch ophalen?",
+      "a": "Ja. We bestrijken het hele eiland. De gepubliceerde tarieven gelden voor de hotels en kades die we het vaakst bedienen; voor elke andere plek stuurt u ons het adres en geven we u dezelfde dag nog een prijs in dezelfde orde van grootte."
+    },
+    {
+      "key": "payment",
+      "q": "Hoe en wanneer betaal ik?",
+      "a": "Bij het versturen van een aanvraag wordt er niets afgeschreven — we bevestigen eerst de beschikbaarheid en de exacte prijs. Afrekenen doet u op de dag zelf bij uw chauffeur, contant (USD of JMD), tenzij we vooraf iets anders met u afspreken."
+    },
+    {
+      "key": "confirm",
+      "q": "Hoe weet ik of mijn boeking is aangekomen?",
+      "a": "U krijgt een boekingsreferentie zodra de aanvraag is afgerond. Bewaar hem — wie hem bij vervolgvragen noemt, krijgt het snelst antwoord. Een aparte bevestiging volgt zodra we uw chauffeur hebben ingedeeld."
+    },
+    {
+      "key": "delay",
+      "q": "Wat gebeurt er als mijn vlucht vertraging heeft?",
+      "a": "Voor u niets. We volgen uw vluchtnummer en passen het ophalen zelf aan. Uw chauffeur staat met een naambord in de aankomsthal op het moment dat u werkelijk landt, zonder meerkosten."
+    },
+    {
+      "key": "shared",
+      "q": "Is het voertuig privé of gedeeld met andere gasten?",
+      "a": "Altijd privé. Elke PPP-boeking is alleen voor uw groep — geen gedeelde busjes, geen ophaalronde langs andere hotels voordat u wegrijdt."
+    },
+    {
+      "key": "combo",
+      "q": "Kan ik twee of drie attracties op één dag combineren?",
+      "a": "Ja, en het is een van de dingen waar we om bekendstaan. De meeste van onze combitours liggen in dezelfde streek, hooguit 20–30 minuten rijden uit elkaar, dus u kunt ze allebei op dezelfde dag doen en wij rekenen alleen iets extra voor het vervoer en het wachten. Vertel ons wat u wilt zien en we bouwen de dag eromheen."
+    },
+    {
+      "key": "group",
+      "q": "Hoe groot mag de groep zijn?",
+      "a": "Elke omvang, groot of klein. De voertuigen lopen van een sedan voor twee tot een bus voor dertig. Geef ons het aantal en we zetten het juiste voertuig in."
+    },
+    {
+      "key": "advance",
+      "q": "Hoe ver van tevoren moet ik boeken?",
+      "a": "Zo vroeg mogelijk. In het hoogseizoen zijn onze dagen snel vol, en luchthaventransfers zijn het makkelijkst te garanderen als we uw vluchtgegevens minstens 48 uur van tevoren hebben."
+    }
+  ],
+
+  "tours": {
+    "blue-hole": {
+      "subtitle": "Irie Blue Hole, St. Ann",
+      "desc": "Een reeks turkooizen kalksteenpoelen verscholen in het dal van de White River, met touwschommels, sprongen van de rots en richels om achter de waterval omhoog te klimmen. Het is de wildere, minder gepolijste neef van Dunn's River, en degene waar gasten na afloop over blijven praten.",
+      "highlights": [
+        "Springen, schommelen of klimmend afdalen — u kiest",
+        "Lokale gidsen die elke veilige richel kennen",
+        "Veel minder druk dan bij Dunn's River",
+        "Neem waterschoenen en een droge tas mee"
+      ]
+    },
+    "dunns-river-falls": {
+      "subtitle": "Ocho Rios, St. Ann",
+      "desc": "Honderdtachtig meter getrapte waterval die rechtstreeks in de Caraïbische Zee uitkomt, en de beklimming waar iedereen Jamaica van kent. Klim hem hand in hand als menselijke ketting, of neem de trap ernaast en tref de rest boven.",
+      "highlights": [
+        "Beklim de waterval in een menselijke ketting",
+        "Strand aan de voet van de watervallen",
+        "Trap en uitkijkplatforms als u liever toekijkt",
+        "Kluisjes en kleedruimtes ter plaatse"
+      ]
+    },
+    "mystic-mountain": {
+      "subtitle": "Rainforest Adventures, Ocho Rios",
+      "desc": "Een stoeltjeslift door het bladerdak van het regenwoud naar een bergkam boven de baai van Ocho Rios, en dan met de bobslee terug omlaag tussen de bomen. Kies één activiteit of combineer er twee of drie: het park bundelt ze en dat scheelt echt.",
+      "highlights": [
+        "Sky Explorer-stoeltjeslift over het bladerdak",
+        "Jamaicaanse bobslee, met de rem in uw hand",
+        "Ziplines en het Raggamuffin-parcours",
+        "Infinity pool en waterglijbaan op de top"
+      ]
+    },
+    "dolphin-cove-ocho-rios": {
+      "subtitle": "St. Ann",
+      "desc": "Een natuurlijke baai waar de dolfijnprogramma's vanaf een ondiep strand plaatsvinden in plaats van in een betonnen bak. Alleen de entree omvat al kajaks, het jungle-pad, de waterglijbaan, het zwembad, het strand en een Jamaicaanse lunch; de zwemprogramma's boekt u daar bovenop.",
+      "highlights": [
+        "Kajaks, jungle-pad, waterglijbaan en strand inbegrepen",
+        "Jamaicaanse lunch bij Admission Plus",
+        "Ontmoetingen met dolfijnen, haaien en roggen",
+        "Wie niet zwemt kan vanaf het dek toekijken"
+      ]
+    },
+    "bob-marley-nine-mile": {
+      "subtitle": "St. Ann",
+      "desc": "Het dorp waar Bob Marley is geboren, hoog in de heuvels van St. Ann, waar hij begraven ligt in het mausoleum naast het huis waarin hij opgroeide. Rasta-gidsen leiden u rond, en de rit omhoog door het binnenland is de halve trip.",
+      "highlights": [
+        "Het huis waarin Bob Marley werd geboren",
+        "Het mausoleum en Mount Zion Rock",
+        "Rondgeleid door de gemeenschap van zijn eigen familie",
+        "Berglandschap dat de meeste bezoekers nooit zien"
+      ]
+    },
+    "dolphin-cove-montego-bay": {
+      "subtitle": "St. James",
+      "desc": "Dezelfde dolfijnprogramma's als in Ocho Rios, maar twintig minuten van de meeste hotels in Montego Bay in plaats van twee uur. De goedkoopste manier om een dolfijnzwemtocht in een halve dag te passen en toch de middag op het strand te houden.",
+      "highlights": [
+        "Twintig minuten van de meeste MoBay-resorts",
+        "Encounter, Swim Adventure en Royal Swim",
+        "Gewone entree voor wie niet zwemt",
+        "Baby's gratis; kindertarief vanaf ongeveer een meter lang"
+      ]
+    },
+    "rose-hall-great-house": {
+      "subtitle": "Montego Bay, St. James",
+      "desc": "Het bekendste plantagehuis van Jamaica, en het verhaal van Annie Palmer, de Witte Heks die er drie echtgenoten zou hebben vermoord. Bezoek het overdag met de tuinen, of kom na zonsondergang terug voor de spooktocht bij kaarslicht.",
+      "highlights": [
+        "Georgiaans plantagehuis, gerestaureerd en ingericht",
+        "De legende van Annie Palmer, goed verteld",
+        "Tuinen en uitzicht over de kust vanaf de heuvel",
+        "Spooktocht 's avonds bij kaarslicht"
+      ]
+    },
+    "montego-bay-highlights": {
+      "title": "Hoogtepunten van Montego Bay en Doctor's Cave Beach",
+      "subtitle": "St. James",
+      "desc": "Een rit door de stad — de Hip Strip, de ambachtsmarkt, Sam Sharpe Square — met als eindpunt Doctor's Cave, het rustige witte zandstrand waarvan het bronwater van Montego Bay een badplaats maakte.",
+      "highlights": [
+        "Hip Strip, ambachtsmarkt en Sam Sharpe Square",
+        "Doctor's Cave Beach, rustig en ondiep",
+        "Uw chauffeur wacht terwijl u zwemt",
+        "De eenvoudigste halve dag voor een cruise-aanloop"
+      ]
+    },
+    "sand-and-saddle": {
+      "title": "Sand & Saddle: paardrijden en zwemmen",
+      "subtitle": "St. James",
+      "desc": "Rijd het pad af naar het water en zwem daarna met de paarden zonder zadel de zee in, terwijl u erop blijft zitten. Ervaring is niet nodig: de stalknechten leiden elk paard en het water komt tot borsthoogte.",
+      "highlights": [
+        "Buitenrit over het pad naar het strand",
+        "Zonder zadel zwemmen met de paarden",
+        "Beginners en kinderen welkom",
+        "Stalknechten begeleiden de hele tocht"
+      ]
+    },
+    "river-rapids-tubing": {
+      "title": "Tubing bij River Rapids",
+      "subtitle": "Trelawny",
+      "desc": "Drijf op een binnenband de Great River af, door rustige stroomversnellingen en lange kalme stukken, onder oude stenen bruggen en overhangend bamboe door. Gidsen drijven de hele weg naast u mee en houden u van de rotsen af.",
+      "highlights": [
+        "Zachte stroomversnellingen, ervaring niet nodig",
+        "Gidsen met u in het water",
+        "Bamboe, stenen bruggen en ijsvogels",
+        "Kleedruimtes en een bar bij de uitstapplek"
+      ]
+    },
+    "martha-brae-rafting": {
+      "title": "Bamboevlot op de Martha Brae",
+      "subtitle": "Trelawny",
+      "desc": "Anderhalf uur bomend over de Martha Brae op een negen meter lang bamboevlot, twee op een bank, met een vlotschipper die deze rivier al jaren bevaart en u elke bocht ervan vertelt.",
+      "highlights": [
+        "Negentig minuten op het water",
+        "Twee volwassenen per vlot, op een verhoogde bank",
+        "De vlotschipper boomt en gidst tegelijk",
+        "Bar aan de oever en ambachtskraampjes bij de aanlegplaats"
+      ]
+    },
+    "luminous-lagoon": {
+      "subtitle": "Glistening Waters, Falmouth",
+      "desc": "Een van de weinige bioluminescente baaien die er wereldwijd nog zijn. Na zonsondergang vaart de boot de lagune op en alles wat door het water beweegt licht op: het kielzog, de riemen, en uzelf, als u erin gaat.",
+      "highlights": [
+        "Boottocht de lagune op na het donker",
+        "Zwem in water dat om u heen oplicht",
+        "Een van de zeer weinige baaien van dit soort ter wereld",
+        "Restaurant en bar bij de steiger"
+      ]
+    },
+    "negril-seven-mile-beach": {
+      "title": "Seven Mile Beach in Negril",
+      "subtitle": "Westmoreland",
+      "desc": "Elf kilometer wit zand en kalm, ondiep, absurd helder water, omzoomd door strandbars die u maar al te graag de hele middag te eten geven. Geen poort en geen kaartje — zeg uw chauffeur gewoon hoe laat hij u weer moet ophalen.",
+      "highlights": [
+        "Geen entree, geen kaartje, geen rij",
+        "Kalm en ondiep water over de hele lengte",
+        "Strandbars, jerk-kraampjes en ligbedden",
+        "Uw chauffeur wacht zo lang als u wilt"
+      ]
+    },
+    "ricks-cafe": {
+      "subtitle": "West End, Negril",
+      "desc": "De klifbar aan het einde van het eiland, waar lokale duikers zich van tien meter naar beneden storten en de zon recht voor u ondergaat. Spring zelf als u het lef hebt, of neem een rum punch en kijk toe.",
+      "highlights": [
+        "Klifduikers van tien meter hoogte",
+        "Spring zelf vanaf de lagere richels",
+        "Zonsondergang recht boven het water",
+        "Bijna elke avond livemuziek"
+      ]
+    },
+    "ys-falls": {
+      "subtitle": "St. Elizabeth",
+      "desc": "Zeven treden koud bronwater die door een privélandgoed aan de Zuidkust naar beneden vallen, met natuurlijke poelen, touwschommels en een huifkar die u door de veeweide naar de watervallen brengt. Groener, rustiger en veel minder druk dan de watervallen aan de noordkust.",
+      "highlights": [
+        "Zeven treden, met bij elk een natuurlijke poel",
+        "Ritje met de huifkar over het landgoed",
+        "Touwschommel de diepe poel in",
+        "Zipline over de watervallen, als u wilt"
+      ]
+    },
+    "black-river-safari": {
+      "subtitle": "St. Elizabeth",
+      "desc": "Met de boot de breedste rivier van Jamaica op, door tunnels van rode mangrove, op zoek naar de Amerikaanse krokodillen die er leven. De schippers kennen ze bij naam en brengen u dichterbij dan u verwacht.",
+      "highlights": [
+        "Wilde Amerikaanse krokodillen, van dichtbij",
+        "Mangrovetunnels en slaapplaatsen van zilverreigers",
+        "Overdekte boot, begeleide uitleg",
+        "Combineert vanzelf met YS Falls"
+      ]
+    },
+    "appleton-estate": {
+      "title": "Appleton Estate rumtour",
+      "subtitle": "Nassau Valley, St. Elizabeth",
+      "desc": "Tweehonderdzeventig jaar rum maken in de Nassau Valley, van het suikerrietveld en de koperen ketels tot de vatenkelder. De rondleiding eindigt in de proefruimte, en daar gaat het uiteindelijk om.",
+      "highlights": [
+        "Werkende distilleerderij, geen museum",
+        "Rietpers, ketels en vatenkelder",
+        "Begeleide proeverij aan het eind",
+        "De rit door Cockpit Country"
+      ]
+    },
+    "combo-blue-hole-dunns-river": {
+      "title": "Blue Hole en Dunn's River Falls",
+      "desc": "Beide grote watervallen van St. Ann op één dag. Ze liggen twintig minuten van elkaar, dus het enige wat een tweede stop echt kost is wat extra rijden en wachten — precies wat de combiprijs dekt.",
+      "highlights": [
+        "Twee toonaangevende watervallen, één dag",
+        "Twintig minuten tussen de twee",
+        "Goedkoper dan ze los boeken",
+        "In willekeurige volgorde te doen"
+      ]
+    },
+    "combo-ys-falls-black-river": {
+      "title": "YS Falls en Black River-safari",
+      "desc": "De klassieke Zuidkustdag en de bestseller van PPP. 's Ochtends de krokodillensafari, onderweg lunch, 's middags de watervallen — beide in St. Elizabeth, een halfuur uit elkaar.",
+      "highlights": [
+        "De best verkochte combinatie van PPP",
+        "Krokodillen en watervallen in één rit",
+        "Een halfuur tussen de twee",
+        "Zipline bij YS Falls als u wilt"
+      ]
+    },
+    "combo-appleton-ys-falls": {
+      "title": "Appleton Estate en YS Falls",
+      "desc": "'s Ochtends rum, 's middags koud bronwater. Appleton en YS Falls liggen allebei in St. Elizabeth en passen vanzelf in dezelfde dag — daarom loopt deze zo goed.",
+      "highlights": [
+        "Werkende distilleerderij en een proeverij",
+        "Zeven treden koud bronwater",
+        "Beide in de omgeving van de Nassau Valley",
+        "Een lange, ongehaaste dag aan de Zuidkust"
+      ]
+    },
+    "combo-negril-beach-ricks-cafe": {
+      "title": "Seven Mile Beach en Rick's Cafe",
+      "desc": "Heel Negril op één dag, en bij geen van beide stops betaalt u entree. 's Middags Seven Mile Beach, dan tien minuten langs de kust naar de kliffen van West End, op tijd voor de duikers en de zonsondergang.",
+      "highlights": [
+        "Bij geen van beide stops entreegeld",
+        "Eerst het strand, daarna de kliffen en de zonsondergang",
+        "Tien minuten tussen de twee",
+        "Na donker terug, in uw eigen tempo"
+      ]
+    },
+    "combo-sand-saddle-river-rapids": {
+      "title": "Paardrijden met zwemmen en tubing bij River Rapids",
+      "desc": "'s Ochtends met de paarden zwemmen, 's middags de rivier af drijven. Beide zijn kort, beide maken nat, en ze samen doen maakt van twee halve dagen één volle.",
+      "highlights": [
+        "Zwemmen in zee te paard, zonder zadel",
+        "Daarna rustig tubing op de rivier",
+        "Twee halve dagen worden één hele",
+        "Niets hiervan vraagt ervaring"
+      ]
+    },
+    "combo-martha-brae-doctors-cave": {
+      "title": "Vlotvaren op de Martha Brae en Doctor's Cave Beach",
+      "desc": "Negentig minuten bomend over de Martha Brae, daarna terug langs de kust naar Doctor's Cave voor de middag. Een rustige dag, zonder klimmen en zonder wachtrijen.",
+      "highlights": [
+        "Bamboevlot over de Martha Brae",
+        "Middag op Doctor's Cave Beach",
+        "Niets inspannends de hele dag",
+        "Prettig met jonge kinderen"
+      ]
+    },
+    "combo-dunns-river-mystic-mountain": {
+      "title": "Dunn's River Falls en Mystic Mountain",
+      "desc": "Ze liggen in Ocho Rios naast elkaar, wat ze tot een van de makkelijkste combinaties van het eiland maakt. Beklim de watervallen en neem daarna de stoeltjeslift omhoog en de bobslee weer omlaag.",
+      "highlights": [
+        "De twee stops liggen minuten uit elkaar",
+        "Eerst de watervallen op, dan over de berg",
+        "Een van de meest gevraagde combinaties bij PPP",
+        "Stuur ons een bericht en we prijzen uw dag"
+      ]
+    }
+  }
+}

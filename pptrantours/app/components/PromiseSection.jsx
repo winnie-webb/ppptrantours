@@ -2,10 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { promise, site } from "../data/site";
+import { localePath } from "@/app/i18n/config";
 import SectionHeading from "./SectionHeading";
 
 /** The three P's the company is named for. */
-export default function PromiseSection() {
+export default function PromiseSection({ locale = "en", dict }) {
+  const t = dict?.promise ?? {};
+  const words = t.words ?? {};
   return (
     <section className="relative overflow-hidden bg-ink py-20 lg:py-28">
       <div
@@ -21,9 +24,12 @@ export default function PromiseSection() {
         <div>
           <SectionHeading
             light
-            eyebrow="What PPP stands for"
-            title="Three promises, in the name itself."
-            description="Since 2010 the standard has not moved: you get your own vehicle, a day built around what you actually want to see, and a licensed professional at the wheel."
+            eyebrow={t.eyebrow ?? "What PPP stands for"}
+            title={t.title ?? "Three promises, in the name itself."}
+            description={
+              t.description ??
+              "Since 2010 the standard has not moved: you get your own vehicle, a day built around what you actually want to see, and a licensed professional at the wheel."
+            }
           />
 
           <ol className="mt-2 space-y-1">
@@ -37,10 +43,10 @@ export default function PromiseSection() {
                 </span>
                 <div>
                   <h3 className="font-display text-xl font-semibold text-white">
-                    {p.word}
+                    {words[p.word]?.word ?? p.word}
                   </h3>
                   <p className="mt-1.5 text-[0.95rem] leading-relaxed text-white/60">
-                    {p.body}
+                    {words[p.word]?.body ?? p.body}
                   </p>
                 </div>
                 <span className="sr-only">{i + 1}</span>
@@ -48,8 +54,11 @@ export default function PromiseSection() {
             ))}
           </ol>
 
-          <Link href="/about-us" className="btn-gold group mt-8">
-            Meet {site.owner.short}
+          <Link
+            href={localePath(locale, "/about-us")}
+            className="btn-gold group mt-8"
+          >
+            {t.meet ?? `Meet ${site.owner.short}`}
             <FaArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>

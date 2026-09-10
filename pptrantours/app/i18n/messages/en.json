@@ -1,0 +1,672 @@
+{
+  "meta": {
+    "tagline": "Private. Personalized. Professional.",
+    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — one price for the whole vehicle, attraction entry fees quoted separately and never marked up.",
+    "keywords": [
+      "Jamaica airport transfer",
+      "Montego Bay private tours",
+      "Sangster airport transfer",
+      "things to do in Jamaica",
+      "Negril tours",
+      "Ocho Rios excursions",
+      "Falmouth cruise excursions",
+      "PPP Tran Tours"
+    ]
+  },
+
+  "common": {
+    "reviews": "reviews",
+    "seeAll": "See all",
+    "scrollLeft": "Scroll left",
+    "scrollRight": "Scroll right",
+    "whatsappAria": "Chat with us on WhatsApp",
+    "chatWithUs": "Chat with us"
+  },
+
+  "nav": {
+    "home": "Home",
+    "tours": "Things to do",
+    "transfers": "Airport transfers",
+    "destinations": "Destinations",
+    "about": "About PPP",
+    "contact": "Contact",
+    "book": "Book now",
+    "browse": "Browse",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "licensed": "Licensed by the Jamaica Tourist Board & Transport Authority"
+  },
+
+  "durations": {
+    "Full day": "Full day",
+    "Half day": "Half day",
+    "Evening": "Evening",
+    "Door to door": "Door to door"
+  },
+
+  "zones": {
+    "mobay-hotels": "Montego Bay hotels",
+    "mobay-pier": "Montego Bay cruise pier",
+    "falmouth-hotels": "Falmouth & Trelawny hotels",
+    "falmouth-pier": "Falmouth cruise pier",
+    "palladium": "Grand Palladium / Lady Hamilton"
+  },
+
+  "areas": {
+    "montego-bay": "Montego Bay",
+    "falmouth": "Falmouth & Trelawny",
+    "hanover": "Hanover & Green Island",
+    "ocho-rios": "Ocho Rios & St. Ann",
+    "negril": "Negril",
+    "south-coast": "South Coast",
+    "piers": "Cruise piers"
+  },
+
+  "categories": {
+    "popular": {
+      "title": "Most Popular Tours",
+      "short": "Most Popular",
+      "blurb": "The days people ask for by name. Dunn's River, the Blue Hole, Rick's Cafe at sunset — the ones that end up in the photo album."
+    },
+    "transfers": {
+      "title": "Airport Transfers",
+      "short": "Transfers",
+      "blurb": "Flat, published rates from Sangster International to every resort we serve. One price for up to four people."
+    },
+    "combos": {
+      "title": "Combo Tour Packages",
+      "short": "Combo Packages",
+      "blurb": "Two attractions in one day, in the same region and half an hour apart. You pay a little more for the driving, not double for the day."
+    },
+    "montego-bay": {
+      "title": "Things to do in Montego Bay",
+      "short": "Montego Bay",
+      "blurb": "Our own parish. Rose Hall, Doctor's Cave, the Hip Strip and the dolphins — the short runs you can fit around a half day at the beach."
+    },
+    "ocho-rios": {
+      "title": "Things to do in Ocho Rios",
+      "short": "Ocho Rios",
+      "blurb": "Dunn's River Falls, the Blue Hole, Mystic Mountain, Dolphin Cove and Bob Marley's Nine Mile — St. Ann has more headline attractions than any other parish."
+    },
+    "falmouth": {
+      "title": "Things to do in Falmouth",
+      "short": "Falmouth",
+      "blurb": "Trelawny's own: bamboo rafting on the Martha Brae, river tubing, and the Luminous Lagoon after dark."
+    },
+    "negril": {
+      "title": "Things to do in Negril",
+      "short": "Negril",
+      "blurb": "Seven Mile Beach and the West End cliffs. Neither has a gate fee — you pay us for the drive and nothing else."
+    },
+    "south-coast": {
+      "title": "Things to do on the South Coast",
+      "short": "South Coast",
+      "blurb": "YS Falls, the Black River crocodile safari and the Appleton Estate. The quiet side of the island, and worth the longer drive."
+    }
+  },
+
+  "price": {
+    "from": "From",
+    "fromYourResort": "From your resort",
+    "askUs": "Ask us",
+    "weWillQuote": "we'll quote it",
+    "perVehicle": "for up to 4"
+  },
+
+  "place": {
+    "title": "Where are you staying?",
+    "subtitle": "Pick your resort and every price on the site becomes yours — no zones to work out.",
+    "search": "Search hotels, resorts and piers…",
+    "close": "Close",
+    "noMatch": "No match. Pick the closest resort, or tell us in the notes — we cover the whole island.",
+    "footnote": "Not on the list? Choose the nearest one to get an idea of the price, then message us — we run to every corner of the island.",
+    "prompt": "Where are you staying?",
+    "change": "Change your resort"
+  },
+
+  "placePrompt": {
+    "title": "Where are you staying?",
+    "body": "Tell us your hotel, resort or cruise pier and every price on the site becomes yours — no zones, no guessing.",
+    "showingFor": "Showing prices for",
+    "chosenBody": "Every price on the site is now the real price from your resort, transport and gate fees separated.",
+    "choose": "Choose your resort",
+    "change": "Change resort"
+  },
+
+  "search": {
+    "label": "Search",
+    "placeholder": "Search tours or your resort…",
+    "clear": "Clear search",
+    "noResults": "Nothing matches that. Try “Dunn's River”, “Negril” or your hotel name.",
+    "tours": "Tours",
+    "transfers": "Airport transfers",
+    "from": "from",
+    "oneWay": "one way",
+    "askUs": "ask us"
+  },
+
+  "grid": {
+    "filter": "Filter by name or keyword…",
+    "filterCategory": "Filter by category",
+    "allCategories": "All categories",
+    "sort": "Sort results",
+    "priceAsc": "Price: low to high",
+    "priceDesc": "Price: high to low",
+    "az": "Name: A–Z",
+    "showing": "Showing",
+    "of": "of",
+    "emptyTitle": "Nothing matches those filters.",
+    "emptyBody": "Try a broader search — or ask us directly, we build custom days all the time.",
+    "clear": "Clear filters",
+    "prev": "Previous page",
+    "next": "Next page"
+  },
+
+  "booking": {
+    "transportLabel": "Transport",
+    "transferPrice": "Private transfer",
+    "perVehicleLong": "per vehicle",
+    "pickResortFirst": "Pick your resort",
+    "askUsPrice": "We'll quote it",
+    "stayingAt": "Where are you staying?",
+    "choosePlace": "Choose your hotel or pier",
+    "choose": "Choose",
+    "change": "Change",
+    "tripType": "Trip type",
+    "roundTrip": "Round trip",
+    "oneWay": "One way",
+    "transferTo": "To",
+    "adults": "Adults",
+    "adult": "adult",
+    "children": "Children",
+    "child": "child",
+    "childrenWord": "children",
+    "vehicleNote": "One private vehicle covers up to 4 people for the same price.",
+    "extraNote": "Larger group — the price above already includes the extra passengers.",
+    "gateNote": "Paid at the gate, not to us.",
+    "addons": "Optional extras",
+    "fromWord": "from",
+    "childWord": "child",
+    "tourDate": "Tour date",
+    "arrivalDate": "Arrival date",
+    "pickupTime": "Pickup time",
+    "landingTime": "Landing time",
+    "flightNumber": "Arrival flight number",
+    "flightNote": "We track it and adjust for delays at no extra charge.",
+    "returnDate": "Return date",
+    "returnFlight": "Return flight",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone / WhatsApp",
+    "notes": "Anything we should know?",
+    "notesPlaceholder": "Car seats, extra stops, a second attraction you'd like to add…",
+    "pickResortHint": "Tell us which resort you're staying at and the exact price for your group appears here.",
+    "unpricedHint": "We haven't published a set rate from your resort for this one. Send the request through and we'll come back with a firm price — same day, no markup.",
+    "extraBreakdown": "Includes the extra passengers beyond the first four.",
+    "transportIsOurs": "This is what PPP charges. Nothing is added to it.",
+    "gatesLabel": "Paid at the gate",
+    "gatesNote": "Attraction tickets, paid on the day. We never resell them or add to them.",
+    "dayTotal": "Your day, all in",
+    "total": "Total",
+    "errorSaving": "We couldn't save that booking. Please try again, or send it to us on WhatsApp and we'll confirm by hand.",
+    "sending": "Sending…",
+    "submit": "Request this booking",
+    "requestQuote": "Request a price",
+    "noPayment": "No payment taken now — we confirm availability first.",
+    "ratherMessage": "Rather just message us?",
+    "doneTitle": "Request received.",
+    "doneRef": "Your reference is",
+    "doneBody": "Keep it — quoting it gets you an answer fastest. We'll confirm your driver and exact pickup time by email.",
+    "notPersisted": "Online booking storage isn't switched on for this site yet. Send the details straight to us on WhatsApp below and we'll lock it in.",
+    "confirmWhatsApp": "Confirm on WhatsApp",
+    "browseMore": "Browse more tours"
+  },
+
+  "fare": {
+    "from": "From Sangster International (MBJ)",
+    "destination": "Which resort are we taking you to?",
+    "choose": "Choose your hotel or resort…",
+    "tripType": "Trip type",
+    "roundTrip": "Return",
+    "oneWay": "One way",
+    "passengers": "Passengers",
+    "fewer": "Fewer passengers",
+    "more": "More passengers",
+    "note": "One private vehicle covers up to 4 passengers for a flat price. Rates are in US dollars and include the meet-and-greet inside arrivals.",
+    "prompt": "Choose your resort and the exact fare appears here — no forms, no waiting for an email.",
+    "roundTripLabel": "Round-trip private transfer",
+    "oneWayLabel": "One-way private transfer",
+    "upTo": "Up to 4 passengers",
+    "extraPassenger": "extra passenger",
+    "book": "Book this transfer",
+    "ask": "Ask a question"
+  },
+
+  "hero": {
+    "tagline": "Private. Personalized. Professional.",
+    "h1a": "Approach Jamaica",
+    "h1b": "with confidence…",
+    "p1": "Private",
+    "p2": "Personalized",
+    "p3": "Professional",
+    "lead1": "pickups for airport transfers and island-wide tours from all major hotels and cruise ports.",
+    "lead2": "service gives you total flexibility to customize your day-trips. Clean, pre-cooled vehicles driven by a licensed, mature, down-to-earth",
+    "explore": "Explore tours",
+    "transfer": "Book an airport transfer"
+  },
+
+  "stats": {
+    "rating": { "label": "Tripadvisor rating", "sub": "680 reviews" },
+    "years": { "label": "Years on the road", "sub": "Since 2010" },
+    "private": { "label": "Private service", "sub": "Never a shared van" },
+    "guests": { "label": "Guests driven", "sub": "From 30+ countries" }
+  },
+
+  "promise": {
+    "eyebrow": "What PPP stands for",
+    "title": "Three promises, in the name itself.",
+    "description": "Since 2010 the standard has not moved: you get your own vehicle, a day built around what you actually want to see, and a licensed professional at the wheel.",
+    "meet": "Meet Mr. Pugh",
+    "words": {
+      "Private": {
+        "word": "Private",
+        "body": "Your group, your vehicle, your schedule. Nobody else on board and no fixed departure time to make."
+      },
+      "Personalized": {
+        "word": "Personalized",
+        "body": "Want two attractions in one day? A stop at a jerk pit on the way back? Combo days are no problem and reasonably priced."
+      },
+      "Professional": {
+        "word": "Professional",
+        "body": "Trained, licensed, insured. Flights tracked, pickups on time, and one number that always answers."
+      }
+    }
+  },
+
+  "browse": {
+    "eyebrow": "Things to do in Jamaica",
+    "title": "Where do you want to spend the day?",
+    "description": "Browse by parish, or by the kind of day you're after. Every price is transport for the whole vehicle, with the gate fees listed beside it.",
+    "seeEverything": "See everything",
+    "option": "option",
+    "options": "options"
+  },
+
+  "home": {
+    "popularEyebrow": "Guest favourites",
+    "popularTitle": "The tours people book twice.",
+    "popularDescription": "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album.",
+    "transfersEyebrow": "Airport transfers",
+    "transfersTitle": "From Sangster to your front door.",
+    "transfersDescription": "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting inside arrivals.",
+    "allRates": "All rates",
+    "combosEyebrow": "Two in one day",
+    "combosTitle": "Combo packages, no rushing.",
+    "combosDescription": "Most of our combo tours are in the same region, no more than a 20–30 minute drive apart, so you can do both in one day and we only charge a little more for the transport and the waiting.",
+    "faqEyebrow": "Good to know",
+    "faqTitle": "Questions we get asked most.",
+    "faqDescription": "Anything else, just message us — someone answers seven days a week.",
+    "askUs": "Ask us something"
+  },
+
+  "transparency": {
+    "eyebrow": "No hidden fees",
+    "title": "We keep it real. Always transparent.",
+    "body": "PPP Tran Tours Jamaica is a trustworthy private transportation company that believes in no hidden fees. While giving you the flexibility to personalize your movements, we also let you know how much everything associated with your day trip will cost — so you always know what to expect, and how much cash to walk with if necessary. We never resell or hike up costs on activities, entry fees or meals.",
+    "groups": "Accommodations for any size group, big or small.",
+    "seeCombos": "See the combo packages",
+    "seeRates": "See every transfer rate"
+  },
+
+  "slogan": {
+    "line": "Approach Jamaica",
+    "emphasis": "with Confidence",
+    "full": "Approach Jamaica with confidence."
+  },
+
+  "comboPitch": {
+    "eyebrow": "Top sellers",
+    "title": "PPP's best-selling combinations.",
+    "sellers": [
+      "YS Falls & Black River Safari",
+      "YS Falls & Appleton Estate Rum Tour",
+      "Horseback Ride and Swim & River Rapids Tubing",
+      "Negril Seven Mile Beach & Rick's Cafe",
+      "Blue Hole & Dunn's River Falls",
+      "Dunn's River Falls & Mystic Mountain",
+      "Martha Brae Rafting & Doctor's Cave Beach"
+    ],
+    "body": "Most of our combo tours are located in the same region, no more than a 20–30 minute drive from each other, so you can do both on the same day and we'll only charge you a little bit more for transportation and waiting.",
+    "challenge": "Challenge our flexibility by telling us which tours you'd like to combine. If they're doable, we'll make it happen for a reasonable price.",
+    "groups": "Accommodations for any size group, big or small.",
+    "buildMyDay": "Build my day"
+  },
+
+  "destinations": {
+    "eyebrow": "Where we go",
+    "title": "Every parish worth the drive.",
+    "description": "We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day.",
+    "browse": "Browse tours"
+  },
+
+  "testimonials": {
+    "eyebrow": "Guest reviews",
+    "title": "680 reviews. Not one below five stars.",
+    "description": "Most of them mention Mr. Pugh by name. Reviews are shown in the language they were written in."
+  },
+
+  "gallery": {
+    "eyebrow": "The gallery",
+    "title": "Real days out, real guests.",
+    "description": "Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
+  },
+
+  "fleet": {
+    "eyebrow": "Our fleet",
+    "title": "Sized to your group, not the other way round.",
+    "description": "Every vehicle is air-conditioned, inspected and insured for passenger service. Larger coaches are available for weddings and groups of up to thirty.",
+    "caption": "Mr. Pugh meeting arrivals at Sangster International, Montego Bay.",
+    "vehicles": {
+      "sedan": {
+        "name": "Executive sedan",
+        "blurb": "Saloon car for couples and solo travellers who want the quiet ride.",
+        "seats": "1–3 guests",
+        "bags": "3 bags"
+      },
+      "minivan": {
+        "name": "Private minivan",
+        "blurb": "Our workhorse. Room to spread out on the long runs across the island.",
+        "seats": "4–6 guests",
+        "bags": "6 bags"
+      },
+      "touring": {
+        "name": "Touring van",
+        "blurb": "For families and groups travelling together, with luggage space to match.",
+        "seats": "7–14 guests",
+        "bags": "14 bags"
+      }
+    }
+  },
+
+  "cta": {
+    "eyebrow": "Ready when you are",
+    "title": "Tell us your flight number. We'll handle the rest.",
+    "body": "Our days sell out in high season. Send us your dates and group size and we'll come back with a plan and a price — usually within the hour.",
+    "send": "Send a message",
+    "hours": "Dispatch answers 7 days a week, 6:00am – 10:00pm. Flights are met at any hour."
+  },
+
+  "footer": {
+    "tours": "Things to do",
+    "destinations": "Destinations",
+    "about": "About PPP",
+    "contact": "Contact & FAQ",
+    "getInTouch": "Get in touch",
+    "viewAll": "View all",
+    "rights": "All rights reserved.",
+    "licensed": "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."
+  },
+
+  "tourPage": {
+    "about": "About this tour",
+    "highlights": "Highlights",
+    "included": "What's included",
+    "inc1": "Private air-conditioned vehicle, yours alone",
+    "inc2": "Licensed, insured local driver and guide",
+    "inc3": "Pickup and drop-off at your door",
+    "inc4": "No fixed departure — you set the pace",
+    "transportTable": "What the transport costs",
+    "transportTableNote": "One private vehicle, up to 4 people, in US dollars. A fifth passenger and each one after adds the second figure.",
+    "pickingUpFrom": "Picking you up from",
+    "upToFour": "Up to 4",
+    "eachExtra": "Each extra",
+    "otherResorts": "Staying somewhere else? We still run this trip — send us a message and we'll quote your resort directly.",
+    "entryTable": "What the attraction charges",
+    "entryTableNote": "Paid at the gate on the day, straight to the attraction. We never resell these or add anything to them.",
+    "noEntry": "Nothing. There is no gate fee on this one.",
+    "entryItem": "Ticket",
+    "entryAdult": "Adult",
+    "entryChild": "Child",
+    "optional": "optional",
+    "alsoLike": "You might also like",
+    "moreTours": "More tours"
+  },
+
+  "toursPage": {
+    "metaTitle": "Things to do in Jamaica",
+    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per vehicle, entry fees listed separately.",
+    "eyebrow": "The catalogue",
+    "title": "Things to do in Jamaica.",
+    "description": "Every tour we run, with the transport price and the gate fee shown separately so you can see exactly what is ours and what is the attraction's.",
+    "crumb": "Things to do",
+    "parishEyebrow": "By parish",
+    "parishTitle": "Pick a corner of the island.",
+    "parishDescription": "We are based in Montego Bay and run to all of it. These are the days we run most.",
+    "tour": "tour",
+    "toursWord": "tours"
+  },
+
+  "categoryPage": {
+    "eyebrow": "Browse"
+  },
+
+  "transfersPage": {
+    "metaTitle": "Montego Bay Airport Transfers",
+    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Flat rates for up to four passengers, flight tracked, met inside arrivals.",
+    "eyebrow": "Airport transfers",
+    "title": "Sangster International to your front door.",
+    "description": "Flat, published rates to every resort we serve. Pick your hotel below and see the fare before you give us a single detail.",
+    "p1Title": "Met inside arrivals",
+    "p1Body": "Your driver is in the hall with a name board, not in a car park somewhere.",
+    "p2Title": "Flight tracked",
+    "p2Body": "If you land late we know before you do, and there is no charge for waiting.",
+    "p3Title": "Private, always",
+    "p3Body": "Your group alone. No shared van, no circuit of other hotels first.",
+    "p4Title": "The price is the price",
+    "p4Body": "One flat fare for up to four people. No fuel levy, no airport surcharge.",
+    "ratesEyebrow": "Every rate we publish",
+    "ratesTitle": "The whole price list, in the open.",
+    "ratesDescription": "One private vehicle for up to four passengers. The second figure is what each passenger beyond the fourth adds.",
+    "resort": "Resort",
+    "oneWay": "One way",
+    "roundTrip": "Round trip",
+    "each": "Each extra",
+    "book": "Book",
+    "notListed": "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day."
+  },
+
+  "transferPage": {
+    "metaTitle": "{fare} Airport Transfer to {resort}",
+    "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met inside arrivals.",
+    "h1": "Private airport transfer to {resort}",
+    "intro": "From Sangster International (MBJ) to {resort} — {fare} one way for up to {capacity} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.",
+    "transferTo": "Airport transfer to",
+    "oneWay": "One way",
+    "roundTrip": "Round trip",
+    "perExtra": "per extra",
+    "whatYouGet": "What the fare covers",
+    "inc1": "Met inside the arrivals hall with a name board",
+    "inc2": "Flight tracked — delays cost you nothing",
+    "inc3": "Private, air-conditioned vehicle, your group only",
+    "inc4": "Licensed, insured driver who handles the luggage",
+    "pricing": "How the price works",
+    "party": "Your party",
+    "passenger": "passenger",
+    "passengers": "passengers",
+    "sameAsOne": "same as one",
+    "pricingNote": "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare.",
+    "nearby": "Other resorts we serve nearby",
+    "toursEyebrow": "While you're here",
+    "toursTitle": "Tours we run from {resort}",
+    "toursDescription": "Prices below are for your resort specifically — transport for the whole vehicle, with the gate fees listed separately."
+  },
+
+  "destinationsPage": {
+    "metaTitle": "Destinations",
+    "metaDescription": "Montego Bay, Ocho Rios, Negril, Falmouth and the South Coast — every parish PPP Tran Tours covers, and what's worth seeing in each.",
+    "eyebrow": "Where we go",
+    "title": "One island, five bases, every parish.",
+    "description": "We run out of Montego Bay and reach the whole island. Pick a coast — we'll get you there and back the same day, at your pace.",
+    "crumb": "Destinations",
+    "startEyebrow": "Start here",
+    "startTitle": "The tours we'd book first.",
+    "startDescription": "If it's your first time on the island, these are the days that make the trip."
+  },
+
+  "aboutPage": {
+    "metaTitle": "About PPP",
+    "metaDescription": "PPP Tran Tours Jamaica — private, personalized, professional transport since 2010, run out of Montego Bay by owner Donovan Pugh.",
+    "eyebrow": "About PPP",
+    "title": "Private. Personalized. Professional.",
+    "description": "Three words the company was named for, and the only three standards we've ever needed.",
+    "crumb": "About PPP",
+    "historyEyebrow": "Our history",
+    "historyTitle": "Built on repeat guests, not advertising.",
+    "history": [
+      "From the beginning, personalized service and customer satisfaction have been the cornerstones used to build the standard and reputation of PPP Tran Tours Jamaica.",
+      "Every service we offer is private — airport transfers, tours and excursions from hotels, resorts and cruise ship piers. We are licensed by the Jamaica Tourist Board and by Jamaica's Transport Authority. Every vehicle is air-conditioned, clean, comfortable and current, and every driver is patient, polite and knowledgeable.",
+      "Customized combo tours — two or three attractions in the same day — are no problem, and are reasonably priced. Booking with PPP lets you move at your own pace while exploring Jamaica parish to parish with trained professionals."
+    ],
+    "yearsCaption": "Years driving guests across the island",
+    "ownerCaption": "Mr. Pugh with guests at the end of a day out.",
+    "meetOwner": "Meet the owner",
+    "ownerRole": "Owner & Managing Director",
+    "ownerBio": "A Jamaican educated in the melting pot of New York City, Donovan built PPP for travellers who crave homegrown Jamaican experiences and want to taste the richness of our passionate culture. He still drives most days.",
+    "ownerNote": "Being a private-services-only company allows us to pay close attention to what our customers want. It is also why, across {count} Tripadvisor reviews, most people mention Mr. Pugh by name.",
+    "planDay": "Plan a day with us",
+    "whyEyebrow": "Why choose PPP",
+    "whyTitle": "The standard hasn't moved in fifteen years.",
+    "whyDescription": "Licensed, insured, air-conditioned and private — every single trip.",
+    "awards": "Recognised by Tripadvisor in consecutive years, and still holding {score} across {count} reviews.",
+    "credentials": {
+      "licensed": {
+        "title": "Licensed & regulated",
+        "body": "Licensed by the Jamaica Tourist Board and the Transport Authority of Jamaica. Every vehicle is inspected and insured for passenger service."
+      },
+      "private": {
+        "title": "Private only, always",
+        "body": "You never share a vehicle with strangers. No hotel-hopping pickup circuit, no waiting on a full van before you leave."
+      },
+      "aircon": {
+        "title": "Air-conditioned & maintained",
+        "body": "Clean, current, fully air-conditioned vehicles sized to your group — from a sedan for two to a coach for thirty."
+      },
+      "drivers": {
+        "title": "Drivers who know the island",
+        "body": "Patient, polite and knowledgeable. Our drivers are guides too, and they will tell you the story behind what you're looking at."
+      }
+    }
+  },
+
+  "contactPage": {
+    "metaTitle": "Contact & FAQ",
+    "metaDescription": "Reach PPP Tran Tours Jamaica by phone, WhatsApp or email — or send us your dates and we'll build the day around them.",
+    "eyebrow": "Get in touch",
+    "title": "Tell us your dates. We'll do the rest.",
+    "description": "Send your flight number, hotel and group size and we'll come back with a plan and a firm price — usually within the hour.",
+    "crumb": "Contact",
+    "whatsapp": "WhatsApp / Messenger",
+    "whatsappNote": "Fastest way to reach us",
+    "call": "Call us",
+    "callNote": "Dispatch, 6am – 10pm daily",
+    "email": "Email",
+    "emailNote": "Replies within a few hours",
+    "sendEyebrow": "Send a message",
+    "sendTitle": "Plan your day with us.",
+    "sendDescription": "No payment is taken here — we confirm availability and price first.",
+    "whereTitle": "Where to find us",
+    "transferTitle": "Booking an airport transfer?",
+    "transferBody": "Have your flight number, landing time and hotel name ready. With those three things we can confirm on the spot — and we track the flight, so a delay costs you nothing.",
+    "sendFlight": "Send flight details",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Everything else, answered."
+  },
+
+  "contactForm": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone / WhatsApp",
+    "subject": "What do you need?",
+    "subjects": [
+      "Airport transfer",
+      "Tour or excursion",
+      "Combo tour package",
+      "Cruise shore excursion",
+      "Group or wedding transport",
+      "Something else"
+    ],
+    "date": "Travel date",
+    "groupSize": "Group size",
+    "notes": "Tell us about your trip",
+    "notesPlaceholder": "Where you're staying, what you'd like to see, your flight times — as much or as little as you have.",
+    "sending": "Sending…",
+    "submit": "Send message",
+    "error": "Something went wrong sending that. Please try again, or reach us on WhatsApp.",
+    "doneTitle": "Message sent.",
+    "doneRef": "Your reference is",
+    "doneBody": "We usually reply within the hour during dispatch hours.",
+    "notPersisted": "Message storage isn't switched on for this site yet — send it through on WhatsApp so it reaches us right away.",
+    "sendWhatsApp": "Send on WhatsApp",
+    "footnote": "Or message {phone} directly on WhatsApp"
+  },
+
+  "faqs": [
+    {
+      "key": "pricing",
+      "q": "Are your prices per person or per vehicle?",
+      "a": "Per vehicle. One published price covers the whole group up to four people, so two travellers and four travellers pay exactly the same for the transport. From the fifth passenger on, each one adds a small fixed amount that is shown next to every rate."
+    },
+    {
+      "key": "entry",
+      "q": "Do your prices include the attraction entry fees?",
+      "a": "No, and that is deliberate. What you pay us is the transport and the guiding. Entry fees are paid at the gate, straight to the attraction, and we never resell them or add anything on top. Every tour page lists the gate prices beside ours so you can see the true cost of the day and know how much cash to carry."
+    },
+    {
+      "key": "quote",
+      "q": "Why does the price change depending on my hotel?",
+      "a": "Because the driving does. A day at Dunn's River from a Falmouth resort is a shorter run than the same day from Grand Palladium, so it costs less. Tell the site where you are staying and every price you see becomes the real price for you."
+    },
+    {
+      "key": "notlisted",
+      "q": "My resort isn't on your list. Can you still collect me?",
+      "a": "Yes. We cover the whole island. The published rates are for the resorts and piers we serve most often; anywhere else, send us the address and we will quote it the same day at the same kind of price."
+    },
+    {
+      "key": "payment",
+      "q": "How and when do I pay?",
+      "a": "Nothing is charged when you send a request — we confirm availability and the exact price first. Settlement is with your driver on the day, in cash (USD or JMD), unless we agree something else with you in advance."
+    },
+    {
+      "key": "confirm",
+      "q": "How do I know my booking went through?",
+      "a": "You get a booking reference the moment the request completes. Keep it — quoting that reference on any follow-up gets you an answer fastest. A separate confirmation follows once we have assigned your driver."
+    },
+    {
+      "key": "delay",
+      "q": "What happens if my flight is delayed?",
+      "a": "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Your driver will be inside the arrivals hall with a name board whenever you actually land, at no extra charge."
+    },
+    {
+      "key": "shared",
+      "q": "Is the vehicle private, or shared with other guests?",
+      "a": "Always private. Every PPP booking is your group alone — no shared vans, no pickup circuit around other hotels before you get moving."
+    },
+    {
+      "key": "combo",
+      "q": "Can I combine two or three attractions in one day?",
+      "a": "Yes, and it is one of the things we are known for. Most of our combo tours are in the same region, no more than a 20–30 minute drive apart, so you can do both on the same day and we only charge a little more for the transport and the waiting. Tell us what you want to see and we will build the day around it."
+    },
+    {
+      "key": "group",
+      "q": "How large a group can you take?",
+      "a": "Any size, big or small. Vehicles run from a sedan for two up to a coach for thirty. Tell us the number and we will put the right vehicle on it."
+    },
+    {
+      "key": "advance",
+      "q": "How far in advance should I book?",
+      "a": "As early as you can. Our days sell out in high season, and airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead."
+    }
+  ],
+
+  "tours": {}
+}

@@ -225,9 +225,9 @@ export default function AdminClient() {
                   </td>
                   <td className="px-4 py-3">
                     <span className="block text-ink">{b.tourTitle || "—"}</span>
-                    {b.pickupLabel && (
+                    {b.placeLabel && (
                       <span className="block text-xs text-ink/50">
-                        {b.pickupLabel}
+                        {b.placeLabel}
                       </span>
                     )}
                     {b.flightNumber && (
@@ -247,7 +247,9 @@ export default function AdminClient() {
                     {b.children > 0 && ` + ${b.children}c`}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 font-semibold text-ink">
-                    {b.total ? `$${Number(b.total).toFixed(2)}` : "—"}
+                    {b.transportTotal != null
+                      ? `$${Number(b.transportTotal).toFixed(2)}`
+                      : "quote"}
                   </td>
                 </tr>
               ))}

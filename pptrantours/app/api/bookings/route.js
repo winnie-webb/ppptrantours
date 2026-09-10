@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import { getAdminDb } from "@/lib/firebase-admin";
 import { sendBookingAlert } from "@/lib/notify";
 import { makeReference } from "@/lib/booking-shared";
-import { priceBooking } from "@/app/products/product";
+import { filterProductById } from "@/app/products/product";
+import { quoteExcursion, quoteTransfer } from "@/app/products/pricing";
+import { getPlace } from "@/app/data/places";
 
 // firebase-admin needs Node built-ins; it cannot run on the edge runtime.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MAX = { name: 120, email: 200, phone: 40, hotel: 160, flight: 20, notes: 2000 };
+const MAX = { name: 120, email: 200, phone: 40, place: 80, flight: 20, notes: 2000 };
 
 function str(value, limit) {
   if (typeof value !== "string") return "";
@@ -24,6 +26,26 @@ function int(value, min, max, fallback) {
 /** Deliberately loose — the only real test of an address is mailing it. */
 function looksLikeEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+}
+
+/** Keep only keys and values that exist in the catalogue. */
+function cleanChoices(raw) {
+  if (!raw || typeof raw !== "object") return {};
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (typeof k === "string" && typeof v === "string" && k.length < 40) {
+      out[k.slice(0, 40)] = v.slice(0, 40);
+    }
+  }
+  return out;
+}
+
+function cleanAddons(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((v) => typeof v === "string")
+    .slice(0, 10)
+    .map((v) => v.slice(0, 40));
 }
 
 export async function POST(request) {
@@ -48,50 +70,98 @@ export async function POST(request) {
   }
 
   const isEnquiry = body.type === "enquiry";
+  const isTransfer = body.kind === "transfer";
   const adults = int(body.adults, 1, 30, 1);
   const children = int(body.children, 0, 30, 0);
+  const placeKey = str(body.placeKey, MAX.place);
+  const place = getPlace(placeKey);
 
   /*
-   * Price is recomputed here and the client's `total` is discarded. The form
-   * posts a number, and a posted number is just a claim — without this, anyone
-   * could book a $400 airport transfer for $1 by editing the request.
+   * The client's totals are discarded and recomputed here.
    *
-   * Enquiries have no tour attached and legitimately total zero.
+   * A posted price is just a claim. Without this, anyone could book a $340
+   * GoldenEye transfer for $1 by editing the request before it is sent.
+   *
+   * Two totals now come back rather than one, and they mean different things:
+   * `transportTotal` is what PPP is owed, `entryTotal` is what the guest should
+   * expect to hand over at the gate. Only the first is a debt to us, so they
+   * are stored separately and never silently added together.
    */
-  let priced = null;
-  if (!isEnquiry) {
-    priced = priceBooking({
-      tourId: body.tourId,
-      pickupKey: body.pickupKey,
-      adults,
-      children,
-    });
+  let transportTotal = null;
+  let entryTotal = 0;
+  let entryLines = [];
+  let quoted = false;
 
-    if (!priced) {
-      return NextResponse.json(
-        { error: "That tour or pickup point is no longer available." },
-        { status: 422 }
+  if (!isEnquiry) {
+    if (isTransfer) {
+      if (!place?.transfer) {
+        return NextResponse.json(
+          { error: "We don't have a published rate for that destination." },
+          { status: 422 }
+        );
+      }
+      const tripType = body.tripType === "one-way" ? "one-way" : "round-trip";
+      const q = quoteTransfer(placeKey, { tripType, adults, children });
+      transportTotal = q.transport?.total ?? null;
+      quoted = transportTotal != null;
+    } else {
+      const tour = filterProductById(str(body.tourId, 60));
+      if (!tour) {
+        return NextResponse.json(
+          { error: "That tour is no longer available." },
+          { status: 422 }
+        );
+      }
+
+      const q = quoteExcursion(tour, {
+        zoneKey: place?.zone ?? null,
+        adults,
+        children,
+        choices: cleanChoices(body.choices),
+        addons: cleanAddons(body.addons),
+      });
+
+      // A null transport total is legitimate: the owner publishes no rate from
+      // every resort for every tour. That is a quote request, not an error.
+      transportTotal = q.transport?.total ?? null;
+      entryTotal = q.entry?.total ?? 0;
+      entryLines = (q.entry?.lines ?? []).map(
+        (l) => `${l.label}${l.option ? ` (${l.option})` : ""}: $${l.amount.toFixed(2)}`
       );
+      quoted = transportTotal != null;
     }
   }
 
   const reference = makeReference();
   const booking = {
     reference,
-    type: isEnquiry ? "enquiry" : "booking",
+    type: isEnquiry ? "enquiry" : quoted ? "booking" : "quote-request",
+    kind: str(body.kind, 20),
     tourId: str(body.tourId, 60),
     tourTitle: str(body.tourTitle, 200),
-    category: str(body.category, 10),
-    pickupKey: priced ? priced.pickup.key : "",
-    pickupLabel: priced ? priced.pickup.label : str(body.pickupLabel, 160),
-    ratePerAdult: priced ? priced.rate : 0,
+    placeKey,
+    placeLabel: place ? place.name : str(body.placeLabel, MAX.place),
+    zoneKey: place?.zone ?? "",
+    tripType: isTransfer
+      ? body.tripType === "one-way"
+        ? "one-way"
+        : "round-trip"
+      : "",
     adults,
     children,
-    total: priced ? priced.total : 0,
+    choices: cleanChoices(body.choices),
+    addons: cleanAddons(body.addons),
+    transportTotal,
+    entryTotal,
+    entryLines,
+    // Kept for the alert email and the admin list, but it is an estimate of the
+    // guest's whole day, not an amount we are charging.
+    dayTotal: transportTotal == null ? null : transportTotal + entryTotal,
     date: str(body.date, 30),
     time: str(body.time, 20),
+    returnDate: str(body.returnDate, 30),
+    returnFlight: str(body.returnFlight, MAX.flight),
     flightNumber: str(body.flightNumber, MAX.flight),
-    hotel: str(body.hotel, MAX.hotel),
     subject: str(body.subject, 120),
     name,
     email,
@@ -113,7 +183,8 @@ export async function POST(request) {
       reference,
       persisted: false,
       emailed: alert.sent,
-      total: booking.total,
+      transportTotal,
+      entryTotal,
     });
   }
 
@@ -138,12 +209,11 @@ export async function POST(request) {
     console.error(`[bookings] ${reference} saved but alert failed: ${alert.reason}`);
   }
 
-  // `total` is the server's own figure, not the one that was posted — the
-  // caller can reconcile it against what the guest was shown.
   return NextResponse.json({
     reference,
     persisted: true,
     emailed: alert.sent,
-    total: booking.total,
+    transportTotal,
+    entryTotal,
   });
 }

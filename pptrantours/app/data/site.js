@@ -46,27 +46,46 @@ export const site = {
 
 /** Headline numbers for the trust bar. */
 export const stats = [
-  { value: "5.0", label: "Tripadvisor rating", sub: `${site.rating.count} reviews` },
-  { value: "15+", label: "Years on the road", sub: "Since 2010" },
-  { value: "100%", label: "Private service", sub: "Never a shared van" },
-  { value: "1,000+", label: "Guests driven", sub: "From 30+ countries" },
+  {
+    key: "rating",
+    value: "5.0",
+    label: "Tripadvisor rating",
+    sub: `${site.rating.count} reviews`,
+  },
+  { key: "years", value: "15+", label: "Years on the road", sub: "Since 2010" },
+  {
+    key: "private",
+    value: "100%",
+    label: "Private service",
+    sub: "Never a shared van",
+  },
+  {
+    key: "guests",
+    value: "1,000+",
+    label: "Guests driven",
+    sub: "From 30+ countries",
+  },
 ];
 
 /** Licences and standards, straight from the old site's About page. */
 export const credentials = [
   {
+    key: "licensed",
     title: "Licensed & regulated",
     body: "Licensed by the Jamaica Tourist Board and the Transport Authority of Jamaica. Every vehicle is inspected and insured for passenger service.",
   },
   {
+    key: "private",
     title: "Private only, always",
     body: "You never share a vehicle with strangers. No hotel-hopping pickup circuit, no waiting on a full van before you leave.",
   },
   {
+    key: "aircon",
     title: "Air-conditioned & maintained",
     body: "Clean, current, fully air-conditioned vehicles sized to your group — from a sedan for two to a coach for thirty.",
   },
   {
+    key: "drivers",
     title: "Drivers who know the island",
     body: "Patient, polite and knowledgeable. Our drivers are guides too, and they will tell you the story behind what you're looking at.",
   },
@@ -279,43 +298,58 @@ export const testimonials = [
 
 export const faqs = [
   {
-    q: "What payment methods do you accept?",
-    a: "Mastercard, Visa and Visa Debit through our secure online checkout. We also accept pay-on-arrival in cash (USD or JMD) if you'd rather settle with your driver.",
+    key: "pricing",
+    q: "Are your prices per person or per vehicle?",
+    a: "Per vehicle. One published price covers the whole group up to four people, so two travellers and four travellers pay exactly the same for the transport. From the fifth passenger on, each one adds a small fixed amount that is shown next to every rate.",
   },
   {
+    key: "entry",
+    q: "Do your prices include the attraction entry fees?",
+    a: "No, and that is deliberate. What you pay us is the transport and the guiding. Entry fees are paid at the gate, straight to the attraction, and we never resell them or add anything on top. Every tour page lists the gate prices beside ours so you can see the true cost of the day and know how much cash to carry.",
+  },
+  {
+    key: "quote",
+    q: "Why does the price change depending on my hotel?",
+    a: "Because the driving does. A day at Dunn's River from a Falmouth resort is a shorter run than the same day from Grand Palladium, so it costs less. Tell the site where you are staying and every price you see becomes the real price for you.",
+  },
+  {
+    key: "notlisted",
+    q: "My resort isn't on your list. Can you still collect me?",
+    a: "Yes. We cover the whole island. The published rates are for the resorts and piers we serve most often; anywhere else, send us the address and we will quote it the same day at the same kind of price.",
+  },
+  {
+    key: "payment",
+    q: "How and when do I pay?",
+    a: "Nothing is charged when you send a request — we confirm availability and the exact price first. Settlement is with your driver on the day, in cash (USD or JMD), unless we agree something else with you in advance.",
+  },
+  {
+    key: "confirm",
     q: "How do I know my booking went through?",
-    a: "You'll get an acknowledgement email with a booking reference the moment the request completes. Keep it — quoting that reference on any follow-up gets you an answer fastest. A separate confirmation follows once we've assigned your driver.",
+    a: "You get a booking reference the moment the request completes. Keep it — quoting that reference on any follow-up gets you an answer fastest. A separate confirmation follows once we have assigned your driver.",
   },
   {
-    q: "I didn't receive a confirmation email.",
-    a: "Check your spam or junk folder first, since acknowledgements are sent automatically and sometimes get filtered. If it isn't there, contact us and we'll confirm the booking by hand and check nothing failed on our side.",
-  },
-  {
+    key: "delay",
     q: "What happens if my flight is delayed?",
-    a: "Nothing, on your end. We track your flight number and adjust the pickup time ourselves. Your driver will be inside the arrivals hall with a name board whenever you actually land, at no extra charge.",
+    a: "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Your driver will be inside the arrivals hall with a name board whenever you actually land, at no extra charge.",
   },
   {
+    key: "shared",
     q: "Is the vehicle private, or shared with other guests?",
     a: "Always private. Every PPP booking is your group alone — no shared vans, no pickup circuit around other hotels before you get moving.",
   },
   {
+    key: "combo",
     q: "Can I combine two or three attractions in one day?",
-    a: "Yes, and it's one of the things we're known for. Tell us what you want to see and we'll build the day around it and price it fairly. Customised combo tours are no problem.",
+    a: "Yes, and it is one of the things we are known for. Most of our combo tours are in the same region, no more than a 20–30 minute drive apart, so you can do both on the same day and we only charge a little more for the transport and the waiting. Tell us what you want to see and we will build the day around it.",
   },
   {
-    q: "Are the prices per person or per group?",
-    a: "Tour and transfer prices are shown per person, and the total updates as you add travellers on the booking form. Attraction entry fees are quoted separately, so you know exactly what's ours and what's the attraction's.",
+    key: "group",
+    q: "How large a group can you take?",
+    a: "Any size, big or small. Vehicles run from a sedan for two up to a coach for thirty. Tell us the number and we will put the right vehicle on it.",
   },
   {
+    key: "advance",
     q: "How far in advance should I book?",
     a: "As early as you can. Our days sell out in high season, and airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead.",
   },
-];
-
-export const navLinks = [
-  { href: "/tours", label: "All Tours" },
-  { href: "/category/at", label: "Airport Transfers" },
-  { href: "/destinations", label: "Destinations" },
-  { href: "/about-us", label: "About PPP" },
-  { href: "/contact-us", label: "Contact" },
 ];

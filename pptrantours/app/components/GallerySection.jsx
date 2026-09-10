@@ -14,7 +14,8 @@ import SectionHeading from "./SectionHeading";
  * aspect tile would crop the subject straight out of half of them. Every photo
  * renders at its native ratio instead.
  */
-export default function GallerySection({ items = gallery, heading = true }) {
+export default function GallerySection({ items = gallery, heading = true, dict }) {
+  const tg = dict?.gallery ?? {};
   const [openIdx, setOpenIdx] = useState(null);
   const isOpen = openIdx !== null;
 
@@ -65,9 +66,12 @@ export default function GallerySection({ items = gallery, heading = true }) {
       <div className="shell">
         {heading && (
           <SectionHeading
-            eyebrow="The gallery"
-            title="Real days out, real guests."
-            description="Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
+            eyebrow={tg.eyebrow ?? "The gallery"}
+            title={tg.title ?? "Real days out, real guests."}
+            description={
+              tg.description ??
+              "Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
+            }
           />
         )}
 

@@ -1,0 +1,919 @@
+{
+  "meta": {
+    "tagline": "Privado. Personalizado. Profissional.",
+    "description": "Transfers privados do aeroporto, passeios pela ilha e excursões a partir dos cais de cruzeiro na Jamaica — um único preço por veículo, com as entradas das atrações sempre à parte e nunca com acréscimo.",
+    "keywords": [
+      "transfer aeroporto Jamaica",
+      "passeios privados Montego Bay",
+      "transfer aeroporto Sangster",
+      "o que fazer na Jamaica",
+      "excursões Negril",
+      "excursões Ocho Rios",
+      "excursões cruzeiro Falmouth",
+      "PPP Tran Tours"
+    ]
+  },
+
+  "common": {
+    "reviews": "avaliações",
+    "seeAll": "Ver tudo",
+    "scrollLeft": "Rolar para a esquerda",
+    "scrollRight": "Rolar para a direita",
+    "whatsappAria": "Fale connosco no WhatsApp",
+    "chatWithUs": "Fale connosco"
+  },
+
+  "nav": {
+    "home": "Início",
+    "tours": "O que fazer",
+    "transfers": "Transfers do aeroporto",
+    "destinations": "Destinos",
+    "about": "Sobre a PPP",
+    "contact": "Contacto",
+    "book": "Reservar",
+    "browse": "Explorar",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "licensed": "Licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes"
+  },
+
+  "durations": {
+    "Full day": "Dia inteiro",
+    "Half day": "Meio dia",
+    "Evening": "À noite",
+    "Door to door": "Porta a porta"
+  },
+
+  "zones": {
+    "mobay-hotels": "Hotéis de Montego Bay",
+    "mobay-pier": "Cais de cruzeiro de Montego Bay",
+    "falmouth-hotels": "Hotéis de Falmouth e Trelawny",
+    "falmouth-pier": "Cais de cruzeiro de Falmouth",
+    "palladium": "Grand Palladium / Lady Hamilton"
+  },
+
+  "areas": {
+    "montego-bay": "Montego Bay",
+    "falmouth": "Falmouth e Trelawny",
+    "hanover": "Hanover e Green Island",
+    "ocho-rios": "Ocho Rios e St. Ann",
+    "negril": "Negril",
+    "south-coast": "Costa Sul",
+    "piers": "Cais de cruzeiro"
+  },
+
+  "categories": {
+    "popular": {
+      "title": "Os passeios mais populares",
+      "short": "Mais populares",
+      "blurb": "Os dias que as pessoas pedem pelo nome. Dunn's River, o Blue Hole, o Rick's Cafe ao pôr do sol — os que acabam no álbum de fotografias."
+    },
+    "transfers": {
+      "title": "Transfers do aeroporto",
+      "short": "Transfers",
+      "blurb": "Tarifas fixas e publicadas do aeroporto Sangster International para todos os resorts que servimos. Um preço para até quatro pessoas."
+    },
+    "combos": {
+      "title": "Pacotes combinados",
+      "short": "Combinados",
+      "blurb": "Duas atrações num dia, na mesma região e a meia hora uma da outra. Paga um pouco mais pela viagem, não o dobro pelo dia."
+    },
+    "montego-bay": {
+      "title": "O que fazer em Montego Bay",
+      "short": "Montego Bay",
+      "blurb": "A nossa própria paróquia. Rose Hall, Doctor's Cave, a Hip Strip e os golfinhos — os trajetos curtos que cabem em meio dia de praia."
+    },
+    "ocho-rios": {
+      "title": "O que fazer em Ocho Rios",
+      "short": "Ocho Rios",
+      "blurb": "Dunn's River Falls, o Blue Hole, Mystic Mountain, Dolphin Cove e Nine Mile, a aldeia de Bob Marley — St. Ann tem mais atrações de destaque do que qualquer outra paróquia."
+    },
+    "falmouth": {
+      "title": "O que fazer em Falmouth",
+      "short": "Falmouth",
+      "blurb": "O melhor de Trelawny: jangadas de bambu no Martha Brae, descida de boia no rio e a Lagoa Luminosa depois de escurecer."
+    },
+    "negril": {
+      "title": "O que fazer em Negril",
+      "short": "Negril",
+      "blurb": "Seven Mile Beach e as falésias do West End. Nenhum dos dois tem bilhete de entrada — paga-nos a viagem e mais nada."
+    },
+    "south-coast": {
+      "title": "O que fazer na Costa Sul",
+      "short": "Costa Sul",
+      "blurb": "YS Falls, o safari de crocodilos do Black River e a quinta Appleton. O lado tranquilo da ilha, e vale a viagem mais longa."
+    }
+  },
+
+  "price": {
+    "from": "A partir de",
+    "fromYourResort": "A partir do seu hotel",
+    "askUs": "Pergunte-nos",
+    "weWillQuote": "damos-lhe o preço",
+    "perVehicle": "até 4 pessoas"
+  },
+
+  "place": {
+    "title": "Onde está hospedado?",
+    "subtitle": "Escolha o seu hotel e todos os preços do site passam a ser os seus — sem zonas para decifrar.",
+    "search": "Procurar hotéis, resorts e cais…",
+    "close": "Fechar",
+    "noMatch": "Sem resultados. Escolha o hotel mais próximo ou indique-o nas notas — cobrimos toda a ilha.",
+    "footnote": "Não está na lista? Escolha o mais próximo para ter uma ideia do preço e depois escreva-nos — chegamos a todos os cantos da ilha.",
+    "prompt": "Onde está hospedado?",
+    "change": "Mudar de hotel"
+  },
+
+  "placePrompt": {
+    "title": "Onde está hospedado?",
+    "body": "Diga-nos o seu hotel, resort ou cais de cruzeiro e todos os preços do site passam a ser os seus — sem zonas nem adivinhações.",
+    "showingFor": "A mostrar preços para",
+    "chosenBody": "Todos os preços do site são agora o preço real a partir do seu hotel, com o transporte e as entradas separados.",
+    "choose": "Escolher o seu hotel",
+    "change": "Mudar de hotel"
+  },
+
+  "search": {
+    "label": "Procurar",
+    "placeholder": "Procurar passeios ou o seu hotel…",
+    "clear": "Limpar pesquisa",
+    "noResults": "Nada corresponde. Experimente «Dunn's River», «Negril» ou o nome do seu hotel.",
+    "tours": "Passeios",
+    "transfers": "Transfers do aeroporto",
+    "from": "a partir de",
+    "oneWay": "só ida",
+    "askUs": "pergunte-nos"
+  },
+
+  "grid": {
+    "filter": "Filtrar por nome ou palavra-chave…",
+    "filterCategory": "Filtrar por categoria",
+    "allCategories": "Todas as categorias",
+    "sort": "Ordenar resultados",
+    "priceAsc": "Preço: do mais baixo",
+    "priceDesc": "Preço: do mais alto",
+    "az": "Nome: A–Z",
+    "showing": "A mostrar",
+    "of": "de",
+    "emptyTitle": "Nada corresponde a esses filtros.",
+    "emptyBody": "Experimente uma pesquisa mais ampla — ou pergunte-nos diretamente, montamos dias à medida a toda a hora.",
+    "clear": "Limpar filtros",
+    "prev": "Página anterior",
+    "next": "Página seguinte"
+  },
+
+  "booking": {
+    "transportLabel": "Transporte",
+    "transferPrice": "Transfer privado",
+    "perVehicleLong": "por veículo",
+    "pickResortFirst": "Escolha o seu hotel",
+    "askUsPrice": "Damos-lhe o preço",
+    "stayingAt": "Onde está hospedado?",
+    "choosePlace": "Escolha o seu hotel ou cais",
+    "choose": "Escolher",
+    "change": "Mudar",
+    "tripType": "Tipo de viagem",
+    "roundTrip": "Ida e volta",
+    "oneWay": "Só ida",
+    "transferTo": "Para",
+    "adults": "Adultos",
+    "adult": "adulto",
+    "children": "Crianças",
+    "child": "criança",
+    "childrenWord": "crianças",
+    "vehicleNote": "Um veículo privado cobre até 4 pessoas pelo mesmo preço.",
+    "extraNote": "Grupo maior — o preço acima já inclui os passageiros adicionais.",
+    "gateNote": "Pago à entrada, não a nós.",
+    "addons": "Extras opcionais",
+    "fromWord": "a partir de",
+    "childWord": "criança",
+    "tourDate": "Data do passeio",
+    "arrivalDate": "Data de chegada",
+    "pickupTime": "Hora de recolha",
+    "landingTime": "Hora de aterragem",
+    "flightNumber": "Número do voo de chegada",
+    "flightNote": "Acompanhamos o voo e ajustamos em caso de atraso, sem custo adicional.",
+    "returnDate": "Data de regresso",
+    "returnFlight": "Voo de regresso",
+    "name": "Nome completo",
+    "email": "E-mail",
+    "phone": "Telefone / WhatsApp",
+    "notes": "Há algo que devamos saber?",
+    "notesPlaceholder": "Cadeirinhas, paragens extra, outra atração que queira acrescentar…",
+    "pickResortHint": "Diga-nos em que hotel está hospedado e o preço exato para o seu grupo aparece aqui.",
+    "unpricedHint": "Para este passeio não temos tarifa publicada a partir do seu hotel. Envie o pedido e damos-lhe um preço firme no próprio dia, sem acréscimos.",
+    "extraBreakdown": "Inclui os passageiros além dos quatro primeiros.",
+    "transportIsOurs": "É isto que a PPP cobra. Não se acrescenta nada.",
+    "gatesLabel": "Pago à entrada",
+    "gatesNote": "Bilhetes das atrações, pagos no próprio dia. Nunca os revendemos nem lhes acrescentamos seja o que for.",
+    "dayTotal": "O seu dia, tudo incluído",
+    "total": "Total",
+    "errorSaving": "Não conseguimos guardar essa reserva. Tente novamente ou envie-nos por WhatsApp que confirmamos à mão.",
+    "sending": "A enviar…",
+    "submit": "Pedir esta reserva",
+    "requestQuote": "Pedir preço",
+    "noPayment": "Não é cobrado nada agora — confirmamos primeiro a disponibilidade.",
+    "ratherMessage": "Prefere escrever-nos?",
+    "doneTitle": "Pedido recebido.",
+    "doneRef": "A sua referência é",
+    "doneBody": "Guarde-a — indicá-la é a forma mais rápida de obter resposta. Confirmamos o motorista e a hora exata de recolha por e-mail.",
+    "notPersisted": "O armazenamento de reservas ainda não está ativo neste site. Envie-nos os dados por WhatsApp abaixo e deixamos tudo fechado.",
+    "confirmWhatsApp": "Confirmar por WhatsApp",
+    "browseMore": "Ver mais passeios"
+  },
+
+  "fare": {
+    "from": "De Sangster International (MBJ)",
+    "destination": "Para que hotel o levamos?",
+    "choose": "Escolha o seu hotel ou resort…",
+    "tripType": "Tipo de viagem",
+    "roundTrip": "Ida e volta",
+    "oneWay": "Só ida",
+    "passengers": "Passageiros",
+    "fewer": "Menos passageiros",
+    "more": "Mais passageiros",
+    "note": "Um veículo privado cobre até 4 passageiros por um preço fixo. As tarifas são em dólares americanos e incluem o acolhimento dentro das chegadas.",
+    "prompt": "Escolha o seu hotel e a tarifa exata aparece aqui — sem formulários nem esperar por um e-mail.",
+    "roundTripLabel": "Transfer privado de ida e volta",
+    "oneWayLabel": "Transfer privado só de ida",
+    "upTo": "Até 4 passageiros",
+    "extraPassenger": "passageiro adicional",
+    "book": "Reservar este transfer",
+    "ask": "Fazer uma pergunta"
+  },
+
+  "hero": {
+    "tagline": "Privado. Personalizado. Profissional.",
+    "h1a": "Descubra a Jamaica",
+    "h1b": "com confiança…",
+    "p1": "Privadas",
+    "p2": "Personalizado",
+    "p3": "Profissional",
+    "lead1": "recolhas para transfers do aeroporto e passeios por toda a ilha, a partir dos principais hotéis e portos de cruzeiro.",
+    "lead2": "um serviço que lhe dá total flexibilidade para desenhar os seus dias. Veículos limpos e já climatizados, conduzidos por um motorista licenciado, experiente e simples: um verdadeiro",
+    "explore": "Ver os passeios",
+    "transfer": "Reservar um transfer"
+  },
+
+  "stats": {
+    "rating": { "label": "Classificação no Tripadvisor", "sub": "680 avaliações" },
+    "years": { "label": "Anos na estrada", "sub": "Desde 2010" },
+    "private": { "label": "Serviço privado", "sub": "Nunca uma carrinha partilhada" },
+    "guests": { "label": "Clientes transportados", "sub": "De mais de 30 países" }
+  },
+
+  "promise": {
+    "eyebrow": "O que significa PPP",
+    "title": "Três promessas, no próprio nome.",
+    "description": "Desde 2010 o padrão não mudou: o seu próprio veículo, um dia montado à volta do que realmente quer ver e um profissional licenciado ao volante.",
+    "meet": "Conheça o Sr. Pugh",
+    "words": {
+      "Private": {
+        "word": "Privado",
+        "body": "O seu grupo, o seu veículo, o seu horário. Mais ninguém a bordo e nenhuma hora de partida fixa a cumprir."
+      },
+      "Personalized": {
+        "word": "Personalizado",
+        "body": "Duas atrações num dia? Uma paragem numa grelha de jerk no regresso? Os dias combinados não são problema e ficam a um preço razoável."
+      },
+      "Professional": {
+        "word": "Profissional",
+        "body": "Formados, licenciados, com seguro. Voos acompanhados, recolhas à hora e um número que atende sempre."
+      }
+    }
+  },
+
+  "browse": {
+    "eyebrow": "O que fazer na Jamaica",
+    "title": "Onde quer passar o dia?",
+    "description": "Explore por paróquia ou pelo tipo de dia que procura. Todos os preços são de transporte para o veículo inteiro, com as entradas indicadas ao lado.",
+    "seeEverything": "Ver tudo",
+    "option": "opção",
+    "options": "opções"
+  },
+
+  "home": {
+    "popularEyebrow": "Os preferidos",
+    "popularTitle": "Os passeios que se reservam duas vezes.",
+    "popularDescription": "Dunn's River, o Blue Hole, o Rick's Cafe ao pôr do sol — os dias que acabam no álbum de fotografias.",
+    "transfersEyebrow": "Transfers do aeroporto",
+    "transfersTitle": "De Sangster até à sua porta.",
+    "transfersDescription": "Escolha o seu hotel e veja a tarifa exata — um preço fixo para até quatro pessoas, voo acompanhado e motorista à espera dentro das chegadas.",
+    "allRates": "Todas as tarifas",
+    "combosEyebrow": "Dois num dia",
+    "combosTitle": "Pacotes combinados, sem pressas.",
+    "combosDescription": "A maioria dos nossos combinados fica na mesma região, a não mais de 20–30 minutos de carro, por isso pode fazer os dois num dia e só cobramos um pouco mais pelo transporte e pela espera.",
+    "faqEyebrow": "Bom saber",
+    "faqTitle": "As perguntas que mais nos fazem.",
+    "faqDescription": "Para tudo o resto, escreva-nos — há sempre alguém a responder, sete dias por semana.",
+    "askUs": "Faça-nos uma pergunta"
+  },
+
+  "transparency": {
+    "eyebrow": "Sem custos escondidos",
+    "title": "Somos diretos. Sempre transparentes.",
+    "body": "A PPP Tran Tours Jamaica é uma empresa de transporte privado de confiança que não acredita em custos escondidos. Além de lhe darmos a liberdade de personalizar os seus percursos, dizemos-lhe quanto vai custar tudo o que está associado ao seu passeio — para que saiba sempre o que esperar e quanto dinheiro levar consigo, se for preciso. Nunca revendemos nem inflacionamos os custos de atividades, entradas ou refeições.",
+    "groups": "Acomodamos grupos de qualquer dimensão, grandes ou pequenos.",
+    "seeCombos": "Ver os pacotes combinados",
+    "seeRates": "Ver todas as tarifas de transfer"
+  },
+
+  "slogan": {
+    "line": "Descubra a Jamaica",
+    "emphasis": "com Confiança",
+    "full": "Descubra a Jamaica com confiança."
+  },
+
+  "comboPitch": {
+    "eyebrow": "Mais vendidos",
+    "title": "As combinações de eleição da PPP.",
+    "sellers": [
+      "YS Falls e safari do Black River",
+      "YS Falls e quinta de rum Appleton",
+      "Passeio a cavalo com banho e descida de boia em River Rapids",
+      "Seven Mile Beach em Negril e Rick's Cafe",
+      "Blue Hole e Dunn's River Falls",
+      "Dunn's River Falls e Mystic Mountain",
+      "Jangada no Martha Brae e praia de Doctor's Cave"
+    ],
+    "body": "A maioria dos nossos passeios combinados fica na mesma região, a não mais de 20–30 minutos de carro um do outro, por isso pode fazer os dois no mesmo dia e só lhe cobraremos um pouco mais pelo transporte e pela espera.",
+    "challenge": "Ponha a nossa flexibilidade à prova: diga-nos que passeios gostaria de combinar. Se forem viáveis, tratamos disso por um preço razoável.",
+    "groups": "Acomodamos grupos de qualquer dimensão, grandes ou pequenos.",
+    "buildMyDay": "Montar o meu dia"
+  },
+
+  "destinations": {
+    "eyebrow": "Onde vamos",
+    "title": "Cada paróquia que vale a viagem.",
+    "description": "Cobrimos toda a ilha a partir da nossa base em Montego Bay — escolha uma costa e levamo-lo lá e de volta no mesmo dia.",
+    "browse": "Ver os passeios"
+  },
+
+  "testimonials": {
+    "eyebrow": "Avaliações de clientes",
+    "title": "680 avaliações. Nenhuma abaixo de cinco estrelas.",
+    "description": "A maioria menciona o Sr. Pugh pelo nome. As avaliações são apresentadas na língua em que foram escritas."
+  },
+
+  "gallery": {
+    "eyebrow": "A galeria",
+    "title": "Dias a sério, clientes a sério.",
+    "description": "Todas estas fotografias foram tiradas nos nossos próprios passeios — nada de ilhas de banco de imagens nem de veículos emprestados. O dia é mesmo assim."
+  },
+
+  "fleet": {
+    "eyebrow": "A nossa frota",
+    "title": "À medida do seu grupo, e não ao contrário.",
+    "description": "Todos os veículos são climatizados, inspecionados e segurados para transporte de passageiros. Há autocarros maiores para casamentos e grupos até trinta pessoas.",
+    "caption": "O Sr. Pugh a receber clientes no Sangster International, Montego Bay.",
+    "vehicles": {
+      "sedan": {
+        "name": "Berlina executiva",
+        "blurb": "Berlina para casais e viajantes sozinhos que querem uma viagem sossegada.",
+        "seats": "1–3 pessoas",
+        "bags": "3 malas"
+      },
+      "minivan": {
+        "name": "Monovolume privado",
+        "blurb": "O nosso cavalo de batalha. Espaço para esticar as pernas nos trajetos longos pela ilha.",
+        "seats": "4–6 pessoas",
+        "bags": "6 malas"
+      },
+      "touring": {
+        "name": "Carrinha de turismo",
+        "blurb": "Para famílias e grupos que viajam juntos, com espaço de bagagem à altura.",
+        "seats": "7–14 pessoas",
+        "bags": "14 malas"
+      }
+    }
+  },
+
+  "cta": {
+    "eyebrow": "Quando quiser",
+    "title": "Diga-nos o número do seu voo. Do resto tratamos nós.",
+    "body": "Na época alta os nossos dias esgotam-se. Envie-nos as datas e a dimensão do grupo e respondemos com um plano e um preço, normalmente dentro de uma hora.",
+    "send": "Enviar mensagem",
+    "hours": "A central atende 7 dias por semana, das 6:00 às 22:00. Os voos são recebidos a qualquer hora."
+  },
+
+  "footer": {
+    "tours": "O que fazer",
+    "destinations": "Destinos",
+    "about": "Sobre a PPP",
+    "contact": "Contacto e FAQ",
+    "getInTouch": "Fale connosco",
+    "viewAll": "Ver tudo",
+    "rights": "Todos os direitos reservados.",
+    "licensed": "Licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes da Jamaica."
+  },
+
+  "tourPage": {
+    "about": "Sobre este passeio",
+    "highlights": "Destaques",
+    "included": "O que está incluído",
+    "inc1": "Veículo privado climatizado, só para si",
+    "inc2": "Motorista e guia local licenciado e com seguro",
+    "inc3": "Recolha e regresso à porta do seu alojamento",
+    "inc4": "Sem hora de partida fixa — o ritmo é o seu",
+    "transportTable": "Quanto custa o transporte",
+    "transportTableNote": "Um veículo privado, até 4 pessoas, em dólares americanos. O quinto passageiro e cada um seguinte somam o segundo valor.",
+    "pickingUpFrom": "Vamos buscá-lo a",
+    "upToFour": "Até 4",
+    "eachExtra": "Cada extra",
+    "otherResorts": "Está hospedado noutro sítio? Continuamos a fazer esta viagem — escreva-nos e damos-lhe o preço para o seu hotel diretamente.",
+    "entryTable": "Quanto cobra a atração",
+    "entryTableNote": "Pago à entrada no próprio dia, diretamente à atração. Nunca revendemos estes bilhetes nem lhes acrescentamos nada.",
+    "noEntry": "Nada. Este não tem bilhete de entrada.",
+    "entryItem": "Bilhete",
+    "entryAdult": "Adulto",
+    "entryChild": "Criança",
+    "optional": "opcional",
+    "alsoLike": "Também pode gostar",
+    "moreTours": "Mais passeios"
+  },
+
+  "toursPage": {
+    "metaTitle": "O que fazer na Jamaica",
+    "metaDescription": "Todos os passeios da PPP Tran Tours, por paróquia — Montego Bay, Ocho Rios, Falmouth, Negril e a Costa Sul. Transporte com preço por veículo e entradas indicadas à parte.",
+    "eyebrow": "O catálogo",
+    "title": "O que fazer na Jamaica.",
+    "description": "Todos os passeios que fazemos, com o preço do transporte e o da entrada separados, para que veja exatamente o que é nosso e o que é da atração.",
+    "crumb": "O que fazer",
+    "parishEyebrow": "Por paróquia",
+    "parishTitle": "Escolha um canto da ilha.",
+    "parishDescription": "A nossa base é Montego Bay e vamos a toda a ilha. Estes são os dias que fazemos mais vezes.",
+    "tour": "passeio",
+    "toursWord": "passeios"
+  },
+
+  "categoryPage": {
+    "eyebrow": "Explorar"
+  },
+
+  "transfersPage": {
+    "metaTitle": "Transfers do aeroporto de Montego Bay",
+    "metaDescription": "Transfers privados do aeroporto Sangster International (MBJ) para todos os grandes resorts jamaicanos. Tarifas fixas até quatro passageiros, voo acompanhado, acolhimento dentro das chegadas.",
+    "eyebrow": "Transfers do aeroporto",
+    "title": "Do Sangster International até à sua porta.",
+    "description": "Tarifas fixas e publicadas para todos os resorts que servimos. Escolha o seu hotel abaixo e veja a tarifa antes de nos dar um único dado.",
+    "p1Title": "Recebemo-lo dentro das chegadas",
+    "p1Body": "O seu motorista está na sala com uma placa com o seu nome, não num parque de estacionamento qualquer.",
+    "p2Title": "Voo acompanhado",
+    "p2Body": "Se aterrar atrasado, sabemos antes de si, e a espera não se paga.",
+    "p3Title": "Privado, sempre",
+    "p3Body": "Só o seu grupo. Nada de carrinhas partilhadas nem de voltas por outros hotéis primeiro.",
+    "p4Title": "O preço é o preço",
+    "p4Body": "Uma tarifa fixa até quatro pessoas. Sem taxa de combustível nem sobretaxa de aeroporto.",
+    "ratesEyebrow": "Todas as nossas tarifas",
+    "ratesTitle": "A tabela de preços completa, à vista.",
+    "ratesDescription": "Um veículo privado para até quatro passageiros. O segundo valor é o que cada passageiro além do quarto acrescenta.",
+    "resort": "Hotel",
+    "oneWay": "Só ida",
+    "roundTrip": "Ida e volta",
+    "each": "Cada extra",
+    "book": "Reservar",
+    "notListed": "Vivenda, Airbnb ou um hotel que não aparece? Vamos a toda a ilha — envie-nos a morada e damos-lhe o preço no próprio dia."
+  },
+
+  "transferPage": {
+    "metaTitle": "Transfer do aeroporto para {resort} por {fare}",
+    "metaDescription": "Transfer privado do aeroporto Sangster International de Montego Bay (MBJ) para {resort}. {fare} só ida até 4 passageiros, {roundTrip} ida e volta. Voo acompanhado, acolhimento dentro das chegadas.",
+    "h1": "Transfer privado do aeroporto para {resort}",
+    "intro": "De Sangster International (MBJ) para {resort} — {fare} só ida até {capacity} passageiros. O seu motorista espera-o dentro das chegadas com uma placa com o seu nome e leva-o diretamente.",
+    "transferTo": "Transfer do aeroporto para",
+    "oneWay": "Só ida",
+    "roundTrip": "Ida e volta",
+    "perExtra": "por extra",
+    "whatYouGet": "O que a tarifa cobre",
+    "inc1": "Acolhimento dentro da sala de chegadas com placa",
+    "inc2": "Voo acompanhado — os atrasos não lhe custam nada",
+    "inc3": "Veículo privado e climatizado, só o seu grupo",
+    "inc4": "Motorista licenciado e com seguro que trata da bagagem",
+    "pricing": "Como funciona o preço",
+    "party": "O seu grupo",
+    "passenger": "passageiro",
+    "passengers": "passageiros",
+    "sameAsOne": "igual a um",
+    "pricingNote": "Sem taxa de combustível, sem sobretaxa de aeroporto e sem acréscimo noturno. O que vê é a tarifa completa.",
+    "nearby": "Outros hotéis próximos que servimos",
+    "toursEyebrow": "Já que está por cá",
+    "toursTitle": "Passeios a partir de {resort}",
+    "toursDescription": "Os preços abaixo são especificamente para o seu hotel — transporte para o veículo inteiro, com as entradas indicadas à parte."
+  },
+
+  "destinationsPage": {
+    "metaTitle": "Destinos",
+    "metaDescription": "Montego Bay, Ocho Rios, Negril, Falmouth e a Costa Sul — todas as paróquias que a PPP Tran Tours cobre e o que vale a pena ver em cada uma.",
+    "eyebrow": "Onde vamos",
+    "title": "Uma ilha, cinco bases, todas as paróquias.",
+    "description": "Saímos de Montego Bay e chegamos a toda a ilha. Escolha uma costa — levamo-lo lá e de volta no mesmo dia, ao seu ritmo.",
+    "crumb": "Destinos",
+    "startEyebrow": "Comece por aqui",
+    "startTitle": "Os passeios que reservaríamos primeiro.",
+    "startDescription": "Se é a sua primeira vez na ilha, são estes os dias que fazem a viagem."
+  },
+
+  "aboutPage": {
+    "metaTitle": "Sobre a PPP",
+    "metaDescription": "PPP Tran Tours Jamaica — transporte privado, personalizado e profissional desde 2010, dirigido a partir de Montego Bay pelo proprietário Donovan Pugh.",
+    "eyebrow": "Sobre a PPP",
+    "title": "Privado. Personalizado. Profissional.",
+    "description": "Três palavras que deram o nome à empresa, e os únicos três padrões de que alguma vez precisámos.",
+    "crumb": "Sobre a PPP",
+    "historyEyebrow": "A nossa história",
+    "historyTitle": "Construída em clientes que voltam, não em publicidade.",
+    "history": [
+      "Desde o início, o serviço personalizado e a satisfação do cliente foram as pedras angulares em que se construíram o padrão e a reputação da PPP Tran Tours Jamaica.",
+      "Todos os nossos serviços são privados: transfers do aeroporto, passeios e excursões a partir de hotéis, resorts e cais de cruzeiro. Somos licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes da Jamaica. Todos os veículos são climatizados, limpos, confortáveis e recentes, e todos os motoristas são pacientes, educados e conhecedores.",
+      "Os passeios combinados à medida — duas ou três atrações no mesmo dia — não são problema e ficam a um preço razoável. Reservar com a PPP permite-lhe andar ao seu ritmo enquanto explora a Jamaica de paróquia em paróquia com profissionais formados."
+    ],
+    "yearsCaption": "Anos a levar clientes por toda a ilha",
+    "ownerCaption": "O Sr. Pugh com clientes no fim de um dia de passeio.",
+    "meetOwner": "Conheça o proprietário",
+    "ownerRole": "Proprietário e diretor-geral",
+    "ownerBio": "Jamaicano formado no caldeirão de Nova Iorque, Donovan criou a PPP para viajantes que procuram experiências jamaicanas genuínas e querem provar a riqueza da nossa cultura apaixonada. Continua a conduzir quase todos os dias.",
+    "ownerNote": "Ser uma empresa exclusivamente de serviços privados permite-nos prestar muita atenção ao que os nossos clientes querem. É também por isso que, em {count} avaliações do Tripadvisor, a maioria menciona o Sr. Pugh pelo nome.",
+    "planDay": "Planeie um dia connosco",
+    "whyEyebrow": "Porquê a PPP",
+    "whyTitle": "O padrão não mudou em quinze anos.",
+    "whyDescription": "Licenciado, com seguro, climatizado e privado — em todas as viagens, sem exceção.",
+    "awards": "Reconhecidos pelo Tripadvisor em anos consecutivos, e ainda com {score} em {count} avaliações.",
+    "credentials": {
+      "licensed": {
+        "title": "Licenciados e regulados",
+        "body": "Licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes da Jamaica. Todos os veículos são inspecionados e segurados para transporte de passageiros."
+      },
+      "private": {
+        "title": "Privado sempre, sem exceção",
+        "body": "Nunca partilha o veículo com estranhos. Sem voltas de recolha por outros hotéis, sem esperas até a carrinha encher."
+      },
+      "aircon": {
+        "title": "Climatizados e bem mantidos",
+        "body": "Veículos limpos, recentes e totalmente climatizados, do tamanho certo para o seu grupo — da berlina para dois ao autocarro para trinta."
+      },
+      "drivers": {
+        "title": "Motoristas que conhecem a ilha",
+        "body": "Pacientes, educados e conhecedores. Os nossos motoristas também são guias e contam-lhe a história do que está a ver."
+      }
+    }
+  },
+
+  "contactPage": {
+    "metaTitle": "Contacto e FAQ",
+    "metaDescription": "Contacte a PPP Tran Tours Jamaica por telefone, WhatsApp ou e-mail — ou envie-nos as suas datas e montamos o dia à sua medida.",
+    "eyebrow": "Fale connosco",
+    "title": "Diga-nos as suas datas. Do resto tratamos nós.",
+    "description": "Envie o número do voo, o hotel e a dimensão do grupo e respondemos com um plano e um preço firme, normalmente dentro de uma hora.",
+    "crumb": "Contacto",
+    "whatsapp": "WhatsApp / Messenger",
+    "whatsappNote": "A forma mais rápida de nos contactar",
+    "call": "Ligue-nos",
+    "callNote": "Central, das 6h às 22h todos os dias",
+    "email": "E-mail",
+    "emailNote": "Respondemos em poucas horas",
+    "sendEyebrow": "Envie uma mensagem",
+    "sendTitle": "Planeie o seu dia connosco.",
+    "sendDescription": "Aqui não se paga nada — confirmamos primeiro a disponibilidade e o preço.",
+    "whereTitle": "Onde nos encontrar",
+    "transferTitle": "Vai reservar um transfer do aeroporto?",
+    "transferBody": "Tenha à mão o número do voo, a hora de aterragem e o nome do hotel. Com essas três coisas confirmamos na hora — e como acompanhamos o voo, um atraso não lhe custa nada.",
+    "sendFlight": "Enviar dados do voo",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Tudo o resto, esclarecido."
+  },
+
+  "contactForm": {
+    "name": "Nome completo",
+    "email": "E-mail",
+    "phone": "Telefone / WhatsApp",
+    "subject": "Do que precisa?",
+    "subjects": [
+      "Transfer do aeroporto",
+      "Passeio ou excursão",
+      "Pacote combinado",
+      "Excursão a partir do cruzeiro",
+      "Transporte de grupos ou casamentos",
+      "Outra coisa"
+    ],
+    "date": "Data da viagem",
+    "groupSize": "Dimensão do grupo",
+    "notes": "Fale-nos da sua viagem",
+    "notesPlaceholder": "Onde está hospedado, o que gostaria de ver, os horários dos voos — tanto ou tão pouco quanto tiver.",
+    "sending": "A enviar…",
+    "submit": "Enviar mensagem",
+    "error": "Algo correu mal no envio. Tente novamente ou fale connosco no WhatsApp.",
+    "doneTitle": "Mensagem enviada.",
+    "doneRef": "A sua referência é",
+    "doneBody": "Costumamos responder dentro de uma hora durante o horário de atendimento.",
+    "notPersisted": "O armazenamento de mensagens ainda não está ativo neste site — envie-a por WhatsApp para chegar até nós de imediato.",
+    "sendWhatsApp": "Enviar por WhatsApp",
+    "footnote": "Ou escreva diretamente para o {phone} no WhatsApp"
+  },
+
+  "faqs": [
+    {
+      "key": "pricing",
+      "q": "Os vossos preços são por pessoa ou por veículo?",
+      "a": "Por veículo. Um preço publicado cobre o grupo inteiro até quatro pessoas, por isso dois viajantes e quatro pagam exatamente o mesmo pelo transporte. A partir do quinto passageiro, cada um acrescenta um pequeno valor fixo indicado ao lado de cada tarifa."
+    },
+    {
+      "key": "entry",
+      "q": "Os preços incluem as entradas nas atrações?",
+      "a": "Não, e é de propósito. O que nos paga é o transporte e o acompanhamento. As entradas pagam-se na bilheteira, diretamente à atração, e nunca as revendemos nem lhes acrescentamos seja o que for. Cada página de passeio indica os preços de entrada ao lado dos nossos, para ver o custo real do dia e saber quanto dinheiro levar."
+    },
+    {
+      "key": "quote",
+      "q": "Porque é que o preço muda consoante o meu hotel?",
+      "a": "Porque o trajeto muda. Um dia em Dunn's River a partir de um hotel de Falmouth é mais curto do que o mesmo dia a partir do Grand Palladium, por isso custa menos. Diga ao site onde está hospedado e todos os preços passam a ser o seu preço real."
+    },
+    {
+      "key": "notlisted",
+      "q": "O meu hotel não está na vossa lista. Ainda assim vão buscar-me?",
+      "a": "Sim. Cobrimos toda a ilha. As tarifas publicadas são dos hotéis e cais que servimos com mais frequência; para qualquer outro sítio, envie-nos a morada e damos-lhe o preço no próprio dia, na mesma ordem de grandeza."
+    },
+    {
+      "key": "payment",
+      "q": "Como e quando se paga?",
+      "a": "Não é cobrado nada quando envia o pedido — confirmamos primeiro a disponibilidade e o preço exato. O pagamento é feito ao motorista no próprio dia, em dinheiro (dólares americanos ou jamaicanos), salvo se combinarmos outra coisa consigo com antecedência."
+    },
+    {
+      "key": "confirm",
+      "q": "Como sei que a minha reserva ficou registada?",
+      "a": "Recebe uma referência de reserva assim que o pedido é concluído. Guarde-a — indicá-la em qualquer contacto posterior é a forma mais rápida de obter resposta. Uma confirmação separada segue depois, quando já tivermos atribuído o seu motorista."
+    },
+    {
+      "key": "delay",
+      "q": "O que acontece se o meu voo se atrasar?",
+      "a": "Nada, da sua parte. Acompanhamos o número do voo e ajustamos a recolha nós próprios. O seu motorista estará dentro da sala de chegadas com uma placa com o seu nome quando aterrar de facto, sem custo adicional."
+    },
+    {
+      "key": "shared",
+      "q": "O veículo é privado ou partilhado com outros clientes?",
+      "a": "Sempre privado. Cada reserva da PPP é só para o seu grupo — sem carrinhas partilhadas e sem voltas de recolha por outros hotéis antes de arrancar."
+    },
+    {
+      "key": "combo",
+      "q": "Posso combinar duas ou três atrações num dia?",
+      "a": "Sim, e é uma das coisas por que somos conhecidos. A maioria dos nossos combinados fica na mesma região, a não mais de 20–30 minutos de carro, por isso pode fazer os dois no mesmo dia e só cobramos um pouco mais pelo transporte e pela espera. Diga-nos o que quer ver e montamos o dia à volta disso."
+    },
+    {
+      "key": "group",
+      "q": "Que dimensão pode ter o grupo?",
+      "a": "Qualquer dimensão, grande ou pequena. Os veículos vão da berlina para dois ao autocarro para trinta. Diga-nos o número e pomos o veículo certo."
+    },
+    {
+      "key": "advance",
+      "q": "Com quanta antecedência devo reservar?",
+      "a": "O mais cedo possível. Na época alta os nossos dias esgotam-se, e os transfers do aeroporto são mais fáceis de garantir quando temos os dados do voo com pelo menos 48 horas de antecedência."
+    }
+  ],
+
+  "tours": {
+    "blue-hole": {
+      "subtitle": "Irie Blue Hole, St. Ann",
+      "desc": "Uma sequência de poças turquesa em calcário escondidas no vale do White River, com baloiços de corda, saltos de falésia e reentrâncias para trepar por trás da cascata. É o primo mais selvagem e menos polido de Dunn's River, e aquele de que os clientes falam no regresso.",
+      "highlights": [
+        "Salte, baloice ou desça a trepar — escolha sua",
+        "Guias locais que conhecem cada apoio seguro",
+        "Muito menos gente do que em Dunn's River",
+        "Traga sapatos de água e um saco estanque"
+      ]
+    },
+    "dunns-river-falls": {
+      "subtitle": "Ocho Rios, St. Ann",
+      "desc": "Cento e oitenta metros de cascata em socalcos que desagua diretamente nas Caraíbas, a subida pela qual toda a gente conhece a Jamaica. Suba-a de mãos dadas em corrente humana, ou vá pelas escadas ao lado e encontre-os no topo.",
+      "highlights": [
+        "Suba a cascata em corrente humana",
+        "Praia ao pé das quedas",
+        "Escadas e miradouros se preferir só ver",
+        "Cacifos e balneários no local"
+      ]
+    },
+    "mystic-mountain": {
+      "subtitle": "Rainforest Adventures, Ocho Rios",
+      "desc": "Um teleférico pelas copas da floresta tropical até uma crista sobre a baía de Ocho Rios, e depois uma descida de trenó por entre as árvores. Escolha uma atividade ou junte duas ou três: o parque agrupa-as e a poupança nota-se.",
+      "highlights": [
+        "Teleférico Sky Explorer sobre as copas",
+        "Trenó jamaicano, com o travão nas suas mãos",
+        "Slides e percurso Raggamuffin",
+        "Piscina infinita e escorrega no cimo"
+      ]
+    },
+    "dolphin-cove-ocho-rios": {
+      "subtitle": "St. Ann",
+      "desc": "Uma enseada natural onde os programas com golfinhos decorrem a partir de uma praia pouco funda, e não de um tanque de betão. Só a entrada já inclui caiaques, o trilho na selva, o escorrega de água, a piscina, a praia e um almoço jamaicano; os nados reservam-se à parte.",
+      "highlights": [
+        "Caiaques, trilho na selva, escorrega e praia incluídos",
+        "Almoço jamaicano com a entrada Admission Plus",
+        "Encontros com golfinhos, tubarões e raias",
+        "Quem não nada pode ver do deque"
+      ]
+    },
+    "bob-marley-nine-mile": {
+      "subtitle": "St. Ann",
+      "desc": "A aldeia onde Bob Marley nasceu, no alto das colinas de St. Ann, onde está sepultado no mausoléu ao lado da casa onde cresceu. São guias rastas que o acompanham, e a subida pelo interior da ilha vale meia viagem.",
+      "highlights": [
+        "A casa onde Bob Marley nasceu",
+        "O mausoléu e o Mount Zion Rock",
+        "Guiado pela comunidade da própria família",
+        "Paisagem de montanha que quase nenhum visitante vê"
+      ]
+    },
+    "dolphin-cove-montego-bay": {
+      "subtitle": "St. James",
+      "desc": "Os mesmos programas com golfinhos de Ocho Rios, a vinte minutos da maioria dos hotéis de Montego Bay em vez de duas horas. A forma mais barata de encaixar um nado com golfinhos em meio dia e ainda ter a tarde na praia.",
+      "highlights": [
+        "A vinte minutos da maioria dos resorts de MoBay",
+        "Encounter, Swim Adventure e Royal Swim",
+        "Entrada geral para quem não nada",
+        "Bebés grátis; preço de criança a partir de um metro"
+      ]
+    },
+    "rose-hall-great-house": {
+      "subtitle": "Montego Bay, St. James",
+      "desc": "A mais famosa casa senhorial da Jamaica, e a história de Annie Palmer, a Bruxa Branca que ali terá assassinado três maridos. Visite-a de dia com os jardins, ou volte depois de escurecer para a visita assombrada à luz das velas.",
+      "highlights": [
+        "Casa senhorial georgiana, restaurada e mobilada",
+        "A lenda de Annie Palmer, bem contada",
+        "Jardins e vistas sobre a costa lá do alto",
+        "Visita noturna assombrada à luz das velas"
+      ]
+    },
+    "montego-bay-highlights": {
+      "title": "O melhor de Montego Bay e praia de Doctor's Cave",
+      "subtitle": "St. James",
+      "desc": "Uma volta pela cidade — a Hip Strip, o mercado de artesanato, a Sam Sharpe Square — a terminar em Doctor's Cave, a praia calma de areia branca cuja água de nascente fez de Montego Bay uma cidade balnear.",
+      "highlights": [
+        "Hip Strip, mercado de artesanato e Sam Sharpe Square",
+        "Praia de Doctor's Cave, calma e pouco funda",
+        "O seu motorista espera enquanto se banha",
+        "O meio dia mais simples para uma escala de cruzeiro"
+      ]
+    },
+    "sand-and-saddle": {
+      "title": "Sand & Saddle: passeio a cavalo e banho",
+      "subtitle": "St. James",
+      "desc": "Desça o trilho até à água e depois nade em pelo com os cavalos, mar adentro e sempre montado. Não é preciso experiência: os tratadores conduzem cada cavalo e a água dá pelo peito.",
+      "highlights": [
+        "Passeio pelo trilho até à praia",
+        "Banho em pelo com os cavalos",
+        "Principiantes e crianças são bem-vindos",
+        "Os tratadores acompanham do princípio ao fim"
+      ]
+    },
+    "river-rapids-tubing": {
+      "title": "Descida de boia em River Rapids",
+      "subtitle": "Trelawny",
+      "desc": "Deixe-se levar pelo Great River numa boia, entre rápidos suaves e longos troços calmos, sob velhas pontes de pedra e bambus pendentes. Os guias flutuam a seu lado todo o percurso e afastam-no das rochas.",
+      "highlights": [
+        "Rápidos suaves, não é preciso experiência",
+        "Guias na água consigo",
+        "Bambus, pontes de pedra e guarda-rios",
+        "Balneários e bar à saída"
+      ]
+    },
+    "martha-brae-rafting": {
+      "title": "Jangada de bambu no Martha Brae",
+      "subtitle": "Trelawny",
+      "desc": "Hora e meia a descer o Martha Brae à vara, numa jangada de bambu de nove metros, dois por banco, com um jangadeiro que trabalha este rio há anos e lhe conta cada curva.",
+      "highlights": [
+        "Noventa minutos na água",
+        "Dois adultos por jangada, num banco elevado",
+        "O jangadeiro empurra à vara e faz de guia",
+        "Bar à beira-rio e bancas de artesanato na chegada"
+      ]
+    },
+    "luminous-lagoon": {
+      "subtitle": "Glistening Waters, Falmouth",
+      "desc": "Uma das poucas baías bioluminescentes que restam no mundo. Depois de escurecer o barco sai para a lagoa e tudo o que se move na água brilha: o rasto, os remos e você, se entrar.",
+      "highlights": [
+        "Saída de barco pela lagoa depois de escurecer",
+        "Nade numa água que se ilumina à sua volta",
+        "Uma de pouquíssimas baías assim no mundo",
+        "Restaurante e bar no cais"
+      ]
+    },
+    "negril-seven-mile-beach": {
+      "title": "Seven Mile Beach em Negril",
+      "subtitle": "Westmoreland",
+      "desc": "Onze quilómetros de areia branca e água calma, pouco funda e absurdamente clara, ladeados por bares de praia dispostos a alimentá-lo toda a tarde. Sem portão nem bilhete — basta dizer ao seu motorista a que horas o vir buscar.",
+      "highlights": [
+        "Sem entrada paga, sem bilhete, sem fila",
+        "Água calma e pouco funda em toda a extensão",
+        "Bares de praia, bancas de jerk e espreguiçadeiras",
+        "O seu motorista espera o tempo que quiser"
+      ]
+    },
+    "ricks-cafe": {
+      "subtitle": "West End, Negril",
+      "desc": "O bar na falésia no extremo da ilha, onde os saltadores locais se atiram de dez metros e o sol se põe mesmo à sua frente. Salte também, se tiver coragem, ou peça um rum punch e fique a ver.",
+      "highlights": [
+        "Saltadores de dez metros de altura",
+        "Salte você mesmo das saliências mais baixas",
+        "Pôr do sol mesmo sobre a água",
+        "Banda ao vivo quase todas as noites"
+      ]
+    },
+    "ys-falls": {
+      "subtitle": "St. Elizabeth",
+      "desc": "Sete níveis de água fria de nascente que descem por uma quinta privada da Costa Sul, com poças naturais, baloiços de corda e um atrelado que o leva até às quedas através da pastagem. Mais verde, mais tranquilo e muito menos concorrido do que as quedas da costa norte.",
+      "highlights": [
+        "Sete níveis, com uma poça natural em cada",
+        "Ida de atrelado através da quinta",
+        "Baloiço de corda para a poça funda",
+        "Slide sobre as quedas, se lhe apetecer"
+      ]
+    },
+    "black-river-safari": {
+      "subtitle": "St. Elizabeth",
+      "desc": "Uma subida de barco pelo rio mais largo da Jamaica, por túneis de mangue vermelho, à procura dos crocodilos americanos que ali vivem. Os capitães conhecem-nos pelo nome e chegam mais perto do que espera.",
+      "highlights": [
+        "Crocodilos americanos selvagens, bem de perto",
+        "Túneis de mangue e poisos de garças",
+        "Barco coberto, comentário guiado",
+        "Combina naturalmente com as YS Falls"
+      ]
+    },
+    "appleton-estate": {
+      "title": "Visita ao rum Appleton Estate",
+      "subtitle": "Nassau Valley, St. Elizabeth",
+      "desc": "Duzentos e setenta anos de produção de rum no Nassau Valley, do canavial e dos alambiques de cobre até à cave das barricas. A visita acaba na sala de provas, que é o ponto de tudo isto.",
+      "highlights": [
+        "Destilaria em funcionamento, não um museu",
+        "Moagem da cana, alambiques e cave de barricas",
+        "Prova guiada no final",
+        "O trajeto pelo Cockpit Country"
+      ]
+    },
+    "combo-blue-hole-dunns-river": {
+      "title": "Blue Hole e Dunn's River Falls",
+      "desc": "As duas grandes quedas de água de St. Ann num dia. Ficam a vinte minutos uma da outra, por isso a única coisa que uma segunda paragem custa mesmo é um pouco mais de estrada e de espera — exatamente o que o preço do combinado cobre.",
+      "highlights": [
+        "Duas quedas de água de topo, um só dia",
+        "Vinte minutos entre uma e outra",
+        "Mais barato do que reservá-las separadamente",
+        "Pode fazê-las por qualquer ordem"
+      ]
+    },
+    "combo-ys-falls-black-river": {
+      "title": "YS Falls e safari do Black River",
+      "desc": "O dia clássico da Costa Sul e o mais vendido da PPP. O safari dos crocodilos de manhã, almoço pelo caminho e as quedas à tarde — ambos em St. Elizabeth, a meia hora de distância.",
+      "highlights": [
+        "A combinação mais vendida da PPP",
+        "Crocodilos e quedas de água numa só saída",
+        "Meia hora entre os dois",
+        "Slide nas YS Falls, se lhe apetecer"
+      ]
+    },
+    "combo-appleton-ys-falls": {
+      "title": "Appleton Estate e YS Falls",
+      "desc": "Rum de manhã, água fria de nascente à tarde. Appleton e as YS Falls ficam ambas em St. Elizabeth e encaixam naturalmente no mesmo dia — daí este vender tão bem.",
+      "highlights": [
+        "Destilaria em funcionamento e uma prova",
+        "Sete níveis de água fria de nascente",
+        "Ambos na zona do Nassau Valley",
+        "Um dia longo e sem pressas pela Costa Sul"
+      ]
+    },
+    "combo-negril-beach-ricks-cafe": {
+      "title": "Seven Mile Beach e Rick's Cafe",
+      "desc": "Negril inteira num dia, e nenhuma das paragens tem entrada paga. Tarde em Seven Mile Beach e depois dez minutos pela costa até às falésias do West End, a tempo dos saltadores e do pôr do sol.",
+      "highlights": [
+        "Sem entrada paga em nenhuma das paragens",
+        "Praia primeiro, falésias e pôr do sol depois",
+        "Dez minutos entre as duas",
+        "Regresso depois de escurecer, ao seu ritmo"
+      ]
+    },
+    "combo-sand-saddle-river-rapids": {
+      "title": "Passeio a cavalo com banho e descida de boia em River Rapids",
+      "desc": "De manhã nada-se com os cavalos, à tarde deixa-se levar pelo rio. São ambos curtos, ambos molham, e fazê-los juntos transforma dois meios dias num dia inteiro.",
+      "highlights": [
+        "Banho no mar a cavalo, em pelo",
+        "Descida de boia tranquila a seguir",
+        "Dois meios dias tornam-se um dia inteiro",
+        "Nada disto exige experiência"
+      ]
+    },
+    "combo-martha-brae-doctors-cave": {
+      "title": "Jangada no Martha Brae e praia de Doctor's Cave",
+      "desc": "Noventa minutos a descer o Martha Brae à vara e depois de volta pela costa até Doctor's Cave para a tarde. Um dia tranquilo, sem subidas e sem filas.",
+      "highlights": [
+        "Jangada de bambu no Martha Brae",
+        "Tarde na praia de Doctor's Cave",
+        "Nada de esforçado no dia inteiro",
+        "Bom com crianças pequenas"
+      ]
+    },
+    "combo-dunns-river-mystic-mountain": {
+      "title": "Dunn's River Falls e Mystic Mountain",
+      "desc": "Ficam lado a lado em Ocho Rios, o que faz deles um dos pares mais fáceis da ilha para juntar. Suba as quedas e depois apanhe o teleférico e desça de trenó.",
+      "highlights": [
+        "As duas paragens ficam a minutos uma da outra",
+        "Suba as quedas e depois percorra a montanha",
+        "Uma das combinações mais pedidas na PPP",
+        "Escreva-nos e damos-lhe o preço do seu dia"
+      ]
+    }
+  }
+}

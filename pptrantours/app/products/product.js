@@ -1,103 +1,152 @@
-import products from "../data/products.json";
+/**
+ * Catalogue accessors.
+ *
+ * Browsing is organised the way the owner asked for it: "things to do in
+ * Montego Bay", "things to do in Ocho Rios", and so on. A tour therefore has a
+ * `region` (where it is) and a `kind` (what it is), and a browse category is a
+ * saved query over those two rather than a field on the record. That is what
+ * lets Blue Hole appear under both "Ocho Rios" and "Most popular" without being
+ * duplicated in the data.
+ */
+import { CATALOGUE, TOURS, TRANSFERS } from "@/app/data/catalogue";
+import { AREAS } from "@/app/data/places";
 
-export { products };
+export { CATALOGUE, TOURS, TRANSFERS };
 
+/**
+ * Browse categories, in nav order.
+ *
+ * `match` is the query. `parish` marks the ones that are geographic, because
+ * those are the headings the owner wants keyword-optimised — the page titles
+ * read "Things to do in Negril", not "Negril tours".
+ */
 export const CATEGORIES = [
-  { type: "mpt", title: "Most Popular Tours", short: "Most Popular" },
-  { type: "at", title: "Airport Transfers", short: "Transfers" },
-  { type: "ctp", title: "Combo Tour Packages", short: "Combo Packages" },
-  { type: "abc", title: "Attractions, Beach & City Tours", short: "Attractions" },
-  { type: "cse", title: "Cruise Shore Excursions", short: "Shore Excursions" },
-  { type: "edt", title: "Eating & Dining Tours", short: "Dining" },
-  { type: "egt", title: "Exclusive Golf Tours", short: "Golf" },
-  { type: "ncb", title: "Nightlife, Casino & Bar Tours", short: "Nightlife" },
-  { type: "st", title: "Shopping Tours", short: "Shopping" },
+  {
+    type: "popular",
+    title: "Most Popular Tours",
+    short: "Most Popular",
+    match: (t) => t.popular === true,
+  },
+  {
+    type: "transfers",
+    title: "Airport Transfers",
+    short: "Transfers",
+    match: (t) => t.kind === "transfer",
+  },
+  {
+    type: "combos",
+    title: "Combo Tour Packages",
+    short: "Combo Packages",
+    match: (t) => t.kind === "combo",
+  },
+  {
+    type: "montego-bay",
+    title: "Things to do in Montego Bay",
+    short: "Montego Bay",
+    parish: "St. James",
+    match: (t) => t.region === "montego-bay" && t.kind !== "transfer",
+  },
+  {
+    type: "ocho-rios",
+    title: "Things to do in Ocho Rios",
+    short: "Ocho Rios",
+    parish: "St. Ann",
+    match: (t) => t.region === "ocho-rios" && t.kind !== "transfer",
+  },
+  {
+    type: "falmouth",
+    title: "Things to do in Falmouth",
+    short: "Falmouth",
+    parish: "Trelawny",
+    match: (t) => t.region === "falmouth" && t.kind !== "transfer",
+  },
+  {
+    type: "negril",
+    title: "Things to do in Negril",
+    short: "Negril",
+    parish: "Westmoreland",
+    match: (t) => t.region === "negril" && t.kind !== "transfer",
+  },
+  {
+    type: "south-coast",
+    title: "Things to do on the South Coast",
+    short: "South Coast",
+    parish: "St. Elizabeth",
+    match: (t) => t.region === "south-coast" && t.kind !== "transfer",
+  },
 ];
 
-export function getAllProducts() {
-  return products;
+/** The parish categories alone, for the "Things to do in Jamaica" hub. */
+export const PARISH_CATEGORIES = CATEGORIES.filter((c) => c.parish);
+
+export function getCategory(type) {
+  return CATEGORIES.find((c) => c.type === type) ?? null;
 }
 
 export function getCategoryTitle(type) {
-  return CATEGORIES.find((c) => c.type === type)?.title ?? "Tours & Transfers";
+  return getCategory(type)?.title ?? "Tours & Transfers";
 }
 
 export function getCategoryShort(type) {
-  return CATEGORIES.find((c) => c.type === type)?.short ?? "Tours";
+  return getCategory(type)?.short ?? "Tours";
 }
 
-export function filterProductByCategory(category) {
-  return products.filter((product) => product.category === category);
+export function filterProductByCategory(type) {
+  const category = getCategory(type);
+  return category ? CATALOGUE.filter(category.match) : [];
 }
 
 export function filterProductById(id) {
-  return products.find((product) => product.id === id);
+  return CATALOGUE.find((p) => p.id === id) ?? null;
 }
 
-/**
- * Title search, de-duplicated by title so the same tour listed under several
- * categories only shows up once in the results.
- */
+export function getAllProducts() {
+  return CATALOGUE;
+}
+
+/** Excursions and combos, i.e. everything that is not an airport transfer. */
+export function getAllTours() {
+  return TOURS;
+}
+
+export function getRegionLabel(region) {
+  return AREAS.find((a) => a.key === region)?.label ?? region;
+}
+
+/** Title and description search, de-duplicated. */
 export function searchProduct(input) {
   const query = input.trim().toLowerCase();
   if (!query) return [];
 
-  const seen = new Set();
-  return products.filter((product) => {
-    const title = product.title.toLowerCase();
-    if (!title.includes(query) || seen.has(title)) return false;
-    seen.add(title);
-    return true;
-  });
+  return CATALOGUE.filter((p) =>
+    [p.title, p.subtitle ?? "", p.desc, getRegionLabel(p.region)]
+      .join(" ")
+      .toLowerCase()
+      .includes(query)
+  );
 }
 
-/** Cheapest-first, used by the category grids. */
-export function sortByPrice(list) {
-  return [...list].sort((a, b) => a.priceLowest - b.priceLowest);
-}
-
-/** Other tours in the same category, for the product page. */
+/**
+ * Other tours worth showing beside this one: same region first, then anything
+ * else popular, so a page is never left with an empty "you might also like".
+ */
 export function getRelatedProducts(product, limit = 3) {
-  return products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .filter((p, i, arr) => arr.findIndex((x) => x.title === p.title) === i)
-    .slice(0, limit);
+  const sameRegion = TOURS.filter(
+    (t) => t.region === product.region && t.id !== product.id
+  );
+  const fallback = TOURS.filter(
+    (t) => t.popular && t.region !== product.region && t.id !== product.id
+  );
+  return [...sameRegion, ...fallback].slice(0, limit);
 }
 
-/**
- * Children travel at half the adult rate.
- *
- * Lives here because both the booking form and the server route that re-prices
- * the booking need it. If the two ever disagreed, the guest would be quoted one
- * total and charged another.
- */
-export const CHILD_RATE = 0.5;
-
-/**
- * Authoritative price for a booking. The browser sends what it thinks the total
- * is, but the server recomputes with this and stores its own answer — a posted
- * total is an unverified number from a stranger.
- *
- * @returns {{rate: number, total: number, pickup: object}|null} null if the
- *   tour or pickup key is unknown.
- */
-export function priceBooking({ tourId, pickupKey, adults, children }) {
-  const tour = filterProductById(tourId);
-  if (!tour) return null;
-
-  const pickup =
-    tour.pickups?.find((p) => p.key === pickupKey) ?? tour.pickups?.[0];
-  if (!pickup) return null;
-
-  const rate = pickup.price ?? tour.priceLowest;
-  return {
-    rate,
-    pickup,
-    total: rate * adults + rate * CHILD_RATE * children,
+/** Cheapest transport first. Tours with no published price sort last. */
+export function sortByPrice(list) {
+  const floor = (t) => {
+    const bands = Object.values(t.zones ?? {});
+    return bands.length ? Math.min(...bands.map((b) => b.price)) : Infinity;
   };
+  return [...list].sort((a, b) => floor(a) - floor(b));
 }
 
-export function formatPrice(value) {
-  const n = Number(value);
-  return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
-}
+export { money as formatPrice } from "./pricing";

@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { site, destinations } from "../data/site";
 import { CATEGORIES } from "../products/product";
+import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 
 const socials = [
@@ -18,7 +19,10 @@ const socials = [
   { href: site.social.instagram, label: "Instagram", Icon: FaInstagram },
 ];
 
-export default function Footer() {
+export default function Footer({ locale = "en", dict }) {
+  const t = dict?.footer ?? {};
+  const cats = dict?.categories ?? {};
+  const path = (p) => localePath(locale, p);
   return (
     <footer className="relative overflow-hidden bg-ink text-white/65">
       <div
@@ -36,7 +40,7 @@ export default function Footer() {
           <div>
             <Logo light />
             <p className="mt-5 max-w-xs text-sm leading-relaxed">
-              {site.descriptor}
+              {dict?.meta?.description ?? site.descriptor}
             </p>
             <div className="mt-6 flex gap-2.5">
               {socials.map(({ href, label, Icon }) => (
@@ -57,22 +61,29 @@ export default function Footer() {
           {/* Tours */}
           <nav aria-label="Tours">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Tours
+              {t.tours ?? "Things to do"}
             </h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {CATEGORIES.slice(0, 6).map((c) => (
                 <li key={c.type}>
                   <Link
-                    href={`/category/${c.type}`}
+                    href={
+                      c.type === "transfers"
+                        ? path("/transfers")
+                        : path(`/category/${c.type}`)
+                    }
                     className="transition hover:text-crimson-300"
                   >
-                    {c.title}
+                    {cats[c.type]?.title ?? c.title}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/tours" className="font-medium text-crimson-300 hover:text-crimson-200">
-                  View all →
+                <Link
+                  href={path("/tours")}
+                  className="font-medium text-crimson-300 hover:text-crimson-200"
+                >
+                  {t.viewAll ?? "View all"} →
                 </Link>
               </li>
             </ul>
@@ -81,13 +92,13 @@ export default function Footer() {
           {/* Destinations */}
           <nav aria-label="Destinations">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Destinations
+              {t.destinations ?? "Destinations"}
             </h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {destinations.map((d) => (
                 <li key={d.slug}>
                   <Link
-                    href={`/destinations#${d.slug}`}
+                    href={path(`/destinations#${d.slug}`)}
                     className="transition hover:text-crimson-300"
                   >
                     {d.name}
@@ -95,13 +106,13 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/about-us" className="transition hover:text-crimson-300">
-                  About PPP
+                <Link href={path("/about-us")} className="transition hover:text-crimson-300">
+                  {t.about ?? "About PPP"}
                 </Link>
               </li>
               <li>
-                <Link href="/contact-us" className="transition hover:text-crimson-300">
-                  Contact &amp; FAQ
+                <Link href={path("/contact-us")} className="transition hover:text-crimson-300">
+                  {t.contact ?? "Contact & FAQ"}
                 </Link>
               </li>
             </ul>
@@ -110,7 +121,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Get in touch
+              {t.getInTouch ?? "Get in touch"}
             </h3>
             <ul className="mt-5 space-y-4 text-sm">
               <li className="flex gap-3">
@@ -160,10 +171,11 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.legalName}. All rights reserved.
+            © {new Date().getFullYear()} {site.legalName}. {t.rights ?? "All rights reserved."}
           </p>
           <p className="text-white/45">
-            Licensed by the Jamaica Tourist Board &amp; the Transport Authority of Jamaica.
+            {t.licensed ??
+              "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."}
           </p>
         </div>
       </div>

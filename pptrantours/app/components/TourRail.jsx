@@ -6,7 +6,16 @@ import TourCard from "./TourCard";
 import SectionHeading from "./SectionHeading";
 
 /** Horizontally scrolling shelf of tours, with arrow controls on desktop. */
-export default function TourRail({ eyebrow, title, description, href, tours }) {
+export default function TourRail({
+  eyebrow,
+  title,
+  description,
+  href,
+  tours,
+  locale = "en",
+  dict,
+  linkLabel,
+}) {
   const scroller = useRef(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -47,6 +56,7 @@ export default function TourRail({ eyebrow, title, description, href, tours }) {
             title={title}
             description={description}
             href={href}
+            linkLabel={linkLabel}
           />
         </div>
         <div className="mb-10 hidden shrink-0 gap-2 lg:flex">
@@ -54,7 +64,7 @@ export default function TourRail({ eyebrow, title, description, href, tours }) {
             type="button"
             onClick={() => nudge(-1)}
             disabled={atStart}
-            aria-label="Scroll left"
+            aria-label={dict?.common?.scrollLeft ?? "Scroll left"}
             className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 text-ink/70 transition hover:border-ink/25 hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30"
           >
             <FaChevronLeft className="text-xs" />
@@ -63,7 +73,7 @@ export default function TourRail({ eyebrow, title, description, href, tours }) {
             type="button"
             onClick={() => nudge(1)}
             disabled={atEnd}
-            aria-label="Scroll right"
+            aria-label={dict?.common?.scrollRight ?? "Scroll right"}
             className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 text-ink/70 transition hover:border-ink/25 hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30"
           >
             <FaChevronRight className="text-xs" />

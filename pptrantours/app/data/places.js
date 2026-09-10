@@ -1,0 +1,175 @@
+/**
+ * Every pickup point the owner has quoted a price from, by the name a guest
+ * would actually recognise.
+ *
+ * Guests do not know they are "in the Falmouth band" — they know they are at
+ * Iberostar Joia. So the resort is the one thing the site asks for, and
+ * everything downstream is derived from it:
+ *
+ *   `zone`     which excursion price list applies (the owner supplied five)
+ *   `transfer` the airport transfer rate to and from Sangster (MBJ)
+ *
+ * `zone: null` is a fact, not missing data. The owner priced excursions from
+ * Montego Bay, Falmouth, the two cruise piers and Grand Palladium only. From
+ * anywhere else — Ocho Rios, Negril, Round Hill — an excursion is a trip he
+ * will gladly run, but he has published no number for it, so the site asks
+ * instead of inventing one.
+ */
+
+/** The five excursion price lists the owner supplied. */
+export const ZONES = [
+  { key: "mobay-hotels", label: "Montego Bay hotels", short: "Montego Bay" },
+  { key: "mobay-pier", label: "Montego Bay cruise pier", short: "MoBay pier" },
+  {
+    key: "falmouth-hotels",
+    label: "Falmouth & Trelawny hotels",
+    short: "Falmouth",
+  },
+  {
+    key: "falmouth-pier",
+    label: "Falmouth cruise pier",
+    short: "Falmouth pier",
+  },
+  {
+    key: "palladium",
+    label: "Grand Palladium / Lady Hamilton",
+    short: "Grand Palladium",
+  },
+];
+
+/** Display grouping in the picker — geography, not price. */
+export const AREAS = [
+  { key: "montego-bay", label: "Montego Bay" },
+  { key: "falmouth", label: "Falmouth & Trelawny" },
+  { key: "hanover", label: "Hanover & Green Island" },
+  { key: "ocho-rios", label: "Ocho Rios & St. Ann" },
+  { key: "negril", label: "Negril" },
+  { key: "south-coast", label: "South Coast" },
+  { key: "piers", label: "Cruise piers" },
+];
+
+/**
+ * @typedef {object} Place
+ * @property {string}    key
+ * @property {string}    name      as the guest would say it
+ * @property {string}    area      AREAS key
+ * @property {string?}   zone      ZONES key, or null if excursions are quote-only
+ * @property {object?}   transfer  {oneWay, oneWayExtra, roundTrip, roundTripExtra}
+ * @property {string[]?} aka       extra search terms
+ */
+
+/** Airport transfer bands, so the 45 rates below stay readable and checkable. */
+const t = (oneWay, oneWayExtra, roundTrip, roundTripExtra) => ({
+  oneWay,
+  oneWayExtra,
+  roundTrip,
+  roundTripExtra,
+});
+
+const MOBAY = "mobay-hotels";
+const FALMOUTH = "falmouth-hotels";
+const PALLADIUM = "palladium";
+
+export const PLACES = [
+  // Montego Bay
+  { key: "toby-resort", name: "Toby Resort", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "royal-decameron-cornwall", name: "Royal Decameron Cornwall Beach", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10), aka: ["Decameron"] },
+  { key: "s-hotel", name: "S Hotel Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "deja-resort", name: "Deja Resort", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "club-montego-bay", name: "Club Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "altamont", name: "Altamont Hotel", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10), aka: ["Altamont West"] },
+  { key: "hotel-39", name: "Hotel 39", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "caribic-house", name: "Caribic House Hotel", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
+  { key: "secrets-wild-orchid", name: "Secrets Wild Orchid", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "secrets-st-james", name: "Secrets St. James", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "breathless", name: "Breathless Montego Bay Resort & Spa", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "sandals-montego-bay", name: "Sandals Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "riu-montego-bay", name: "Riu Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "riu-palace", name: "Riu Palace Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "riu-reggae", name: "Riu Reggae", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "sandals-royal-caribbean", name: "Sandals Royal Caribbean", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "zoetry", name: "Zoetry Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
+  { key: "half-moon", name: "Half Moon Resort", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+  { key: "jewel-grande", name: "Jewel Grande Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+  { key: "iberostar-waves", name: "Iberostar Waves Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+  { key: "iberostar-selection", name: "Iberostar Selection Rose Hall Suites", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+  { key: "iberostar-joia", name: "Iberostar Joia Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+
+  // Falmouth & Trelawny
+  { key: "excellence-oyster-bay", name: "Excellence Oyster Bay", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
+  { key: "riu-aquarelle", name: "Riu Aquarelle", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
+  { key: "royalton-blue-waters", name: "Royalton Blue Waters", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
+  { key: "ocean-eden-bay", name: "Ocean Eden Bay", area: "falmouth", zone: FALMOUTH, transfer: t(70, 20, 140, 40) },
+  { key: "ocean-coral-spring", name: "Ocean Coral Spring", area: "falmouth", zone: FALMOUTH, transfer: t(70, 20, 140, 40), aka: ["Ocean Coral Springs"] },
+  { key: "bahia-principe", name: "Bahia Principe Grand Jamaica", area: "falmouth", zone: null, transfer: t(80, 20, 160, 40) },
+  { key: "franklyn-d", name: "Franklyn D. Resort & Spa", area: "falmouth", zone: null, transfer: t(80, 20, 160, 40), aka: ["FDR"] },
+
+  // Hanover & Green Island
+  { key: "round-hill", name: "Round Hill Hotel & Villas", area: "hanover", zone: null, transfer: t(40, 10, 80, 20) },
+  { key: "tryall", name: "Tryall Club", area: "hanover", zone: null, transfer: t(50, 15, 100, 30) },
+  { key: "grand-palladium", name: "Grand Palladium Jamaica", area: "hanover", zone: PALLADIUM, transfer: t(60, 15, 120, 30) },
+  { key: "lady-hamilton", name: "Grand Palladium Lady Hamilton", area: "hanover", zone: PALLADIUM, transfer: t(60, 15, 120, 30) },
+  { key: "princess-jamaica", name: "Princess Grand / Senses Jamaica", area: "hanover", zone: null, transfer: t(100, 25, 200, 50), aka: ["Princess Resort"] },
+
+  // Ocho Rios & St. Ann
+  { key: "riu-ocho-rios", name: "Riu Ocho Rios", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "sandals-dunns-river", name: "Sandals Dunns River", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "moon-palace", name: "Moon Palace Jamaica", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "sandals-ochi", name: "Sandals Ochi Beach Resort", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "sandals-royal-plantation", name: "Sandals Royal Plantation", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "jamaica-inn", name: "Jamaica Inn", area: "ocho-rios", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "couples-sans-souci", name: "Couples Sans Souci", area: "ocho-rios", zone: null, transfer: t(120, 30, 240, 60), aka: ["San Souci"] },
+  { key: "couples-tower-isle", name: "Couples Tower Isle", area: "ocho-rios", zone: null, transfer: t(120, 30, 240, 60) },
+  { key: "goldeneye", name: "GoldenEye Resort", area: "ocho-rios", zone: null, transfer: t(170, 45, 340, 90) },
+
+  // Negril
+  { key: "negril-beach", name: "Negril beach hotels (Seven Mile Beach)", area: "negril", zone: null, transfer: t(100, 25, 200, 50) },
+  { key: "negril-west-end", name: "Negril West End hotels", area: "negril", zone: null, transfer: t(120, 30, 240, 60), aka: ["cliffs"] },
+
+  // South Coast
+  { key: "sandals-south-coast", name: "Sandals South Coast", area: "south-coast", zone: null, transfer: t(120, 30, 240, 60), aka: ["Whitehouse"] },
+
+  // Cruise piers
+  { key: "mobay-cruise-pier", name: "Montego Bay Cruise Terminal", area: "piers", zone: "mobay-pier", transfer: null, aka: ["cruise ship", "pier"] },
+  { key: "falmouth-cruise-pier", name: "Historic Falmouth Cruise Port", area: "piers", zone: "falmouth-pier", transfer: null, aka: ["cruise ship", "pier"] },
+];
+
+export function getPlace(key) {
+  return PLACES.find((p) => p.key === key) ?? null;
+}
+
+export function getZone(key) {
+  return ZONES.find((z) => z.key === key) ?? null;
+}
+
+export function getAreaLabel(key) {
+  return AREAS.find((a) => a.key === key)?.label ?? key;
+}
+
+/** Places grouped for the picker, in AREAS order, empty groups dropped. */
+export function placesByArea() {
+  return AREAS.map((area) => ({
+    ...area,
+    places: PLACES.filter((p) => p.area === area.key),
+  })).filter((g) => g.places.length > 0);
+}
+
+/** Every place that can be an airport-transfer destination. */
+export function transferPlaces() {
+  return PLACES.filter((p) => p.transfer);
+}
+
+/**
+ * Loose name match for the picker's search box. Matches the resort name, its
+ * area and any `aka`, so "cliffs", "FDR" and "Negril" all find something.
+ */
+export function searchPlaces(input) {
+  const q = input.trim().toLowerCase();
+  if (!q) return PLACES;
+  return PLACES.filter((p) =>
+    [p.name, getAreaLabel(p.area), ...(p.aka ?? [])]
+      .join(" ")
+      .toLowerCase()
+      .includes(q)
+  );
+}

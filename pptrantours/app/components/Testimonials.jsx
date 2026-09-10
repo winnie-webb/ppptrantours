@@ -2,15 +2,16 @@ import { FaStar, FaQuoteLeft, FaTripadvisor } from "react-icons/fa";
 import { testimonials, site } from "../data/site";
 import SectionHeading from "./SectionHeading";
 
-export default function Testimonials() {
+export default function Testimonials({ dict }) {
+  const t = dict?.testimonials ?? {};
   return (
     <section className="bg-sand py-16 lg:py-24">
       <div className="shell">
         <SectionHeading
           align="center"
-          eyebrow="Guest reviews"
-          title="680 reviews. Not one below five stars."
-          description="Most of them mention Mr. Pugh by name."
+          eyebrow={t.eyebrow ?? "Guest reviews"}
+          title={t.title ?? "680 reviews. Not one below five stars."}
+          description={t.description ?? "Most of them mention Mr. Pugh by name."}
         />
 
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">

@@ -52,16 +52,24 @@ export async function sendBookingAlert(booking) {
     reference: booking.reference,
     kind: booking.type === "enquiry" ? "Enquiry" : "Booking",
     tour_title: dash(booking.tourTitle),
-    pickup: dash(booking.pickupLabel),
+    pickup: dash(booking.placeLabel),
     date: dash(booking.date),
     time: dash(booking.time),
     travellers,
-    total: booking.total ? `US$${booking.total.toFixed(2)}` : "—",
+    total:
+      booking.transportTotal != null
+        ? `US$${booking.transportTotal.toFixed(2)}`
+        : "quote requested",
+    entry_fees: booking.entryTotal
+      ? `US$${booking.entryTotal.toFixed(2)} (paid at the gate)`
+      : "—",
+    day_total:
+      booking.dayTotal != null ? `US$${booking.dayTotal.toFixed(2)}` : "—",
     name: dash(booking.name),
     email: dash(booking.email),
     phone: dash(booking.phone),
     flight: dash(booking.flightNumber),
-    hotel: dash(booking.hotel),
+    hotel: dash(booking.placeLabel),
     notes: dash(booking.notes),
     // Templates put this in the "Reply To" field so hitting reply answers the guest.
     reply_to: booking.email ?? "",

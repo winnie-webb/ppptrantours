@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaChevronRight } from "react-icons/fa";
+import { localePath } from "@/app/i18n/config";
 
 /** Compact dark banner used at the top of every interior page. */
 export default function PageHeader({
@@ -9,6 +10,8 @@ export default function PageHeader({
   description,
   image = "/local/hero-2.jpg",
   breadcrumbs = [],
+  locale = "en",
+  homeLabel = "Home",
   children,
 }) {
   return (
@@ -35,8 +38,11 @@ export default function PageHeader({
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex flex-wrap items-center gap-2 text-xs text-white/50">
               <li>
-                <Link href="/" className="transition hover:text-white">
-                  Home
+                <Link
+                  href={localePath(locale, "/")}
+                  className="transition hover:text-white"
+                >
+                  {homeLabel}
                 </Link>
               </li>
               {breadcrumbs.map((c) => (
