@@ -4,13 +4,29 @@ import SectionHeading from "./SectionHeading";
 
 export default function Testimonials({ dict }) {
   const t = dict?.testimonials ?? {};
+
+  /*
+   * Score and count are substituted from site.rating rather than written into
+   * the copy, so the ten translations cannot drift from the real figure the way
+   * the previous hardcoded "680" already was.
+   *
+   * The wording changed too. It claimed not one review was below five stars —
+   * a statement about the whole distribution that the Tripadvisor listing does
+   * not support. A 5.0 displayed average is a fact; the other was a guess
+   * wearing the same clothes.
+   */
+  const title = (
+    t.title ?? "Rated {score} on Tripadvisor, across {count} reviews."
+  )
+    .replace("{score}", site.rating.score)
+    .replace("{count}", String(site.rating.count));
   return (
     <section className="bg-sand py-16 lg:py-24">
       <div className="shell">
         <SectionHeading
           align="center"
           eyebrow={t.eyebrow ?? "Guest reviews"}
-          title={t.title ?? "680 reviews. Not one below five stars."}
+          title={title}
           description={t.description ?? "Most of them mention Mr. Pugh by name."}
         />
 

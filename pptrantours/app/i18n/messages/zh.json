@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "客人评价",
-    "title": "680 条评价，没有一条低于五星。",
+    "title": "在 Tripadvisor 上获得 {score} 分，共 {count} 条评价。",
     "description": "其中大多数都直接提到了 Pugh 先生的名字。评价按原文语言显示。",
     "readAllReviews": "在 Tripadvisor 上查看全部评价"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "联系我们",
     "viewAll": "查看全部",
     "rights": "保留所有权利。",
-    "licensed": "持有牙买加旅游局与牙买加交通管理局颁发的执照。"
+    "licensed": "持有牙买加旅游局与牙买加交通管理局颁发的执照。",
+    "terms": "预订条款",
+    "privacy": "隐私政策"
   },
   "tourPage": {
     "about": "关于这条行程",

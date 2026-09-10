@@ -13,11 +13,22 @@ import { CATEGORIES } from "../products/product";
 import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 
+/**
+ * A URL that is just a platform's front door is a placeholder, not a profile.
+ *
+ * site.js carries facebook.com and instagram.com because no PPP accounts were
+ * found, and an icon that drops a guest on Facebook's homepage reads as an
+ * abandoned business. Filtering here rather than deleting the entries means the
+ * icon reappears by itself the moment a real profile URL is filled in.
+ */
+const isPlaceholder = (href) =>
+  !href || /^https?:\/\/(www\.)?[^/]+\/?$/.test(href);
+
 const socials = [
   { href: site.social.tripadvisor, label: "Tripadvisor", Icon: FaTripadvisor },
   { href: site.social.facebook, label: "Facebook", Icon: FaFacebookF },
   { href: site.social.instagram, label: "Instagram", Icon: FaInstagram },
-];
+].filter((s) => !isPlaceholder(s.href));
 
 export default function Footer({ locale = "en", dict }) {
   const t = dict?.footer ?? {};
@@ -173,10 +184,19 @@ export default function Footer({ locale = "en", dict }) {
           <p>
             © {new Date().getFullYear()} {site.legalName}. {t.rights ?? "All rights reserved."}
           </p>
-          <p className="text-white/45">
-            {t.licensed ??
-              "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."}
-          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link href={path("/terms")} className="transition hover:text-crimson-300">
+              {t.terms ?? "Booking terms"}
+            </Link>
+            <Link href={path("/privacy")} className="transition hover:text-crimson-300">
+              {t.privacy ?? "Privacy"}
+            </Link>
+            <p className="text-white/45">
+              {t.licensed ??
+                "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "お客様のレビュー",
-    "title": "680件のレビュー。五つ星未満はひとつもありません。",
+    "title": "Tripadvisor で{count}件のクチコミ、評価{score}。",
     "description": "その多くがピュー氏を名指しで挙げてくださっています。レビューは書かれた言語のまま掲載しています。",
     "readAllReviews": "Tripadvisor で全てのクチコミを読む"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "ご連絡はこちら",
     "viewAll": "すべて見る",
     "rights": "All rights reserved.",
-    "licensed": "ジャマイカ政府観光局およびジャマイカ運輸局の認可事業者です。"
+    "licensed": "ジャマイカ政府観光局およびジャマイカ運輸局の認可事業者です。",
+    "terms": "予約規約",
+    "privacy": "プライバシー"
   },
   "tourPage": {
     "about": "このツアーについて",

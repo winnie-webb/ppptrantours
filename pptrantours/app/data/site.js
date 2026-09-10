@@ -37,8 +37,20 @@ export const site = {
     phoneHref: "tel:+18763976277",
     whatsapp: "18763976277",
     whatsappHref: "https://wa.me/18763976277",
-    email: "info@ppptrantours.com",
-    emailHref: "mailto:info@ppptrantours.com",
+    /*
+     * The Gmail, not info@ppptrantours.com.
+     *
+     * That domain address was on Yandex Mail and was blocked for inactivity, so
+     * every enquiry the site invited a guest to send there was landing nowhere.
+     * This is the inbox the business actually reads, and it is already where
+     * the new-booking alert is delivered.
+     *
+     * Worth replacing with info@ppptrantoursjamaica.com once DNS is recovered
+     * and a mailbox exists on it — but a plain Gmail that gets answered beats a
+     * branded address that does not.
+     */
+    email: "ppptrantours@gmail.com",
+    emailHref: "mailto:ppptrantours@gmail.com",
   },
   address: {
     line1: "108 Farm Heights",
@@ -49,6 +61,12 @@ export const site = {
   },
   hours: "Dispatch answers 7 days a week, 6:00am – 10:00pm. Flights are met at any hour.",
   social: {
+    /*
+     * Facebook and Instagram are bare domains because no PPP account was ever
+     * found. They are NOT rendered while they look like this — Footer filters
+     * anything that is just a platform root, so the icons simply do not appear.
+     * Drop a real profile URL in and the icon shows up on its own.
+     */
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
     tripadvisor:

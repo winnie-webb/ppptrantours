@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "Avaliações de clientes",
-    "title": "680 avaliações. Nenhuma abaixo de cinco estrelas.",
+    "title": "Avaliados com {score} no Tripadvisor, em {count} avaliações.",
     "description": "A maioria menciona o Sr. Pugh pelo nome. As avaliações são apresentadas na língua em que foram escritas.",
     "readAllReviews": "Ler todas as avaliações no Tripadvisor"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "Fale connosco",
     "viewAll": "Ver tudo",
     "rights": "Todos os direitos reservados.",
-    "licensed": "Licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes da Jamaica."
+    "licensed": "Licenciados pelo Jamaica Tourist Board e pela Autoridade dos Transportes da Jamaica.",
+    "terms": "Termos",
+    "privacy": "Privacidade"
   },
   "tourPage": {
     "about": "Sobre este passeio",

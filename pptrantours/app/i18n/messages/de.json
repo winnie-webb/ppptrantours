@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "Gästebewertungen",
-    "title": "680 Bewertungen. Keine einzige unter fünf Sternen.",
+    "title": "Mit {score} auf Tripadvisor bewertet, aus {count} Bewertungen.",
     "description": "Die meisten nennen Mr. Pugh beim Namen. Die Bewertungen erscheinen in der Sprache, in der sie geschrieben wurden.",
     "readAllReviews": "Alle Bewertungen auf Tripadvisor lesen"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "Kontakt aufnehmen",
     "viewAll": "Alle ansehen",
     "rights": "Alle Rechte vorbehalten.",
-    "licensed": "Lizenziert vom Jamaica Tourist Board und der Transport Authority of Jamaica."
+    "licensed": "Lizenziert vom Jamaica Tourist Board und der Transport Authority of Jamaica.",
+    "terms": "AGB",
+    "privacy": "Datenschutz"
   },
   "tourPage": {
     "about": "Über diese Tour",

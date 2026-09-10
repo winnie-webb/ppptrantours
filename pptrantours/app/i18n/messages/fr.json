@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "Avis des clients",
-    "title": "680 avis. Pas un seul en dessous de cinq étoiles.",
+    "title": "Note de {score} sur Tripadvisor, sur {count} avis.",
     "description": "La plupart citent M. Pugh par son nom. Les avis sont affichés dans la langue dans laquelle ils ont été écrits.",
     "readAllReviews": "Lire tous les avis sur Tripadvisor"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "Nous contacter",
     "viewAll": "Tout voir",
     "rights": "Tous droits réservés.",
-    "licensed": "Agréés par l'Office de tourisme de la Jamaïque et par l'Autorité des transports de la Jamaïque."
+    "licensed": "Agréés par l'Office de tourisme de la Jamaïque et par l'Autorité des transports de la Jamaïque.",
+    "terms": "Conditions",
+    "privacy": "Confidentialité"
   },
   "tourPage": {
     "about": "À propos de cette excursion",

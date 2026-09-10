@@ -356,7 +356,7 @@
   },
   "testimonials": {
     "eyebrow": "Beoordelingen van gasten",
-    "title": "680 beoordelingen. Geen enkele onder de vijf sterren.",
+    "title": "Beoordeeld met {score} op Tripadvisor, uit {count} beoordelingen.",
     "description": "De meeste noemen Mr. Pugh bij naam. Beoordelingen worden getoond in de taal waarin ze zijn geschreven.",
     "readAllReviews": "Lees alle reviews op Tripadvisor"
   },
@@ -406,7 +406,9 @@
     "getInTouch": "Neem contact op",
     "viewAll": "Alles bekijken",
     "rights": "Alle rechten voorbehouden.",
-    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority of Jamaica."
+    "licensed": "Vergund door het Jamaica Tourist Board en de Transport Authority of Jamaica.",
+    "terms": "Voorwaarden",
+    "privacy": "Privacy"
   },
   "tourPage": {
     "about": "Over deze tour",

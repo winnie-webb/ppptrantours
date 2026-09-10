@@ -27,6 +27,8 @@ export default function sitemap() {
     { path: "/destinations", priority: 0.7, changeFrequency: "monthly" },
     { path: "/about-us", priority: 0.6, changeFrequency: "yearly" },
     { path: "/contact-us", priority: 0.7, changeFrequency: "yearly" },
+    { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
+    { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
 
     ...CATEGORIES.filter((c) => c.type !== "transfers").map((c) => ({
       path: `/category/${c.type}`,
