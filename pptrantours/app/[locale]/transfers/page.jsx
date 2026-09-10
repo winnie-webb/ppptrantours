@@ -81,7 +81,10 @@ export default async function TransfersPage({ params }) {
         image="/ppp/donovan-airport-van.jpg"
       />
 
-      <section className="shell -mt-10 pb-14 lg:-mt-16">
+      {/* Lifted over the banner. PageHeader is positioned, so a static sibling
+          pulled up by a negative margin paints behind it however late it comes
+          in the DOM — this needs its own stacking position to sit on top. */}
+      <section className="shell relative z-10 -mt-10 pb-14 lg:-mt-16">
         <FareCalculator locale={locale} dict={client} />
       </section>
 
