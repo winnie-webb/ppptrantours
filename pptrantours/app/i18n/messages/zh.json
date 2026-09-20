@@ -162,6 +162,18 @@
     "next": "下一页"
   },
   "booking": {
+    "errRequired": "请填写此项。",
+    "errDatePast": "请选择今天或之后的日期。",
+    "errNameShort": "请填写预订人姓名。",
+    "errEmail": "这不像是电子邮箱地址。",
+    "errPhone": "这个号码似乎太短了。",
+    "errReturnBeforeArrival": "返程日期不能早于抵达日期。",
+    "errConfirmPlace": "请确认您的住宿地点。",
+    "errPickPlace": "请选择您的住宿地点。",
+    "rememberedTitle": "请确认此信息仍然正确",
+    "rememberedBody": "这是您之前浏览时保存的。价格和接送均按此酒店计算。",
+    "yesCorrect": "是的，没错",
+    "changeHotel": "不，更改",
     "bookNow": "立即预订",
     "transportLabel": "车费",
     "transferPrice": "私人接送",

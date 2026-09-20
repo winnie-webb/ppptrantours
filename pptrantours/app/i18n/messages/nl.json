@@ -162,6 +162,18 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "errRequired": "Vul dit veld in.",
+    "errDatePast": "Kies vandaag of een latere datum.",
+    "errNameShort": "Geef de naam van de boeking op.",
+    "errEmail": "Dat lijkt geen e-mailadres.",
+    "errPhone": "Dat nummer lijkt te kort.",
+    "errReturnBeforeArrival": "De terugreis kan niet vóór de aankomst liggen.",
+    "errConfirmPlace": "Bevestig waar u verblijft.",
+    "errPickPlace": "Kies waar u verblijft.",
+    "rememberedTitle": "Controleer of dit nog klopt",
+    "rememberedBody": "We hebben dit eerder tijdens uw bezoek opgeslagen. Uw prijs en ophaaladres gelden voor dit hotel.",
+    "yesCorrect": "Ja, dat klopt",
+    "changeHotel": "Nee, wijzigen",
     "bookNow": "Nu boeken",
     "transportLabel": "Vervoer",
     "transferPrice": "Privétransfer",

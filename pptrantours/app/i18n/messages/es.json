@@ -162,6 +162,18 @@
     "next": "Página siguiente"
   },
   "booking": {
+    "errRequired": "Por favor, completa este campo.",
+    "errDatePast": "Elige hoy o una fecha posterior.",
+    "errNameShort": "Indica el nombre de la reserva.",
+    "errEmail": "Eso no parece una dirección de correo.",
+    "errPhone": "Ese número parece demasiado corto.",
+    "errReturnBeforeArrival": "La vuelta no puede ser antes de la llegada.",
+    "errConfirmPlace": "Confirma dónde te alojas.",
+    "errPickPlace": "Elige dónde te alojas.",
+    "rememberedTitle": "Comprueba que esto sigue siendo correcto",
+    "rememberedBody": "Lo guardamos antes durante tu visita. Tu precio y tu recogida son para este hotel.",
+    "yesCorrect": "Sí, es correcto",
+    "changeHotel": "No, cambiar",
     "bookNow": "Reservar ahora",
     "transportLabel": "Transporte",
     "transferPrice": "Traslado privado",

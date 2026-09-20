@@ -162,6 +162,18 @@
     "next": "次のページ"
   },
   "booking": {
+    "errRequired": "この項目を入力してください。",
+    "errDatePast": "本日以降の日付を選んでください。",
+    "errNameShort": "予約者のお名前を入力してください。",
+    "errEmail": "メールアドレスの形式が正しくないようです。",
+    "errPhone": "この番号は短すぎるようです。",
+    "errReturnBeforeArrival": "復路は到着日より前にはできません。",
+    "errConfirmPlace": "ご滞在先をご確認ください。",
+    "errPickPlace": "ご滞在先をお選びください。",
+    "rememberedTitle": "内容に間違いがないかご確認ください",
+    "rememberedBody": "ご滞在中に保存された情報です。料金と送迎はこのホテルが対象です。",
+    "yesCorrect": "はい、正しいです",
+    "changeHotel": "いいえ、変更する",
     "bookNow": "今すぐ予約",
     "transportLabel": "移動費",
     "transferPrice": "プライベート送迎",

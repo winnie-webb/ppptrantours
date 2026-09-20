@@ -162,6 +162,18 @@
     "next": "Next page"
   },
   "booking": {
+    "errRequired": "Please fill this in.",
+    "errDatePast": "Please choose today or a later date.",
+    "errNameShort": "Please give the name the booking is under.",
+    "errEmail": "That doesn't look like an email address.",
+    "errPhone": "That number looks too short to call back.",
+    "errReturnBeforeArrival": "Your return cannot be before you arrive.",
+    "errConfirmPlace": "Please confirm where you are staying.",
+    "errPickPlace": "Please choose where you are staying.",
+    "rememberedTitle": "Check this is still right",
+    "rememberedBody": "We saved this earlier in your visit. Your price and your pickup are both for this hotel.",
+    "yesCorrect": "Yes, that's right",
+    "changeHotel": "No, change it",
     "bookNow": "Book now",
     "transportLabel": "Transport",
     "transferPrice": "Private transfer",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   FaWhatsapp,
@@ -49,6 +49,26 @@ import { usePlace } from "./PlaceProvider";
  * would mismatch on hydration. It is filled in from an effect after mount, so
  * the first client render matches the server's exactly.
  */
+/**
+ * The message under a field that failed validation.
+ *
+ * `role="alert"` so a screen reader announces it when it appears, and the id
+ * matches what the input points `aria-describedby` at.
+ */
+function FieldError({ id, children }) {
+  if (!children) return null;
+  return (
+    <p
+      id={id}
+      role="alert"
+      className="mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-700"
+    >
+      <FaExclamationTriangle className="mt-0.5 shrink-0 text-[0.65rem]" />
+      {children}
+    </p>
+  );
+}
+
 function todayISO() {
   const now = new Date();
   const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
@@ -79,8 +99,10 @@ export default function BookingForm({
   paymentsEnabled = false,
 }) {
   const isTransfer = mode === "transfer";
-  const t = dict?.booking ?? {};
-  const { place, zone, ready, openPicker } = usePlace();
+  // Memoised because `?? {}` mints a new object every render, which would make
+  // the validation callback — and so the whole error map — recompute each time.
+  const t = useMemo(() => dict?.booking ?? {}, [dict]);
+  const { place, zone, ready, openPicker, choiceCount } = usePlace();
 
   // A transfer page is *about* one resort, so it fixes its own destination
   // rather than using whatever the guest picked for excursions.
@@ -107,6 +129,46 @@ export default function BookingForm({
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [honeypot, setHoneypot] = useState("");
+
+  /*
+   * Inline validation.
+   *
+   * `required` plus type="email" left the browser to police this, which gives
+   * one native bubble on the first bad field and nothing at all for the cases
+   * that actually cost a booking: a date in the past, a name of two letters, a
+   * phone number too short to call back. The server checks all of this and
+   * returns a single red banner — by which point the guest has lost which field
+   * was wrong.
+   *
+   * `touched` keeps an error from appearing while someone is still typing their
+   * email for the first time. After a submit attempt everything is treated as
+   * touched, so nothing stays hidden once they have tried to send it.
+   */
+  const [touched, setTouched] = useState({});
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+
+  /*
+   * Whether the resort was confirmed FOR THIS BOOKING.
+   *
+   * The resort is remembered in localStorage across the whole visit, so a guest
+   * who picked one yesterday, or while pricing a different tour, arrives here
+   * with it already filled in. That is helpful for browsing and dangerous at
+   * the point of booking: the pickup address is the one thing on this form
+   * nobody re-reads, and getting it wrong means a driver at the wrong hotel.
+   *
+   * So a remembered resort starts UNCONFIRMED and the form will not submit
+   * until the guest says it is right. Picking one here counts as saying so;
+   * inheriting one silently does not.
+   */
+  const [placeAgreed, setPlaceAgreed] = useState(false);
+
+  /*
+   * `choiceCount` is the provider's count of explicit picks in this page
+   * session, so a resort the guest chose a moment ago needs no second
+   * agreement while one restored from storage does. Plain derivation — no ref
+   * read during render, no effect to keep in step.
+   */
+  const placeConfirmed = placeAgreed || choiceCount > 0;
 
   /*
    * How the guest intends to settle, chosen HERE rather than offered after the
@@ -176,6 +238,59 @@ export default function BookingForm({
   const needsPlace = !isTransfer && ready && !place;
   const unpriced = !isTransfer && ready && place && !quote.transport;
 
+  /** A remembered resort the guest has not yet said is still right. */
+  const needsPlaceConfirm = !isTransfer && ready && Boolean(place) && !placeConfirmed;
+
+  /*
+   * The whole of validation, in one place, run on blur and again on submit.
+   * Mirrors the server's rules in app/api/bookings/route.js rather than
+   * inventing softer ones — a field this accepts and the server rejects is the
+   * worst of both.
+   */
+  const validate = useCallback(() => {
+    const errs = {};
+    const req = t.errRequired ?? "Please fill this in.";
+
+    if (!form.date) errs.date = req;
+    else if (form.date < todayISO())
+      errs.date = t.errDatePast ?? "Please choose today or a later date.";
+
+    if (!form.name.trim()) errs.name = req;
+    else if (form.name.trim().length < 2)
+      errs.name = t.errNameShort ?? "Please give the name the booking is under.";
+
+    if (!form.email.trim()) errs.email = req;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim()))
+      errs.email = t.errEmail ?? "That doesn't look like an email address.";
+
+    // Optional, but a number we cannot ring is worse than no number.
+    const digits = form.phone.replace(/\D/g, "");
+    if (form.phone.trim() && digits.length < 7)
+      errs.phone = t.errPhone ?? "That number looks too short to call back.";
+
+    if (isTransfer && tripType === "round-trip" && form.returnDate && form.date) {
+      if (form.returnDate < form.date)
+        errs.returnDate =
+          t.errReturnBeforeArrival ?? "Your return cannot be before you arrive.";
+    }
+
+    if (needsPlaceConfirm)
+      errs.place = t.errConfirmPlace ?? "Please confirm where you are staying.";
+    else if (needsPlace)
+      errs.place = t.errPickPlace ?? "Please choose where you are staying.";
+
+    return errs;
+  }, [form, isTransfer, tripType, needsPlace, needsPlaceConfirm, t]);
+
+  // Derived, not stored: the errors are a pure function of the form's values,
+  // so there is nothing to keep in sync and no effect to run.
+  const fieldErrors = useMemo(() => validate(), [validate]);
+
+  const showError = (key) =>
+    (submitAttempted || touched[key]) && fieldErrors[key] ? fieldErrors[key] : null;
+
+  const blur = (key) => () => setTouched((prev) => ({ ...prev, [key]: true }));
+
   /*
    * Whether paying by card is even on the table.
    *
@@ -220,6 +335,31 @@ export default function BookingForm({
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    /*
+     * Validation gates the send. `noValidate` on the form means the browser is
+     * no longer doing this for us, which is the point — one consistent set of
+     * messages in the guest's own language beats a native bubble in the
+     * browser's.
+     *
+     * The first bad field is focused, because on a phone the error can easily
+     * be off-screen above the button that was just pressed.
+     */
+    setSubmitAttempted(true);
+    const errs = validate();
+    const firstBad = Object.keys(errs)[0];
+    if (firstBad) {
+      setError("");
+      setStatus("idle");
+      const el =
+        firstBad === "place"
+          ? document.getElementById("place-field")
+          : document.getElementById(firstBad);
+      el?.scrollIntoView({ block: "center", behavior: "smooth" });
+      el?.focus?.({ preventScroll: true });
+      return;
+    }
+
     setStatus("sending");
     setError("");
 
@@ -307,7 +447,9 @@ export default function BookingForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="card relative overflow-hidden">
+    // noValidate: validation is ours now, so the messages are translated and
+    // every field's problem is stated next to it rather than one at a time.
+    <form noValidate onSubmit={onSubmit} className="card relative overflow-hidden">
       <PriceHeader
         quote={quote}
         tour={tour}
@@ -350,31 +492,75 @@ export default function BookingForm({
             </p>
           </div>
         ) : (
-          <div>
+          <div id="place-field" tabIndex={-1}>
             <span className="label">{t.stayingAt ?? "Where are you staying?"}</span>
-            <button
-              type="button"
-              onClick={openPicker}
-              className="flex w-full items-center gap-3 rounded-xl border border-ink/15 px-4 py-3 text-left transition hover:border-crimson-300 hover:bg-crimson-50/40"
-            >
-              <FaMapMarkerAlt
-                className={`shrink-0 text-sm ${
-                  place ? "text-crimson-600" : "text-ink/30"
-                }`}
-              />
-              <span
-                className={`flex-1 text-sm ${
-                  place ? "font-semibold text-ink" : "text-ink/50"
+
+            {/*
+              A resort carried over from earlier in the visit is stated loudly
+              and has to be agreed to. It is the one field on this form a guest
+              will not re-read, and the cost of it being wrong is a driver at
+              the wrong hotel on the morning of a tour — so it is deliberately
+              not a quiet pre-filled input.
+            */}
+            {needsPlaceConfirm ? (
+              <div className="rounded-xl border-2 border-gold-400 bg-gold-200/25 p-4">
+                <p className="flex items-start gap-2 text-xs font-semibold uppercase tracking-wide text-ink/70">
+                  <FaExclamationTriangle className="mt-0.5 shrink-0 text-gold-600" />
+                  {t.rememberedTitle ?? "Check this is still right"}
+                </p>
+                <p className="mt-2.5 font-display text-xl font-semibold leading-snug text-ink">
+                  {place.name}
+                </p>
+                <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
+                  {t.rememberedBody ??
+                    "We saved this earlier in your visit. Your price and your pickup are both for this hotel."}
+                </p>
+                <div className="mt-3.5 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPlaceAgreed(true)}
+                    className="btn-primary flex-1 !py-2 text-sm"
+                  >
+                    {t.yesCorrect ?? "Yes, that's right"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={openPicker}
+                    className="btn-ghost flex-1 !py-2 text-sm"
+                  >
+                    {t.changeHotel ?? "No, change it"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={openPicker}
+                aria-describedby={showError("place") ? "place-err" : undefined}
+                className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition hover:border-crimson-300 hover:bg-crimson-50/40 ${
+                  showError("place") ? "border-red-400" : "border-ink/15"
                 }`}
               >
-                {ready && place
-                  ? place.name
-                  : t.choosePlace ?? "Choose your hotel or pier"}
-              </span>
-              <span className="text-xs font-semibold text-crimson-700">
-                {ready && place ? t.change ?? "Change" : t.choose ?? "Choose"}
-              </span>
-            </button>
+                <FaMapMarkerAlt
+                  className={`shrink-0 text-sm ${
+                    place ? "text-crimson-600" : "text-ink/30"
+                  }`}
+                />
+                <span
+                  className={`flex-1 text-sm ${
+                    place ? "font-semibold text-ink" : "text-ink/50"
+                  }`}
+                >
+                  {ready && place
+                    ? place.name
+                    : t.choosePlace ?? "Choose your hotel or pier"}
+                </span>
+                <span className="text-xs font-semibold text-crimson-700">
+                  {ready && place ? t.change ?? "Change" : t.choose ?? "Choose"}
+                </span>
+              </button>
+            )}
+            <FieldError id="place-err">{showError("place")}</FieldError>
           </div>
         )}
 
@@ -480,10 +666,14 @@ export default function BookingForm({
               type="date"
               required
               aria-required="true"
+              aria-invalid={showError("date") ? "true" : undefined}
+              aria-describedby={showError("date") ? "date-err" : undefined}
               value={form.date}
               onChange={set("date")}
-              className="field"
+              onBlur={blur("date")}
+              className={`field ${showError("date") ? "border-red-400" : ""}`}
             />
+            <FieldError id="date-err">{showError("date")}</FieldError>
           </div>
           <div>
             <label htmlFor="time" className="label">
@@ -529,10 +719,20 @@ export default function BookingForm({
                     id="returnDate"
                     ref={returnDateRef}
                     type="date"
+                    aria-invalid={showError("returnDate") ? "true" : undefined}
+                    aria-describedby={
+                      showError("returnDate") ? "returnDate-err" : undefined
+                    }
                     value={form.returnDate}
                     onChange={set("returnDate")}
-                    className="field"
+                    onBlur={blur("returnDate")}
+                    className={`field ${
+                      showError("returnDate") ? "border-red-400" : ""
+                    }`}
                   />
+                  <FieldError id="returnDate-err">
+                    {showError("returnDate")}
+                  </FieldError>
                 </div>
                 <div>
                   <label htmlFor="returnFlight" className="label">
@@ -564,11 +764,15 @@ export default function BookingForm({
             type="text"
             required
             aria-required="true"
+            aria-invalid={showError("name") ? "true" : undefined}
+            aria-describedby={showError("name") ? "name-err" : undefined}
             autoComplete="name"
             value={form.name}
             onChange={set("name")}
-            className="field"
+            onBlur={blur("name")}
+            className={`field ${showError("name") ? "border-red-400" : ""}`}
           />
+          <FieldError id="name-err">{showError("name")}</FieldError>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -582,11 +786,15 @@ export default function BookingForm({
               type="email"
               required
               aria-required="true"
+              aria-invalid={showError("email") ? "true" : undefined}
+              aria-describedby={showError("email") ? "email-err" : undefined}
               autoComplete="email"
               value={form.email}
               onChange={set("email")}
-              className="field"
+              onBlur={blur("email")}
+              className={`field ${showError("email") ? "border-red-400" : ""}`}
             />
+            <FieldError id="email-err">{showError("email")}</FieldError>
           </div>
           <div>
             <label htmlFor="phone" className="label">
@@ -596,10 +804,14 @@ export default function BookingForm({
               id="phone"
               type="tel"
               autoComplete="tel"
+              aria-invalid={showError("phone") ? "true" : undefined}
+              aria-describedby={showError("phone") ? "phone-err" : undefined}
               value={form.phone}
               onChange={set("phone")}
-              className="field"
+              onBlur={blur("phone")}
+              className={`field ${showError("phone") ? "border-red-400" : ""}`}
             />
+            <FieldError id="phone-err">{showError("phone")}</FieldError>
           </div>
         </div>
 

@@ -50,9 +50,24 @@ export function PlaceProvider({ children }) {
     setReady(true);
   }, []);
 
+  /*
+   * How many times the guest has picked a resort *in this page session*.
+   *
+   * A restored value and a chosen one are the same string, and the booking
+   * form has to tell them apart: a resort carried over from an earlier visit
+   * must be confirmed before it can be booked against, while one the guest
+   * just picked obviously needs no second agreement. Zero means everything on
+   * screen came out of storage.
+   *
+   * Session-scoped on purpose — it is not persisted, so a new page load starts
+   * at zero and asks again.
+   */
+  const [choiceCount, setChoiceCount] = useState(0);
+
   const choose = useCallback((key) => {
     setPlaceKey(key);
     setPickerOpen(false);
+    setChoiceCount((n) => n + 1);
     try {
       if (key) window.localStorage.setItem(STORAGE_KEY, key);
       else window.localStorage.removeItem(STORAGE_KEY);
@@ -69,12 +84,13 @@ export function PlaceProvider({ children }) {
       placeKey,
       zone: place?.zone ?? null,
       choose,
+      choiceCount,
       clear: () => choose(null),
       pickerOpen,
       openPicker: () => setPickerOpen(true),
       closePicker: () => setPickerOpen(false),
     };
-  }, [placeKey, ready, pickerOpen, choose]);
+  }, [placeKey, ready, pickerOpen, choose, choiceCount]);
 
   return (
     <PlaceContext.Provider value={value}>{children}</PlaceContext.Provider>
