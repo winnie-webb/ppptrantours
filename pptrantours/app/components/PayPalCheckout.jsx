@@ -133,8 +133,29 @@ export default function PayPalCheckout({
           // Server-captured, and the server re-checks the amount.
           onApprove: async (data) => {
             setState("busy");
-            const result = await capturePayment(data.orderID);
-            cbs.current.onSettled?.(result);
+            try {
+              const result = await capturePayment(data.orderID);
+              /*
+               * "done" before handing the result up, and "done" renders
+               * nothing.
+               *
+               * This used to leave the state on "busy", so "Confirming your
+               * payment…" sat under the parent's "Payment received" — the page
+               * telling the guest both that it was still working and that it
+               * had finished. It also left the buttons mounted after a
+               * successful capture, which invites a second payment for a
+               * booking already paid.
+               */
+              setState("done");
+              cbs.current.onSettled?.(result);
+            } catch (err) {
+              console.error("[paypal] capture failed", err);
+              setState("failed");
+              setMessage(
+                t.payCaptureFailed ??
+                  "We couldn't confirm that payment. Don't try again yet — message us and we'll check before anything is charged twice."
+              );
+            }
           },
 
           onCancel: async (data) => {
@@ -194,6 +215,10 @@ export default function PayPalCheckout({
     // ref precisely so this never re-runs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientId, currency]);
+
+  // Settled. The parent owns what the guest sees now, and leaving the buttons
+  // up would offer a second payment for a booking that is already paid.
+  if (state === "done") return null;
 
   if (state === "failed") {
     return message ? (

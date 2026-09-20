@@ -107,24 +107,13 @@ export async function POST(request) {
       },
     });
   } catch (err) {
-    console.error(`[payments] ${reference} could not start`, err);
     /*
-     * TEMPORARY DIAGNOSTIC — remove once the card flow is confirmed working.
-     *
-     * The provider's own reason, truncated. A refused order is otherwise only
-     * visible in the platform's logs, and a wrong enum in the order payload
-     * looks identical from out here to bad credentials or a currency the
-     * account cannot take. This is a documented PayPal issue code, not
-     * anything of ours, and the site has no real customers yet — but it is
-     * still more than a stranger needs, so it goes once it has done its job.
+     * The provider's reason goes to the log, not to the guest. It named a
+     * wrong enum in the order payload once and was worth having — but it is
+     * `vercel logs` that should carry it, not a response a stranger can read.
      */
-    return NextResponse.json(
-      {
-        error: "We couldn't open the payment page. Please try again.",
-        detail: String(err?.message ?? "").slice(0, 200),
-      },
-      { status: 502, headers: { "Cache-Control": "no-store" } }
-    );
+    console.error(`[payments] ${reference} could not start`, err);
+    return bad("We couldn't open the payment page. Please try again.", 502);
   }
 
   let payment;

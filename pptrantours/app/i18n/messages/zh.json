@@ -162,6 +162,7 @@
     "next": "下一页"
   },
   "booking": {
+    "payCaptureFailed": "我们无法确认该笔付款。请暂时不要重试 — 请联系我们，我们会先核实，避免重复扣款。",
     "payFinish": "完成付款",
     "notSavedTitle": "尚未确认",
     "notSavedBody": "我们刚刚无法保存这笔预订，因此还没有人收到。请通过下方的 WhatsApp 发给我们，我们会人工确认 — 很快，不会丢失任何信息。",

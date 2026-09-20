@@ -1234,6 +1234,12 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
   );
   const useButtons = canPay && Boolean(paypal?.clientId) && !sdkDown;
 
+  /*
+   * Settled and taken. Not just `settled` — a cancelled or pending outcome
+   * leaves the guest with something still to do, so the pay block stays.
+   */
+  const paid = Boolean(settled?.ok);
+
   const goToPayment = async () => {
     setPaying(true);
     setPayError("");
@@ -1329,29 +1335,40 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
             saying something went wrong would be a lie, and an alarming one on
             the screen where the guest is about to pay.
           */}
-          <p className="text-sm font-semibold text-ink">
-            {useButtons
-              ? payMethod === "card"
-                ? t.payFinish ?? "Finish your payment"
-                : t.payHow ?? "Want to pay now instead?"
-              : payMethod === "card"
-                ? t.payDidntOpen ?? "The payment page didn't open"
-                : t.payHow ?? "Want to pay now instead?"}
-          </p>
-          <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
-            {useButtons
-              ? t.payOptional ??
-                "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."
-              : payMethod === "card"
-                ? t.payDidntOpenBody ??
-                  "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
-                : t.payOptional ??
-                  "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
-          </p>
+          {/*
+            Everything above the outcome is an invitation to pay, so once the
+            payment has actually landed it all has to go. Leaving it up printed
+            "Paying now is optional" and the amount still owing directly above
+            "Payment received", which reads as though the payment had not
+            counted.
+          */}
+          {!paid && (
+            <>
+              <p className="text-sm font-semibold text-ink">
+                {useButtons
+                  ? payMethod === "card"
+                    ? t.payFinish ?? "Finish your payment"
+                    : t.payHow ?? "Want to pay now instead?"
+                  : payMethod === "card"
+                    ? t.payDidntOpen ?? "The payment page didn't open"
+                    : t.payHow ?? "Want to pay now instead?"}
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
+                {useButtons
+                  ? t.payOptional ??
+                    "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."
+                  : payMethod === "card"
+                    ? t.payDidntOpenBody ??
+                      "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
+                    : t.payOptional ??
+                      "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
+              </p>
 
-          <p className="mt-3 font-display text-2xl font-semibold text-ink">
-            {money(options.amount)}
-          </p>
+              <p className="mt-3 font-display text-2xl font-semibold text-ink">
+                {money(options.amount)}
+              </p>
+            </>
+          )}
 
           {useButtons ? (
             <div className="mt-4 text-left">
@@ -1403,7 +1420,9 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
           {settled && (
             <div
               role="status"
-              className={`mt-4 rounded-lg px-3 py-2.5 text-xs leading-relaxed ${
+              className={`rounded-lg px-3 py-2.5 text-xs leading-relaxed ${
+                paid ? "" : "mt-4"
+              } ${
                 settled.ok
                   ? "bg-green-50 text-green-800"
                   : "bg-gold-200/40 text-ink/70"

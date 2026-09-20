@@ -162,6 +162,7 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "payCaptureFailed": "We konden die betaling niet bevestigen. Probeer het nog niet opnieuw — neem contact op, dan controleren we het voordat er dubbel wordt afgeschreven.",
     "payFinish": "Rond uw betaling af",
     "notSavedTitle": "Nog niet bevestigd",
     "notSavedBody": "We konden deze boeking zojuist niet opslaan, dus niemand heeft hem nog. Stuur hem hieronder via WhatsApp, dan bevestigen we hem handmatig — dat is zo gebeurd en er gaat niets verloren.",

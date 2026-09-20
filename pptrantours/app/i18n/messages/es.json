@@ -162,6 +162,7 @@
     "next": "Página siguiente"
   },
   "booking": {
+    "payCaptureFailed": "No pudimos confirmar ese pago. No lo intentes de nuevo todavía: escríbenos y lo comprobamos antes de que se cobre dos veces.",
     "payFinish": "Completa tu pago",
     "notSavedTitle": "Aún sin confirmar",
     "notSavedBody": "No hemos podido guardar esta reserva ahora mismo, así que todavía no nos ha llegado. Envíanosla por WhatsApp aquí abajo y la confirmamos a mano; es cuestión de un momento y no se pierde nada.",

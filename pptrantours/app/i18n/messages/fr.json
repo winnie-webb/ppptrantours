@@ -162,6 +162,7 @@
     "next": "Page suivante"
   },
   "booking": {
+    "payCaptureFailed": "Nous n'avons pas pu confirmer ce paiement. Ne réessayez pas tout de suite — écrivez-nous et nous vérifierons avant qu'il soit débité deux fois.",
     "payFinish": "Finalisez votre paiement",
     "notSavedTitle": "Pas encore confirmé",
     "notSavedBody": "Nous n'avons pas pu enregistrer cette réservation à l'instant, personne ne l'a donc encore. Envoyez-la-nous sur WhatsApp ci-dessous et nous la confirmerons à la main — c'est l'affaire d'un instant et rien n'est perdu.",
