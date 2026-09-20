@@ -36,11 +36,12 @@ export const bookingTerms = [
   },
   {
     key: "request",
-    heading: "A request is not yet a booking",
+    heading: "When your booking is confirmed",
     body: [
-      "Sending the form on this site creates a request, not a confirmed booking. You will get a reference beginning PPP- immediately, which means we have received it — nothing more.",
-      "Your booking is confirmed only when we have replied to confirm both the date and the price. We do this by WhatsApp or email, usually within the hour during dispatch hours.",
-      "This is also true if you choose to pay online. Paying does not confirm availability. If we cannot take your date after you have paid, you are refunded in full — see Refunds below.",
+      "Sending the form on this site makes a booking. Where we publish a set rate for your route, that booking is confirmed straight away and you will get a reference beginning PPP- to quote back to us. You do not need to wait for us to accept it.",
+      "Your driver and the exact pickup time follow separately, by WhatsApp or email, usually within the hour during dispatch hours.",
+      "Where we do not publish a set rate, the form asks for a price instead of taking a booking, and it says so. Nothing is agreed until we have come back with a firm figure and you have confirmed it.",
+      "In the rare case that we cannot cover a confirmed date — two parties asking for the same vehicle at the same hour — we will telephone you, offer the nearest time we can do, and refund you in full if that does not suit. We would rather tell you than quietly move you.",
     ],
   },
   {
@@ -57,8 +58,9 @@ export const bookingTerms = [
     key: "pay",
     heading: "Paying",
     body: [
+      "The booking form asks how you would like to pay, and both answers are equally fine with us.",
       "You can settle with your driver on the day, in cash, in United States or Jamaican dollars. This is how most of our guests pay and it is always available.",
-      "Where online payment is offered, it is optional and it is by card through a secure hosted payment page operated by our payment provider. Your card details are entered on their page and never reach this website.",
+      "Or you can pay when you book, by card, through PayPal's own secure checkout — no PayPal account is needed. Your card details are entered on their page and never reach this website. Paying online is never required, and choosing it changes nothing about the booking itself.",
       "We do not add a processing fee at checkout. The price you are shown is the price you are charged.",
     ],
   },

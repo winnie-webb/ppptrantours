@@ -351,12 +351,12 @@ export const faqs = [
   {
     key: "payment",
     q: "How and when do I pay?",
-    a: "Nothing is charged when you send a request — we confirm availability and the exact price first. After that you have two choices, and both are fine with us: settle with your driver on the day in cash, US or Jamaican dollars, or pay the transport by card through our secure payment page. Paying online is optional and never required to hold a booking. Either way, attraction entry fees are paid at the gate and are never part of what we collect.",
+    a: "The booking form asks you, and both answers are fine with us: settle with your driver on the day in cash, US or Jamaican dollars, or pay the transport by card when you book, through PayPal's secure checkout — no PayPal account needed. Paying online is optional and changes nothing about your booking; pick cash and nothing is charged at all. Either way, attraction entry fees are paid at the gate and are never part of what we collect.",
   },
   {
     key: "confirm",
     q: "How do I know my booking went through?",
-    a: "You get a booking reference the moment the request completes. Keep it — quoting that reference on any follow-up gets you an answer fastest. A separate confirmation follows once we have assigned your driver.",
+    a: "You get a booking reference the moment you submit, and on a route we publish a rate for, the booking is confirmed there and then — you are not waiting for us to accept it. Keep the reference; quoting it on any follow-up gets you an answer fastest. Your driver and exact pickup time follow separately, usually within the hour during dispatch hours.",
   },
   {
     key: "delay",

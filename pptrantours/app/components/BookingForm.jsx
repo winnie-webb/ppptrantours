@@ -103,6 +103,18 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   const [honeypot, setHoneypot] = useState("");
 
   /*
+   * How the guest intends to settle, chosen HERE rather than offered after the
+   * booking exists.
+   *
+   * Defaults to cash, and that default is deliberate. Most of PPP's money
+   * arrives in the vehicle, the terms promise cash is always available, and
+   * pre-selecting the option that charges a card is the kind of default that
+   * gets a business a chargeback rather than a customer. Card is an equal,
+   * visible choice — not a nudge.
+   */
+  const [payMethod, setPayMethod] = useState("cash");
+
+  /*
    * The date floors are written straight onto the DOM nodes rather than held in
    * state. `min` is a client-only value — a date baked in at build time would be
    * stale — and setting it through state would mean an extra render of the whole
@@ -158,6 +170,37 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   const needsPlace = !isTransfer && ready && !place;
   const unpriced = !isTransfer && ready && place && !quote.transport;
 
+  /*
+   * Whether paying by card is even on the table.
+   *
+   * Mirrors `payable()` in app/products/pricing.js rather than asking the
+   * server, because this decides what the guest SEES and the form has every
+   * input already. The server re-derives it anyway and is the one that binds —
+   * offering a card option the server would refuse costs a confused guest, not
+   * a mispriced booking.
+   *
+   * An estimated fare is excluded on purpose: it is our inference, not the
+   * owner's published rate, and the form promises we confirm it before anyone
+   * pays.
+   */
+  const canOfferCard = Boolean(
+    !needsPlace && !unpriced && quote.transport && !quote.transport.est
+  );
+
+  /*
+   * What the form will actually DO, as opposed to what was last clicked.
+   *
+   * A guest can pick card and then change resort to one with no published rate.
+   * Derived during render rather than corrected by an effect: an effect would
+   * mean a render showing "Book and pay now" for a booking that cannot be paid
+   * for, followed by a second render fixing it. There is no external system to
+   * synchronise here, so there is nothing for an effect to do.
+   *
+   * `payMethod` stays as the guest left it, so picking a priced resort again
+   * restores their choice instead of silently forgetting it.
+   */
+  const payIntent = canOfferCard ? payMethod : "cash";
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
@@ -186,6 +229,7 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
         // guest never sees the field.
         company: honeypot,
         formOpenedAt: openedAt.current,
+        payIntent,
         ...form,
       }, { idempotencyKey: idemKey.current });
       setResult(res);
@@ -195,6 +239,31 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
       idemKey.current =
         globalThis.crypto?.randomUUID?.() ??
         `k-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+      /*
+       * Card was chosen, so go straight to PayPal rather than showing a
+       * confirmation the guest has to click past.
+       *
+       * THE BOOKING IS ALREADY SAVED at this point, and that ordering is the
+       * whole reason this is safe to do. If the payment never starts, or the
+       * guest abandons PayPal, or their connection drops, the booking still
+       * exists and the owner still has it — they simply pay the driver. The
+       * reverse ordering, taking money before the booking is recorded, is how a
+       * charge ends up with nothing attached to it.
+       *
+       * A failure here is NOT rethrown: falling through leaves the success
+       * screen rendered with its own pay button and an explanation, which is a
+       * far better place to land than the form's error state telling someone
+       * their booking failed when it did not.
+       */
+      if (payIntent === "card" && res.paymentOptions?.collectible) {
+        try {
+          const url = await startPayment(res.reference);
+          window.location.assign(url);
+        } catch (payErr) {
+          console.error("Payment could not start", payErr);
+        }
+      }
     } catch (err) {
       console.error("Booking failed", err);
       setError(
@@ -206,7 +275,18 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
   };
 
   if (status === "done" && result) {
-    return <Success result={result} locale={locale} dict={dict} />;
+    return (
+      <Success
+        result={result}
+        locale={locale}
+        dict={dict}
+        // Whether the card route was ATTEMPTED. Reaching this screen with
+        // "card" set means the redirect did not happen, so the screen says so
+        // instead of pretending the guest chose to pay later.
+        payMethod={payIntent}
+        quoted={!unpriced && !needsPlace}
+      />
+    );
   }
 
   return (
@@ -574,6 +654,53 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
           {t.requiredNote ?? "Required. Everything else helps but is optional."}
         </p>
 
+        {/*
+          How they want to pay, asked BEFORE the booking is made rather than
+          offered afterwards. Two equal options, cash pre-selected — see the
+          note on the payMethod state for why that default is not an accident.
+        */}
+        {canOfferCard && (
+          <div>
+            <span className="label">{t.payHowLabel ?? "How would you like to pay?"}</span>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {[
+                {
+                  key: "cash",
+                  icon: null,
+                  label: t.payCash ?? "Pay the driver on the day",
+                  hint: t.payCashHint ?? "Cash, US or Jamaican dollars",
+                },
+                {
+                  key: "card",
+                  icon: <FaCreditCard className="text-sm" />,
+                  label: t.payCard ?? "Pay now by card",
+                  hint: t.payCardHint ?? "Secure checkout, no account needed",
+                },
+              ].map((opt) => (
+                <button
+                  key={opt.key}
+                  type="button"
+                  onClick={() => setPayMethod(opt.key)}
+                  aria-pressed={payMethod === opt.key}
+                  className={`rounded-xl border p-3 text-left transition ${
+                    payMethod === opt.key
+                      ? "border-crimson-600 bg-crimson-50/60 ring-1 ring-crimson-600"
+                      : "border-ink/15 hover:border-ink/30"
+                  }`}
+                >
+                  <span className="flex items-center gap-2 text-sm font-semibold text-ink">
+                    {opt.icon}
+                    {opt.label}
+                  </span>
+                  <span className="mt-0.5 block text-xs text-ink/60">
+                    {opt.hint}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={status === "sending"}
@@ -585,15 +712,32 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
               {t.sending ?? "Sending…"}
             </>
           ) : unpriced || needsPlace ? (
+            /*
+             * Still a request, and still says so. There is no published rate
+             * for this route, so the guest is asking what it costs — nothing
+             * has been agreed and nothing can be confirmed.
+             */
             t.requestQuote ?? "Request a price"
+          ) : payIntent === "card" ? (
+            <>
+              <FaCreditCard className="text-base" />
+              {t.submitAndPay ?? "Book and pay now"}
+            </>
           ) : (
-            t.submit ?? "Request this booking"
+            t.submit ?? "Confirm this booking"
           )}
         </button>
 
-        <p className="flex items-center justify-center gap-2 text-xs text-ink/60">
-          <FaLock className="text-[0.65rem]" />
-          {t.noPayment ?? "No payment taken now — we confirm availability first."}
+        <p className="flex items-center justify-center gap-2 text-center text-xs text-ink/60">
+          <FaLock className="shrink-0 text-[0.65rem]" />
+          {unpriced || needsPlace
+            ? t.noPaymentQuote ??
+              "No payment taken — we come back with a firm price, same day."
+            : payIntent === "card"
+              ? t.payNote ??
+                "You'll be taken to a secure checkout. Card details never touch this site."
+              : t.cashNote ??
+                "Nothing to pay now. Settle with your driver on the day."}
         </p>
 
         <a
@@ -812,7 +956,7 @@ function Breakdown({
  * that is a quote request, carries an indicative price, or has nowhere to be
  * recorded because no service account is configured.
  */
-function Success({ result, locale, dict }) {
+function Success({ result, locale, dict, payMethod, quoted }) {
   const t = dict?.booking ?? {};
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
@@ -845,13 +989,18 @@ function Success({ result, locale, dict }) {
         <FaCheckCircle />
       </span>
       <h3 className="mt-5 font-display text-2xl font-semibold text-ink">
-        {t.doneTitle ?? "Request received."}
+        {quoted
+          ? t.doneTitle ?? "You're booked."
+          : t.doneQuoteTitle ?? "Request received."}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-ink/60">
         {t.doneRef ?? "Your reference is"}{" "}
         <span className="font-semibold text-ink">{result.reference}</span>.{" "}
-        {t.doneBody ??
-          "Keep it — quoting it gets you an answer fastest. We confirm your driver and exact pickup time before anything is final."}
+        {quoted
+          ? t.doneBody ??
+            "Keep it — quoting it gets you an answer fastest. Your driver and exact pickup time follow by WhatsApp or email shortly."
+          : t.doneQuoteBody ??
+            "Keep it — quoting it gets you an answer fastest. We'll come back with a firm price, same day, and you can confirm from there."}
       </p>
 
       {!result.persisted && (
@@ -864,11 +1013,16 @@ function Success({ result, locale, dict }) {
       {canPay && (
         <div className="mt-7 rounded-xl bg-sand px-5 py-5">
           <p className="text-sm font-semibold text-ink">
-            {t.payHow ?? "How would you like to pay?"}
+            {payMethod === "card"
+              ? t.payDidntOpen ?? "The payment page didn't open"
+              : t.payHow ?? "Want to pay now instead?"}
           </p>
           <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
-            {t.payOptional ??
-              "Paying now is optional — you can always settle with your driver on the day, in cash."}
+            {payMethod === "card"
+              ? t.payDidntOpenBody ??
+                "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
+              : t.payOptional ??
+                "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
           </p>
 
           <button

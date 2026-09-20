@@ -271,12 +271,38 @@ export async function POST(request) {
     email,
     phone: str(body.phone, MAX.phone),
     notes: str(body.notes, MAX.notes),
-    status: "new",
+    /*
+     * A priced booking is CONFIRMED the moment it is made. This site no longer
+     * takes "requests".
+     *
+     * The distinction is already carried by `type` above, so it costs nothing
+     * to honour it here: a `booking` has a published rate and a date, and there
+     * is nothing left for the owner to decide before it is real. A
+     * `quote-request` has no rate to confirm — the guest is asking what a route
+     * costs — and an `enquiry` is a message. Both of those start at `new` and
+     * genuinely are requests, which is why the form still says so on that path.
+     *
+     * There is deliberately NO capacity check behind this. PPP does not publish
+     * time slots and does not want to; a clash is rare, and the owner moves one
+     * of the two by phone. Auto-confirming without a calendar is a decision
+     * about how the business runs, not an oversight — see the terms.
+     */
+    status: quoted && !isEnquiry ? "confirmed" : "new",
     settlement: "cash-on-day",
     // Opaque, so the result page cannot be opened by guessing a reference.
     lookupToken: makeLookupToken(),
     payment: {
-      intent: "none",
+      /*
+       * What the guest SAID they would do, captured on the form. Not a claim
+       * about money: `state` below is the only field that says anything about
+       * what has actually been collected.
+       *
+       * Worth storing even though it decides nothing here, because it is the
+       * difference between "meant to pay by card and something went wrong" and
+       * "always intended to pay the driver" — which is exactly the question
+       * asked about an unpaid booking the day before a pickup.
+       */
+      intent: body.payIntent === "card" && pay.collectible ? "card" : "cash",
       state: "unpaid",
       payableCents: pay.collectible ? pay.payableCents : 0,
       paidCents: 0,
