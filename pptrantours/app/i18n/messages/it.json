@@ -238,7 +238,8 @@
     "cashNote": "Non c'è nulla da pagare ora. Salda con l'autista il giorno stesso.",
     "noPaymentQuote": "Nessun pagamento — ti diamo un prezzo definitivo in giornata.",
     "payDidntOpen": "La pagina di pagamento non si è aperta",
-    "payDidntOpenBody": "La tua prenotazione è confermata comunque — non è stato addebitato nulla. Riprova qui sotto, oppure salda con l'autista il giorno stesso."
+    "payDidntOpenBody": "La tua prenotazione è confermata comunque — non è stato addebitato nulla. Riprova qui sotto, oppure salda con l'autista il giorno stesso.",
+    "payUnavailable": "Il pagamento con carta non è disponibile per questa prenotazione al momento. Non è stato addebitato nulla e la tua prenotazione resta valida — paga l'autista il giorno stesso, oppure scrivici per pagare in altro modo."
   },
   "fare": {
     "from": "Da Sangster International (MBJ)",

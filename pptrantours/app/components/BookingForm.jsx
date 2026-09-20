@@ -71,7 +71,13 @@ function Req() {
   );
 }
 
-export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }) {
+export default function BookingForm({
+  tour,
+  locale = "en",
+  dict,
+  mode = "tour",
+  paymentsEnabled = false,
+}) {
   const isTransfer = mode === "transfer";
   const t = dict?.booking ?? {};
   const { place, zone, ready, openPicker } = usePlace();
@@ -182,9 +188,20 @@ export default function BookingForm({ tour, locale = "en", dict, mode = "tour" }
    * An estimated fare is excluded on purpose: it is our inference, not the
    * owner's published rate, and the form promises we confirm it before anyone
    * pays.
+   *
+   * `paymentsEnabled` comes from the server, and it is the half the form
+   * cannot work out alone: whether a payment provider is actually configured.
+   * Without it this offered "Pay now by card" whenever a price existed, the
+   * server then refused to collect, and the redirect was skipped in silence -
+   * so choosing card and choosing cash produced identical screens. Offering a
+   * payment method that cannot be honoured is worse than offering none.
    */
   const canOfferCard = Boolean(
-    !needsPlace && !unpriced && quote.transport && !quote.transport.est
+    paymentsEnabled &&
+      !needsPlace &&
+      !unpriced &&
+      quote.transport &&
+      !quote.transport.est
   );
 
   /*
@@ -1007,6 +1024,20 @@ function Success({ result, locale, dict, payMethod, quoted }) {
         <p className="mx-auto mt-5 max-w-sm rounded-xl bg-gold-200/40 px-4 py-3 text-xs leading-relaxed text-ink/70">
           {t.notPersisted ??
             "Online booking storage isn't switched on for this site yet. Send the details straight to us on WhatsApp below and we'll lock it in."}
+        </p>
+      )}
+
+      {/*
+        The safety net for the mismatch above. `canOfferCard` should stop a
+        guest ever reaching this screen having asked to pay by card when we
+        cannot take one - but if the server refuses for a reason the form could
+        not see, saying so beats confirming in silence and leaving them to
+        wonder whether they were charged.
+      */}
+      {payMethod === "card" && !canPay && (
+        <p className="mx-auto mt-6 max-w-sm rounded-xl bg-gold-200/40 px-4 py-3 text-xs leading-relaxed text-ink/70">
+          {t.payUnavailable ??
+            "Card payment isn't available for this booking right now. Nothing was charged and your booking stands - settle with your driver on the day, or message us to pay another way."}
         </p>
       )}
 

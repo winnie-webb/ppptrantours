@@ -238,7 +238,8 @@
     "cashNote": "Rien à payer maintenant. Réglez votre chauffeur le jour même.",
     "noPaymentQuote": "Aucun paiement — nous revenons avec un prix ferme, le jour même.",
     "payDidntOpen": "La page de paiement ne s'est pas ouverte",
-    "payDidntOpenBody": "Votre réservation est confirmée dans tous les cas — rien n'a été débité. Réessayez ci-dessous, ou réglez simplement votre chauffeur le jour même."
+    "payDidntOpenBody": "Votre réservation est confirmée dans tous les cas — rien n'a été débité. Réessayez ci-dessous, ou réglez simplement votre chauffeur le jour même.",
+    "payUnavailable": "Le paiement par carte n'est pas disponible pour cette réservation pour le moment. Rien n'a été débité et votre réservation tient toujours — réglez votre chauffeur le jour même, ou écrivez-nous pour payer autrement."
   },
   "fare": {
     "from": "Depuis Sangster International (MBJ)",

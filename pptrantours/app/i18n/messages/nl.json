@@ -238,7 +238,8 @@
     "cashNote": "Nu niets te betalen. Reken af met uw chauffeur op de dag zelf.",
     "noPaymentQuote": "Geen betaling — we komen dezelfde dag terug met een vaste prijs.",
     "payDidntOpen": "De betaalpagina ging niet open",
-    "payDidntOpenBody": "Uw boeking is hoe dan ook bevestigd — er is niets afgeschreven. Probeer het hieronder opnieuw, of reken gewoon af met uw chauffeur op de dag zelf."
+    "payDidntOpenBody": "Uw boeking is hoe dan ook bevestigd — er is niets afgeschreven. Probeer het hieronder opnieuw, of reken gewoon af met uw chauffeur op de dag zelf.",
+    "payUnavailable": "Betalen met kaart is op dit moment niet beschikbaar voor deze boeking. Er is niets afgeschreven en uw boeking staat gewoon — reken af met uw chauffeur op de dag zelf, of stuur ons een bericht om anders te betalen."
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",

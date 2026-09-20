@@ -1,3 +1,4 @@
+import { paymentsConfigured } from "@/lib/payments";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -317,7 +318,15 @@ export default async function TransferPage({ params }) {
           </div>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <BookingForm tour={asTour} locale={locale} dict={client} mode="transfer" />
+            <BookingForm tour={asTour} locale={locale} dict={client} mode="transfer"
+              /* Whether a card can actually be charged, asked of the server.
+               * The form cannot work this out for itself: it knows the price
+               * but not whether a payment provider is configured, and offering
+               * a card option the server will refuse is worse than not
+               * offering one. Read at build time, so adding the PayPal keys
+               * to the environment needs a redeploy to take effect. */
+              paymentsEnabled={paymentsConfigured("USD")}
+            />
           </aside>
         </div>
       </section>

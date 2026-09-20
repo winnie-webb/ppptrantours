@@ -238,7 +238,8 @@
     "cashNote": "Não há nada a pagar agora. Acerte com o seu motorista no próprio dia.",
     "noPaymentQuote": "Sem pagamento — voltamos com um preço firme no próprio dia.",
     "payDidntOpen": "A página de pagamento não abriu",
-    "payDidntOpenBody": "A sua reserva está confirmada de qualquer forma — nada foi cobrado. Tente novamente abaixo, ou simplesmente pague ao motorista no próprio dia."
+    "payDidntOpenBody": "A sua reserva está confirmada de qualquer forma — nada foi cobrado. Tente novamente abaixo, ou simplesmente pague ao motorista no próprio dia.",
+    "payUnavailable": "O pagamento com cartão não está disponível para esta reserva neste momento. Não foi cobrado nada e a sua reserva mantém-se — pague ao motorista no próprio dia, ou contacte-nos para pagar de outra forma."
   },
   "fare": {
     "from": "De Sangster International (MBJ)",

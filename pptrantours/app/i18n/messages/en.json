@@ -238,7 +238,8 @@
     "cashNote": "Nothing to pay now. Settle with your driver on the day.",
     "noPaymentQuote": "No payment taken — we come back with a firm price, same day.",
     "payDidntOpen": "The payment page didn't open",
-    "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
+    "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
+    "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way."
   },
   "fare": {
     "from": "From Sangster International (MBJ)",

@@ -238,7 +238,8 @@
     "cashNote": "Jetzt ist nichts zu zahlen. Begleichen Sie es am Tag selbst bei Ihrem Fahrer.",
     "noPaymentQuote": "Keine Zahlung — wir melden uns noch am selben Tag mit einem festen Preis.",
     "payDidntOpen": "Die Zahlungsseite hat sich nicht geöffnet",
-    "payDidntOpenBody": "Ihre Buchung ist in jedem Fall bestätigt — es wurde nichts abgebucht. Versuchen Sie es unten erneut, oder zahlen Sie einfach am Tag selbst beim Fahrer."
+    "payDidntOpenBody": "Ihre Buchung ist in jedem Fall bestätigt — es wurde nichts abgebucht. Versuchen Sie es unten erneut, oder zahlen Sie einfach am Tag selbst beim Fahrer.",
+    "payUnavailable": "Kartenzahlung ist für diese Buchung derzeit nicht verfügbar. Es wurde nichts abgebucht und Ihre Buchung besteht weiter — zahlen Sie am Tag selbst bei Ihrem Fahrer, oder schreiben Sie uns für eine andere Zahlungsart."
   },
   "fare": {
     "from": "Ab Sangster International (MBJ)",

@@ -238,7 +238,8 @@
     "cashNote": "No hay nada que pagar ahora. Paga a tu conductor ese día.",
     "noPaymentQuote": "No se cobra nada — te damos un precio en firme el mismo día.",
     "payDidntOpen": "La página de pago no se abrió",
-    "payDidntOpenBody": "Tu reserva está confirmada igualmente — no se ha cobrado nada. Inténtalo de nuevo abajo, o simplemente paga a tu conductor ese día."
+    "payDidntOpenBody": "Tu reserva está confirmada igualmente — no se ha cobrado nada. Inténtalo de nuevo abajo, o simplemente paga a tu conductor ese día.",
+    "payUnavailable": "El pago con tarjeta no está disponible para esta reserva en este momento. No se ha cobrado nada y tu reserva sigue en pie — paga a tu conductor ese día, o escríbenos para pagar de otra forma."
   },
   "fare": {
     "from": "Desde Sangster International (MBJ)",
