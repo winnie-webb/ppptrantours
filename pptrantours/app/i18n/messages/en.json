@@ -162,6 +162,7 @@
     "next": "Next page"
   },
   "booking": {
+    "payFinish": "Finish your payment",
     "notSavedTitle": "Not confirmed yet",
     "notSavedBody": "We couldn't save this booking just now, so nobody has it yet. Send it to us on WhatsApp below and we'll confirm it by hand — it takes a moment and nothing is lost.",
     "payLoading": "Loading secure payment…",

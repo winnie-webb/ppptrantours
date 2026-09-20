@@ -108,7 +108,23 @@ export async function POST(request) {
     });
   } catch (err) {
     console.error(`[payments] ${reference} could not start`, err);
-    return bad("We couldn't open the payment page. Please try again.", 502);
+    /*
+     * TEMPORARY DIAGNOSTIC — remove once the card flow is confirmed working.
+     *
+     * The provider's own reason, truncated. A refused order is otherwise only
+     * visible in the platform's logs, and a wrong enum in the order payload
+     * looks identical from out here to bad credentials or a currency the
+     * account cannot take. This is a documented PayPal issue code, not
+     * anything of ours, and the site has no real customers yet — but it is
+     * still more than a stranger needs, so it goes once it has done its job.
+     */
+    return NextResponse.json(
+      {
+        error: "We couldn't open the payment page. Please try again.",
+        detail: String(err?.message ?? "").slice(0, 200),
+      },
+      { status: 502, headers: { "Cache-Control": "no-store" } }
+    );
   }
 
   let payment;

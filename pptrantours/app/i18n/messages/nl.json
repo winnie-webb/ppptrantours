@@ -162,6 +162,7 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "payFinish": "Rond uw betaling af",
     "notSavedTitle": "Nog niet bevestigd",
     "notSavedBody": "We konden deze boeking zojuist niet opslaan, dus niemand heeft hem nog. Stuur hem hieronder via WhatsApp, dan bevestigen we hem handmatig — dat is zo gebeurd en er gaat niets verloren.",
     "payLoading": "Beveiligde betaling laden…",

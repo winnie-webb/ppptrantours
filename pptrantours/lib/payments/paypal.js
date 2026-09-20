@@ -199,8 +199,15 @@ export async function start({
        * "Pay with Debit or Credit Card" underneath it, and plenty do not. The
        * whole point of taking a card is that not having a PayPal account is
        * normal.
+       *
+       * BILLING, not GUEST_CHECKOUT. The two enums are not interchangeable and
+       * this cost a broken deploy: `application_context.landing_page` accepts
+       * LOGIN | BILLING | NO_PREFERENCE, while GUEST_CHECKOUT belongs to
+       * `payment_source.*.experience_context.landing_page`. Sending the wrong
+       * one makes PayPal refuse the order outright, so /api/payments/start
+       * 502s and no card can be taken at all.
        */
-      landing_page: "GUEST_CHECKOUT",
+      landing_page: "BILLING",
       return_url: returnUrl,
       // PayPal sends a cancel to a different URL entirely, so it carries a
       // marker rather than relying on an absent token.

@@ -421,7 +421,21 @@ export default function BookingForm({
        * far better place to land than the form's error state telling someone
        * their booking failed when it did not.
        */
-      if (payIntent === "card" && res.paymentOptions?.collectible) {
+      /*
+       * Only redirect when there are no inline buttons to redirect INSTEAD of.
+       *
+       * With the PayPal/card buttons on the success card, sending the guest to
+       * a hosted page is the worse half of the thing we just replaced — and it
+       * also made the success screen announce "The payment page didn't open",
+       * because reaching that screen with card selected used to mean the
+       * redirect had failed. It now means the buttons are waiting.
+       */
+      const hasInlineButtons = Boolean(paypal?.clientId);
+      if (
+        payIntent === "card" &&
+        res.paymentOptions?.collectible &&
+        !hasInlineButtons
+      ) {
         try {
           const url = await startPayment(res.reference);
           window.location.assign(url);
@@ -1308,17 +1322,31 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
 
       {canPay && (
         <div className="mt-7 rounded-xl bg-sand px-5 py-5">
+          {/*
+            "The payment page didn't open" belongs only to the redirect flow,
+            where arriving here with card selected meant the redirect had
+            failed. With the buttons below, arriving here is the normal path —
+            saying something went wrong would be a lie, and an alarming one on
+            the screen where the guest is about to pay.
+          */}
           <p className="text-sm font-semibold text-ink">
-            {payMethod === "card"
-              ? t.payDidntOpen ?? "The payment page didn't open"
-              : t.payHow ?? "Want to pay now instead?"}
+            {useButtons
+              ? payMethod === "card"
+                ? t.payFinish ?? "Finish your payment"
+                : t.payHow ?? "Want to pay now instead?"
+              : payMethod === "card"
+                ? t.payDidntOpen ?? "The payment page didn't open"
+                : t.payHow ?? "Want to pay now instead?"}
           </p>
           <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
-            {payMethod === "card"
-              ? t.payDidntOpenBody ??
-                "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
-              : t.payOptional ??
-                "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
+            {useButtons
+              ? t.payOptional ??
+                "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."
+              : payMethod === "card"
+                ? t.payDidntOpenBody ??
+                  "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
+                : t.payOptional ??
+                  "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
           </p>
 
           <p className="mt-3 font-display text-2xl font-semibold text-ink">

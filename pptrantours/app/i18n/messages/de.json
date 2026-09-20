@@ -162,6 +162,7 @@
     "next": "Nächste Seite"
   },
   "booking": {
+    "payFinish": "Zahlung abschließen",
     "notSavedTitle": "Noch nicht bestätigt",
     "notSavedBody": "Wir konnten diese Buchung gerade nicht speichern, sie liegt uns also noch nicht vor. Schicken Sie sie uns unten über WhatsApp, dann bestätigen wir sie von Hand — das dauert einen Moment und nichts geht verloren.",
     "payLoading": "Sichere Zahlung wird geladen…",
