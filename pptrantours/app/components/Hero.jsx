@@ -13,15 +13,31 @@ export default function Hero({ locale = "en", dict }) {
   const t = dict?.hero ?? {};
   const [index, setIndex] = useState(0);
 
+  /*
+   * All three slides used to be in the DOM from the first paint. They are
+   * absolutely positioned inside the viewport, so Next's lazy loading does not
+   * help — the browser sees three in-viewport images and fetches all of them,
+   * two of which nobody will look at for seven seconds. The first slide is the
+   * LCP image; the other two mount once it has had the network to itself.
+   */
+  const [armed, setArmed] = useState(false);
+
   useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), 7000);
-    return () => clearInterval(t);
+    const arm = setTimeout(() => setArmed(true), 2500);
+    const rotate = setInterval(
+      () => setIndex((i) => (i + 1) % SLIDES.length),
+      7000
+    );
+    return () => {
+      clearTimeout(arm);
+      clearInterval(rotate);
+    };
   }, []);
 
   return (
-    <section className="relative -mt-[4.5rem] flex min-h-[42rem] items-end overflow-hidden bg-ink lg:-mt-20 lg:min-h-[46rem]">
+    <section className="relative -mt-[4.5rem] flex min-h-[32rem] items-end overflow-hidden bg-ink sm:min-h-[38rem] lg:-mt-20 lg:min-h-[44rem]">
       {/* Crossfading backdrop */}
-      {SLIDES.map((src, i) => (
+      {(armed ? SLIDES : SLIDES.slice(0, 1)).map((src, i) => (
         <div
           key={src}
           aria-hidden
@@ -50,7 +66,7 @@ export default function Hero({ locale = "en", dict }) {
         className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/25 to-transparent"
       />
 
-      <div className="shell relative w-full pb-16 pt-32 lg:pb-24 lg:pt-40">
+      <div className="shell relative w-full pb-10 pt-28 sm:pb-16 lg:pb-24 lg:pt-40">
         <div className="max-w-3xl">
           <div className="flex animate-fade-up items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
@@ -67,7 +83,7 @@ export default function Hero({ locale = "en", dict }) {
           </div>
 
           <h1
-            className="mt-6 animate-fade-up font-display text-[2.75rem] font-semibold leading-[1.03] text-white sm:text-6xl lg:text-[4.75rem]"
+            className="mt-5 animate-fade-up font-display text-[2.25rem] font-semibold leading-[1.05] text-white sm:mt-6 sm:text-6xl sm:leading-[1.03] lg:text-[4.75rem]"
             style={{ animationDelay: "80ms" }}
           >
             {t.h1a ?? "Approach Jamaica"}
@@ -97,7 +113,7 @@ export default function Hero({ locale = "en", dict }) {
             and he cut it to keep this paragraph custom-fit. Don't reinstate it.
           */}
           <p
-            className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/75"
+            className="mt-5 max-w-xl animate-fade-up text-[0.98rem] leading-relaxed text-white/75 sm:mt-6 sm:text-lg"
             style={{ animationDelay: "160ms" }}
           >
             <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">
@@ -118,7 +134,7 @@ export default function Hero({ locale = "en", dict }) {
 
 
           <div
-            className="mt-9 flex animate-fade-up flex-wrap items-center gap-3"
+            className="mt-7 flex animate-fade-up flex-wrap items-center gap-3 lg:mt-9"
             style={{ animationDelay: "240ms" }}
           >
             <Link href={localePath(locale, "/tours")} className="btn-gold group">
@@ -128,11 +144,13 @@ export default function Hero({ locale = "en", dict }) {
             <Link href={localePath(locale, "/transfers")} className="btn-ghost-light">
               {t.transfer ?? "Book an airport transfer"}
             </Link>
+            {/* Third CTA, desktop only. On a phone WhatsApp is already the
+                floating button, and two choices here beat three. */}
             <a
               href={site.contact.whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="btn text-white/80 hover:text-white"
+              className="btn hidden text-white/80 hover:text-white sm:inline-flex"
             >
               <FaWhatsapp className="text-lg" />
               {site.contact.phone}
@@ -141,7 +159,7 @@ export default function Hero({ locale = "en", dict }) {
 
           {/* Slide indicators */}
           <div
-            className="mt-12 flex animate-fade-up gap-2"
+            className="mt-8 flex animate-fade-up gap-2 lg:mt-12"
             style={{ animationDelay: "320ms" }}
           >
             {SLIDES.map((s, i) => (
@@ -149,7 +167,12 @@ export default function Hero({ locale = "en", dict }) {
                 key={s}
                 type="button"
                 aria-label={`Show image ${i + 1}`}
-                onClick={() => setIndex(i)}
+                onClick={() => {
+                  // Tapping ahead of the 2.5s arm would otherwise select a
+                  // slide that has not been mounted yet, showing bare ink.
+                  setArmed(true);
+                  setIndex(i);
+                }}
                 className={`h-1 rounded-full transition-all duration-500 ${
                   i === index ? "w-10 bg-gold-400" : "w-5 bg-white/30 hover:bg-white/50"
                 }`}

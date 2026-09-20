@@ -146,15 +146,22 @@ export default function Header({ locale = "en", dict }) {
 
           {/* Desktop nav */}
           <nav className="ml-1 hidden items-center gap-0.5 lg:flex">
+            {/*
+              This was a <button> that only toggled the dropdown, which left the
+              desktop bar with no link to /tours at all — the full catalogue was
+              reachable from the footer, the hero and the dropdown's contents,
+              but not from the nav item named after it. It is a link now; the
+              dropdown still opens on hover, and on focus so it is reachable
+              from the keyboard without swallowing the click.
+            */}
             <div
               className="relative"
               onMouseEnter={() => setToursOpen(true)}
               onMouseLeave={() => setToursOpen(false)}
             >
-              <button
-                type="button"
-                onClick={() => setToursOpen((v) => !v)}
-                aria-expanded={toursOpen}
+              <Link
+                href={links[0].href}
+                onFocus={() => setToursOpen(true)}
                 className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium transition ${
                   overHero
                     ? "text-white/90 hover:bg-white/10 hover:text-white"
@@ -167,7 +174,7 @@ export default function Header({ locale = "en", dict }) {
                     toursOpen ? "rotate-180" : ""
                   }`}
                 />
-              </button>
+              </Link>
 
               {toursOpen && (
                 <div className="absolute left-0 top-full w-[30rem] pt-3">

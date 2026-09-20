@@ -21,7 +21,7 @@ export default function WhatsAppFab({ dict }) {
       target="_blank"
       rel="noreferrer"
       aria-label={dict?.common?.whatsappAria ?? "Chat with us on WhatsApp"}
-      className={`fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] py-3.5 pl-4 pr-5 font-semibold text-white shadow-lift transition-all duration-300 hover:brightness-105 ${
+      className={`whatsapp-fab fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] py-3.5 pl-4 pr-5 font-semibold text-white shadow-lift transition-all duration-300 hover:brightness-105 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
       }`}
     >

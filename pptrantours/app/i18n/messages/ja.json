@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "確認いたします",
     "from": "〜より",
     "fromYourResort": "ご滞在先から",
     "askUs": "お問い合わせを",
@@ -161,6 +162,7 @@
     "next": "次のページ"
   },
   "booking": {
+    "bookNow": "今すぐ予約",
     "transportLabel": "移動費",
     "transferPrice": "プライベート送迎",
     "perVehicleLong": "1台あたり",

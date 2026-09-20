@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "we'll confirm yours",
     "from": "From",
     "fromYourResort": "From your resort",
     "askUs": "Ask us",
@@ -161,6 +162,7 @@
     "next": "Next page"
   },
   "booking": {
+    "bookNow": "Book now",
     "transportLabel": "Transport",
     "transferPrice": "Private transfer",
     "perVehicleLong": "per vehicle",

@@ -12,11 +12,12 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { TOURS } from "@/app/data/catalogue";
-import { ZONES } from "@/app/data/places";
 import { filterProductById, getRelatedProducts } from "@/app/products/product";
 import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
+import FarePill from "@/app/components/FarePill";
+import StickyBookBar from "@/app/components/StickyBookBar";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
 import JsonLd from "@/app/components/JsonLd";
@@ -91,9 +92,18 @@ export default async function TourPage({ params }) {
 
   const t = dict.tourPage ?? {};
   const related = getRelatedProducts(base, 3);
-  const pricedZones = ZONES.filter((zoneDef) => base.zones?.[zoneDef.key]);
-  const entryComponents = base.entry?.components ?? [];
-  const entryAddons = base.entry?.addons ?? [];
+  const hasEntry =
+    (base.entry?.components ?? []).length > 0 ||
+    (base.entry?.addons ?? []).length > 0;
+
+  // The headline "from" figure for the hero, so the page answers "how much?"
+  // before the guest scrolls or opens the resort picker. Same floor as the one
+  // the cards sort on (sortByPrice in app/products/product.js): the cheapest
+  // published vehicle band, shared between a full vehicle.
+  const bands = Object.values(base.zones ?? {});
+  const fromPerPerson = bands.length
+    ? perPerson(Math.min(...bands.map((b) => b.price)), VEHICLE_CAPACITY)
+    : null;
 
   // Mirrors the visible breadcrumb below, one for one. Absolute URLs, as
   // BreadcrumbList requires.
@@ -205,24 +215,44 @@ export default async function TourPage({ params }) {
           {tour.subtitle && (
             <p className="mt-2 text-sm font-medium text-white/50">{tour.subtitle}</p>
           )}
+
+          {/* Answer "how much?" here, not in a table further down. */}
+          {fromPerPerson != null && (
+            <div className="mt-7 flex flex-wrap gap-3">
+              <FarePill
+                label={dict.price?.from ?? "From"}
+                value={money(fromPerPerson)}
+                unit={dict.price?.perPerson ?? "/ person"}
+                extra={dict.price?.perVehicle ?? `for up to ${VEHICLE_CAPACITY}`}
+                highlight
+              />
+            </div>
+          )}
         </div>
       </section>
 
       {/* Body */}
       <section className="shell py-12 lg:py-16">
+        {/*
+          Three grid children rather than two, so the form can sit between the
+          photo and the prose on a phone. Below lg the grid is one column and
+          `order` decides: photo, form, then everything else. At lg the explicit
+          row/column placement puts it back to photo-over-prose on the left with
+          the form sticky in the right rail, which is what it always was.
+        */}
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
-          <div>
-            <figure className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-ink/5 shadow-card">
-              <Image
-                src={tour.image}
-                alt={tour.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 62vw"
-                className="object-cover"
-              />
-            </figure>
+          <figure className="order-1 relative aspect-[16/10] overflow-hidden rounded-2xl bg-ink/5 shadow-card lg:col-start-1 lg:row-start-1">
+            <Image
+              src={tour.image}
+              alt={tour.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 62vw"
+              className="object-cover"
+            />
+          </figure>
 
-            <div className="mt-10">
+          <div className="order-3 lg:col-start-1 lg:row-start-2">
+            <div>
               <h2 className="font-display text-2xl font-semibold text-ink">
                 {t.about ?? "About this tour"}
               </h2>
@@ -268,159 +298,36 @@ export default async function TourPage({ params }) {
               </ul>
             </div>
 
-            {/* Transport price by resort area */}
-            {pricedZones.length > 0 && (
-              <div className="mt-10">
-                <h2 className="font-display text-2xl font-semibold text-ink">
-                  {t.transportTable ?? "What the transport costs"}
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-ink/55">
-                  {t.transportTableNote ??
-                    `Per person is the vehicle price shared between ${VEHICLE_CAPACITY} — the vehicle costs the same whether one of you travels or four. A fifth passenger and each one after adds the last figure.`}
-                </p>
+            {/*
+              Two price tables used to sit here — transport by resort zone, and
+              the gate-fee schedule. They are gone deliberately. The booking form
+              works out this guest's own price live and itemises the gate fees
+              they actually chose, so the tables restated the same numbers in a
+              form that was harder to read and, at min-w-[30rem] against a 390px
+              phone, had to be scrolled sideways to read at all. The one claim
+              worth keeping is the transparency one, and it belongs next to the
+              price rather than five screens below it.
+            */}
+            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/55">
+              <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
+              {hasEntry
+                ? t.entryTableNote ??
+                  "Gate fees are paid at the attraction on the day. We never resell them or add anything to them."
+                : t.noEntry ?? "Nothing. There is no gate fee on this one."}
+            </p>
 
-                <div className="mt-5 overflow-x-auto rounded-2xl border border-ink/[0.07] shadow-card">
-                  <table className="w-full min-w-[30rem] text-sm">
-                    <thead className="bg-sand text-left">
-                      <tr>
-                        <th className="px-5 py-3.5 font-semibold text-ink/70">
-                          {t.pickingUpFrom ?? "Picking you up from"}
-                        </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.perPersonCol ?? "Per person"}
-                        </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.upToFour ?? `Up to ${VEHICLE_CAPACITY}`}
-                        </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.eachExtra ?? "Each extra"}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-ink/[0.07] bg-white">
-                      {pricedZones.map((zoneDef) => {
-                        const band = base.zones[zoneDef.key];
-                        return (
-                          <tr key={zoneDef.key} className="transition hover:bg-crimson-50/50">
-                            <td className="px-5 py-3.5 text-ink/75">
-                              {dict.zones?.[zoneDef.key] ?? zoneDef.label}
-                              {band.est && (
-                                <span className="ml-2 rounded bg-gold-200/50 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-ink/50">
-                                  {t.estimatedMark ?? "indicative"}
-                                </span>
-                              )}
-                            </td>
-                            <td className="px-5 py-3.5 text-right font-semibold text-crimson-700">
-                              {money(perPerson(band.price, VEHICLE_CAPACITY))}
-                            </td>
-                            <td className="px-5 py-3.5 text-right text-ink/70">
-                              {money(band.price)}
-                            </td>
-                            <td className="px-5 py-3.5 text-right text-ink/60">
-                              {money(band.extra)}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-
-                {pricedZones.length < ZONES.length && (
-                  <p className="mt-3 text-sm leading-relaxed text-ink/55">
-                    {t.otherResorts ??
-                      "Staying somewhere else? We still run this trip — send us a message and we'll quote your resort directly."}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {/* Entry fees */}
-            <div className="mt-10">
-              <h2 className="font-display text-2xl font-semibold text-ink">
-                {t.entryTable ?? "What the attraction charges"}
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink/55">
-                {entryComponents.length === 0 && entryAddons.length === 0
-                  ? t.noEntry ?? "Nothing. There is no gate fee on this one."
-                  : t.entryTableNote ??
-                    "Paid at the gate on the day, straight to the attraction. We never resell these or add anything to them."}
+            {base.entry?.note && (
+              <p className="mt-3 text-sm leading-relaxed text-ink/55">
+                {base.entry.note}
               </p>
-
-              {(entryComponents.length > 0 || entryAddons.length > 0) && (
-                <div className="mt-5 overflow-x-auto rounded-2xl border border-ink/[0.07] shadow-card">
-                  <table className="w-full min-w-[30rem] text-sm">
-                    <thead className="bg-sand text-left">
-                      <tr>
-                        <th className="px-5 py-3.5 font-semibold text-ink/70">
-                          {t.entryItem ?? "Ticket"}
-                        </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.entryAdult ?? "Adult"}
-                        </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.entryChild ?? "Child"}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-ink/[0.07] bg-white">
-                      {entryComponents.flatMap((c) => {
-                        if (c.kind === "choice") {
-                          return c.options.map((o) => (
-                            <EntryRow
-                              key={`${c.key}-${o.key}`}
-                              label={o.label}
-                              rate={o}
-                              dict={dict}
-                            />
-                          ));
-                        }
-                        if (c.kind === "unit") {
-                          return (
-                            <tr key={c.label} className="transition hover:bg-crimson-50/50">
-                              <td className="px-5 py-3.5 text-ink/75">
-                                {c.label}
-                                <span className="block text-xs text-ink/40">{c.note}</span>
-                              </td>
-                              <td
-                                colSpan={2}
-                                className="px-5 py-3.5 text-right font-semibold text-crimson-700"
-                              >
-                                {money(c.price)}{" "}
-                                <span className="text-xs font-normal text-ink/45">
-                                  / {c.unit}
-                                </span>
-                              </td>
-                            </tr>
-                          );
-                        }
-                        return (
-                          <EntryRow key={c.label} label={c.label} rate={c} dict={dict} />
-                        );
-                      })}
-                      {entryAddons.map((a) => (
-                        <EntryRow
-                          key={a.key}
-                          label={`${a.label} (${t.optional ?? "optional"})`}
-                          rate={a}
-                          dict={dict}
-                        />
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {base.entry?.note && (
-                <p className="mt-3 text-sm leading-relaxed text-ink/55">
-                  {base.entry.note}
-                </p>
-              )}
-            </div>
+            )}
           </div>
 
-          {/* Sticky booking rail */}
-          <aside className="lg:sticky lg:top-28 lg:self-start">
+          {/* Booking rail — second on a phone, sticky right column at lg */}
+          <aside
+            id="book"
+            className="order-2 scroll-mt-24 lg:order-none lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-28 lg:self-start"
+          >
             <BookingForm tour={tour} locale={locale} dict={client} mode="tour"
               /* Whether a card can actually be charged, asked of the server.
                * The form cannot work this out for itself: it knows the price
@@ -458,27 +365,15 @@ export default async function TourPage({ params }) {
           </div>
         </section>
       )}
-    </>
-  );
-}
 
-function EntryRow({ label, rate, dict }) {
-  const from = rate.from ? `${dict.booking?.fromWord ?? "from"} ` : "";
-  return (
-    <tr className="transition hover:bg-crimson-50/50">
-      <td className="px-5 py-3.5 text-ink/75">
-        {label}
-        {rate.childNote && (
-          <span className="block text-xs text-ink/40">{rate.childNote}</span>
-        )}
-      </td>
-      <td className="px-5 py-3.5 text-right font-semibold text-crimson-700">
-        {from}
-        {money(rate.adult)}
-      </td>
-      <td className="px-5 py-3.5 text-right text-ink/60">
-        {rate.child == null ? "—" : `${from}${money(rate.child)}`}
-      </td>
-    </tr>
+      {fromPerPerson != null && (
+        <StickyBookBar
+          label={dict.price?.from ?? "From"}
+          price={money(fromPerPerson)}
+          unit={dict.price?.perPerson ?? "/ person"}
+          cta={dict.booking?.bookNow ?? "Book now"}
+        />
+      )}
+    </>
   );
 }

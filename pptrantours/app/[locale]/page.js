@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FaArrowRight, FaPlane } from "react-icons/fa";
 import Hero from "@/app/components/Hero";
 import StatsBar from "@/app/components/StatsBar";
-import PlacePrompt from "@/app/components/PlacePrompt";
 import CategoryChips from "@/app/components/CategoryChips";
 import TourRail from "@/app/components/TourRail";
 import PromiseSection from "@/app/components/PromiseSection";
@@ -40,9 +39,23 @@ export default async function Home({ params }) {
 
   return (
     <>
+      {/*
+        Running order, changed 2026-09-20.
+
+        The product used to be the fourth thing on the page: a 672px hero, a
+        stats band and a full-width "where are you staying?" question stood
+        ahead of it, putting the first bookable card about 1,200px down — two
+        and a half screens on the iPhone most guests browse on. Nothing has been
+        cut except that question band; the gallery, promise, testimonials, FAQ
+        and destination tiles all still run below, where they do their work for
+        someone who is reading rather than buying.
+
+        PlacePrompt is gone rather than moved. It asked for a resort before
+        showing anything worth choosing, and the same picker already sits in the
+        header and inside the booking form — which is where the answer actually
+        changes a price.
+      */}
       <Hero locale={locale} dict={dict} />
-      <StatsBar dict={dict} />
-      <PlacePrompt dict={client} />
 
       <TourRail
         eyebrow={t.popularEyebrow ?? "Guest favourites"}
@@ -57,6 +70,9 @@ export default async function Home({ params }) {
         locale={locale}
         dict={client}
       />
+
+      {/* Browse the rest, straight under the rail it continues. */}
+      <CategoryChips locale={locale} dict={dict} />
 
       {/* Airport fare calculator */}
       <section className="bg-sand py-16 lg:py-24">
@@ -75,11 +91,9 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      <PromiseSection locale={locale} dict={dict} />
-      <CategoryChips locale={locale} dict={dict} />
-
-      {/* Combos */}
-      <div className="bg-sand py-16 lg:py-24">
+      {/* Combos — white, so it reads as its own section rather than running
+          into the sand block the fare calculator now sits directly above. */}
+      <div className="py-16 lg:py-24">
         <div className="shell">
           <SectionHeading
             eyebrow={t.combosEyebrow ?? "Two in one day"}
@@ -108,9 +122,16 @@ export default async function Home({ params }) {
       {/* The owner's own transparency pitch */}
       <TransparencyBand locale={locale} dict={dict} />
 
-      <DestinationsGrid locale={locale} dict={dict} />
+      {/* Brand promise reads better after the product than ahead of it. */}
+      <PromiseSection locale={locale} dict={dict} />
+
+      {/* The stats support the reviews, so they sit together — both bg-sand,
+          so the pair reads as one block rather than two. */}
+      <StatsBar dict={dict} />
       <Testimonials dict={dict} />
+
       <GallerySection dict={client} />
+      <DestinationsGrid locale={locale} dict={dict} />
 
       <div className="shell">
         <div className="hairline" />

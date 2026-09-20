@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "we bevestigen die van jou",
     "from": "Vanaf",
     "fromYourResort": "Vanaf uw hotel",
     "askUs": "Vraag het ons",
@@ -161,6 +162,7 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "bookNow": "Nu boeken",
     "transportLabel": "Vervoer",
     "transferPrice": "Privétransfer",
     "perVehicleLong": "per voertuig",

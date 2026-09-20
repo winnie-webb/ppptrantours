@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "уточним для вас",
     "from": "От",
     "fromYourResort": "От вашего отеля",
     "askUs": "Спросите нас",
@@ -161,6 +162,7 @@
     "next": "Следующая страница"
   },
   "booking": {
+    "bookNow": "Забронировать",
     "transportLabel": "Транспорт",
     "transferPrice": "Индивидуальный трансфер",
     "perVehicleLong": "за автомобиль",

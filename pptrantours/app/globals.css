@@ -43,6 +43,15 @@
     display: none;
   }
 
+  /*
+   * The booking pages' sticky price bar and the floating WhatsApp button both
+   * want the bottom-right corner. StickyBookBar sets this class on <body> while
+   * it is up; the FAB steps over it rather than being covered by it.
+   */
+  body.book-bar-open .whatsapp-fab {
+    bottom: calc(5.25rem + env(safe-area-inset-bottom));
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

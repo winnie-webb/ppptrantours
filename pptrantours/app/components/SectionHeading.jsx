@@ -14,7 +14,7 @@ export default function SectionHeading({
 
   return (
     <div
-      className={`mb-10 gap-6 ${
+      className={`mb-6 gap-6 sm:mb-10 ${
         centered
           ? "mx-auto max-w-2xl text-center"
           : "flex flex-col items-start justify-between sm:flex-row sm:items-end"

@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "我们会为您确认",
     "from": "起价",
     "fromYourResort": "从您的酒店出发",
     "askUs": "请咨询",
@@ -161,6 +162,7 @@
     "next": "下一页"
   },
   "booking": {
+    "bookNow": "立即预订",
     "transportLabel": "车费",
     "transferPrice": "私人接送",
     "perVehicleLong": "每车",

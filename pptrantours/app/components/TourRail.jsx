@@ -48,7 +48,10 @@ export default function TourRail({
   if (!tours?.length) return null;
 
   return (
-    <section className="shell py-16 lg:py-24">
+    /* Tighter on a phone: this rail is now the first thing under the hero, and
+       every pixel of section padding pushes the first bookable card further
+       below the fold. Desktop spacing is unchanged. */
+    <section className="shell py-10 sm:py-16 lg:py-24">
       <div className="flex items-end justify-between gap-6">
         <div className="flex-1">
           <SectionHeading

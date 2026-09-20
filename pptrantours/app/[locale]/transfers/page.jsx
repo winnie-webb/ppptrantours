@@ -130,7 +130,62 @@ export default async function TransfersPage({ params }) {
                 <h3 className="mb-3 font-display text-lg font-semibold text-ink">
                   {dict.areas?.[group.key] ?? group.label}
                 </h3>
-                <div className="overflow-x-auto rounded-2xl border border-ink/[0.07] bg-white shadow-card">
+                {/*
+                  Below md this is a stack of cards, not a table.
+
+                  The table is min-w-[36rem] — 576px inside a 348px column on a
+                  390px phone — so on the device most of these guests are
+                  holding, the published price list could only be read by
+                  dragging it sideways, six times over. Same numbers, same
+                  links, laid out to fit.
+                */}
+                <ul className="divide-y divide-ink/[0.07] overflow-hidden rounded-2xl border border-ink/[0.07] bg-white shadow-card md:hidden">
+                  {group.places.map((p) => (
+                    <li key={p.key}>
+                      <Link
+                        href={localePath(locale, `/transfer/${p.key}`)}
+                        className="block px-4 py-3.5 transition active:bg-crimson-50"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          {/* Wraps rather than truncates: a guest scanning for
+                              their own hotel needs the whole name. */}
+                          <span className="min-w-0 font-medium leading-snug text-ink">
+                            {p.name}
+                          </span>
+                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-crimson-50 text-crimson-700">
+                            <FaArrowRight className="text-[0.6rem]" />
+                          </span>
+                        </div>
+                        <div className="mt-2 grid grid-cols-2 gap-3 text-xs">
+                          <div>
+                            <span className="block text-ink/45">
+                              {t.oneWay ?? "One way"}
+                            </span>
+                            <span className="font-semibold text-crimson-700">
+                              {money(perPerson(p.transfer.oneWay, VEHICLE_CAPACITY))}
+                            </span>
+                            <span className="block text-[0.7rem] text-ink/45">
+                              {money(p.transfer.oneWay)} {t.totalWord ?? "total"}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="block text-ink/45">
+                              {t.roundTrip ?? "Round trip"}
+                            </span>
+                            <span className="font-semibold text-ink/80">
+                              {money(perPerson(p.transfer.roundTrip, VEHICLE_CAPACITY))}
+                            </span>
+                            <span className="block text-[0.7rem] text-ink/45">
+                              {money(p.transfer.roundTrip)} {t.totalWord ?? "total"}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="hidden overflow-x-auto rounded-2xl border border-ink/[0.07] bg-white shadow-card md:block">
                   <table className="w-full min-w-[36rem] text-sm">
                     <thead className="bg-white text-left">
                       <tr className="border-b border-ink/[0.07]">

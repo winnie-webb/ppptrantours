@@ -16,6 +16,8 @@ import { TOURS } from "@/app/data/catalogue";
 import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
+import FarePill from "@/app/components/FarePill";
+import StickyBookBar from "@/app/components/StickyBookBar";
 import JsonLd from "@/app/components/JsonLd";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -74,7 +76,7 @@ export default async function TransferPage({ params }) {
   const dict = await getDictionary(locale);
   const client = clientDict(dict);
   const t = dict.transferPage ?? {};
-  const { oneWay, oneWayExtra, roundTrip, roundTripExtra } = place.transfer;
+  const { oneWay, roundTrip } = place.transfer;
 
   // Nearby resorts served at the same kind of distance, for internal linking.
   const nearby = PLACES.filter(
@@ -214,8 +216,14 @@ export default async function TransferPage({ params }) {
 
       {/* Body */}
       <section className="shell py-12 lg:py-16">
+        {/*
+          On a phone the form comes first — the hero has already given the fare,
+          so there is nothing the guest needs to read before booking. Explicit
+          placement at lg keeps the desktop layout as it was: detail left, form
+          sticky right. (`order` alone would reorder the desktop columns too.)
+        */}
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
-          <div>
+          <div className="order-2 lg:order-none lg:col-start-1 lg:row-start-1">
             <h2 className="font-display text-2xl font-semibold text-ink">
               {t.whatYouGet ?? "What the fare covers"}
             </h2>
@@ -233,68 +241,19 @@ export default async function TransferPage({ params }) {
               ))}
             </ul>
 
-            <div className="mt-10">
-              <h2 className="font-display text-2xl font-semibold text-ink">
-                {t.pricing ?? "How the price works"}
-              </h2>
-              <div className="mt-5 overflow-x-auto rounded-2xl border border-ink/[0.07] shadow-card">
-                <table className="w-full min-w-[26rem] text-sm">
-                  <thead className="bg-sand text-left">
-                    <tr>
-                      <th className="px-5 py-3.5 font-semibold text-ink/70">
-                        {t.party ?? "Your party"}
-                      </th>
-                      <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                        {t.oneWay ?? "One way"}
-                      </th>
-                      <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                        {t.roundTrip ?? "Round trip"}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-ink/[0.07] bg-white">
-                    {[1, 2, 3, 4, 5, 6, 8].map((n) => {
-                      const extras = Math.max(0, n - VEHICLE_CAPACITY);
-                      return (
-                        <tr key={n} className="transition hover:bg-crimson-50/50">
-                          <td className="px-5 py-3.5 text-ink/75">
-                            {n} {n === 1 ? t.passenger ?? "passenger" : t.passengers ?? "passengers"}
-                            {n <= VEHICLE_CAPACITY && n === VEHICLE_CAPACITY && (
-                              <span className="ml-2 text-xs text-ink/40">
-                                {t.sameAsOne ?? "same as one"}
-                              </span>
-                            )}
-                          </td>
-                          <td className="px-5 py-3.5 text-right">
-                            <span className="font-semibold text-crimson-700">
-                              {money(perPerson(oneWay + oneWayExtra * extras, n))}
-                            </span>
-                            <span className="block text-xs text-ink/45">
-                              {money(oneWay + oneWayExtra * extras)} {t.totalWord ?? "total"}
-                            </span>
-                          </td>
-                          <td className="px-5 py-3.5 text-right">
-                            <span className="font-semibold text-ink/80">
-                              {money(
-                                perPerson(roundTrip + roundTripExtra * extras, n)
-                              )}
-                            </span>
-                            <span className="block text-xs text-ink/45">
-                              {money(roundTrip + roundTripExtra * extras)} {t.totalWord ?? "total"}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-ink/55">
-                <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
-                {t.pricingNote ??
-                  "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare."}
-              </p>
-            </div>
+            {/*
+              A seven-row party-size table used to sit here. It is gone for the
+              same reason as the tour page's two: the booking form prices this
+              guest's actual party live as they change the stepper, so the table
+              was a slower way to read a number they were about to be shown —
+              and at min-w-[26rem] it had to be scrolled sideways on a phone.
+              The claim it carried is worth keeping, so the note stays.
+            */}
+            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/55">
+              <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
+              {t.pricingNote ??
+                "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare."}
+            </p>
 
             {nearby.length > 0 && (
               <div className="mt-10">
@@ -317,7 +276,10 @@ export default async function TransferPage({ params }) {
             )}
           </div>
 
-          <aside className="lg:sticky lg:top-28 lg:self-start">
+          <aside
+            id="book"
+            className="order-1 scroll-mt-24 lg:order-none lg:col-start-2 lg:row-start-1 lg:sticky lg:top-28 lg:self-start"
+          >
             <BookingForm tour={asTour} locale={locale} dict={client} mode="transfer"
               /* Whether a card can actually be charged, asked of the server.
                * The form cannot work this out for itself: it knows the price
@@ -360,29 +322,13 @@ export default async function TransferPage({ params }) {
           </div>
         </section>
       )}
-    </>
-  );
-}
 
-function FarePill({ label, value, unit, extra, highlight = false }) {
-  return (
-    <div
-      className={`rounded-2xl border px-5 py-3.5 ${
-        highlight
-          ? "border-gold-400/30 bg-gold-400/10"
-          : "border-white/15 bg-white/5"
-      }`}
-    >
-      <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-white/50">
-        {label}
-      </p>
-      <p className="font-display text-2xl font-semibold text-gold-400">
-        {value}
-        {unit && (
-          <span className="ml-1 text-sm font-medium text-white/50">{unit}</span>
-        )}
-      </p>
-      <p className="text-[0.7rem] text-white/40">{extra}</p>
-    </div>
+      <StickyBookBar
+        label={t.oneWay ?? "One way"}
+        price={money(perPerson(oneWay, VEHICLE_CAPACITY))}
+        unit={dict.price?.perPerson ?? "/ person"}
+        cta={dict.booking?.bookNow ?? "Book now"}
+      />
+    </>
   );
 }

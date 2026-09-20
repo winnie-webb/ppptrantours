@@ -106,6 +106,7 @@
     }
   },
   "price": {
+    "confirmYours": "confirmamos o seu",
     "from": "A partir de",
     "fromYourResort": "A partir do seu hotel",
     "askUs": "Pergunte-nos",
@@ -161,6 +162,7 @@
     "next": "Página seguinte"
   },
   "booking": {
+    "bookNow": "Reservar agora",
     "transportLabel": "Transporte",
     "transferPrice": "Transfer privado",
     "perVehicleLong": "por veículo",
