@@ -162,6 +162,8 @@
     "next": "Página seguinte"
   },
   "booking": {
+    "notSavedTitle": "Ainda por confirmar",
+    "notSavedBody": "Não conseguimos guardar esta reserva agora, por isso ainda não chegou a ninguém. Envie-nos os dados por WhatsApp aqui abaixo e confirmamos à mão — é rápido e não se perde nada.",
     "payLoading": "A carregar o pagamento seguro…",
     "payConfirming": "A confirmar o seu pagamento…",
     "payCardNote": "Cartão ou PayPal — não precisa de conta. Os dados do cartão vão diretamente para o PayPal e nunca passam por este site.",

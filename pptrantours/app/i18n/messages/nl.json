@@ -162,6 +162,8 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "notSavedTitle": "Nog niet bevestigd",
+    "notSavedBody": "We konden deze boeking zojuist niet opslaan, dus niemand heeft hem nog. Stuur hem hieronder via WhatsApp, dan bevestigen we hem handmatig — dat is zo gebeurd en er gaat niets verloren.",
     "payLoading": "Beveiligde betaling laden…",
     "payConfirming": "Uw betaling wordt bevestigd…",
     "payCardNote": "Kaart of PayPal — geen account nodig. Uw kaartgegevens gaan rechtstreeks naar PayPal en komen nooit op deze site.",

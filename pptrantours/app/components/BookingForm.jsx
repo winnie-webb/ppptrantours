@@ -1208,7 +1208,16 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
   const [settled, setSettled] = useState(null);
 
   const options = result.paymentOptions;
-  const canPay = Boolean(options?.collectible && options.amountCents > 0);
+  /*
+   * `result.persisted` gates this too. There is nothing to pay for if the
+   * booking was never written: /api/payments/start looks the reference up and
+   * would 404, so offering a card here only produces an error after the guest
+   * has committed to paying. The WhatsApp handoff becomes the primary action
+   * instead, which is what the unsaved screen needs anyway.
+   */
+  const canPay = Boolean(
+    result.persisted && options?.collectible && options.amountCents > 0
+  );
   const useButtons = canPay && Boolean(paypal?.clientId) && !sdkDown;
 
   const goToPayment = async () => {
@@ -1230,30 +1239,56 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
     }
   };
 
+  /*
+   * A booking that was never written must not look like one that was.
+   *
+   * `lib/bookings.js` deliberately swallows a 5xx and mints a client-side
+   * reference rather than losing the guest — the intent is right, a dead
+   * database should not end the conversation. What was wrong was the screen it
+   * produced: the same green tick, the same "You're booked.", the same
+   * reference, and a footnote blaming storage not being "switched on" — the
+   * wrong explanation for a transient 500, in the least prominent type on the
+   * card. A guest read that as confirmed and walked away with a reference
+   * matching nothing.
+   *
+   * So the unsaved case gets its own head: a warning mark, a title that says
+   * it is not confirmed, and the WhatsApp handoff as the primary action rather
+   * than an afterthought. The reference is still shown, because it is what
+   * ties their message to the details they typed.
+   */
+  const saved = result.persisted;
+
   return (
     <div className="card p-8 text-center">
-      <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-crimson-50 text-2xl text-crimson-600">
-        <FaCheckCircle />
+      <span
+        className={`mx-auto grid h-14 w-14 place-items-center rounded-full text-2xl ${
+          saved ? "bg-crimson-50 text-crimson-600" : "bg-gold-200/50 text-gold-600"
+        }`}
+      >
+        {saved ? <FaCheckCircle /> : <FaExclamationTriangle />}
       </span>
       <h3 className="mt-5 font-display text-2xl font-semibold text-ink">
-        {quoted
-          ? t.doneTitle ?? "You're booked."
-          : t.doneQuoteTitle ?? "Request received."}
+        {!saved
+          ? t.notSavedTitle ?? "Not confirmed yet"
+          : quoted
+            ? t.doneTitle ?? "You're booked."
+            : t.doneQuoteTitle ?? "Request received."}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink/60">
-        {t.doneRef ?? "Your reference is"}{" "}
-        <span className="font-semibold text-ink">{result.reference}</span>.{" "}
-        {quoted
-          ? t.doneBody ??
-            "Keep it — quoting it gets you an answer fastest. Your driver and exact pickup time follow by WhatsApp or email shortly."
-          : t.doneQuoteBody ??
-            "Keep it — quoting it gets you an answer fastest. We'll come back with a firm price, same day, and you can confirm from there."}
-      </p>
 
-      {!result.persisted && (
-        <p className="mx-auto mt-5 max-w-sm rounded-xl bg-gold-200/40 px-4 py-3 text-xs leading-relaxed text-ink/70">
-          {t.notPersisted ??
-            "Online booking storage isn't switched on for this site yet. Send the details straight to us on WhatsApp below and we'll lock it in."}
+      {saved ? (
+        <p className="mt-2 text-sm leading-relaxed text-ink/60">
+          {t.doneRef ?? "Your reference is"}{" "}
+          <span className="font-semibold text-ink">{result.reference}</span>.{" "}
+          {quoted
+            ? t.doneBody ??
+              "Keep it — quoting it gets you an answer fastest. Your driver and exact pickup time follow by WhatsApp or email shortly."
+            : t.doneQuoteBody ??
+              "Keep it — quoting it gets you an answer fastest. We'll come back with a firm price, same day, and you can confirm from there."}
+        </p>
+      ) : (
+        <p className="mt-2 text-sm leading-relaxed text-ink/70">
+          {t.notSavedBody ??
+            "We couldn't save this booking just now, so nobody has it yet. Send it to us on WhatsApp below and we'll confirm it by hand — it takes a moment and nothing is lost."}
         </p>
       )}
 

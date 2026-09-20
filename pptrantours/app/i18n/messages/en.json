@@ -162,6 +162,8 @@
     "next": "Next page"
   },
   "booking": {
+    "notSavedTitle": "Not confirmed yet",
+    "notSavedBody": "We couldn't save this booking just now, so nobody has it yet. Send it to us on WhatsApp below and we'll confirm it by hand — it takes a moment and nothing is lost.",
     "payLoading": "Loading secure payment…",
     "payConfirming": "Confirming your payment…",
     "payCardNote": "Card or PayPal — no account needed. Your card details go straight to PayPal and never touch this site.",
