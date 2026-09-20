@@ -43,15 +43,6 @@
     display: none;
   }
 
-  /*
-   * The booking pages' sticky price bar and the floating WhatsApp button both
-   * want the bottom-right corner. StickyBookBar sets this class on <body> while
-   * it is up; the FAB steps over it rather than being covered by it.
-   */
-  body.book-bar-open .whatsapp-fab {
-    bottom: calc(5.25rem + env(safe-area-inset-bottom));
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -129,4 +120,18 @@
   .hairline {
     @apply h-px w-full bg-gradient-to-r from-transparent via-ink/10 to-transparent;
   }
+}
+
+/*
+ * The booking pages' sticky price bar and the floating WhatsApp button both
+ * want the bottom-right corner. StickyBookBar sets `book-bar-open` on <body>
+ * while it is up; the FAB steps over it rather than being covered by it.
+ *
+ * Deliberately OUTSIDE every @layer. In `base` this lost to Tailwind's own
+ * `bottom-5` on the FAB — layer order decides before specificity ever gets a
+ * look in, and `utilities` comes after `base`. Unlayered rules beat all layers,
+ * so this is the one place it reliably wins.
+ */
+body.book-bar-open .whatsapp-fab {
+  bottom: calc(5.25rem + env(safe-area-inset-bottom));
 }
