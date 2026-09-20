@@ -1,24 +1,25 @@
 /**
  * The seam between the booking flow and whoever takes the money.
  *
- * Deliberately thin. Two providers do not justify a plugin system, and WiPay
- * and PayPal are not the same shape: WiPay confirms by browser redirect with an
- * md5 hash and has no webhook, PayPal confirms with a server-side capture call
- * and does. A single interface spanning both collapses to
- * `settle(anything) → maybe`, which is worse than a switch.
+ * Deliberately thin. One live provider does not justify a plugin system, and
+ * the two this file has carried are not the same shape: WiPay confirmed by
+ * browser redirect with an md5 hash and had no webhook, PayPal confirms with a
+ * server-side capture call. A single interface spanning both collapses to
+ * `settle(anything) -> maybe`, which is worse than a switch.
  *
- * So each provider owns its own return route, and only these two functions —
- * the two points the booking flow genuinely does not care about — are shared.
+ * So each provider owns its own return route, and only the two functions below
+ * — the two points the booking flow genuinely does not care about — are shared.
  *
- * Adding PayPal: write lib/payments/paypal.js exporting the same handful of
- * functions, add it to PROVIDERS and to BY_CURRENCY, add
- * app/api/payments/paypal/capture/route.js. If the booking flow needs no change
- * at all, this seam was drawn in the right place. That is the test.
+ * WiPay was removed rather than kept as a fallback. It never went live: it
+ * requires a VERIFIED Jamaican business bank account, and keeping an
+ * unreachable second processor wired up meant two return routes, two hashing
+ * stories and two sets of failure paths to test for a capability nobody had.
+ * The history is in git if it is ever wanted back.
  */
-import * as wipay from "./wipay.js";
+import * as paypal from "./paypal.js";
 import * as mock from "./mock.js";
 
-const PROVIDERS = { wipay, mock };
+const PROVIDERS = { paypal, mock };
 
 /**
  * Currency is the only input to provider selection.
@@ -27,16 +28,18 @@ const PROVIDERS = { wipay, mock };
  * and it would make which processor took a payment depend on a config value
  * rather than on what the guest is paying in.
  *
- * WiPay Jamaica settles USD/JMD/TTD only. CAD/GBP/EUR is the entire reason
- * PayPal is wanted later — and note that PayPal funds a USD order from a
- * Canadian or British account by itself, so that needs no FX table here. An
- * owner-maintained rate table would put the exchange risk on PPP, go stale, and
- * quote a number that differs from the guest's card statement.
+ * PayPal funds a USD order from a Canadian or British account by itself, so
+ * CAD/GBP/EUR need no FX table here. An owner-maintained rate table would put
+ * the exchange risk on PPP, go stale, and quote a number that differs from the
+ * guest's card statement.
+ *
+ * JMD and TTD have no entry and therefore no provider, which is correct rather
+ * than an omission: PayPal does not settle either, and WiPay — which did — was
+ * removed. A guest paying in Jamaican dollars settles with the driver in cash,
+ * which is what the site has always said happens.
  */
 const BY_CURRENCY = {
-  USD: ["wipay", "paypal"],
-  JMD: ["wipay"],
-  TTD: ["wipay"],
+  USD: ["paypal"],
   CAD: ["paypal"],
   GBP: ["paypal"],
   EUR: ["paypal"],
@@ -81,7 +84,8 @@ export function paymentsConfigured(currency = "USD") {
  * @param {string} args.currency
  * @param {string} args.returnUrl    absolute
  * @param {object} [args.guest]
- * @returns {Promise<{provider:string, environment:string, redirectUrl:string, requestedTotal:string, raw:object}>}
+ * @returns {Promise<{provider:string, environment:string, redirectUrl:string,
+ *   requestedTotal:string, providerRef:string|null, raw:object}>}
  */
 export async function startPayment({
   orderId,
@@ -107,6 +111,17 @@ export async function startPayment({
     environment: provider.environment(),
     redirectUrl: result.redirectUrl,
     requestedTotal: result.total,
+    /*
+     * The provider's own id for this attempt, stored so the return route can
+     * find our record from it.
+     *
+     * WiPay echoed our `order_id` back in the query string, so the lookup key
+     * was something we chose. PayPal hands the guest ITS order id and nothing
+     * else, so the only way to get from a return to our record without trusting
+     * a query parameter is to have written PayPal's id down first. Null for a
+     * provider that does not need it.
+     */
+    providerRef: result.providerRef ?? null,
     raw: result.raw ?? {},
   };
 }

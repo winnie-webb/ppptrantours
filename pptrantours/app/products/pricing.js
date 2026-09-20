@@ -241,7 +241,9 @@ export function fromCents(cents) {
  *                   The page shows "Ask us" and there is no number to charge.
  *   estimated       the figure is our inference, not his rate, and the form
  *                   already promises the guest we confirm it before they pay.
- *   below-minimum   WiPay rejects anything under $1.00 USD.
+ *   below-minimum   PayPal rejects an order under $0.01, and a transfer
+ *                   priced under a dollar is a data error rather than a fare.
+ *                   The $1.00 floor is kept from the WiPay era on that basis.
  *
  * @returns {{collectible: boolean, reason: string|null, payableCents: number}}
  */

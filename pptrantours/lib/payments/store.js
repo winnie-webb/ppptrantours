@@ -57,6 +57,26 @@ function summarise({ payableCents, paidCents }) {
   return "part-paid";
 }
 
+/**
+ * The booking-level payment state after an attempt reaches `outcome`.
+ *
+ * Money already banked wins over the latest attempt's verdict: a guest whose
+ * second card declines is still part-paid, not failed, and showing "failed" on
+ * a booking that holds $170 is how a driver gets told to collect twice.
+ *
+ * `pending` is its own state and is NOT folded into either paid or unpaid.
+ * PayPal returns it when it has the money but is holding it — an eCheck
+ * clearing, or a manual review — and both of the neighbouring answers are
+ * wrong: "paid" sends a driver out against money that may never arrive,
+ * "unpaid" invites a second charge. It resolves from the PayPal dashboard.
+ */
+function bookingPaymentState({ outcome, payableCents, paidCents }) {
+  if (paidCents > 0) return summarise({ payableCents, paidCents });
+  if (outcome === "pending") return "pending";
+  if (outcome === "failed" || outcome === "invalid") return "failed";
+  return "unpaid";
+}
+
 export async function getBooking(reference) {
   const db = getAdminDb();
   if (!db) return null;
@@ -73,6 +93,7 @@ export async function createPayment({
   amountCents,
   requestedTotal,
   currency,
+  providerRef = null,
 }) {
   const db = getAdminDb();
   if (!db) throw new Error("no-db");
@@ -82,6 +103,16 @@ export async function createPayment({
 
   await ref.set({
     orderId,
+    /*
+     * The provider's own id for this attempt — PayPal's order id.
+     *
+     * Written at creation, BEFORE the guest leaves, because it is the lookup
+     * key on the way back: PayPal returns its id and nothing of ours. A record
+     * without it cannot be matched to a return, so a failure to write here must
+     * fail the whole start — which it does, since the start route refuses
+     * rather than redirect when this throws.
+     */
+    providerRef,
     reference,
     provider,
     environment,
@@ -119,6 +150,26 @@ export async function findPaymentByOrderId(orderId) {
   const snap = await db
     .collection(PAYMENTS)
     .where("orderId", "==", orderId)
+    .limit(1)
+    .get();
+  if (snap.empty) return null;
+  const doc = snap.docs[0];
+  return { id: doc.id, ...doc.data() };
+}
+
+/**
+ * Find an attempt by the PROVIDER's id for it — PayPal's order id.
+ *
+ * A single equality filter, so it rides Firestore's automatic single-field
+ * index and needs no composite index. See the note at the top of this file for
+ * why that constraint is being respected everywhere.
+ */
+export async function findPaymentByProviderRef(providerRef) {
+  const db = getAdminDb();
+  if (!db || !providerRef) return null;
+  const snap = await db
+    .collection(PAYMENTS)
+    .where("providerRef", "==", providerRef)
     .limit(1)
     .get();
   if (snap.empty) return null;
@@ -193,14 +244,11 @@ export async function settlePayment({
          * owes. Paid-and-still-new is a normal state, and it is the top row of
          * the admin attention band for exactly that reason.
          */
-        "payment.state":
-          outcome === "paid"
-            ? summarise({ payableCents, paidCents })
-            : paidCents > 0
-              ? summarise({ payableCents, paidCents })
-              : outcome === "failed" || outcome === "invalid"
-                ? "failed"
-                : "unpaid",
+        "payment.state": bookingPaymentState({
+          outcome,
+          payableCents,
+          paidCents,
+        }),
         "payment.paidCents": paidCents,
         "payment.provider": pay.provider,
         "payment.lastPaymentId": paymentId,

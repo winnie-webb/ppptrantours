@@ -67,7 +67,8 @@ export async function POST(request) {
   }
 
   const currency = booking.payment?.currency ?? "USD";
-  if (!chooseProvider(currency)) {
+  const providerName = chooseProvider(currency);
+  if (!providerName) {
     return bad("Card payment is not switched on.", 503);
   }
 
@@ -82,7 +83,15 @@ export async function POST(request) {
   }
 
   const orderId = makeOrderId(reference);
-  const returnUrl = `${site.url}/api/payments/wipay/return`;
+
+  /*
+   * Each provider owns its own return route, so the URL is built from whichever
+   * one was selected rather than hardcoded. This used to name wipay explicitly,
+   * which meant the mock provider redirected guests into WiPay's route — fine
+   * while the two shared a settlement shape, and a silent mis-route the moment
+   * they stopped.
+   */
+  const returnUrl = `${site.url}/api/payments/${providerName}/return`;
 
   let started;
   try {
@@ -112,6 +121,9 @@ export async function POST(request) {
       amountCents,
       requestedTotal: started.requestedTotal,
       currency,
+      // PayPal's own order id. Without it the return route cannot find this
+      // record, which is why the failure below refuses rather than redirects.
+      providerRef: started.providerRef,
     });
   } catch (err) {
     console.error(`[payments] ${reference} session not recorded`, err);
@@ -123,11 +135,20 @@ export async function POST(request) {
   /*
    * Alert the owner at INITIATION, not only on settlement.
    *
-   * This is the real safety net for the missing webhook. WiPay tells us the
-   * outcome only through the guest's browser, so a closed tab or a dropped
-   * mobile connection can leave a real charge with no record on our side. If
-   * this alert arrives and nothing follows it, the owner has a specific
-   * order_id to search in the WiPay dashboard.
+   * This mattered more under WiPay, where approving on the hosted page WAS the
+   * charge, so a closed tab could leave real money unrecorded. Under PayPal it
+   * cannot: `intent: CAPTURE` means nothing is taken until our return route
+   * captures, and a guest who never comes back has not paid.
+   *
+   * It is kept for the one case that survives — a capture that throws, where
+   * the charge may or may not have gone through and the attempt is left
+   * `initiated` on purpose. Then this alert plus its order_id is what tells the
+   * owner which transaction to look up in the PayPal dashboard.
+   *
+   * The cost is an email per abandoned attempt. If that becomes noise, move the
+   * send into the return route's catch rather than dropping it: the ambiguous
+   * case is the only one worth an email, and it is also the only one nobody
+   * finds out about any other way.
    *
    * Never allowed to fail the request — a missed email beats a lost payment.
    */

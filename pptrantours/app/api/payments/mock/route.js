@@ -1,25 +1,28 @@
 import { NextResponse } from "next/server";
-import crypto from "node:crypto";
+import { sign } from "@/lib/payments/mock";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 /**
- * A stand-in for WiPay's hosted page. Development only.
+ * A stand-in for a hosted payment page. Development only.
  *
- * `response_url` cannot be localhost as far as WiPay is concerned, so exercising
- * the real return route otherwise needs a tunnel. This serves four buttons
- * instead, each of which redirects to the REAL return route:
+ * Six buttons, each redirecting to the mock's own return route at
+ * `/api/payments/mock/return`, which writes through the SAME `settlePayment`
+ * the PayPal route uses. So the store, the settlement transaction, the booking
+ * summary and the result page are all exercised for real:
  *
- *   Pay        a correctly computed hash — settles as paid
- *   Decline    status=failed, no hash — must be handled, not treated as fraud
+ *   Pay        correctly signed, correct total — settles as paid
+ *   Decline    status=failed — must be handled, not treated as fraud
  *   Cancel     status=cancelled
- *   Forge      status=success with a garbage hash — must be rejected
- *   Underpay   status=success, valid hash, but total=1.00 — must be rejected by
- *              the amount check, which is the check implementations skip
+ *   Pending    status=pending — must show as pending, not paid and not failed
+ *   Forge      status=success with a garbage signature — must be rejected
+ *   Tamper     status=success, genuine signature, total cut to $1.00 — must be
+ *              rejected by the amount check, which is the check that gets
+ *              skipped
  *
- * The last two are the point of this page. Reaching them through a tunnel and a
- * live sandbox card is tedious; reaching them here is one click.
+ * The last two are the point of this page. Reaching them against a real
+ * provider is tedious; reaching them here is one click.
  *
  * Guarded on PAYMENTS_MOCK plus a non-production NODE_ENV, and
  * lib/payments/index.js refuses to select the mock provider in production
@@ -30,7 +33,13 @@ function enabled() {
   return process.env.PAYMENTS_MOCK === "1" && process.env.NODE_ENV !== "production";
 }
 
-const md5 = (s) => crypto.createHash("md5").update(s, "utf8").digest("hex");
+/** Reflected values are our own, but this page is not the place to find out. */
+const esc = (s) =>
+  String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]
+  );
 
 export async function GET(request) {
   if (!enabled()) return new NextResponse("Not found", { status: 404 });
@@ -40,26 +49,26 @@ export async function GET(request) {
   const total = q.get("total") ?? "0.00";
   const currency = q.get("currency") ?? "USD";
   const returnUrl = q.get("return_url") ?? "";
-  const apiKey = process.env.WIPAY_API_KEY || "123";
 
   const txn = `MOCK-${Date.now()}`;
+  const good = sign({ orderId, total });
 
   const link = (label, params, tone) => {
-    const url = new URL(returnUrl);
+    const url = new URL(returnUrl, request.nextUrl.origin);
     for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-    return `<a class="${tone}" href="${url.toString()}">${label}</a>`;
+    return `<a class="${tone}" href="${esc(url.toString())}">${esc(label)}</a>`;
   };
 
   const buttons = [
     link(
-      "Pay — valid hash",
+      "Pay — correctly signed",
       {
         status: "success",
         transaction_id: txn,
         order_id: orderId,
         total,
-        hash: md5(`${txn}${total}${apiKey}`),
-        message: "[1-R1]: Transaction is approved.",
+        sig: good,
+        message: "Transaction is approved.",
       },
       "ok"
     ),
@@ -70,44 +79,60 @@ export async function GET(request) {
         transaction_id: txn,
         order_id: orderId,
         total,
-        message: "[1-R2]: Transaction is declined.",
+        message: "Transaction is declined.",
       },
       "warn"
     ),
     link("Cancel", { status: "cancelled", order_id: orderId }, "warn"),
+    /*
+     * PayPal returns PENDING when it holds the money without releasing it — an
+     * eCheck clearing, or a manual review. Neither "paid" nor "failed" is a
+     * true answer, and this button is here because the temptation to collapse
+     * it into one of them is strongest when it has never been seen.
+     */
     link(
-      "Forge — garbage hash",
+      "Pending — PayPal is holding it",
+      {
+        status: "pending",
+        transaction_id: txn,
+        order_id: orderId,
+        total,
+        sig: good,
+        message: "PENDING:ECHECK",
+      },
+      "warn"
+    ),
+    link(
+      "Forge — garbage signature",
       {
         status: "success",
         transaction_id: txn,
         order_id: orderId,
         total,
-        hash: "0".repeat(32),
+        sig: "0".repeat(64),
       },
       "bad"
     ),
     /*
-     * The real attack, and the only one the hash cannot stop.
+     * The attack a signature alone does not stop.
      *
-     * WiPay computes its digest over the total from the ORIGINAL request, so an
-     * attacker who edits `total` in the redirect leaves the hash still valid.
-     * Keeping the genuine hash here and reporting a lower total is therefore
-     * exactly what a tampered return looks like — and the amount check in the
-     * return route is the only thing standing between it and a $40 booking
-     * settled for $1.
+     * The signature covers the total from the ORIGINAL request, so an attacker
+     * who edits the reported total in the redirect leaves it still valid.
+     * Keeping the genuine signature here and reporting a lower total is exactly
+     * what a tampered return looks like — and the amount comparison is the only
+     * thing standing between it and a $340 booking settled for $1.
      *
-     * An earlier version of this button recomputed the hash over 1.00, which
-     * made it fail at the hash check and quietly never tested the amount check
-     * at all.
+     * An earlier version of this button re-signed over 1.00, which made it fail
+     * at the signature check and quietly never test the amount check at all.
      */
     link(
-      "Tamper — genuine hash, reported total cut to $1.00",
+      "Tamper — genuine signature, reported total cut to $1.00",
       {
         status: "success",
         transaction_id: txn,
         order_id: orderId,
         total: "1.00",
-        hash: md5(`${txn}${total}${apiKey}`),
+        sig: good,
       },
       "bad"
     ),
@@ -130,17 +155,17 @@ export async function GET(request) {
 </style>
 <main>
   <h1>Mock payment page</h1>
-  <p class="muted">Development stand-in for WiPay's hosted page. This is not a real payment.</p>
+  <p class="muted">Development stand-in for a hosted payment page. This is not a real payment, and it does not exercise lib/payments/paypal.js — use the PayPal sandbox for that.</p>
   <dl>
-    <dt>order_id</dt><dd>${orderId}</dd>
-    <dt>total</dt><dd>${total} ${currency}</dd>
-    <dt>transaction_id</dt><dd>${txn}</dd>
+    <dt>order_id</dt><dd>${esc(orderId)}</dd>
+    <dt>total</dt><dd>${esc(total)} ${esc(currency)}</dd>
+    <dt>transaction_id</dt><dd>${esc(txn)}</dd>
   </dl>
   ${buttons}
   <p class="note">The bottom two must both be <strong>rejected</strong>. The last
-  one is the attack that matters: WiPay hashes the total from the original
-  request, so editing <code>total</code> in the redirect leaves the hash valid.
-  Only the amount check stops that settling the full booking for $1.</p>
+  one is the attack that matters: the signature covers the total from the
+  original request, so editing the reported total leaves it valid. Only the
+  amount check stops that settling the full booking for $1.</p>
 </main>`;
 
   return new NextResponse(html, {

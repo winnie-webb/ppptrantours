@@ -17,8 +17,11 @@ const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
  * mints its own with `crypto.randomInt` (see makeServerReference), because
  * there the value becomes a document id and a payment order_id.
  *
- * Keep it at 10 characters. It is used as the WiPay `order_id` prefix, and that
- * field is capped at 16 on the hosted page Jamaica uses.
+ * Kept at 10 characters. It is the prefix of the payment `order_id`, which
+ * WiPay capped at 16 on the hosted page Jamaica used. PayPal's `custom_id`
+ * allows 127, so the cap no longer binds — but the reference is quoted over
+ * WhatsApp and read down a phone line, and 10 characters is short for that
+ * reason too.
  */
 export function makeReference() {
   let out = "";

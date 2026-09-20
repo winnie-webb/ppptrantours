@@ -16,6 +16,12 @@ export const dynamic = "force-dynamic";
  * `status` tracks the operational life of the booking and is entirely separate
  * from `payment.state`. Paying does not confirm a booking, and confirming does
  * not collect money.
+ *
+ * Priced bookings now START at `confirmed` — see app/api/bookings/route.js. So
+ * `new` is reached only by a quote request or an enquiry, which is exactly what
+ * it should have meant all along. It stays in the table both for those and for
+ * records written before the change; removing it would make every old booking
+ * un-advanceable in /admin for no gain.
  */
 const TRANSITIONS = {
   new: ["confirmed", "cancelled"],
@@ -115,10 +121,10 @@ export async function PATCH(request, { params }) {
  * Record a payment taken outside the website.
  *
  * Not optional, for two reasons. Most of PPP's money still arrives as cash in
- * the vehicle, and this is the only way that reaches the books. And because
- * WiPay has no webhook, a lost redirect can leave a real card payment
- * unrecorded — the owner finds it in the WiPay dashboard and enters it here,
- * which is the rescue path the whole design depends on.
+ * the vehicle, and this is the only way that reaches the books. And a capture
+ * that times out leaves an attempt that may or may not have charged — the
+ * owner settles which in the PayPal dashboard and enters it here, which is the
+ * rescue path for the one ambiguous case the online flow has.
  *
  * `verifiedBy` records which admin vouched for it, since unlike a hosted-page
  * payment there is no cryptographic proof behind this number.
@@ -142,7 +148,15 @@ export async function POST(request, { params }) {
     return bad("An amount is required.", 422);
   }
 
-  const method = ["cash", "wipay-manual", "bank"].includes(body.method)
+  /*
+   * `wipay-manual` was renamed to `paypal-manual` when WiPay was removed, but
+   * it is still ACCEPTED: records written before the swap carry it, and
+   * rejecting the old value would make those bookings un-editable in /admin
+   * for no gain. New entries use the new name.
+   */
+  const method = ["cash", "paypal-manual", "wipay-manual", "bank"].includes(
+    body.method
+  )
     ? body.method
     : null;
   if (!method) return bad("Not a payment method we recognise.", 400);

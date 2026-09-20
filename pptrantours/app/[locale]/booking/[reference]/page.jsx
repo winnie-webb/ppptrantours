@@ -4,6 +4,7 @@ import {
   FaExclamationTriangle,
   FaWhatsapp,
   FaTimesCircle,
+  FaHourglassHalf,
 } from "react-icons/fa";
 import { site } from "@/app/data/site";
 import { fromCents, money } from "@/app/products/pricing";
@@ -59,9 +60,19 @@ export default async function BookingResultPage({ params, searchParams }) {
   const state = payment?.state ?? (hint === "paid" ? null : hint);
 
   const paid = state === "paid" || state === "part-paid";
-  const failed = state === "failed" || hint === "failed" || hint === "invalid";
+  /*
+   * PayPal has the money but has not released it — an eCheck clearing, or a
+   * manual review. Checked BEFORE `failed`, and given its own branch rather
+   * than folded into either neighbour, because both neighbours are wrong here:
+   * "paid" sends a driver out against money that may never arrive, "failed"
+   * invites the guest to pay a second time for the same booking.
+   */
+  const pending = state === "pending";
+  const failed =
+    !pending && (state === "failed" || hint === "failed" || hint === "invalid");
   const cancelled = hint === "cancelled";
-  const unconfirmed = hint === "unconfirmed" || (!authorised && !cancelled);
+  const unconfirmed =
+    !pending && (hint === "unconfirmed" || (!authorised && !cancelled));
 
   const whatsapp = `${site.contact.whatsappHref}?text=${encodeURIComponent(
     `Hi PPP Tran Tours, about booking ${reference}: `
@@ -81,6 +92,13 @@ export default async function BookingResultPage({ params, searchParams }) {
     bodyText =
       t.paidBody ??
       "We still confirm availability for your date, and if we cannot take it you are refunded in full. You'll hear from us shortly.";
+  } else if (pending) {
+    Icon = FaHourglassHalf;
+    tone = "text-gold-500";
+    heading = t.pendingTitle ?? "Your payment is clearing";
+    bodyText =
+      t.pendingBody ??
+      "PayPal has your payment but hasn't released it yet — this happens with bank transfers and usually clears within a few days. Don't pay again. We'll confirm as soon as it lands, and you'll hear from us about your date either way.";
   } else if (cancelled) {
     Icon = FaTimesCircle;
     tone = "text-ink/40";

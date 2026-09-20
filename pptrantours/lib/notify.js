@@ -103,12 +103,19 @@ export async function sendBookingAlert(booking) {
 /**
  * The owner's alert that a card payment has been STARTED.
  *
- * This exists because WiPay has no webhook. The outcome reaches us only through
- * the guest's browser, so a closed tab or a dropped mobile connection can leave
- * a real charge with nothing recorded on our side. If this email arrives and no
- * settlement follows it, the owner has a specific `order_id` to search in the
- * WiPay dashboard — which is the difference between reconciling a payment and
- * never knowing it happened.
+ * Written for WiPay, which had no webhook: approving on its hosted page WAS the
+ * charge, so a closed tab could leave real money with nothing recorded on our
+ * side. PayPal closes that hole — `intent: CAPTURE` means nothing is taken
+ * until our return route captures — so this alert no longer covers a common
+ * case.
+ *
+ * It covers the rare one instead. A capture that throws is genuinely ambiguous:
+ * the charge may have landed and we lost the answer. The return route writes
+ * nothing in that case on purpose, so this email plus its `order_id` is the
+ * only trail to the transaction in the PayPal dashboard.
+ *
+ * The cost is one email per abandoned attempt. See the note in
+ * app/api/payments/start/route.js before deciding to narrow it.
  *
  * Uses its own template. `EMAILJS_TEMPLATE_ID_PAYMENT` is deliberately NOT part
  * of `isNotifyConfigured()`: if it were, adding payments would silently switch
