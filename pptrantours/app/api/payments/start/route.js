@@ -165,7 +165,20 @@ export async function POST(request) {
   }).catch((err) => console.error("[payments] initiation alert failed", err));
 
   return NextResponse.json(
-    { redirectUrl: started.redirectUrl, paymentId: payment.id, reference },
+    {
+      redirectUrl: started.redirectUrl,
+      /*
+       * PayPal's own order id, for the inline buttons: the SDK's `createOrder`
+       * hands this back and the popup opens against an order this server
+       * already created and priced. It is not a secret — the guest is about to
+       * be shown it either way — and it confers nothing on its own, because
+       * settlement looks it up against our record and takes every amount from
+       * there.
+       */
+      providerRef: started.providerRef,
+      paymentId: payment.id,
+      reference,
+    },
     { headers: { "Cache-Control": "no-store" } }
   );
 }

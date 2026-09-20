@@ -1,4 +1,4 @@
-import { paymentsConfigured } from "@/lib/payments";
+import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -336,6 +336,9 @@ export default async function TourPage({ params }) {
                * offering one. Read at build time, so adding the PayPal keys
                * to the environment needs a redeploy to take effect. */
               paymentsEnabled={paymentsConfigured("USD")}
+              /* Inline card/PayPal buttons, so a guest without a
+               * PayPal account can pay by card without leaving. */
+              paypal={paypalPublicConfig("USD")}
             />
           </aside>
         </div>

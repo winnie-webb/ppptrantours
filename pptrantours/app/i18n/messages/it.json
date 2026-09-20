@@ -162,6 +162,15 @@
     "next": "Pagina successiva"
   },
   "booking": {
+    "payLoading": "Caricamento del pagamento sicuro…",
+    "payConfirming": "Conferma del pagamento in corso…",
+    "payCardNote": "Carta o PayPal — nessun account necessario. I dati della carta vanno direttamente a PayPal e non passano mai da questo sito.",
+    "payButtonsFailed": "Non è stato possibile caricare i pulsanti di pagamento. Puoi comunque pagare sulla nostra pagina sicura.",
+    "payDone": "Pagamento ricevuto. Grazie, è tutto a posto.",
+    "payCancelled": "Pagamento annullato: non è stato addebitato nulla. La tua prenotazione resta valida.",
+    "payPending": "Il pagamento è in elaborazione. Non pagare di nuovo: confermeremo via email.",
+    "payUnsure": "Non siamo riusciti a confermare il pagamento. Potrebbe non essere stato addebitato nulla: scrivici prima di riprovare.",
+    "payViewReceipt": "Vedi dettagli",
     "errRequired": "Compila questo campo.",
     "errDatePast": "Scegli oggi o una data successiva.",
     "errNameShort": "Indica il nome della prenotazione.",

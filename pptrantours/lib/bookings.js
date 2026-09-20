@@ -71,12 +71,15 @@ export async function createBooking(booking, { idempotencyKey } = {}) {
 export { makeReference, buildWhatsAppMessage };
 
 /**
- * Ask the server to open a hosted payment page, then hand back the URL.
+ * Ask the server to create a payment for this booking.
  *
  * No amount is sent. The server re-derives it from the stored booking, so a
  * tampered request can only ever pay the real price.
+ *
+ * Returns both ways of paying the same order: `providerRef` for the inline
+ * buttons, `redirectUrl` for the hosted page they fall back to.
  */
-export async function startPayment(reference) {
+export async function createPaymentSession(reference) {
   const res = await fetch("/api/payments/start", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -86,5 +89,29 @@ export async function startPayment(reference) {
   if (!res.ok || !data.redirectUrl) {
     throw new Error(data.error ?? "payment-start-failed");
   }
-  return data.redirectUrl;
+  return { redirectUrl: data.redirectUrl, providerRef: data.providerRef ?? null };
+}
+
+/** The hosted-page URL alone, for the redirect path. */
+export async function startPayment(reference) {
+  const { redirectUrl } = await createPaymentSession(reference);
+  return redirectUrl;
+}
+
+/**
+ * Capture an order the guest approved in the inline buttons.
+ *
+ * The browser never captures — it asks our server to, and the server verifies
+ * the order against its own record before taking a penny. See
+ * app/api/payments/paypal/capture/route.js.
+ */
+export async function capturePayment(orderID, { cancelled = false } = {}) {
+  const res = await fetch("/api/payments/paypal/capture", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ orderID, cancelled }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error ?? "payment-capture-failed");
+  return data;
 }

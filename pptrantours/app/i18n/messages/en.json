@@ -162,6 +162,15 @@
     "next": "Next page"
   },
   "booking": {
+    "payLoading": "Loading secure payment…",
+    "payConfirming": "Confirming your payment…",
+    "payCardNote": "Card or PayPal — no account needed. Your card details go straight to PayPal and never touch this site.",
+    "payButtonsFailed": "The payment buttons couldn't load. You can still pay on our secure payment page.",
+    "payDone": "Payment received. Thank you — you're all set.",
+    "payCancelled": "Payment cancelled — nothing was charged. Your booking still stands.",
+    "payPending": "Your payment is clearing. Don't pay again — we'll confirm by email.",
+    "payUnsure": "We couldn't confirm that payment. Nothing may have been charged — message us before trying again.",
+    "payViewReceipt": "View details",
     "errRequired": "Please fill this in.",
     "errDatePast": "Please choose today or a later date.",
     "errNameShort": "Please give the name the booking is under.",

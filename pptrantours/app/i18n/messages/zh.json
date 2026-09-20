@@ -162,6 +162,15 @@
     "next": "下一页"
   },
   "booking": {
+    "payLoading": "正在加载安全支付…",
+    "payConfirming": "正在确认您的付款…",
+    "payCardNote": "银行卡或 PayPal — 无需账户。卡片信息直接发送至 PayPal，绝不经过本网站。",
+    "payButtonsFailed": "支付按钮加载失败。您仍可在我们的安全支付页面付款。",
+    "payDone": "已收到付款。谢谢，一切就绪。",
+    "payCancelled": "付款已取消，未扣任何款项。您的预订仍然有效。",
+    "payPending": "您的付款正在处理中。请勿重复付款，我们会通过电子邮件确认。",
+    "payUnsure": "我们无法确认该笔付款。可能并未扣款，请先联系我们再重试。",
+    "payViewReceipt": "查看详情",
     "errRequired": "请填写此项。",
     "errDatePast": "请选择今天或之后的日期。",
     "errNameShort": "请填写预订人姓名。",

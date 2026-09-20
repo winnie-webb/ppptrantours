@@ -162,6 +162,15 @@
     "next": "Volgende pagina"
   },
   "booking": {
+    "payLoading": "Beveiligde betaling laden…",
+    "payConfirming": "Uw betaling wordt bevestigd…",
+    "payCardNote": "Kaart of PayPal — geen account nodig. Uw kaartgegevens gaan rechtstreeks naar PayPal en komen nooit op deze site.",
+    "payButtonsFailed": "De betaalknoppen konden niet laden. U kunt nog steeds betalen op onze beveiligde betaalpagina.",
+    "payDone": "Betaling ontvangen. Dank u — alles is geregeld.",
+    "payCancelled": "Betaling geannuleerd — er is niets afgeschreven. Uw boeking blijft staan.",
+    "payPending": "Uw betaling wordt verwerkt. Betaal niet opnieuw — we bevestigen per e-mail.",
+    "payUnsure": "We konden die betaling niet bevestigen. Mogelijk is er niets afgeschreven — neem contact op voordat u het opnieuw probeert.",
+    "payViewReceipt": "Details bekijken",
     "errRequired": "Vul dit veld in.",
     "errDatePast": "Kies vandaag of een latere datum.",
     "errNameShort": "Geef de naam van de boeking op.",

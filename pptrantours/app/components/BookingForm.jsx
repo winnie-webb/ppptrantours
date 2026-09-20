@@ -27,6 +27,7 @@ import { createBooking, startPayment } from "@/lib/bookings";
 import { site } from "@/app/data/site";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
+import PayPalCheckout from "./PayPalCheckout";
 
 /**
  * One form for both halves of the catalogue.
@@ -97,6 +98,13 @@ export default function BookingForm({
   dict,
   mode = "tour",
   paymentsEnabled = false,
+  /*
+   * { clientId, currency } for the inline PayPal/card buttons, or null. Read
+   * on the server at build time, same as `paymentsEnabled` — the client id is
+   * public (it is in the SDK script URL on every PayPal site); the secret it
+   * pairs with never leaves the server.
+   */
+  paypal = null,
 }) {
   const isTransfer = mode === "transfer";
   // Memoised because `?? {}` mints a new object every render, which would make
@@ -441,6 +449,7 @@ export default function BookingForm({
         // "card" set means the redirect did not happen, so the screen says so
         // instead of pretending the guest chose to pay later.
         payMethod={payIntent}
+        paypal={paypal}
         quoted={!unpriced && !needsPlace}
       />
     );
@@ -1185,13 +1194,22 @@ function Breakdown({
  * that is a quote request, carries an indicative price, or has nowhere to be
  * recorded because no service account is configured.
  */
-function Success({ result, locale, dict, payMethod, quoted }) {
+function Success({ result, locale, dict, payMethod, quoted, paypal }) {
   const t = dict?.booking ?? {};
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
+  /*
+   * The inline buttons are the intended path; the hosted-page redirect is what
+   * is left when PayPal's script cannot load. `sdkDown` flips on that failure
+   * so the old button reappears rather than leaving a guest with no way to pay.
+   */
+  const [sdkDown, setSdkDown] = useState(false);
+  const [settled, setSettled] = useState(null);
+
   const options = result.paymentOptions;
   const canPay = Boolean(options?.collectible && options.amountCents > 0);
+  const useButtons = canPay && Boolean(paypal?.clientId) && !sdkDown;
 
   const goToPayment = async () => {
     setPaying(true);
@@ -1268,6 +1286,23 @@ function Success({ result, locale, dict, payMethod, quoted }) {
                 "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
           </p>
 
+          <p className="mt-3 font-display text-2xl font-semibold text-ink">
+            {money(options.amount)}
+          </p>
+
+          {useButtons ? (
+            <div className="mt-4 text-left">
+              <PayPalCheckout
+                clientId={paypal.clientId}
+                currency={paypal.currency}
+                reference={result.reference}
+                dict={dict}
+                onFallback={() => setSdkDown(true)}
+                onSettled={setSettled}
+              />
+            </div>
+          ) : (
+            <>
           <button
             type="button"
             onClick={goToPayment}
@@ -1295,6 +1330,42 @@ function Success({ result, locale, dict, payMethod, quoted }) {
             {t.paySecureNote ??
               "Card details are entered on our payment provider's own page and never touch this site."}
           </p>
+            </>
+          )}
+
+          {/*
+            The outcome of an inline payment, read from what our own capture
+            route decided — never from what the browser thinks happened.
+          */}
+          {settled && (
+            <div
+              role="status"
+              className={`mt-4 rounded-lg px-3 py-2.5 text-xs leading-relaxed ${
+                settled.ok
+                  ? "bg-green-50 text-green-800"
+                  : "bg-gold-200/40 text-ink/70"
+              }`}
+            >
+              {settled.ok
+                ? t.payDone ?? "Payment received. Thank you — you're all set."
+                : settled.state === "cancelled"
+                  ? t.payCancelled ??
+                    "Payment cancelled — nothing was charged. Your booking still stands."
+                  : settled.state === "pending"
+                    ? t.payPending ??
+                      "Your payment is clearing. Don't pay again — we'll confirm by email."
+                    : t.payUnsure ??
+                      "We couldn't confirm that payment. Nothing may have been charged — message us before trying again."}
+              {settled.resultPath && (
+                <Link
+                  href={settled.resultPath}
+                  className="ml-1 font-semibold underline"
+                >
+                  {t.payViewReceipt ?? "View details"}
+                </Link>
+              )}
+            </div>
+          )}
 
           {payError && (
             <p

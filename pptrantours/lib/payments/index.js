@@ -78,6 +78,22 @@ export function paymentsConfigured(currency = "USD") {
 }
 
 /**
+ * The PayPal client id, for the browser SDK.
+ *
+ * Public by design — it identifies the merchant in a script URL and is visible
+ * in every PayPal integration on the web. The SECRET never leaves the server
+ * and is not reachable from here. Returned only when PayPal is actually the
+ * provider that would take this currency, so a page cannot advertise buttons
+ * that `/api/payments/start` would then refuse.
+ */
+export function paypalPublicConfig(currency = "USD") {
+  if (chooseProvider(currency) !== "paypal") return null;
+  const clientId = process.env.PAYPAL_CLIENT_ID || "";
+  if (!clientId) return null;
+  return { clientId, currency };
+}
+
+/**
  * @param {object} args
  * @param {string} args.orderId
  * @param {number} args.amountCents  integer, already re-derived server-side

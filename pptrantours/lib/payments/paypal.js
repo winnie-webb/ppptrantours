@@ -169,29 +169,44 @@ export async function start({
         amount: { currency_code: currency, value: total },
       },
     ],
-    payment_source: {
-      paypal: {
-        experience_context: {
-          brand_name: c.brandName,
-          // No address is collected for a transfer, and asking for one on
-          // PayPal's page is a step that loses bookings.
-          shipping_preference: "NO_SHIPPING",
-          // "Pay Now" rather than "Continue": the guest sees the final amount
-          // on PayPal's own button, which is what we want them to have agreed.
-          user_action: "PAY_NOW",
-          landing_page: "NO_PREFERENCE",
-          return_url: returnUrl,
-          // PayPal sends a cancel to a different URL entirely, so it carries a
-          // marker rather than relying on an absent token.
-          cancel_url: `${returnUrl}?cancelled=1`,
-        },
-      },
+    /*
+     * `application_context`, and deliberately NOT `payment_source.paypal`.
+     *
+     * Pinning payment_source.paypal at creation declares the order is to be
+     * funded from a PayPal wallet. That is fine for a redirect to PayPal's own
+     * page, and fatal for the inline card button: the SDK confirms a card by
+     * sending `payment_source.card`, against an order that has already said it
+     * will be paid another way. One order has to serve both the buttons and
+     * the redirect fallback, so it commits to neither.
+     *
+     * The cost is the email prefill, which lived under payment_source and has
+     * no equivalent here. Worth losing — it only ever helped the guests who
+     * already had a PayPal account, which is not who this change is for.
+     */
+    application_context: {
+      brand_name: c.brandName,
+      // No address is collected for a transfer, and asking for one on
+      // PayPal's page is a step that loses bookings.
+      shipping_preference: "NO_SHIPPING",
+      // "Pay Now" rather than "Continue": the guest sees the final amount
+      // on PayPal's own button, which is what we want them to have agreed.
+      user_action: "PAY_NOW",
+      /*
+       * Lead with the card form, not the login.
+       *
+       * This was NO_PREFERENCE, which in practice means PayPal decides — and
+       * PayPal decides "log in". A guest without an account then has to find
+       * "Pay with Debit or Credit Card" underneath it, and plenty do not. The
+       * whole point of taking a card is that not having a PayPal account is
+       * normal.
+       */
+      landing_page: "GUEST_CHECKOUT",
+      return_url: returnUrl,
+      // PayPal sends a cancel to a different URL entirely, so it carries a
+      // marker rather than relying on an absent token.
+      cancel_url: `${returnUrl}?cancelled=1`,
     },
   };
-
-  if (guest.email) {
-    payload.payment_source.paypal.email_address = String(guest.email).slice(0, 254);
-  }
 
   const res = await fetch(`${c.base}/v2/checkout/orders`, {
     method: "POST",

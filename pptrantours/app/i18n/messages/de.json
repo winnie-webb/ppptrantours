@@ -162,6 +162,15 @@
     "next": "Nächste Seite"
   },
   "booking": {
+    "payLoading": "Sichere Zahlung wird geladen…",
+    "payConfirming": "Ihre Zahlung wird bestätigt…",
+    "payCardNote": "Karte oder PayPal — kein Konto nötig. Ihre Kartendaten gehen direkt an PayPal und berühren diese Seite nie.",
+    "payButtonsFailed": "Die Zahlungsschaltflächen konnten nicht geladen werden. Sie können weiterhin auf unserer sicheren Zahlungsseite bezahlen.",
+    "payDone": "Zahlung erhalten. Vielen Dank — alles erledigt.",
+    "payCancelled": "Zahlung abgebrochen — es wurde nichts abgebucht. Ihre Buchung bleibt bestehen.",
+    "payPending": "Ihre Zahlung wird verarbeitet. Bitte nicht erneut zahlen — wir bestätigen per E-Mail.",
+    "payUnsure": "Wir konnten diese Zahlung nicht bestätigen. Möglicherweise wurde nichts abgebucht — schreiben Sie uns, bevor Sie es erneut versuchen.",
+    "payViewReceipt": "Details ansehen",
     "errRequired": "Bitte füllen Sie dieses Feld aus.",
     "errDatePast": "Bitte wählen Sie heute oder ein späteres Datum.",
     "errNameShort": "Bitte geben Sie den Namen für die Buchung an.",
