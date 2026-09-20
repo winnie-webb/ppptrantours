@@ -1,75 +1,99 @@
-# EmailJS templates
+# Transactional email
 
-Source of truth for the EmailJS templates. EmailJS stores them in its own
-dashboard, so these files are the version-controlled copy — edit here, then
-paste into the dashboard, so the two do not silently drift.
+The templates are **code**, in `lib/email/templates/`. Nothing about the copy or
+the layout lives in a provider's dashboard any more.
 
-## `booking-alert.html` — new booking / enquiry
+That is a deliberate reversal. This folder used to hold `booking-alert.html`
+with instructions to paste it into the EmailJS dashboard by hand. Nobody ever
+did, so from launch until 2026-09-20 every booking alert went out as EmailJS's
+stock "Rate your experience! — [Company Name]" sample, with all of our variables
+sent and silently discarded. A sync step a human has to remember is a step that
+eventually gets skipped.
 
-Internal notification to PPP, sent by `lib/notify.js` from
-`app/api/bookings/route.js`. Not guest-facing.
+## Layout
 
-### Dashboard settings
+| File | What it is |
+| --- | --- |
+| `lib/email/html.js` | the `html` tagged template — escapes every `${}` by default |
+| `lib/email/templates/booking-alert.js` | internal new-booking / enquiry alert |
+| `lib/email/templates/payment-alert.js` | internal "card checkout opened" diagnostic |
+| `lib/email/transport.js` | who sends it — EmailJS now, Resend when DNS allows |
+| `lib/notify.js` | joins the two; the API the routes call |
+
+## The dashboard now holds one dumb template
+
+EmailJS still delivers the mail, but it knows nothing about it. Create **one**
+template and never touch it again:
 
 | Field | Value |
 | --- | --- |
-| To | `ppptrantours@gmail.com` |
-| From name | `PPP Tran Tours website` |
+| To | `{{to_email}}` |
+| From name | `{{from_name}}` |
 | Reply To | `{{reply_to}}` |
-| Subject | `New {{kind}} — {{reference}} — {{name}}` |
-| Content | paste `booking-alert.html` in **Code** view, not the visual editor |
+| Subject | `{{subject}}` |
+| Content | `{{{content}}}` — in **Code** view, nothing else in the body |
 
-`Reply To` is the point of the whole thing: hitting reply answers the guest
-rather than the website.
+Put its ID in `EMAILJS_TEMPLATE_ID`. `EMAILJS_TEMPLATE_ID_PAYMENT` is gone;
+delete it from Vercel.
 
-Put the template's ID in `EMAILJS_TEMPLATE_ID` (`.env.local`, and Vercel's
-environment variables for production). Until it is set, `isNotifyConfigured()`
-returns false, the route returns `emailed: false`, and bookings still save.
+Three braces on `content` is what lets the body be HTML at all — double braces
+would escape our own markup into visible tags. That is safe **only** because of
+the rule below.
 
-### Variables
+### The one rule
 
-Every one is supplied by `sendBookingAlert()` in `lib/notify.js`. Optional
-fields that the guest left blank arrive as an em dash, never as an empty
-string, so no row ever renders blank and the template needs no conditionals.
+Guest-supplied values are escaped by `html.js`, automatically, because every
+`${}` goes through `escapeHtml` unless it is wrapped in `raw()`.
 
-| Variable | Notes |
-| --- | --- |
-| `{{reference}}` | e.g. `PPP-K3F9QX` |
-| `{{kind}}` | `Booking` or `Enquiry` |
-| `{{name}}` `{{email}}` `{{phone}}` | guest contact |
-| `{{tour_title}}` `{{pickup}}` | what they booked |
-| `{{date}}` `{{time}}` `{{flight}}` `{{hotel}}` | when and where |
-| `{{travellers}}` | pre-formatted, e.g. `2 adults, 1 child` |
-| `{{total}}` | pre-formatted, e.g. `US$187.50` — the **server's** figure |
-| `{{notes}}` | free text from the guest |
-| `{{reply_to}}` | the guest's email, for the Reply To field |
+```js
+html`<div>${booking.notes}</div>`         // escaped — the default
+html`<div>${raw(fragment)}</div>`         // raw — explicit and greppable
+```
 
-### Two things not to change
+**Never call `raw()` on anything that came from a form.** Reviewing this is one
+search for `raw(`; today every use of it is a style string or a nested `html`
+fragment. This is the same protection the old `{{notes}}` double-brace rule
+gave, except it is now the default rather than something to remember.
 
-**Keep `{{notes}}` in double braces.** Notes are free text typed by a stranger.
-Double braces escape HTML; EmailJS's triple-brace form (`{{{notes}}}`) injects
-raw markup, which would let anyone submitting the form write HTML into an inbox.
+## Limits worth knowing
 
-**`{{total}}` is authoritative.** The route recomputes it from `products.json`
-and discards whatever the browser posted, so this figure is what is stored in
-Firestore — not what the guest's screen happened to show.
+EmailJS free: **200 emails/month**, **2 templates**, requests capped at
+**50Kb**. The booking alert renders to about 8Kb, so size is not close. The
+2-template cap is why everything shares one `{{{content}}}` template — the site
+needs at least three kinds of mail. 200/month is a real ceiling at roughly
+80–100 bookings.
 
-### Editing
+## Moving to Resend
 
-Table-based layout with inline styles on purpose: Outlook has no flexbox or
-grid, and `<style>` blocks get stripped by several clients. Fraunces and Plus
-Jakarta Sans cannot load in email, so Georgia and Arial stand in for the
-display and body faces. Brand colours are `#150a0d` ink, `#a80424` crimson,
-`#f1d72d` gold, `#fbf7f4` sand.
+EmailJS is a stopgap. It is here only because it relays through the connected
+Gmail and so needs **no DNS**, and `ppptrantoursjamaica.com` still resolves to
+the old host (`70.32.23.13`, `ns1–4.supercp.com`) — the domain is locked at
+Instra until it expires 2026-12-08.
 
-The masthead is HTML text rather than an image, so it needs no hosted asset and
-survives image-blocking. To use the real logo once the domain points at Vercel,
-swap the wordmark for
-`<img src="https://ppptrantoursjamaica.com/logo.png" width="140" alt="PPP Tran Tours">`
-and keep a text fallback in the `alt`.
+Resend gives 3,000/month and signs with our own DKIM instead of sending
+guest-facing mail through a personal Gmail, which is what decides whether a
+confirmation lands in the inbox or in spam. It needs a verified sending domain.
+
+Once DNS is recovered:
+
+1. Add `send.ppptrantoursjamaica.com` in Resend — a subdomain, so the root
+   domain's existing MX is left alone.
+2. Publish the DKIM, SPF and return-path MX records it gives you. Verification
+   can take up to 24 hours.
+3. Set `RESEND_API_KEY` and `RESEND_FROM`
+   (`PPP Tran Tours <bookings@send.ppptrantoursjamaica.com>`).
+4. `getTransport()` prefers Resend the moment both are set — no code change and
+   no deploy where nothing sends. Confirm mail is arriving, then remove the four
+   `EMAILJS_*` variables.
+
+Resend is plain REST here, so there is no package to install.
 
 ## Not built yet
 
-A guest-facing acknowledgement. `app/data/site.js` promises one in the FAQ
-("you'll get an automatic acknowledgement email"), and that promise is
-currently untrue — only this internal alert exists.
+A guest-facing acknowledgement. It drops in as one more file in
+`lib/email/templates/` plus a call in the bookings route — the 2-template cap
+that used to block it no longer applies.
+
+(The previous version of this file claimed `app/data/site.js` promises one in
+the FAQ. That overclaim was removed in `af2cedf`; the promise is not currently
+made anywhere, so this is a feature, not a broken promise.)
