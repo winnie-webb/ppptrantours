@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
-    "description": "Privétransfers vanaf de luchthaven, eilandtours en excursies vanaf de cruisekade door heel Jamaica — prijs per persoon met een minimum van vier, entreegelden apart vermeld en nooit met opslag.",
+    "description": "Privétransfers vanaf de luchthaven, eilandtours en excursies vanaf de cruisekade door heel Jamaica — prijs per persoon, entreegelden apart vermeld en nooit met opslag.",
     "keywords": [
       "luchthaventransfer Jamaica",
       "privétours Montego Bay",
@@ -112,8 +112,7 @@
     "askUs": "Vraag het ons",
     "weWillQuote": "wij geven u de prijs",
     "perPerson": "/ persoon",
-    "estimated": "indicatief",
-    "minimumPax": "minimaal {n} personen"
+    "estimated": "indicatief"
   },
   "place": {
     "title": "Waar logeert u?",
@@ -260,7 +259,7 @@
     "payDidntOpen": "De betaalpagina ging niet open",
     "payDidntOpenBody": "Uw boeking is hoe dan ook bevestigd — er is niets afgeschreven. Probeer het hieronder opnieuw, of reken gewoon af met uw chauffeur op de dag zelf.",
     "payUnavailable": "Betalen met kaart is op dit moment niet beschikbaar voor deze boeking. Er is niets afgeschreven en uw boeking staat gewoon — reken af met uw chauffeur op de dag zelf, of stuur ons een bericht om anders te betalen.",
-    "minimumNote": "Elke boeking wordt voor minstens {n} personen berekend, dus {spare} extra kunnen zonder meerkosten mee.",
+    "minimumNote": "Er kunnen nog {spare} mee zonder meerkosten.",
     "perHeadNote": "{n} personen, elk tegen het tarief hierboven.",
     "totalWordLong": "totaal",
     "transportPlusGates": "vervoer plus entreegelden",
@@ -281,7 +280,7 @@
     "passengers": "Passagiers",
     "fewer": "Minder passagiers",
     "more": "Meer passagiers",
-    "note": "De tarieven zijn per persoon, en elke boeking wordt voor minstens vier passagiers berekend. In Amerikaanse dollars, inclusief de ontvangst in de aankomsthal.",
+    "note": "De tarieven zijn per persoon. In Amerikaanse dollars, inclusief de ontvangst in de aankomsthal.",
     "prompt": "Kies uw hotel en het exacte tarief verschijnt hier — geen formulieren, geen wachten op een e-mail.",
     "roundTripLabel": "Privétransfer heen en terug",
     "oneWayLabel": "Privétransfer enkele reis",
@@ -289,7 +288,7 @@
     "ask": "Een vraag stellen",
     "perPerson": "/ persoon",
     "totalFor": "totaal voor {n}",
-    "minimumNote": "Berekend voor {n} — het minimum. {spare} extra kunnen zonder meerkosten mee."
+    "minimumNote": "Er kunnen nog {spare} mee zonder meerkosten."
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
@@ -344,7 +343,7 @@
   "browse": {
     "eyebrow": "Wat te doen op Jamaica",
     "title": "Waar wilt u de dag doorbrengen?",
-    "description": "Blader op parochie, of op het soort dag dat u zoekt. Elke prijs is per persoon met een minimum van vier, en de entreegelden staan ernaast.",
+    "description": "Blader op parochie, of op het soort dag dat u zoekt. Elke prijs is per persoon, en de entreegelden staan ernaast.",
     "seeEverything": "Alles bekijken",
     "option": "optie",
     "options": "opties"
@@ -355,7 +354,7 @@
     "popularDescription": "Dunn's River, het Blue Hole, Rick's Cafe bij zonsondergang — de dagen die in het fotoalbum belanden.",
     "transfersEyebrow": "Luchthaventransfers",
     "transfersTitle": "Van Sangster tot aan uw deur.",
-    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één tarief per persoon, minimaal vier, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
+    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één tarief per persoon, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
     "allRates": "Alle tarieven",
     "combosEyebrow": "Twee op één dag",
     "combosTitle": "Combipakketten, zonder haast.",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Wat te doen op Jamaica",
-    "metaDescription": "Alle tours van PPP Tran Tours, per parochie — Montego Bay, Ocho Rios, Falmouth, Negril en de zuidkust. Vervoer per persoon met een minimum van vier, entreegelden apart vermeld.",
+    "metaDescription": "Alle tours van PPP Tran Tours, per parochie — Montego Bay, Ocho Rios, Falmouth, Negril en de zuidkust. Vervoer per persoon, entreegelden apart vermeld.",
     "eyebrow": "De catalogus",
     "title": "Wat te doen op Jamaica.",
     "description": "Alle tours die we rijden, met de vervoerprijs en het entreegeld apart vermeld, zodat u precies ziet wat van ons is en wat van de attractie.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Luchthaventransfers Montego Bay",
-    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar elk groot Jamaicaans resort. Gepubliceerde tarieven per persoon met een minimum van vier, vlucht gevolgd, ontvangst in de aankomsthal.",
+    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar elk groot Jamaicaans resort. Gepubliceerde tarieven per persoon, vlucht gevolgd, ontvangst in de aankomsthal.",
     "eyebrow": "Luchthaventransfers",
     "title": "Van Sangster International tot aan uw deur.",
     "description": "Vaste, gepubliceerde tarieven naar elk resort dat we bedienen. Kies hieronder uw hotel en zie het tarief voordat u ons ook maar één gegeven geeft.",
@@ -514,7 +513,7 @@
     "p4Body": "Eén tarief per persoon, en nooit minder dan vier berekend. Geen brandstoftoeslag, geen luchthaventoeslag.",
     "ratesEyebrow": "Al onze tarieven",
     "ratesTitle": "De volledige prijslijst, open en bloot.",
-    "ratesDescription": "Elk tarief is per persoon, en elk gezelschap wordt voor minstens vier berekend. Eén, twee, drie en vier personen betalen dus hetzelfde, en vanaf de vijfde telt elke persoon simpelweg het tarief erbij op.",
+    "ratesDescription": "Elk tarief is per persoon. Eén, twee, drie en vier personen betalen hetzelfde, en vanaf de vijfde telt elke persoon simpelweg het tarief erbij op — hoe meer u bent, hoe minder ieder betaalt.",
     "resort": "Hotel",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
@@ -526,7 +525,7 @@
     "metaTitle": "Luchthaventransfer naar {resort} voor {fare}",
     "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst in de aankomsthal.",
     "h1": "Privé-luchthaventransfer naar {resort}",
-    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon, met een minimum van {capacity} ({fare}). Uw chauffeur wacht u op in de aankomsthal met een naambord en brengt u er rechtstreeks heen.",
+    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon. Uw chauffeur wacht u op in de aankomsthal met een naambord en brengt u er rechtstreeks heen.",
     "transferTo": "Luchthaventransfer naar",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
@@ -545,7 +544,7 @@
     "nearby": "Andere hotels in de buurt die we bedienen",
     "toursEyebrow": "Nu u er toch bent",
     "toursTitle": "Tours vanaf {resort}",
-    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer per persoon met een minimum van vier, met de entreegelden apart vermeld.",
+    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer per persoon, met de entreegelden apart vermeld.",
     "minFrom": "vanaf"
   },
   "destinationsPage": {
@@ -658,7 +657,7 @@
     {
       "key": "pricing",
       "q": "Hoe werkt uw prijsstelling?",
-      "a": "Per persoon, met een minimum van vier. Eén, twee, drie en vier reizigers betalen dus precies hetzelfde — het tarief maal vier — en vanaf de vijfde passagier telt elke persoon simpelweg het tarief erbij op. Hoe meer mensen u meeneemt, hoe minder ieder van u betaalt."
+      "a": "Per persoon. Eén, twee, drie en vier reizigers betalen hetzelfde, en vanaf de vijfde passagier telt elke persoon simpelweg het tarief erbij op — hoe meer mensen u meeneemt, hoe minder ieder van u betaalt. Zeg ons hoeveel er meegaan en de prijs wordt voor u berekend."
     },
     {
       "key": "entry",

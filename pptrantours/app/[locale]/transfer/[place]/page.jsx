@@ -197,7 +197,7 @@ export default async function TransferPage({ params }) {
               .replace("{fare}", money(oneWayFare))
               .replace("{perPerson}", money(oneWay))
               .replace("{capacity}", String(MIN_BILLED_PAX)) ??
-              `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} per person one way, minimum ${MIN_BILLED_PAX} people (${money(oneWayFare)}). Your driver meets you inside arrivals with a name board and takes you straight there.`}
+              `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} per person one way. Your driver meets you inside arrivals with a name board and takes you straight there.`}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">

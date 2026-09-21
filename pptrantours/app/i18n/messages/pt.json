@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Privado. Personalizado. Profissional.",
-    "description": "Transfers privativos do aeroporto, passeios pela ilha e excursões a partir do píer de cruzeiros por toda a Jamaica — preço por pessoa com mínimo de quatro, ingressos das atrações cotados à parte e nunca com acréscimo.",
+    "description": "Transfers privativos do aeroporto, passeios pela ilha e excursões a partir do píer de cruzeiros por toda a Jamaica — preço por pessoa, ingressos das atrações cotados à parte e nunca com acréscimo.",
     "keywords": [
       "transfer aeroporto Jamaica",
       "passeios privados Montego Bay",
@@ -112,8 +112,7 @@
     "askUs": "Pergunte-nos",
     "weWillQuote": "damos-lhe o preço",
     "perPerson": "/ pessoa",
-    "estimated": "indicativo",
-    "minimumPax": "mínimo {n} pessoas"
+    "estimated": "indicativo"
   },
   "place": {
     "title": "Onde está hospedado?",
@@ -260,7 +259,7 @@
     "payDidntOpen": "A página de pagamento não abriu",
     "payDidntOpenBody": "A sua reserva está confirmada de qualquer forma — nada foi cobrado. Tente novamente abaixo, ou simplesmente pague ao motorista no próprio dia.",
     "payUnavailable": "O pagamento com cartão não está disponível para esta reserva neste momento. Não foi cobrado nada e a sua reserva mantém-se — pague ao motorista no próprio dia, ou contacte-nos para pagar de outra forma.",
-    "minimumNote": "Toda reserva é cobrada por pelo menos {n} pessoas, portanto mais {spare} podem acompanhá-lo sem custo adicional.",
+    "minimumNote": "Mais {spare} podem acompanhá-lo sem custo adicional.",
     "perHeadNote": "{n} pessoas, cada uma à tarifa acima.",
     "totalWordLong": "no total",
     "transportPlusGates": "transporte mais ingressos",
@@ -281,7 +280,7 @@
     "passengers": "Passageiros",
     "fewer": "Menos passageiros",
     "more": "Mais passageiros",
-    "note": "As tarifas são por pessoa, e toda reserva é cobrada por pelo menos quatro passageiros. Em dólares americanos, e incluem a recepção dentro do desembarque.",
+    "note": "As tarifas são por pessoa. Em dólares americanos, e incluem a recepção dentro do desembarque.",
     "prompt": "Escolha o seu hotel e a tarifa exata aparece aqui — sem formulários nem esperar por um e-mail.",
     "roundTripLabel": "Transfer privado de ida e volta",
     "oneWayLabel": "Transfer privado só de ida",
@@ -289,7 +288,7 @@
     "ask": "Fazer uma pergunta",
     "perPerson": "/ pessoa",
     "totalFor": "no total para {n}",
-    "minimumNote": "Cobrado por {n} — o mínimo. Mais {spare} podem vir sem custo adicional."
+    "minimumNote": "Mais {spare} podem vir sem custo adicional."
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profissional.",
@@ -344,7 +343,7 @@
   "browse": {
     "eyebrow": "O que fazer na Jamaica",
     "title": "Onde quer passar o dia?",
-    "description": "Navegue por paróquia, ou pelo tipo de dia que procura. Cada preço é por pessoa com mínimo de quatro, e os ingressos estão listados ao lado.",
+    "description": "Navegue por paróquia, ou pelo tipo de dia que procura. Cada preço é por pessoa, e os ingressos estão listados ao lado.",
     "seeEverything": "Ver tudo",
     "option": "opção",
     "options": "opções"
@@ -355,7 +354,7 @@
     "popularDescription": "Dunn's River, o Blue Hole, o Rick's Cafe ao pôr do sol — os dias que acabam no álbum de fotografias.",
     "transfersEyebrow": "Transfers do aeroporto",
     "transfersTitle": "De Sangster até à sua porta.",
-    "transfersDescription": "Escolha o seu hotel e veja a tarifa exata — uma tarifa por pessoa, mínimo quatro, voo monitorado, motorista à espera no desembarque.",
+    "transfersDescription": "Escolha o seu hotel e veja a tarifa exata — uma tarifa por pessoa, voo monitorado, motorista à espera no desembarque.",
     "allRates": "Todas as tarifas",
     "combosEyebrow": "Dois num dia",
     "combosTitle": "Pacotes combinados, sem pressas.",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "O que fazer na Jamaica",
-    "metaDescription": "Todos os passeios da PPP Tran Tours, por paróquia — Montego Bay, Ocho Rios, Falmouth, Negril e a Costa Sul. Transporte por pessoa com mínimo de quatro, ingressos listados à parte.",
+    "metaDescription": "Todos os passeios da PPP Tran Tours, por paróquia — Montego Bay, Ocho Rios, Falmouth, Negril e a Costa Sul. Transporte por pessoa, ingressos listados à parte.",
     "eyebrow": "O catálogo",
     "title": "O que fazer na Jamaica.",
     "description": "Todos os passeios que fazemos, com o preço do transporte e o da entrada separados, para que veja exatamente o que é nosso e o que é da atração.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Transfers do aeroporto de Montego Bay",
-    "metaDescription": "Transfers privativos do Sangster International (MBJ) para todos os grandes resorts da Jamaica. Tarifas publicadas por pessoa com mínimo de quatro, voo monitorado, recepção no desembarque.",
+    "metaDescription": "Transfers privativos do Sangster International (MBJ) para todos os grandes resorts da Jamaica. Tarifas publicadas por pessoa, voo monitorado, recepção no desembarque.",
     "eyebrow": "Transfers do aeroporto",
     "title": "Do Sangster International até à sua porta.",
     "description": "Tarifas fixas e publicadas para todos os resorts que servimos. Escolha o seu hotel abaixo e veja a tarifa antes de nos dar um único dado.",
@@ -514,7 +513,7 @@
     "p4Body": "Uma tarifa por pessoa, e nunca menos de quatro cobradas. Sem taxa de combustível, sem sobretaxa de aeroporto.",
     "ratesEyebrow": "Todas as nossas tarifas",
     "ratesTitle": "A tabela de preços completa, à vista.",
-    "ratesDescription": "Cada tarifa é por pessoa, e todo grupo é cobrado por pelo menos quatro. Assim, uma, duas, três e quatro pessoas pagam o mesmo, e a partir da quinta cada pessoa simplesmente soma a tarifa.",
+    "ratesDescription": "Cada tarifa é por pessoa. Uma, duas, três e quatro pessoas pagam o mesmo, e a partir da quinta cada pessoa simplesmente soma a tarifa — quanto mais forem, menos cada um paga.",
     "resort": "Hotel",
     "oneWay": "Só ida",
     "roundTrip": "Ida e volta",
@@ -526,7 +525,7 @@
     "metaTitle": "Transfer do aeroporto para {resort} por {fare}",
     "metaDescription": "Transfer privado do aeroporto Sangster International de Montego Bay (MBJ) para {resort}. {fare} só ida até 4 passageiros, {roundTrip} ida e volta. Voo acompanhado, acolhimento dentro das chegadas.",
     "h1": "Transfer privado do aeroporto para {resort}",
-    "intro": "Do Sangster International (MBJ) até {resort} — {perPerson} por pessoa, com mínimo de {capacity} ({fare}). O seu motorista o aguarda no desembarque com uma placa com o seu nome e o leva direto até lá.",
+    "intro": "Do Sangster International (MBJ) até {resort} — {perPerson} por pessoa. O seu motorista o aguarda no desembarque com uma placa com o seu nome e o leva direto até lá.",
     "transferTo": "Transfer do aeroporto para",
     "oneWay": "Só ida",
     "roundTrip": "Ida e volta",
@@ -545,7 +544,7 @@
     "nearby": "Outros hotéis próximos que servimos",
     "toursEyebrow": "Já que está por cá",
     "toursTitle": "Passeios a partir de {resort}",
-    "toursDescription": "Os preços abaixo são para o seu hotel especificamente — transporte por pessoa com mínimo de quatro, com os ingressos listados à parte.",
+    "toursDescription": "Os preços abaixo são para o seu hotel especificamente — transporte por pessoa, com os ingressos listados à parte.",
     "minFrom": "a partir de"
   },
   "destinationsPage": {
@@ -658,7 +657,7 @@
     {
       "key": "pricing",
       "q": "Como funcionam os seus preços?",
-      "a": "Por pessoa, com um mínimo de quatro. Assim, uma, duas, três e quatro pessoas pagam exatamente o mesmo — a tarifa vezes quatro — e a partir do quinto passageiro cada pessoa simplesmente soma a tarifa. Ou seja: quanto mais gente levar, menos cada um paga."
+      "a": "Por pessoa. Uma, duas, três e quatro pessoas pagam o mesmo, e a partir do quinto passageiro cada pessoa simplesmente soma a tarifa — quanto mais gente levar, menos cada um paga. Diga-nos quantos são e o preço é calculado para você."
     },
     {
       "key": "entry",

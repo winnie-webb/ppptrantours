@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import { TOURS } from "@/app/data/catalogue";
 import { filterProductById, getRelatedProducts } from "@/app/products/product";
-import { money, MIN_BILLED_PAX } from "@/app/products/pricing";
+import { money } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import FarePill from "@/app/components/FarePill";
@@ -224,12 +224,6 @@ export default async function TourPage({ params }) {
                 label={dict.price?.from ?? "From"}
                 value={money(fromPerPerson)}
                 unit={dict.price?.perPerson ?? "/ person"}
-                extra={
-                  dict.price?.minimumPax?.replace(
-                    "{n}",
-                    String(MIN_BILLED_PAX)
-                  ) ?? `minimum ${MIN_BILLED_PAX} people`
-                }
                 highlight
               />
             </div>

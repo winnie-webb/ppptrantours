@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Privat. Persönlich. Professionell.",
-    "description": "Private Flughafentransfers, Inseltouren und Kreuzfahrt-Ausflüge in ganz Jamaika – Preis pro Person bei mindestens vier Personen, Eintrittsgelder separat ausgewiesen und nie mit Aufschlag.",
+    "description": "Private Flughafentransfers, Inseltouren und Kreuzfahrt-Ausflüge in ganz Jamaika – Preis pro Person, Eintrittsgelder separat ausgewiesen und nie mit Aufschlag.",
     "keywords": [
       "Flughafentransfer Jamaika",
       "private Touren Montego Bay",
@@ -112,8 +112,7 @@
     "askUs": "Fragen Sie uns",
     "weWillQuote": "wir nennen Ihnen den Preis",
     "perPerson": "/ Person",
-    "estimated": "Richtwert",
-    "minimumPax": "mindestens {n} Personen"
+    "estimated": "Richtwert"
   },
   "place": {
     "title": "Wo wohnen Sie?",
@@ -260,7 +259,7 @@
     "payDidntOpen": "Die Zahlungsseite hat sich nicht geöffnet",
     "payDidntOpenBody": "Ihre Buchung ist in jedem Fall bestätigt — es wurde nichts abgebucht. Versuchen Sie es unten erneut, oder zahlen Sie einfach am Tag selbst beim Fahrer.",
     "payUnavailable": "Kartenzahlung ist für diese Buchung derzeit nicht verfügbar. Es wurde nichts abgebucht und Ihre Buchung besteht weiter — zahlen Sie am Tag selbst bei Ihrem Fahrer, oder schreiben Sie uns für eine andere Zahlungsart.",
-    "minimumNote": "Jede Buchung wird für mindestens {n} Personen berechnet – {spare} weitere können also ohne Aufpreis mitkommen.",
+    "minimumNote": "{spare} weitere können ohne Aufpreis mitkommen.",
     "perHeadNote": "{n} Personen, jede zum oben genannten Preis.",
     "totalWordLong": "gesamt",
     "transportPlusGates": "Transport plus Eintrittsgelder",
@@ -281,7 +280,7 @@
     "passengers": "Fahrgäste",
     "fewer": "Weniger Fahrgäste",
     "more": "Mehr Fahrgäste",
-    "note": "Die Preise gelten pro Person, und jede Buchung wird für mindestens vier Passagiere berechnet. In US-Dollar, inklusive Empfang in der Ankunftshalle.",
+    "note": "Die Preise gelten pro Person. In US-Dollar, inklusive Empfang in der Ankunftshalle.",
     "prompt": "Wählen Sie Ihr Hotel, und hier erscheint der genaue Preis — ohne Formular und ohne auf eine E-Mail zu warten.",
     "roundTripLabel": "Privater Transfer hin und zurück",
     "oneWayLabel": "Privater Transfer, einfache Fahrt",
@@ -289,7 +288,7 @@
     "ask": "Eine Frage stellen",
     "perPerson": "/ Person",
     "totalFor": "insgesamt für {n}",
-    "minimumNote": "Berechnet für {n} – das Minimum. {spare} weitere können ohne Aufpreis mitkommen."
+    "minimumNote": "{spare} weitere können ohne Aufpreis mitkommen."
   },
   "hero": {
     "tagline": "Privat. Persönlich. Professionell.",
@@ -344,7 +343,7 @@
   "browse": {
     "eyebrow": "Was man auf Jamaika unternehmen kann",
     "title": "Wo möchten Sie den Tag verbringen?",
-    "description": "Stöbern Sie nach Gemeinde oder nach der Art des Tages, den Sie suchen. Jeder Preis gilt pro Person bei mindestens vier Personen, die Eintrittsgelder stehen daneben.",
+    "description": "Stöbern Sie nach Gemeinde oder nach der Art des Tages, den Sie suchen. Jeder Preis gilt pro Person, die Eintrittsgelder stehen daneben.",
     "seeEverything": "Alles ansehen",
     "option": "Angebot",
     "options": "Angebote"
@@ -355,7 +354,7 @@
     "popularDescription": "Dunn's River, das Blue Hole, Rick's Cafe bei Sonnenuntergang — die Tage, die im Fotoalbum landen.",
     "transfersEyebrow": "Flughafentransfers",
     "transfersTitle": "Von Sangster bis vor Ihre Tür.",
-    "transfersDescription": "Wählen Sie Ihr Hotel und sehen Sie den genauen Preis – ein Preis pro Person, mindestens vier, Flug überwacht, Fahrer wartet in der Ankunftshalle.",
+    "transfersDescription": "Wählen Sie Ihr Hotel und sehen Sie den genauen Preis – ein Preis pro Person, Flug überwacht, Fahrer wartet in der Ankunftshalle.",
     "allRates": "Alle Preise",
     "combosEyebrow": "Zwei an einem Tag",
     "combosTitle": "Kombi-Pakete, ganz ohne Hetze.",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Was man auf Jamaika unternehmen kann",
-    "metaDescription": "Alle Touren von PPP Tran Tours, nach Gemeinde – Montego Bay, Ocho Rios, Falmouth, Negril und die Südküste. Transport pro Person bei mindestens vier Personen, Eintrittsgelder separat.",
+    "metaDescription": "Alle Touren von PPP Tran Tours, nach Gemeinde – Montego Bay, Ocho Rios, Falmouth, Negril und die Südküste. Transport pro Person, Eintrittsgelder separat.",
     "eyebrow": "Der Katalog",
     "title": "Was man auf Jamaika unternehmen kann.",
     "description": "Alle Touren, die wir anbieten, mit Transportpreis und Eintrittsgeld getrennt ausgewiesen — damit Sie genau sehen, was uns gehört und was der Attraktion.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Flughafentransfers Montego Bay",
-    "metaDescription": "Private Flughafentransfers vom Sangster International (MBJ) zu jedem großen jamaikanischen Resort. Veröffentlichte Preise pro Person bei mindestens vier Personen, Flug überwacht, Empfang in der Ankunftshalle.",
+    "metaDescription": "Private Flughafentransfers vom Sangster International (MBJ) zu jedem großen jamaikanischen Resort. Veröffentlichte Preise pro Person, Flug überwacht, Empfang in der Ankunftshalle.",
     "eyebrow": "Flughafentransfers",
     "title": "Vom Sangster International bis vor Ihre Tür.",
     "description": "Feste, veröffentlichte Preise für jedes Resort, das wir anfahren. Wählen Sie unten Ihr Hotel und sehen Sie den Preis, bevor Sie uns eine einzige Angabe machen.",
@@ -514,7 +513,7 @@
     "p4Body": "Ein Preis pro Person, und nie weniger als vier berechnet. Keine Kraftstoffabgabe, kein Flughafenzuschlag.",
     "ratesEyebrow": "Alle unsere Preise",
     "ratesTitle": "Die komplette Preisliste, offen einsehbar.",
-    "ratesDescription": "Jeder Preis gilt pro Person, und jede Gruppe wird für mindestens vier berechnet. Eine, zwei, drei und vier Personen zahlen also dasselbe, und ab der fünften kommt einfach der Preis pro Person hinzu.",
+    "ratesDescription": "Jeder Preis gilt pro Person. Eine, zwei, drei und vier Personen zahlen dasselbe, und ab der fünften kommt einfach der Preis pro Person hinzu – je mehr Sie sind, desto weniger zahlt jeder.",
     "resort": "Hotel",
     "oneWay": "Einfache Fahrt",
     "roundTrip": "Hin und zurück",
@@ -526,7 +525,7 @@
     "metaTitle": "Flughafentransfer zum {resort} für {fare}",
     "metaDescription": "Privater Flughafentransfer vom Sangster International in Montego Bay (MBJ) zum {resort}. {fare} für die einfache Fahrt mit bis zu 4 Fahrgästen, {roundTrip} hin und zurück. Flug verfolgt, Empfang in der Ankunftshalle.",
     "h1": "Privater Flughafentransfer zum {resort}",
-    "intro": "Vom Sangster International (MBJ) nach {resort} – {perPerson} pro Person, bei mindestens {capacity} ({fare}). Ihr Fahrer erwartet Sie mit Namensschild in der Ankunftshalle und bringt Sie direkt hin.",
+    "intro": "Vom Sangster International (MBJ) nach {resort} – {perPerson} pro Person. Ihr Fahrer erwartet Sie mit Namensschild in der Ankunftshalle und bringt Sie direkt hin.",
     "transferTo": "Flughafentransfer zum",
     "oneWay": "Einfache Fahrt",
     "roundTrip": "Hin und zurück",
@@ -545,7 +544,7 @@
     "nearby": "Weitere Hotels in der Nähe, die wir anfahren",
     "toursEyebrow": "Wenn Sie schon da sind",
     "toursTitle": "Touren ab {resort}",
-    "toursDescription": "Die Preise unten gelten speziell für Ihr Hotel – Transport pro Person bei mindestens vier Personen, Eintrittsgelder separat aufgeführt.",
+    "toursDescription": "Die Preise unten gelten speziell für Ihr Hotel – Transport pro Person, Eintrittsgelder separat aufgeführt.",
     "minFrom": "ab"
   },
   "destinationsPage": {
@@ -658,7 +657,7 @@
     {
       "key": "pricing",
       "q": "Wie funktioniert Ihre Preisgestaltung?",
-      "a": "Pro Person, bei mindestens vier Personen. Eine, zwei, drei und vier Reisende zahlen also genau dasselbe – den Preis mal vier – und ab dem fünften Passagier kommt einfach der Preis pro Person hinzu. Je mehr Sie also sind, desto weniger zahlt jeder Einzelne."
+      "a": "Pro Person. Eine, zwei, drei und vier Reisende zahlen dasselbe, und ab dem fünften Passagier kommt einfach der Preis pro Person hinzu – je mehr Sie sind, desto weniger zahlt jeder Einzelne. Sagen Sie uns die Personenzahl, und der Preis wird für Sie berechnet."
     },
     {
       "key": "entry",

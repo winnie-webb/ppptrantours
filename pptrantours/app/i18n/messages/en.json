@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Private. Personalized. Professional.",
-    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — priced per person with a four-person minimum, attraction entry fees quoted separately and never marked up.",
+    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — priced per person, attraction entry fees quoted separately and never marked up.",
     "keywords": [
       "Jamaica airport transfer",
       "Montego Bay private tours",
@@ -112,8 +112,7 @@
     "askUs": "Ask us",
     "weWillQuote": "we'll quote it",
     "perPerson": "/ person",
-    "estimated": "indicative",
-    "minimumPax": "minimum {n} people"
+    "estimated": "indicative"
   },
   "place": {
     "title": "Where are you staying?",
@@ -260,7 +259,7 @@
     "payDidntOpen": "The payment page didn't open",
     "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
     "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way.",
-    "minimumNote": "Every booking is charged for at least {n} people, so {spare} more can join you at no extra cost.",
+    "minimumNote": "{spare} more can join you at no extra cost.",
     "perHeadNote": "{n} people, each at the rate above.",
     "totalWordLong": "total",
     "transportPlusGates": "transport plus gate fees",
@@ -281,7 +280,7 @@
     "passengers": "Passengers",
     "fewer": "Fewer passengers",
     "more": "More passengers",
-    "note": "Rates are per person, and every booking is charged for at least four passengers. In US dollars, and they include the meet-and-greet inside arrivals.",
+    "note": "Rates are per person. In US dollars, and they include the meet-and-greet inside arrivals.",
     "prompt": "Choose your resort and the exact fare appears here — no forms, no waiting for an email.",
     "roundTripLabel": "Round-trip private transfer",
     "oneWayLabel": "One-way private transfer",
@@ -289,7 +288,7 @@
     "ask": "Ask a question",
     "perPerson": "/ person",
     "totalFor": "total for {n}",
-    "minimumNote": "Charged for {n} — the minimum. {spare} more can come at no extra cost."
+    "minimumNote": "{spare} more can come at no extra cost."
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",
@@ -344,7 +343,7 @@
   "browse": {
     "eyebrow": "Things to do in Jamaica",
     "title": "Where do you want to spend the day?",
-    "description": "Browse by parish, or by the kind of day you're after. Every price is per person with a four-person minimum, and the gate fees are listed beside it.",
+    "description": "Browse by parish, or by the kind of day you're after. Every price is per person, with the gate fees listed beside it.",
     "seeEverything": "See everything",
     "option": "option",
     "options": "options"
@@ -355,7 +354,7 @@
     "popularDescription": "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album.",
     "transfersEyebrow": "Airport transfers",
     "transfersTitle": "From Sangster to your front door.",
-    "transfersDescription": "Pick your resort and see the exact fare — one rate per person, minimum four, flight tracked, driver waiting inside arrivals.",
+    "transfersDescription": "Pick your resort and see the exact fare — a rate per person, flight tracked, driver waiting inside arrivals.",
     "allRates": "All rates",
     "combosEyebrow": "Two in one day",
     "combosTitle": "Combo packages, no rushing.",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
-    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per person with a four-person minimum, entry fees listed separately.",
+    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per person, entry fees listed separately.",
     "eyebrow": "The catalogue",
     "title": "Things to do in Jamaica.",
     "description": "Every tour we run, with the transport price and the gate fee shown separately so you can see exactly what is ours and what is the attraction's.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Montego Bay Airport Transfers",
-    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Published per-person rates with a four-person minimum, flight tracked, met inside arrivals.",
+    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Published per-person rates, flight tracked, met inside arrivals.",
     "eyebrow": "Airport transfers",
     "title": "Sangster International to your front door.",
     "description": "Flat, published rates to every resort we serve. Pick your hotel below and see the fare before you give us a single detail.",
@@ -514,7 +513,7 @@
     "p4Body": "One rate per person, and never fewer than four charged. No fuel levy, no airport surcharge.",
     "ratesEyebrow": "Every rate we publish",
     "ratesTitle": "The whole price list, in the open.",
-    "ratesDescription": "Every rate is per person, and every party is charged for at least four. So one, two, three and four people pay the same, and from the fifth on each person simply adds the rate.",
+    "ratesDescription": "Every rate is per person. One, two, three and four people pay the same, and from the fifth on each person simply adds the rate — so the more of you there are, the less each pays.",
     "resort": "Resort",
     "oneWay": "One way",
     "roundTrip": "Round trip",
@@ -526,7 +525,7 @@
     "metaTitle": "{fare} Airport Transfer to {resort}",
     "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met inside arrivals.",
     "h1": "Private airport transfer to {resort}",
-    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person, with a minimum of {capacity} ({fare}). Your driver meets you inside arrivals with a name board and takes you straight there.",
+    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person. Your driver meets you inside arrivals with a name board and takes you straight there.",
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
@@ -545,7 +544,7 @@
     "nearby": "Other resorts we serve nearby",
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
-    "toursDescription": "Prices below are for your resort specifically — transport per person with a four-person minimum, with the gate fees listed separately.",
+    "toursDescription": "Prices below are for your resort specifically — transport per person, with the gate fees listed separately.",
     "minFrom": "from"
   },
   "destinationsPage": {
@@ -658,7 +657,7 @@
     {
       "key": "pricing",
       "q": "How does your pricing work?",
-      "a": "Per person, with a four-person minimum. So one, two, three and four travellers all pay exactly the same — the rate times four — and from the fifth passenger on each person simply adds the rate. It means the more people you bring, the less each of you pays."
+      "a": "Per person. One, two, three and four travellers all pay the same, and from the fifth passenger on each person simply adds the rate — so the more people you bring, the less each of you pays. Tell us how many are coming and the price is worked out for you."
     },
     {
       "key": "entry",

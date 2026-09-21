@@ -128,7 +128,7 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
 
           <p className="text-xs leading-relaxed text-ink/45">
             {t.note ??
-              `Rates are per person, and every party is charged for at least ${MIN_BILLED_PAX}. In US dollars, and they include the meet-and-greet inside arrivals.`}
+              "Rates are per person. In US dollars, and they include the meet-and-greet inside arrivals."}
           </p>
         </div>
 
@@ -169,19 +169,20 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                   <span>{money(quote.total)}</span>
                 </div>
                 {/*
-                  Below the floor the guest is paying for seats nobody is
-                  sitting in. Saying so, and saying what it buys them, is the
-                  difference between a minimum that feels like a catch and one
-                  that reads as an invitation.
+                  Only the invitation, never the condition.
+
+                  This used to open with "Charged for 4 — the minimum", which
+                  the owner read as a rule about who may book: it "leads me to
+                  believe that unless I have four persons, I couldn't do it
+                  alone". What is left says what the spare seats buy and states
+                  no requirement at all.
                 */}
                 {quote.atMinimum && (
                   <p className="mt-2 leading-relaxed text-gold-400/80">
                     {t.minimumNote
                       ?.replace("{n}", String(MIN_BILLED_PAX))
                       .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
-                      `Charged for ${MIN_BILLED_PAX} — the minimum. ${
-                        MIN_BILLED_PAX - pax
-                      } more can come at no extra cost.`}
+                      `${MIN_BILLED_PAX - pax} more can come at no extra cost.`}
                   </p>
                 )}
               </div>

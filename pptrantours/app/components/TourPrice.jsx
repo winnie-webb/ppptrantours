@@ -1,14 +1,19 @@
 "use client";
 
-import { money, lowestTransport, MIN_BILLED_PAX } from "@/app/products/pricing";
+import { money, lowestTransport } from "@/app/products/pricing";
 import { usePlace } from "./PlaceProvider";
 
 /**
  * The price on a card.
  *
- * The per-head rate, and the minimum underneath it. Both, always — a bare
- * "$50 / person" is only true of a party of four or more, and a card that says
- * it without the floor sells a minimum charge as if it were a bargain.
+ * The per-head rate, on its own.
+ *
+ * It used to carry "minimum 4 people" underneath. That reads as a condition of
+ * booking rather than a billing floor — the owner's words: it "leads me to
+ * believe that unless I have four persons, I couldn't do it alone or with two
+ * persons". A solo traveller who believes that does not book at all. The party
+ * size is asked for on the booking page and the price follows from it; nothing
+ * on a card needs to pre-empt that.
  *
  * This figure is now the stored rate rather than a total divided by an assumed
  * party size, which is what stopped the card and the booking page printing two
@@ -58,10 +63,6 @@ export default function TourPrice({ tour, dict, align = "left" }) {
       </span>
       <span className="ml-1 text-xs text-ink/45">
         {t.perPerson ?? "/ person"}
-      </span>
-      <span className="mt-0.5 block text-[0.68rem] leading-snug text-ink/40">
-        {t.minimumPax?.replace("{n}", String(MIN_BILLED_PAX)) ??
-          `minimum ${MIN_BILLED_PAX} people`}
       </span>
       {unpricedForPlace && (
         <span className="block text-[0.68rem] leading-snug text-ink/40">

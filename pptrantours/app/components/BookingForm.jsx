@@ -709,9 +709,7 @@ export default function BookingForm({
             ? t.minimumNote
                 ?.replace("{n}", String(MIN_BILLED_PAX))
                 .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
-              `Every booking is charged for at least ${MIN_BILLED_PAX} people, so ${
-                MIN_BILLED_PAX - pax
-              } more can join you at no extra cost.`
+              `${MIN_BILLED_PAX - pax} more can join you at no extra cost.`
             : t.perHeadNote?.replace("{n}", String(pax)) ??
               `${pax} people, each at the rate above.`}
         </p>
@@ -1092,15 +1090,6 @@ function PriceHeader({
               <p className="text-xs text-ink/45">
                 {money(quote.transport.total)}{" "}
                 {t.totalWordLong ?? "total"}
-                {quote.transport.atMinimum && (
-                  <span className="ml-1 text-ink/40">
-                    ·{" "}
-                    {dict?.price?.minimumPax?.replace(
-                      "{n}",
-                      String(MIN_BILLED_PAX)
-                    ) ?? `minimum ${MIN_BILLED_PAX} people`}
-                  </span>
-                )}
               </p>
             </>
           ) : (
