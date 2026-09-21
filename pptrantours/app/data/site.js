@@ -330,8 +330,8 @@ export const testimonials = [
 export const faqs = [
   {
     key: "pricing",
-    q: "Are your prices per person or per vehicle?",
-    a: "Per vehicle. One published price covers the whole group up to four people, so two travellers and four travellers pay exactly the same for the transport. From the fifth passenger on, each one adds a small fixed amount that is shown next to every rate.",
+    q: "How is the price worked out?",
+    a: "Per person, with a four-person minimum. For bookings of 1 to 4 people the total is based on the 4-person rate, so one, two, three and four travellers all pay the same total; from the fifth passenger on, each one simply adds the rate. You never have to work it out — the booking form shows your total as you fill it in.",
   },
   {
     key: "entry",

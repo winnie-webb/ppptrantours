@@ -13,10 +13,8 @@ import {
 } from "react-icons/fa";
 import { TOURS } from "@/app/data/catalogue";
 import { filterProductById, getRelatedProducts } from "@/app/products/product";
-import { money } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
-import FarePill from "@/app/components/FarePill";
 import StickyBookBar from "@/app/components/StickyBookBar";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -95,16 +93,6 @@ export default async function TourPage({ params }) {
   const hasEntry =
     (base.entry?.components ?? []).length > 0 ||
     (base.entry?.addons ?? []).length > 0;
-
-  // The headline "from" figure for the hero, so the page answers "how much?"
-  // before the guest scrolls or opens the resort picker. Same floor as the one
-  // the cards sort on (sortByPrice in app/products/product.js): the cheapest
-  // published per-head rate. It is the rate itself, not a total divided by an
-  // assumed party — so the hero, the card and the booking form all agree.
-  const bands = Object.values(base.zones ?? {});
-  const fromPerPerson = bands.length
-    ? Math.min(...bands.map((b) => b.rate))
-    : null;
 
   // Mirrors the visible breadcrumb below, one for one. Absolute URLs, as
   // BreadcrumbList requires.
@@ -217,17 +205,15 @@ export default async function TourPage({ params }) {
             <p className="mt-2 text-sm font-medium text-white/50">{tour.subtitle}</p>
           )}
 
-          {/* Answer "how much?" here, not in a table further down. */}
-          {fromPerPerson != null && (
-            <div className="mt-7 flex flex-wrap gap-3">
-              <FarePill
-                label={dict.price?.from ?? "From"}
-                value={money(fromPerPerson)}
-                unit={dict.price?.perPerson ?? "/ person"}
-                highlight
-              />
-            </div>
-          )}
+          {/*
+            No price in this hero.
+
+            It showed a per-head rate, and a per-head rate is not what anyone
+            is charged for a day out — the smallest cheque is four of them.
+            The booking form below works out the real total for this guest's
+            party as they fill it in, and that is the only figure on the page.
+            The cards still carry a "from" rate; that is a shop window.
+          */}
         </div>
       </section>
 
@@ -369,14 +355,10 @@ export default async function TourPage({ params }) {
         </section>
       )}
 
-      {fromPerPerson != null && (
-        <StickyBookBar
-          label={dict.price?.from ?? "From"}
-          price={money(fromPerPerson)}
-          unit={dict.price?.perPerson ?? "/ person"}
-          cta={dict.booking?.bookNow ?? "Book now"}
-        />
-      )}
+      <StickyBookBar
+        title={tour.title}
+        cta={dict.booking?.bookNow ?? "Book now"}
+      />
     </>
   );
 }

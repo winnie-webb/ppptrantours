@@ -209,19 +209,6 @@ export function minimumFare(rate) {
   return rate == null ? null : rate * MIN_BILLED_PAX;
 }
 
-/** Cheapest one-way transfer rate in a group of places. */
-export function lowestTransfer(placeKeys) {
-  const rates = placeKeys
-    .map((k) => getPlace(k)?.transfer?.oneWay)
-    .filter((n) => typeof n === "number");
-  return rates.length ? Math.min(...rates) : null;
-}
-
-/** Whether this tour can be priced at all from where the guest is staying. */
-export function isPricedFrom(tour, zoneKey) {
-  return Boolean(zoneKey && tour?.zones?.[zoneKey]);
-}
-
 /* ── Formatting ────────────────────────────────────────────────────────────── */
 
 export function money(value) {

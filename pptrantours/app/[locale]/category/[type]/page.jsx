@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }) {
           tours={tours}
           locale={locale}
           dict={client}
-          showCategoryFilter={false}
+          categoryFilter="none"
         />
       </section>
 

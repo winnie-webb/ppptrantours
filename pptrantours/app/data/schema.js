@@ -137,13 +137,18 @@ export function faqSchema(faqs) {
 /**
  * A tour, as a `Product` with a low-price `AggregateOffer`.
  *
- * The price is transport only, and it is the *lowest* published origin — which
- * is exactly what the page's own "from" figure shows. Gate fees are excluded
- * because PPP never collects them, so folding them in would misstate what is on
- * sale. `lowPrice` with no `highPrice` is honest about being a floor.
+ * The price is transport only, and it is the *lowest* published origin. Gate
+ * fees are excluded because PPP never collects them, so folding them in would
+ * misstate what is on sale. `lowPrice` with no `highPrice` is honest about
+ * being a floor.
+ *
+ * It is a TOTAL for up to four guests, not the per-head rate. The rate is what
+ * this published before, and it was a quarter of the smallest sum anyone is
+ * actually asked for — a price in structured data has to be one a guest can
+ * be charged.
  */
 export function tourSchema(tour, url, baseUrl, title, description) {
-  const from = lowestTransport(tour);
+  const from = minimumFare(lowestTransport(tour));
   const offers =
     from == null
       ? undefined
@@ -154,7 +159,8 @@ export function tourSchema(tour, url, baseUrl, title, description) {
           availability: "https://schema.org/InStock",
           offerCount: Object.keys(tour.zones ?? {}).length || 1,
           seller: { "@id": `${baseUrl}/${ORG_ID}` },
-          description: "Per person. Attraction entry is paid at the gate and is not included.",
+          description:
+            "Total transport for up to 4 guests. Attraction entry is paid at the gate and is not included.",
         };
 
   return {
@@ -173,8 +179,12 @@ export function tourSchema(tour, url, baseUrl, title, description) {
 /**
  * An airport transfer to one resort, as a `Service`.
  *
- * `Service` rather than `Product`: nothing is handed over, and the one-way rate
- * is a firm price for a defined journey rather than a "from".
+ * `Service` rather than `Product`: nothing is handed over, and the one-way
+ * fare is a firm price for a defined journey rather than a "from".
+ *
+ * `price` is the four-person total, which is what the page title and the
+ * booking form both say. It used to be the per-head rate — so Google was told
+ * $25 for a journey the page headlined at $100.
  */
 export function transferSchema(place, url, baseUrl, description) {
   const rate = place.transfer;
@@ -191,9 +201,9 @@ export function transferSchema(place, url, baseUrl, description) {
       ? {
           "@type": "Offer",
           priceCurrency: "USD",
-          price: rate.oneWay,
+          price: minimumFare(rate.oneWay),
           availability: "https://schema.org/InStock",
-          description: `One way, per person, from ${minimumFare(rate.oneWay)} USD. Round trip ${rate.roundTrip} USD per person.`,
+          description: `One way, total for up to 4 passengers. Round trip ${minimumFare(rate.roundTrip)} USD.`,
         }
       : undefined,
   };

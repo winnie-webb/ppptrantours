@@ -157,7 +157,8 @@
     "emptyBody": "Try a broader search — or ask us directly, we build custom days all the time.",
     "clear": "Clear filters",
     "prev": "Previous page",
-    "next": "Next page"
+    "next": "Next page",
+    "all": "All"
   },
   "booking": {
     "payCaptureFailed": "We couldn't confirm that payment. Don't try again yet — message us and we'll check before anything is charged twice.",
@@ -244,12 +245,12 @@
     "payDidntOpen": "The payment page didn't open",
     "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
     "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way.",
-    "minimumNote": "For bookings of 1 to 4 people, the total tour/transfer price is based on the 4-person rate, so groups of 1, 2, 3, or 4 people all pay the same total price.",
     "sectionTrip": "Your trip",
     "sectionParty": "Who's coming",
     "sectionDetails": "Your details",
     "sectionPay": "How you'll pay",
-    "browseTransfers": "See all transfer rates"
+    "browseTransfers": "See all transfer rates",
+    "autoNote": "Your total is worked out automatically as you fill this in. For bookings of 1 to 4 people, the total is based on the 4-person rate, so 1, 2, 3 or 4 people all pay the same."
   },
   "fare": {
     "from": "From Sangster International (MBJ)",
@@ -261,14 +262,16 @@
     "passengers": "Passengers",
     "fewer": "Fewer passengers",
     "more": "More passengers",
-    "note": "Rates are per person. Minimum booking cost for 1–4 persons is four times the per-person rate. In US dollars, and they include the meet-and-greet inside arrivals.",
-    "prompt": "Choose your resort and the exact fare appears here — no forms, no waiting for an email.",
+    "prompt": "Choose your resort and your fare appears here.",
     "roundTripLabel": "Round-trip private transfer",
     "oneWayLabel": "One-way private transfer",
     "book": "Book this transfer",
     "ask": "Ask a question",
     "perPerson": "/ person",
-    "totalFor": "total for {n}"
+    "totalFor": "total for {n}",
+    "chooseFirst": "Choose your resort and the rest of the booking appears here, price included.",
+    "another": "Book another transfer",
+    "noteTotal": "For bookings of 1 to 4 people the total is based on the 4-person rate, so 1, 2, 3 or 4 people all pay the same. In US dollars, and the meet-and-greet inside arrivals is included."
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",
@@ -445,21 +448,11 @@
     "inc2": "Licensed, insured local driver and guide",
     "inc3": "Pickup and drop-off at your door",
     "inc4": "No fixed departure — you set the pace",
-    "transportTable": "What the transport costs",
-    "pickingUpFrom": "Picking you up from",
-    "eachExtra": "Each extra",
-    "otherResorts": "Staying somewhere else? We still run this trip — send us a message and we'll quote your resort directly.",
-    "entryTable": "What the attraction charges",
     "entryTableNote": "Attraction admission is not included and we do not sell it. You pay the gate directly on the day, at the gate's own price — we never resell it or add anything to it.",
     "noEntry": "Nothing. There is no gate fee on this one.",
-    "entryItem": "Ticket",
-    "entryAdult": "Adult",
-    "entryChild": "Child",
     "optional": "optional",
     "alsoLike": "You might also like",
-    "moreTours": "More tours",
-    "perPersonCol": "Per person",
-    "estimatedMark": "indicative"
+    "moreTours": "More tours"
   },
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
@@ -468,9 +461,6 @@
     "title": "Things to do in Jamaica.",
     "description": "Every tour we run, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it.",
     "crumb": "Things to do",
-    "parishEyebrow": "By parish",
-    "parishTitle": "Pick a corner of the island.",
-    "parishDescription": "We are based in Montego Bay and run to all of it. These are the days we run most.",
     "tour": "tour",
     "toursWord": "tours"
   },
@@ -479,10 +469,10 @@
   },
   "transfersPage": {
     "metaTitle": "Montego Bay Airport Transfers",
-    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Published per-person rates, flight tracked, met inside arrivals.",
+    "metaDescription": "Private airport transfers from Montego Bay Sangster International (MBJ) to every major resort, with published fares. Flight tracked, met inside arrivals.",
     "eyebrow": "Airport transfers",
     "title": "Sangster International to your front door.",
-    "description": "Flat, published rates to every resort we serve. Pick your hotel below and see the fare before you give us a single detail.",
+    "description": "Published fares to every resort we serve. Pick your hotel below and book it on this page.",
     "p1Title": "Met inside arrivals",
     "p1Body": "Your driver is in the hall with a name board, not in a car park somewhere.",
     "p2Title": "Flight tracked",
@@ -490,7 +480,7 @@
     "p3Title": "Private, always",
     "p3Body": "Your group alone. No shared van, no circuit of other hotels first.",
     "p4Title": "The price is the price",
-    "p4Body": "One rate per person, and never fewer than four charged. No fuel levy, no airport surcharge.",
+    "p4Body": "One fare for up to four passengers. No fuel levy, no airport surcharge.",
     "ratesEyebrow": "Every rate we publish",
     "ratesTitle": "The whole price list, in the open.",
     "ratesDescription": "Every rate is per person. One, two, three and four people pay the same, and from the fifth on each person simply adds the rate — so the more of you there are, the less each pays.",
@@ -499,7 +489,7 @@
     "roundTrip": "Round trip",
     "book": "Book",
     "notListed": "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day.",
-    "minFrom": "from"
+    "ratesTotalDescription": "Every price here is the whole fare for up to 4 passengers — not per head, not a deposit. Travelling with more? The booking page works your total out before you enter a single detail."
   },
   "transferPage": {
     "metaTitle": "{fare} Airport Transfer to {resort}",
@@ -509,23 +499,17 @@
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
-    "perExtra": "per extra",
     "whatYouGet": "What the fare covers",
     "inc1": "Met inside the arrivals hall with a name board",
     "inc2": "Flight tracked — delays cost you nothing",
     "inc3": "Private, air-conditioned vehicle, your group only",
     "inc4": "Licensed, insured driver who handles the luggage",
-    "pricing": "How the price works",
-    "party": "Your party",
-    "passenger": "passenger",
-    "passengers": "passengers",
-    "sameAsOne": "same as one",
     "pricingNote": "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare.",
     "nearby": "Other resorts we serve nearby",
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
     "toursDescription": "Prices below are for your resort specifically — the transport, worked out for your group.",
-    "minFrom": "from"
+    "introTotal": "From Sangster International (MBJ) to {resort}. Your driver meets you inside arrivals with a name board and takes you straight there. Your total is worked out in the form below."
   },
   "destinationsPage": {
     "metaTitle": "Destinations",
@@ -636,8 +620,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "How does your pricing work?",
-      "a": "Per person. One, two, three and four travellers all pay the same, and from the fifth passenger on each person simply adds the rate — so the more people you bring, the less each of you pays. Tell us how many are coming and the price is worked out for you."
+      "q": "How is the price worked out?",
+      "a": "Per person, with a four-person minimum. For bookings of 1 to 4 people the total is based on the 4-person rate, so one, two, three and four travellers all pay the same total; from the fifth passenger on, each one simply adds the rate. You never have to work it out — the booking form shows your total as you fill it in."
     },
     {
       "key": "entry",

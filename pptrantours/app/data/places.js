@@ -166,11 +166,18 @@ export function getAreaLabel(key) {
   return AREAS.find((a) => a.key === key)?.label ?? key;
 }
 
-/** Places grouped for the picker, in AREAS order, empty groups dropped. */
-export function placesByArea() {
+/**
+ * Places grouped for a picker, in AREAS order, empty groups dropped.
+ *
+ * `filter` narrows the list before grouping. The airport pickers pass
+ * `(p) => p.transfer`, because the two cruise piers have no fare and offering
+ * them would produce a resort the form cannot price.
+ */
+export function placesByArea(filter) {
+  const list = filter ? PLACES.filter(filter) : PLACES;
   return AREAS.map((area) => ({
     ...area,
-    places: PLACES.filter((p) => p.area === area.key),
+    places: list.filter((p) => p.area === area.key),
   })).filter((g) => g.places.length > 0);
 }
 

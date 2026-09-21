@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 
 /**
- * Mobile-only price + Book bar.
+ * Mobile-only Book bar.
  *
  * On a phone the booking form is the last thing in the DOM on both booking
  * pages, because the two-column grid stacks and the form lives in the second
- * column. Rather than fight the grid, this keeps the price and a way into the
- * form within thumb reach from anywhere on the page.
+ * column. Rather than fight the grid, this keeps a way into the form within
+ * thumb reach from anywhere on the page.
  *
  * Two behaviours matter and are easy to get wrong:
  *
@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
  * lift the floating WhatsApp button clear of it — they both want the same
  * corner otherwise.
  */
-export default function StickyBookBar({ price, unit, label, cta }) {
+export default function StickyBookBar({ title, cta }) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -78,23 +78,29 @@ export default function StickyBookBar({ price, unit, label, cta }) {
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
+      {/*
+        No price in the bar any more.
+
+        It carried the per-head rate, which is not a figure anybody is charged
+        for the trip, and it carried it in the one place a guest cannot see the
+        form's real total. What is useful here is the name of the thing they
+        are looking at and a way back to the form.
+      */}
       <div className="flex items-center justify-between gap-4 px-5 py-3">
-        <div className="min-w-0">
-          {label && (
-            <p className="text-[0.62rem] font-semibold uppercase tracking-wider text-ink/45">
-              {label}
+        {title ? (
+          <>
+            <p className="min-w-0 flex-1 truncate font-display text-base font-semibold text-ink">
+              {title}
             </p>
-          )}
-          <p className="truncate font-display text-xl font-semibold text-ink">
-            {price}
-            {unit && (
-              <span className="ml-1 text-xs font-medium text-ink/50">{unit}</span>
-            )}
-          </p>
-        </div>
-        <a href="#book" className="btn-primary shrink-0">
-          {cta}
-        </a>
+            <a href="#book" className="btn-primary shrink-0">
+              {cta}
+            </a>
+          </>
+        ) : (
+          <a href="#book" className="btn-primary w-full justify-center">
+            {cta}
+          </a>
+        )}
       </div>
     </div>
   );

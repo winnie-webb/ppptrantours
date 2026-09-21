@@ -16,7 +16,6 @@ import { TOURS } from "@/app/data/catalogue";
 import { money, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
-import FarePill from "@/app/components/FarePill";
 import StickyBookBar from "@/app/components/StickyBookBar";
 import JsonLd from "@/app/components/JsonLd";
 import TourCard from "@/app/components/TourCard";
@@ -78,9 +77,9 @@ export default async function TransferPage({ params }) {
   const dict = await getDictionary(locale);
   const client = clientDict(dict);
   const t = dict.transferPage ?? {};
-  // Per-head rates. `oneWayFare`/`roundTripFare` are what a party of four or
-  // fewer actually hands over, which is what every sentence quoting a single
-  // amount for the trip has to use.
+  // Totals, never the per-head rate. These are what a party of four or fewer
+  // actually hands over, and the only figures this page is allowed to quote:
+  // a rate is a shop-window number and belongs on a card.
   const { oneWay, roundTrip } = place.transfer;
   const oneWayFare = minimumFare(oneWay);
   const roundTripFare = minimumFare(roundTrip);
@@ -113,7 +112,7 @@ export default async function TransferPage({ params }) {
       place,
       abs(`/transfer/${place.key}`),
       site.url,
-      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWay} USD per person one way with a ${MIN_BILLED_PAX}-person minimum (${oneWayFare} USD), ${roundTripFare} USD round trip.`
+      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWayFare} USD one way for up to ${MIN_BILLED_PAX} passengers, ${roundTripFare} USD round trip. Flight tracked, met inside arrivals.`
     ),
     breadcrumbSchema([
       { name: dict.nav?.home ?? "Home", url: abs("/") },
@@ -191,30 +190,26 @@ export default async function TransferPage({ params }) {
             {t.h1?.replace("{resort}", place.name) ??
               `Private airport transfer to ${place.name}`}
           </h1>
+          {/*
+            A NEW key, not a reworded `intro`.
+
+            The old string interpolated `{perPerson}`, and nine locales still
+            carry their own translation of it. Rewording the English in place
+            would leave those nine calling `.replace()` for a token this page
+            no longer computes, printing a literal `{perPerson}` on 414 pages.
+            A new key falls through to the English default instead.
+          */}
           <p className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-white/65">
-            {t.intro
-              ?.replace("{resort}", place.name)
-              .replace("{fare}", money(oneWayFare))
-              .replace("{perPerson}", money(oneWay))
-              .replace("{capacity}", String(MIN_BILLED_PAX)) ??
-              `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} per person one way. Your driver meets you inside arrivals with a name board and takes you straight there.`}
+            {t.introTotal?.replace("{resort}", place.name) ??
+              `From Sangster International (MBJ) to ${place.name}. Your driver meets you inside arrivals with a name board and takes you straight there. Your total is worked out in the form below.`}
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
-            <FarePill
-              label={t.oneWay ?? "One way"}
-              value={money(oneWay)}
-              unit={dict.price?.perPerson ?? "/ person"}
-              extra={`${t.minFrom ?? "from"} ${money(oneWayFare)}`}
-            />
-            <FarePill
-              label={t.roundTrip ?? "Round trip"}
-              value={money(roundTrip)}
-              unit={dict.price?.perPerson ?? "/ person"}
-              extra={`${t.minFrom ?? "from"} ${money(roundTripFare)}`}
-              highlight
-            />
-          </div>
+          {/*
+            The two fare pills that stood here showed a per-head rate with a
+            "from" total underneath — four numbers for one journey, none of
+            them the figure this guest pays. The form below states one total
+            and says whether it buys one leg or two.
+          */}
         </div>
       </section>
 
@@ -271,10 +266,7 @@ export default async function TransferPage({ params }) {
                       href={localePath(locale, `/transfer/${p.key}`)}
                       className="rounded-full border border-ink/[0.09] bg-white px-3.5 py-2 text-sm text-ink/70 shadow-card transition hover:border-crimson-200 hover:text-crimson-700"
                     >
-                      {p.name}{" "}
-                      <span className="text-ink/40">
-                        {money(minimumFare(p.transfer.oneWay))}
-                      </span>
+                      {p.name}
                     </Link>
                   ))}
                 </div>
@@ -333,9 +325,7 @@ export default async function TransferPage({ params }) {
       )}
 
       <StickyBookBar
-        label={t.oneWay ?? "One way"}
-        price={money(oneWay)}
-        unit={dict.price?.perPerson ?? "/ person"}
+        title={`${t.transferTo ?? "Airport transfer to"} ${place.name}`}
         cta={dict.booking?.bookNow ?? "Book now"}
       />
     </>

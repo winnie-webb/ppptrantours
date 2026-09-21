@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { FaArrowRight, FaPlane, FaClock, FaShieldAlt, FaTag } from "react-icons/fa";
-import { AREAS, PLACES } from "@/app/data/places";
+import { PLACES, placesByArea } from "@/app/data/places";
 import { money, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 import PageHeader from "@/app/components/PageHeader";
-import FareCalculator from "@/app/components/FareCalculator";
+import TransferBooking from "@/app/components/TransferBooking";
 import CtaBand from "@/app/components/CtaBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import { LOCALES, localePath } from "@/app/i18n/config";
@@ -12,6 +12,7 @@ import JsonLd from "@/app/components/JsonLd";
 import { site } from "@/app/data/site";
 import { transferListSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
+import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 import { languageAlternates } from "../layout";
 
 export function generateStaticParams() {
@@ -40,13 +41,12 @@ export default async function TransfersPage({ params }) {
   const client = clientDict(dict);
   const t = dict.transfersPage ?? {};
 
-  const groups = AREAS.map((area) => ({
-    ...area,
-    places: PLACES.filter((p) => p.area === area.key && p.transfer),
-  })).filter((g) => g.places.length > 0);
+  const groups = placesByArea((p) => p.transfer);
 
-  const cheapest = Math.min(
-    ...PLACES.filter((p) => p.transfer).map((p) => p.transfer.oneWay)
+  // A total, like every other figure on this page. The cheapest published
+  // one-way rate is $5, and nobody has ever been charged $5 for a transfer.
+  const cheapest = minimumFare(
+    Math.min(...PLACES.filter((p) => p.transfer).map((p) => p.transfer.oneWay))
   );
 
   const promises = [
@@ -83,7 +83,7 @@ export default async function TransfersPage({ params }) {
         title={t.title ?? "Sangster International to your front door."}
         description={
           t.description ??
-          `Published rates to every resort we serve, from ${money(cheapest)} per person with a ${MIN_BILLED_PAX}-person minimum. Pick your hotel below and see the fare before you give us a single detail.`
+          `Published fares to every resort we serve, from ${money(cheapest)} for up to ${MIN_BILLED_PAX} passengers. Pick your hotel below and book it on this page.`
         }
         image="/ppp/donovan-airport-van.jpg"
       />
@@ -92,7 +92,16 @@ export default async function TransfersPage({ params }) {
           pulled up by a negative margin paints behind it however late it comes
           in the DOM — this needs its own stacking position to sit on top. */}
       <section className="shell relative z-10 -mt-10 pb-14 lg:-mt-16">
-        <FareCalculator locale={locale} dict={client} />
+        <TransferBooking
+          locale={locale}
+          dict={client}
+          /* Must match the title /transfer/[place] builds for the same resort;
+             the API stores whatever the client posts. */
+          titlePrefix={dict.transferPage?.transferTo ?? "Airport transfer to"}
+          /* Server-only env, so the page has to hand these down. */
+          paymentsEnabled={paymentsConfigured("USD")}
+          paypal={paypalPublicConfig("USD")}
+        />
       </section>
 
       <section className="shell pb-16">
@@ -118,9 +127,15 @@ export default async function TransfersPage({ params }) {
           <SectionHeading
             eyebrow={t.ratesEyebrow ?? "Every rate we publish"}
             title={t.ratesTitle ?? "The whole price list, in the open."}
+            /*
+              A new key. The old `ratesDescription` explained the per-person
+              rule and is still translated into nine languages; rewording the
+              English in place would leave those nine contradicting the
+              numbers beside them.
+            */
             description={
-              t.ratesDescription ??
-              "Every rate is per person, and every party is charged for at least four. So one, two, three and four people pay the same, and from the fifth on each person simply adds the rate."
+              t.ratesTotalDescription ??
+              `Every price here is the whole fare for up to ${MIN_BILLED_PAX} passengers — not per head, not a deposit. Travelling with more? The booking page works your total out before you enter a single detail.`
             }
           />
 
@@ -162,10 +177,6 @@ export default async function TransfersPage({ params }) {
                               {t.oneWay ?? "One way"}
                             </span>
                             <span className="font-semibold text-crimson-700">
-                              {money(p.transfer.oneWay)}
-                            </span>
-                            <span className="block text-[0.7rem] text-ink/45">
-                              {t.minFrom ?? "from"}{" "}
                               {money(minimumFare(p.transfer.oneWay))}
                             </span>
                           </div>
@@ -174,10 +185,6 @@ export default async function TransfersPage({ params }) {
                               {t.roundTrip ?? "Round trip"}
                             </span>
                             <span className="font-semibold text-ink/80">
-                              {money(p.transfer.roundTrip)}
-                            </span>
-                            <span className="block text-[0.7rem] text-ink/45">
-                              {t.minFrom ?? "from"}{" "}
                               {money(minimumFare(p.transfer.roundTrip))}
                             </span>
                           </div>
@@ -216,19 +223,11 @@ export default async function TransfersPage({ params }) {
                           </td>
                           <td className="px-5 py-3.5 text-right">
                             <span className="font-semibold text-crimson-700">
-                              {money(p.transfer.oneWay)}
-                            </span>
-                            <span className="block text-xs text-ink/45">
-                              {t.minFrom ?? "from"}{" "}
                               {money(minimumFare(p.transfer.oneWay))}
                             </span>
                           </td>
                           <td className="px-5 py-3.5 text-right">
                             <span className="font-semibold text-ink/80">
-                              {money(p.transfer.roundTrip)}
-                            </span>
-                            <span className="block text-xs text-ink/45">
-                              {t.minFrom ?? "from"}{" "}
                               {money(minimumFare(p.transfer.roundTrip))}
                             </span>
                           </td>

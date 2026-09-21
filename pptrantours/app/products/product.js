@@ -77,14 +77,8 @@ export const CATEGORIES = [
 ];
 
 /** The parish categories alone, for the "Things to do in Jamaica" hub. */
-export const PARISH_CATEGORIES = CATEGORIES.filter((c) => c.parish);
-
 export function getCategory(type) {
   return CATEGORIES.find((c) => c.type === type) ?? null;
-}
-
-export function getCategoryTitle(type) {
-  return getCategory(type)?.title ?? "Tours & Transfers";
 }
 
 export function getCategoryShort(type) {
@@ -149,4 +143,3 @@ export function sortByPrice(list) {
   return [...list].sort((a, b) => floor(a) - floor(b));
 }
 
-export { money as formatPrice } from "./pricing";

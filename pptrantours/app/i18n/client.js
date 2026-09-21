@@ -20,6 +20,7 @@ const CLIENT_NAMESPACES = [
   "common",
   "nav",
   "categories",
+  "areas",
   "durations",
   "price",
   "place",

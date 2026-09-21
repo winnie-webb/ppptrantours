@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { FaArrowRight, FaWhatsapp, FaPlane, FaMinus, FaPlus } from "react-icons/fa";
-import { AREAS, PLACES } from "@/app/data/places";
+import { PLACES, placesByArea } from "@/app/data/places";
 import {
   priceTransfer,
   money,
@@ -20,23 +20,36 @@ import { site } from "@/app/data/site";
  * resort here is also how they reach that resort's own page, so the calculator
  * doubles as navigation into the 46 transfer pages.
  */
-export default function FareCalculator({ locale = "en", dict, initialPlace = "" }) {
+export default function FareCalculator({ locale = "en", dict }) {
   const t = dict?.fare ?? {};
-  const [placeKey, setPlaceKey] = useState(initialPlace);
+  const [placeKey, setPlaceKey] = useState("");
   const [tripType, setTripType] = useState("round-trip");
   const [pax, setPax] = useState(2);
 
-  const grouped = useMemo(
-    () =>
-      AREAS.map((area) => ({
-        ...area,
-        places: PLACES.filter((p) => p.area === area.key && p.transfer),
-      })).filter((g) => g.places.length > 0),
-    []
-  );
+  // The two cruise piers have no published fare, so offering them would put a
+  // resort in the box that nothing can price. One filter, shared with the
+  // picker on /transfers.
+  const grouped = useMemo(() => placesByArea((p) => p.transfer), []);
 
   const place = PLACES.find((p) => p.key === placeKey) ?? null;
   const quote = placeKey ? priceTransfer(placeKey, tripType, pax) : null;
+
+  /*
+   * The direction and the party size travel with the link.
+   *
+   * Without them the booking form opened on its own defaults — round trip, two
+   * adults — and a guest who had just said "one way, five of us" said it
+   * again. Only non-defaults are emitted, so the ordinary case still links to
+   * the bare canonical URL and crawlers are not handed 46 query variants of
+   * every transfer page.
+   */
+  const handoff = useMemo(() => {
+    const params = new URLSearchParams();
+    if (tripType === "one-way") params.set("trip", "one-way");
+    if (pax !== 2) params.set("pax", String(pax));
+    const qs = params.toString();
+    return qs ? `?${qs}` : "";
+  }, [tripType, pax]);
 
   return (
     <div className="overflow-hidden rounded-3xl border border-ink/[0.07] bg-white shadow-lift">
@@ -62,7 +75,10 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
             >
               <option value="">{t.choose ?? "Choose your hotel or resort…"}</option>
               {grouped.map((group) => (
-                <optgroup key={group.key} label={group.label}>
+                <optgroup
+                  key={group.key}
+                  label={dict?.areas?.[group.key] ?? group.label}
+                >
                   {group.places.map((p) => (
                     <option key={p.key} value={p.key}>
                       {p.name}
@@ -126,8 +142,8 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
           </div>
 
           <p className="text-xs leading-relaxed text-ink/45">
-            {t.note ??
-              `Rates are per person. Minimum booking cost for 1–${MIN_BILLED_PAX} persons is ${MIN_BILLED_PAX} times the per-person rate. In US dollars, and they include the meet-and-greet inside arrivals.`}
+            {t.noteTotal ??
+              `For bookings of 1 to ${MIN_BILLED_PAX} people the total is based on the ${MIN_BILLED_PAX}-person rate, so 1, 2, 3 or ${MIN_BILLED_PAX} people all pay the same. In US dollars, and the meet-and-greet inside arrivals is included.`}
           </p>
         </div>
 
@@ -145,33 +161,35 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                   ? t.roundTripLabel ?? "Round-trip private transfer"
                   : t.oneWayLabel ?? "One-way private transfer"}
               </p>
+              {/*
+                The total, and only the total.
+
+                This printed the per-head rate at 5xl, the total underneath it,
+                and then a "4 × $30" row spelling out the arithmetic — three
+                figures for one fare. A guest pays one number; the per-person
+                rate belongs on the cards, where it is a shop window rather
+                than a quote.
+              */}
               <p className="mt-1.5 font-display text-5xl font-semibold text-gold-400">
-                {money(quote.rate)}
-                <span className="ml-1.5 text-lg font-medium text-white/50">
-                  {t.perPerson ?? "/ person"}
-                </span>
+                {money(quote.total)}
               </p>
               <p className="mt-1 text-sm font-semibold text-white/75">
-                {money(quote.total)}{" "}
-                <span className="font-normal text-white/45">
-                  {t.totalFor?.replace("{n}", String(pax)) ??
-                    `total for ${pax}`}
-                </span>
+                {t.totalFor?.replace("{n}", String(pax)) ??
+                  `total for ${pax}`}
               </p>
               <p className="mt-2 text-sm text-white/60">{place.name}</p>
 
-              <div className="mt-4 border-t border-white/10 pt-4 text-xs text-white/50">
-                <div className="flex justify-between gap-3">
-                  <span>
-                    {quote.billed} × {money(quote.rate)}
-                  </span>
-                  <span>{money(quote.total)}</span>
-                </div>
-              </div>
-
               <div className="mt-5 flex flex-col gap-2.5">
+                {/*
+                  The direction and the party size travel with the link.
+
+                  Without them the booking form opened on its own defaults —
+                  round trip, two adults — and a guest who had just said
+                  "one way, five of us" had to say it again. BookingForm reads
+                  these after mount.
+                */}
                 <Link
-                  href={localePath(locale, `/transfer/${place.key}`)}
+                  href={`${localePath(locale, `/transfer/${place.key}`)}${handoff}`}
                   className="btn-primary w-full"
                 >
                   {t.book ?? "Book this transfer"}

@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import Link from "next/link";
 import {
   FaWhatsapp,
@@ -14,7 +21,12 @@ import {
   FaInfoCircle,
   FaCreditCard,
 } from "react-icons/fa";
-import { quoteExcursion, quoteTransfer, money } from "@/app/products/pricing";
+import {
+  quoteExcursion,
+  quoteTransfer,
+  money,
+  MAX_PARTY,
+} from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
 import { createBooking, startPayment } from "@/lib/bookings";
 import { site } from "@/app/data/site";
@@ -72,6 +84,35 @@ function todayISO() {
   return local.toISOString().slice(0, 10);
 }
 
+/* ── Answers handed over from elsewhere ─────────────────────────────────────
+ *
+ * The homepage fare widget asks for direction and party size before it links
+ * to a transfer page. Without this the form opened on its own defaults — round
+ * trip, two adults — and the guest re-entered what they had just said.
+ *
+ * Read through `useSyncExternalStore` rather than `useSearchParams()` or an
+ * effect. The hook would push all 460 statically generated transfer pages
+ * behind a Suspense boundary or into client rendering to serve two optional
+ * integers; an effect would mean calling setState on mount. This renders the
+ * server's empty snapshot first and the real query on hydration, so the markup
+ * matches and the values are still only a default the guest can change.
+ */
+const subscribeToNothing = () => () => {};
+const readSearch = () => window.location.search;
+const noSearch = () => "";
+
+function parseHandoff(search) {
+  const q = new URLSearchParams(search);
+
+  const trip = q.get("trip");
+  const pax = Number.parseInt(q.get("pax") ?? "", 10);
+
+  return {
+    trip: trip === "one-way" || trip === "round-trip" ? trip : null,
+    pax: Number.isFinite(pax) && pax >= 1 && pax <= MAX_PARTY ? pax : null,
+  };
+}
+
 /**
  * The asterisk beside a required field's label.
  *
@@ -101,6 +142,13 @@ export default function BookingForm({
    * pairs with never leaves the server.
    */
   paypal = null,
+  /*
+   * Fired once the booking is saved, for a host that renders something around
+   * this form. /transfers keeps a resort picker above it; without this signal
+   * that picker stays live beside a confirmation screen, so changing the
+   * resort appears to do nothing.
+   */
+  onBooked,
 }) {
   const isTransfer = mode === "transfer";
   // Memoised because `?? {}` mints a new object every render, which would make
@@ -112,8 +160,27 @@ export default function BookingForm({
   // rather than using whatever the guest picked for excursions.
   const transferPlace = isTransfer ? tour.place : null;
 
-  const [tripType, setTripType] = useState("round-trip");
-  const [adults, setAdults] = useState(2);
+  /*
+   * Direction and party size are DERIVED, not stored.
+   *
+   * `null` means "the guest has not touched this control", so a value handed
+   * over in the query string wins until they do, and their own choice wins
+   * from then on. Storing them instead would mean writing state on mount to
+   * apply the handoff.
+   */
+  const search = useSyncExternalStore(
+    subscribeToNothing,
+    readSearch,
+    noSearch
+  );
+  const handoff = useMemo(() => parseHandoff(search), [search]);
+
+  const [tripChoice, setTripType] = useState(null);
+  const tripType = tripChoice ?? handoff.trip ?? "round-trip";
+
+  const [adultChoice, setAdults] = useState(null);
+  const adults = adultChoice ?? handoff.pax ?? 2;
+
   const [children, setChildren] = useState(0);
   const [form, setForm] = useState({
     date: "",
@@ -377,6 +444,7 @@ export default function BookingForm({
       }, { idempotencyKey: idemKey.current });
       setResult(res);
       setStatus("done");
+      onBooked?.(res);
       // A fresh key, so a second booking in the same session is a second
       // booking rather than a replay of this one.
       idemKey.current =
@@ -464,6 +532,20 @@ export default function BookingForm({
         tour and transfer pages still carry the shop-window "from" price.
       */}
       <div className="space-y-7 p-6">
+        {/*
+          The one thing to say before the fields, said once.
+
+          The four-person rule used to sit under the total, where it read as a
+          caveat on the number rather than an explanation of it. Up here it is
+          read before there is a figure to doubt, and it doubles as the promise
+          that nothing needs adding up by hand.
+        */}
+        <p className="-mb-2 flex items-start gap-2 rounded-xl bg-sand px-4 py-3 text-xs leading-relaxed text-ink/60">
+          <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
+          {t.autoNote ??
+            "Your total is worked out automatically as you fill this in. For bookings of 1 to 4 people, the total is based on the 4-person rate, so 1, 2, 3 or 4 people all pay the same."}
+        </p>
+
         <Section title={t.sectionTrip ?? "Your trip"}>
         {/* Where from / where to */}
         {isTransfer ? (
@@ -992,16 +1074,11 @@ function Price({ quote, isTransfer, tripType, needsPlace, unpriced, dict }) {
         </span>
       </div>
       {/*
-        The owner's own wording, verbatim and unconditional. It explains the
-        only thing about this total that is not self-evident — why a couple
-        and a family of four are charged the same — and it is a floor on the
-        PRICE, never a rule about how many people may come.
+        Nothing under the number.
+
+        The four-person rule is stated once, at the top of the form, before
+        there is a figure for it to look like a caveat on.
       */}
-      <p className="mt-2.5 flex items-start gap-2 text-[0.7rem] leading-relaxed text-white/50">
-        <FaInfoCircle className="mt-0.5 shrink-0 text-white/30" />
-        {t.minimumNote ??
-          "For bookings of 1 to 4 people, the total tour/transfer price is based on the 4-person rate, so groups of 1, 2, 3, or 4 people all pay the same total price."}
-      </p>
     </div>
   );
 }

@@ -1,13 +1,29 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import Link from "next/link";
 import TourCard from "./TourCard";
+import { localePath } from "../i18n/config";
 import { CATEGORIES } from "../products/product";
 import { lowestTransport } from "../products/pricing";
 import { usePlace } from "./PlaceProvider";
 
 const PER_PAGE = 12;
+
+/*
+ * The current query string, read without `useSearchParams()`.
+ *
+ * That hook would force this statically generated catalogue behind a Suspense
+ * boundary or into client rendering for all ten locales, taking the tour grid
+ * out of the prerendered HTML of the page most worth indexing. Nothing here
+ * ever changes the snapshot after load — the chips use `replaceState`, which
+ * creates no history entry and fires no event — so there is nothing to
+ * subscribe to.
+ */
+const subscribeToNothing = () => () => {};
+const readSearch = () => window.location.search;
+const noSearch = () => "";
 
 /**
  * Filterable, sortable, paginated grid.
@@ -20,10 +36,36 @@ export default function TourGrid({
   tours,
   locale = "en",
   dict,
-  showCategoryFilter = true,
+  /*
+   * "select" the dropdown (a category page's sibling grids), "chips" the
+   * filter row that replaced the catalogue's parish index, "none" on a
+   * category page, which is already filtered by its route.
+   */
+  categoryFilter = "select",
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
+
+  /*
+   * The chosen category, seeded from `?parish=` so a filtered view can be
+   * linked and shared.
+   *
+   * Derived rather than stored, the same way BookingForm reads its handoff:
+   * `null` means the guest has not touched a chip, so the URL wins until they
+   * do. Seeding `useState` from the URL instead would be a hydration mismatch
+   * — this page is prerendered unfiltered for all ten locales — and applying
+   * it from an effect would be a setState on mount.
+   */
+  const search = useSyncExternalStore(
+    subscribeToNothing,
+    readSearch,
+    noSearch
+  );
+  const [categoryChoice, setCategory] = useState(null);
+  const urlCategory = useMemo(() => {
+    const wanted = new URLSearchParams(search).get("parish");
+    return CATEGORIES.some((c) => c.type === wanted) ? wanted : null;
+  }, [search]);
+  const category = categoryChoice ?? urlCategory ?? "all";
   const [sort, setSort] = useState("price-asc");
   const [page, setPage] = useState(1);
   const { zone } = usePlace();
@@ -70,6 +112,20 @@ export default function TourGrid({
     setPage(1);
   };
 
+  /*
+   * `replaceState`, not `pushState`: a filtered view stays linkable, but the
+   * back button still means "leave this page" rather than stepping back
+   * through every chip the guest tried.
+   */
+  const chooseCategory = (type) => {
+    update(setCategory)(type);
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (type === "all") url.searchParams.delete("parish");
+    else url.searchParams.set("parish", type);
+    window.history.replaceState(null, "", url);
+  };
+
   const goTo = (n) => {
     setPage(Math.min(Math.max(n, 1), totalPages));
     document
@@ -82,6 +138,29 @@ export default function TourGrid({
     [tours]
   );
 
+  /*
+   * Facet counts: how many tours each chip would show, given the keyword but
+   * ignoring the chip currently active. Counted over the `tours` this grid was
+   * handed, never over the whole catalogue — a chip promising six and
+   * delivering four is worse than no number at all.
+   */
+  const counts = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const matching = q
+      ? tours.filter((tour) =>
+          `${tour.title} ${tour.subtitle ?? ""} ${tour.desc}`
+            .toLowerCase()
+            .includes(q)
+        )
+      : tours;
+
+    const out = { all: matching.length };
+    for (const c of availableCategories) {
+      out[c.type] = matching.filter(c.match).length;
+    }
+    return out;
+  }, [tours, query, availableCategories]);
+
   const sorts = [
     { key: "price-asc", label: t.priceAsc ?? "Price: low to high" },
     { key: "price-desc", label: t.priceDesc ?? "Price: high to low" },
@@ -90,6 +169,51 @@ export default function TourGrid({
 
   return (
     <div id="tour-grid" className="scroll-mt-28">
+      {/*
+        The chips replaced a "By parish" index of five tiles that linked away
+        to /category/*, so narrowing the list cost a page load and a trip back.
+        They narrow this grid in place. The category pages still exist and are
+        still indexed — a chip now offers one instead of standing in the way.
+      */}
+      {categoryFilter === "chips" && (
+        <div className="mb-5 -mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-2 sm:flex-wrap sm:overflow-visible">
+          {[{ type: "all", label: t.all ?? "All" }]
+            .concat(
+              availableCategories.map((c) => ({
+                type: c.type,
+                label: dict?.categories?.[c.type]?.short ?? c.short ?? c.title,
+              }))
+            )
+            .map(({ type, label }) => {
+              const active = category === type;
+              const n = counts[type] ?? 0;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => chooseCategory(type)}
+                  aria-pressed={active}
+                  disabled={n === 0 && !active}
+                  className={`shrink-0 snap-start whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition disabled:opacity-35 ${
+                    active
+                      ? "border-crimson-600 bg-crimson-600 text-white shadow-sm"
+                      : "border-ink/12 bg-white text-ink/70 hover:border-crimson-200 hover:text-crimson-700"
+                  }`}
+                >
+                  {label}
+                  <span
+                    className={`ml-1.5 text-xs font-medium ${
+                      active ? "text-white/70" : "text-ink/40"
+                    }`}
+                  >
+                    {n}
+                  </span>
+                </button>
+              );
+            })}
+        </div>
+      )}
+
       <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-ink/[0.07] bg-white p-4 shadow-card lg:flex-row lg:items-center">
         <div className="relative flex-1">
           <FaSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/35" />
@@ -102,7 +226,7 @@ export default function TourGrid({
           />
         </div>
 
-        {showCategoryFilter && (
+        {categoryFilter === "select" && (
           <select
             value={category}
             onChange={(e) => update(setCategory)(e.target.value)}
@@ -132,15 +256,32 @@ export default function TourGrid({
         </select>
       </div>
 
-      <p className="mb-6 text-sm text-ink/55">
-        {t.showing ?? "Showing"}{" "}
-        <span className="font-semibold text-ink">
-          {filtered.length === 0 ? 0 : (current - 1) * PER_PAGE + 1}–
-          {Math.min(current * PER_PAGE, filtered.length)}
-        </span>{" "}
-        {t.of ?? "of"}{" "}
-        <span className="font-semibold text-ink">{filtered.length}</span>
-      </p>
+      <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <p className="text-sm text-ink/55">
+          {t.showing ?? "Showing"}{" "}
+          <span className="font-semibold text-ink">
+            {filtered.length === 0 ? 0 : (current - 1) * PER_PAGE + 1}–
+            {Math.min(current * PER_PAGE, filtered.length)}
+          </span>{" "}
+          {t.of ?? "of"}{" "}
+          <span className="font-semibold text-ink">{filtered.length}</span>
+        </p>
+
+        {/*
+          Deleting the parish index took five in-content links to the category
+          landing pages off the catalogue. This puts one back, on the parish
+          the guest is actually looking at — an offer rather than a step.
+        */}
+        {categoryFilter === "chips" && category !== "all" && (
+          <Link
+            href={localePath(locale, `/category/${category}`)}
+            className="text-sm font-semibold text-crimson-700 hover:underline"
+          >
+            {dict?.categories?.[category]?.title ?? category}
+            <FaChevronRight className="ml-1.5 inline text-[0.6rem]" />
+          </Link>
+        )}
+      </div>
 
       {visible.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-ink/15 py-20 text-center">
@@ -155,8 +296,7 @@ export default function TourGrid({
             type="button"
             onClick={() => {
               setQuery("");
-              setCategory("all");
-              setPage(1);
+              chooseCategory("all");
             }}
             className="btn-ghost mt-6"
           >

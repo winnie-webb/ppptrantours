@@ -1,13 +1,9 @@
-import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa";
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
 import PlacePrompt from "@/app/components/PlacePrompt";
 import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
-import SectionHeading from "@/app/components/SectionHeading";
 import { TOURS } from "@/app/data/catalogue";
-import { PARISH_CATEGORIES, filterProductByCategory } from "@/app/products/product";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import JsonLd from "@/app/components/JsonLd";
@@ -74,41 +70,22 @@ export default async function ToursPage({ params }) {
 
       <PlacePrompt dict={client} />
 
-      {/* Parish index */}
-      <section className="shell py-12 lg:py-16">
-        <SectionHeading
-          eyebrow={t.parishEyebrow ?? "By parish"}
-          title={t.parishTitle ?? "Pick a corner of the island."}
-          description={
-            t.parishDescription ??
-            "We are based in Montego Bay and run to all of it. These are the days we run most."
-          }
-        />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {PARISH_CATEGORIES.map((c) => {
-            const count = filterProductByCategory(c.type).length;
-            return (
-              <Link
-                key={c.type}
-                href={localePath(locale, `/category/${c.type}`)}
-                className="group rounded-2xl border border-ink/[0.07] bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-crimson-200 hover:shadow-lift"
-              >
-                <p className="font-display text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-crimson-700">
-                  {dict.categories?.[c.type]?.short ?? c.short}
-                </p>
-                <p className="mt-1 text-xs text-ink/45">{c.parish}</p>
-                <p className="mt-4 flex items-center gap-2 text-xs font-semibold text-crimson-700">
-                  {count} {count === 1 ? t.tour ?? "tour" : t.toursWord ?? "tours"}
-                  <FaArrowRight className="text-[0.6rem] transition-transform group-hover:translate-x-1" />
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      {/*
+        The "By parish" index of five tiles stood here.
 
+        It linked away to /category/*, so narrowing the list cost a page load
+        and a trip back — four page loads from the homepage to a booking. The
+        same five choices are now chips on the grid below, filtering in place;
+        the category pages they pointed at are still indexed, and the grid
+        links to the active one.
+      */}
       <section className="shell pb-16 lg:pb-24">
-        <TourGrid tours={tours} locale={locale} dict={client} />
+        <TourGrid
+          tours={tours}
+          locale={locale}
+          dict={client}
+          categoryFilter="chips"
+        />
       </section>
 
       <CtaBand locale={locale} dict={dict} />
