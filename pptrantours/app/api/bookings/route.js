@@ -412,10 +412,22 @@ export async function POST(request) {
     );
   }
 
-  // Saved. An email failure past this point must not fail the request.
+  /*
+   * Saved. An email failure past this point must not fail the request — but it
+   * must not be silent either.
+   *
+   * `not-configured` used to be excluded from this log, on the reasoning that
+   * it is the normal state of a developer's machine. In production it is a
+   * defect, and excluding it made it an invisible one: EMAILJS_TEMPLATE_ID was
+   * missing for weeks, every alert was dropped, and nothing anywhere said so.
+   * The owner's only notice of a booking is this email.
+   */
   const alert = await sendBookingAlert(booking);
-  if (!alert.sent && alert.reason !== "not-configured") {
-    console.error(`[bookings] ${reference} saved but alert failed: ${alert.reason}`);
+  if (!alert.sent) {
+    const how = alert.reason === "not-configured" ? "warn" : "error";
+    console[how](
+      `[bookings] ${reference} saved but NO ALERT WAS SENT: ${alert.reason}`
+    );
   }
 
   // Cheap, capped, and this is a reliable enough trigger at this volume to need
