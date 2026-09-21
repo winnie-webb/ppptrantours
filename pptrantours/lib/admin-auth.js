@@ -8,7 +8,7 @@
  * Everything is verified against the decoded token, never against anything the
  * page claims. Hiding the UI is not access control.
  */
-import { getAdminDb } from "@/lib/firebase-admin";
+import { getAdminDb, adminInitError } from "@/lib/firebase-admin";
 
 function allowedEmails() {
   return (process.env.ADMIN_EMAILS ?? "")
@@ -32,11 +32,41 @@ export async function requireAdmin(request) {
     return { error: "No admin accounts are configured.", status: 503 };
   }
 
-  const { getAuth } = await import("firebase-admin/auth");
-  const { getApps } = await import("firebase-admin/app");
+  /*
+   * These two imports are the reason this console returned a bare 500 for its
+   * whole life, and the try/catch is not decoration.
+   *
+   * `firebase-admin/auth` pulls jwks-rsa, which `require()`s jose. jose 6 is
+   * ESM-only, so on a runtime without `require(esm)` the import throws
+   * ERR_REQUIRE_ESM. That throw happened here, outside any handler and before
+   * the API route's own try block, so Next answered with its HTML 500 carrying
+   * no `error` field and the page could only say "that didn't work". The
+   * underlying clash is pinned away in package.json `overrides`, but a module
+   * that fails to load must name itself rather than vanish.
+   */
+  let getAuth;
+  let getApps;
+  try {
+    ({ getAuth } = await import("firebase-admin/auth"));
+    ({ getApps } = await import("firebase-admin/app"));
+  } catch (err) {
+    console.error("[admin-auth] firebase-admin failed to load", err);
+    return {
+      error: "The server could not load its authentication library.",
+      status: 503,
+    };
+  }
 
   // getAdminDb() initialises the named app; call it first so getAuth() finds one.
-  if (!getAdminDb()) return { error: "Server is not configured.", status: 503 };
+  if (!getAdminDb()) {
+    // Logged in full, reported narrowly: this can quote a PEM parse failure.
+    console.error("[admin-auth] no admin database:", adminInitError());
+    return {
+      error:
+        "The server's database credentials are missing or were rejected. Check FIREBASE_SERVICE_ACCOUNT_KEY.",
+      status: 503,
+    };
+  }
   const app = getApps().find((a) => a.name === "ppp-admin");
 
   let decoded;

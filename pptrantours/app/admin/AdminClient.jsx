@@ -135,8 +135,31 @@ export default function AdminClient() {
         ...(init?.body ? { "Content-Type": "application/json" } : {}),
       },
     });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error ?? "That didn't work.");
+    /*
+     * A non-JSON body is the interesting case, not an edge case.
+     *
+     * When a route throws before its own try block, Next answers with an HTML
+     * error page — no `error` field, nothing to read. This used to collapse to
+     * "That didn't work.", which is what the console showed for the whole time
+     * `firebase-admin/auth` was failing to load: the one message that cannot be
+     * acted on. The status code at least says where to look.
+     */
+    const body = await res.text();
+    let data = {};
+    try {
+      data = body ? JSON.parse(body) : {};
+    } catch {
+      data = {};
+    }
+
+    if (!res.ok) {
+      throw new Error(
+        data.error ??
+          `The server returned ${res.status}${
+            res.statusText ? ` ${res.statusText}` : ""
+          } with no explanation. Check the Vercel runtime logs for this request.`
+      );
+    }
     return data;
   }, []);
 

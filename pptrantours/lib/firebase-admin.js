@@ -53,10 +53,31 @@ export function isAdminConfigured() {
 }
 
 let cached;
+let initError = null;
+
+/**
+ * Why the last `getAdminDb()` returned null, when it was not simply absent.
+ *
+ * Server-only, and deliberately not surfaced to a browser verbatim — it can
+ * quote a PEM parse failure. Callers say "missing or rejected" and log this.
+ */
+export function adminInitError() {
+  return initError;
+}
 
 /**
  * @returns {import('firebase-admin/firestore').Firestore|null} null when no
- *   service account is configured, so callers can degrade instead of crashing.
+ *   service account is configured OR when the one present cannot be used, so
+ *   callers can degrade instead of crashing.
+ *
+ * `parseServiceAccount` above is careful, but being careful about the JSON is
+ * not enough: `cert()` validates the private key and throws "Invalid PEM
+ * formatted message" on a key whose newlines did not survive the environment,
+ * and `initializeApp` can throw on its own. Those throws used to escape this
+ * function, and from here they escaped `requireAdmin` and then the API route —
+ * whose try/catch begins *after* the auth call — so Next answered with an HTML
+ * 500 carrying no `error` field and the console could only say "that didn't
+ * work". A configuration problem has to name itself.
  */
 export function getAdminDb() {
   if (cached !== undefined) return cached;
@@ -65,21 +86,32 @@ export function getAdminDb() {
     process.env.FIREBASE_SERVICE_ACCOUNT_KEY
   );
   if (!serviceAccount) {
+    initError = process.env.FIREBASE_SERVICE_ACCOUNT_KEY
+      ? "FIREBASE_SERVICE_ACCOUNT_KEY is set but is not a complete service account (needs project_id, client_email and private_key, as raw JSON or base64)."
+      : "FIREBASE_SERVICE_ACCOUNT_KEY is not set.";
     cached = null;
     return cached;
   }
 
-  const existing = getApps().find((a) => a.name === APP_NAME);
-  const app =
-    existing ??
-    initializeApp(
-      {
-        credential: cert(serviceAccount),
-        projectId: serviceAccount.project_id,
-      },
-      APP_NAME
-    );
+  try {
+    const existing = getApps().find((a) => a.name === APP_NAME);
+    const app =
+      existing ??
+      initializeApp(
+        {
+          credential: cert(serviceAccount),
+          projectId: serviceAccount.project_id,
+        },
+        APP_NAME
+      );
 
-  cached = getFirestore(app);
+    cached = getFirestore(app);
+    initError = null;
+  } catch (err) {
+    initError = `Firebase Admin refused the service account: ${err?.message ?? err}`;
+    console.error("[firebase-admin] init failed", err);
+    cached = null;
+  }
+
   return cached;
 }
