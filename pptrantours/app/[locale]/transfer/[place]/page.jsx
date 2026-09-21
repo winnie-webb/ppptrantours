@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import { PLACES, getPlace, getAreaLabel, transferPlaces } from "@/app/data/places";
 import { TOURS } from "@/app/data/catalogue";
-import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { money, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import FarePill from "@/app/components/FarePill";
@@ -49,7 +49,9 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(locale);
   const client = clientDict(dict);
   const t = dict.transferPage ?? {};
-  const fare = money(place.transfer.oneWay);
+  // The smallest cheque, not the rate: "$7.50 Airport Transfer" is not a
+  // price anybody pays.
+  const fare = money(minimumFare(place.transfer.oneWay));
 
   return {
     title:
@@ -59,8 +61,8 @@ export async function generateMetadata({ params }) {
       t.metaDescription
         ?.replace("{resort}", place.name)
         .replace("{fare}", fare)
-        .replace("{roundTrip}", money(place.transfer.roundTrip)) ??
-      `Private airport transfer from Montego Bay Sangster International (MBJ) to ${place.name}. ${fare} one way for up to ${VEHICLE_CAPACITY} passengers, ${money(place.transfer.roundTrip)} round trip. Flight tracked, met inside arrivals.`,
+        .replace("{roundTrip}", money(minimumFare(place.transfer.roundTrip))) ??
+      `Private airport transfer from Montego Bay Sangster International (MBJ) to ${place.name}. ${fare} one way for up to ${MIN_BILLED_PAX} passengers, ${money(minimumFare(place.transfer.roundTrip))} round trip. Flight tracked, met inside arrivals.`,
     alternates: {
       canonical: localePath(locale, `/transfer/${placeKey}`),
       languages: languageAlternates(`/transfer/${placeKey}`),
@@ -76,7 +78,12 @@ export default async function TransferPage({ params }) {
   const dict = await getDictionary(locale);
   const client = clientDict(dict);
   const t = dict.transferPage ?? {};
+  // Per-head rates. `oneWayFare`/`roundTripFare` are what a party of four or
+  // fewer actually hands over, which is what every sentence quoting a single
+  // amount for the trip has to use.
   const { oneWay, roundTrip } = place.transfer;
+  const oneWayFare = minimumFare(oneWay);
+  const roundTripFare = minimumFare(roundTrip);
 
   // Nearby resorts served at the same kind of distance, for internal linking.
   const nearby = PLACES.filter(
@@ -106,7 +113,7 @@ export default async function TransferPage({ params }) {
       place,
       abs(`/transfer/${place.key}`),
       site.url,
-      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWay} USD one way per vehicle, ${roundTrip} USD round trip.`
+      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWay} USD per person one way with a ${MIN_BILLED_PAX}-person minimum (${oneWayFare} USD), ${roundTripFare} USD round trip.`
     ),
     breadcrumbSchema([
       { name: dict.nav?.home ?? "Home", url: abs("/") },
@@ -187,27 +194,24 @@ export default async function TransferPage({ params }) {
           <p className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-white/65">
             {t.intro
               ?.replace("{resort}", place.name)
-              .replace("{fare}", money(oneWay))
-              .replace(
-                "{perPerson}",
-                money(perPerson(oneWay, VEHICLE_CAPACITY))
-              )
-              .replace("{capacity}", String(VEHICLE_CAPACITY)) ??
-              `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} one way for up to ${VEHICLE_CAPACITY} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.`}
+              .replace("{fare}", money(oneWayFare))
+              .replace("{perPerson}", money(oneWay))
+              .replace("{capacity}", String(MIN_BILLED_PAX)) ??
+              `From Sangster International (MBJ) to ${place.name} — ${money(oneWay)} per person one way, minimum ${MIN_BILLED_PAX} people (${money(oneWayFare)}). Your driver meets you inside arrivals with a name board and takes you straight there.`}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
             <FarePill
               label={t.oneWay ?? "One way"}
-              value={money(perPerson(oneWay, VEHICLE_CAPACITY))}
+              value={money(oneWay)}
               unit={dict.price?.perPerson ?? "/ person"}
-              extra={`${money(oneWay)} ${t.totalWord ?? "total"}`}
+              extra={`${t.minFrom ?? "from"} ${money(oneWayFare)}`}
             />
             <FarePill
               label={t.roundTrip ?? "Round trip"}
-              value={money(perPerson(roundTrip, VEHICLE_CAPACITY))}
+              value={money(roundTrip)}
               unit={dict.price?.perPerson ?? "/ person"}
-              extra={`${money(roundTrip)} ${t.totalWord ?? "total"}`}
+              extra={`${t.minFrom ?? "from"} ${money(roundTripFare)}`}
               highlight
             />
           </div>
@@ -268,7 +272,9 @@ export default async function TransferPage({ params }) {
                       className="rounded-full border border-ink/[0.09] bg-white px-3.5 py-2 text-sm text-ink/70 shadow-card transition hover:border-crimson-200 hover:text-crimson-700"
                     >
                       {p.name}{" "}
-                      <span className="text-ink/40">{money(p.transfer.oneWay)}</span>
+                      <span className="text-ink/40">
+                        {money(minimumFare(p.transfer.oneWay))}
+                      </span>
                     </Link>
                   ))}
                 </div>
@@ -328,7 +334,7 @@ export default async function TransferPage({ params }) {
 
       <StickyBookBar
         label={t.oneWay ?? "One way"}
-        price={money(perPerson(oneWay, VEHICLE_CAPACITY))}
+        price={money(oneWay)}
         unit={dict.price?.perPerson ?? "/ person"}
         cta={dict.booking?.bookNow ?? "Book now"}
       />

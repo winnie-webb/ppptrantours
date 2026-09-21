@@ -1,23 +1,21 @@
 "use client";
 
-import {
-  money,
-  perPerson,
-  lowestTransport,
-  VEHICLE_CAPACITY,
-} from "@/app/products/pricing";
+import { money, lowestTransport, MIN_BILLED_PAX } from "@/app/products/pricing";
 import { usePlace } from "./PlaceProvider";
 
 /**
  * The price on a card.
  *
- * Leads with the per-head figure, because that is the unit every other tour
- * site quotes in and a bare "$200" reads as four times a competitor's "$50pp"
- * when it is the same money. The vehicle total sits directly underneath, so the
- * card never implies that two travellers pay half of four.
+ * The per-head rate, and the minimum underneath it. Both, always — a bare
+ * "$50 / person" is only true of a party of four or more, and a card that says
+ * it without the floor sells a minimum charge as if it were a bargain.
+ *
+ * This figure is now the stored rate rather than a total divided by an assumed
+ * party size, which is what stopped the card and the booking page printing two
+ * different per-head numbers for the same tour.
  *
  * Before the guest names a resort we show the cheapest run anywhere; once they
- * have, we show their actual price.
+ * have, we show their actual rate.
  *
  * Where the owner published no rate from their resort we used to replace the
  * number with "Ask us". That punished the guest for answering the one question
@@ -39,8 +37,8 @@ export default function TourPrice({ tour, dict, align = "left" }) {
 
   const wrap = align === "right" ? "text-right" : "";
 
-  const vehicle = band ? band.price : floor;
-  if (vehicle == null) {
+  const rate = band ? band.rate : floor;
+  if (rate == null) {
     return (
       <div className={wrap}>
         <span className="font-display text-lg font-semibold text-crimson-700">
@@ -50,28 +48,23 @@ export default function TourPrice({ tour, dict, align = "left" }) {
     );
   }
 
-  /*
-   * One number on a card, not two and a caveat.
-   *
-   * This used to print the per-head figure and then "{total} per vehicle · up
-   * to 4" underneath it, which is three lines of pricing on every card in a
-   * grid of twenty-four. The per-vehicle basis is a real and important point,
-   * but it belongs on the booking page next to the thing being bought — which
-   * is where the form and the transparency note now make it.
-   */
   return (
     <div className={wrap}>
       <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-ink/45">
         {band ? t.fromYourResort ?? "From your resort" : t.from ?? "From"}
       </span>
       <span className="font-display text-2xl font-semibold text-crimson-700">
-        {money(perPerson(vehicle, VEHICLE_CAPACITY))}
+        {money(rate)}
       </span>
       <span className="ml-1 text-xs text-ink/45">
         {t.perPerson ?? "/ person"}
       </span>
+      <span className="mt-0.5 block text-[0.68rem] leading-snug text-ink/40">
+        {t.minimumPax?.replace("{n}", String(MIN_BILLED_PAX)) ??
+          `minimum ${MIN_BILLED_PAX} people`}
+      </span>
       {unpricedForPlace && (
-        <span className="mt-0.5 block text-[0.68rem] leading-snug text-ink/40">
+        <span className="block text-[0.68rem] leading-snug text-ink/40">
           {t.confirmYours ?? "we'll confirm yours"}
         </span>
       )}

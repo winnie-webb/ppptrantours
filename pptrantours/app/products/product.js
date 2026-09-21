@@ -144,7 +144,7 @@ export function getRelatedProducts(product, limit = 3) {
 export function sortByPrice(list) {
   const floor = (t) => {
     const bands = Object.values(t.zones ?? {});
-    return bands.length ? Math.min(...bands.map((b) => b.price)) : Infinity;
+    return bands.length ? Math.min(...bands.map((b) => b.rate)) : Infinity;
   };
   return [...list].sort((a, b) => floor(a) - floor(b));
 }

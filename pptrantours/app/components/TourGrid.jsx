@@ -31,7 +31,7 @@ export default function TourGrid({
 
   const priceOf = useMemo(
     () => (tour) => {
-      const mine = zone ? tour.zones?.[zone]?.price : null;
+      const mine = zone ? tour.zones?.[zone]?.rate : null;
       return mine ?? lowestTransport(tour) ?? Infinity;
     },
     [zone]

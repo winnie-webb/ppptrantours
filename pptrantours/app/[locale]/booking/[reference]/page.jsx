@@ -91,7 +91,7 @@ export default async function BookingResultPage({ params, searchParams }) {
     heading = t.paidTitle ?? "Payment received. Thank you.";
     bodyText =
       t.paidBody ??
-      "We still confirm availability for your date, and if we cannot take it you are refunded in full. You'll hear from us shortly.";
+      "Your booking is confirmed. Your driver and the exact pickup time follow shortly, by WhatsApp or email.";
   } else if (pending) {
     Icon = FaHourglassHalf;
     tone = "text-gold-500";

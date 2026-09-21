@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaArrowRight, FaPlane, FaClock, FaShieldAlt, FaTag } from "react-icons/fa";
 import { AREAS, PLACES } from "@/app/data/places";
-import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { money, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 import PageHeader from "@/app/components/PageHeader";
 import FareCalculator from "@/app/components/FareCalculator";
 import CtaBand from "@/app/components/CtaBand";
@@ -83,7 +83,7 @@ export default async function TransfersPage({ params }) {
         title={t.title ?? "Sangster International to your front door."}
         description={
           t.description ??
-          `Flat, published rates to every resort we serve, from ${money(perPerson(cheapest, VEHICLE_CAPACITY))} per person. Pick your hotel below and see the fare before you give us a single detail.`
+          `Published rates to every resort we serve, from ${money(cheapest)} per person with a ${MIN_BILLED_PAX}-person minimum. Pick your hotel below and see the fare before you give us a single detail.`
         }
         image="/ppp/donovan-airport-van.jpg"
       />
@@ -120,7 +120,7 @@ export default async function TransfersPage({ params }) {
             title={t.ratesTitle ?? "The whole price list, in the open."}
             description={
               t.ratesDescription ??
-              "Per person is the fare shared between four — the vehicle costs the same whether one of you travels or four. The last column is what each passenger beyond the fourth adds."
+              "Every rate is per person, and every party is charged for at least four. So one, two, three and four people pay the same, and from the fifth on each person simply adds the rate."
             }
           />
 
@@ -162,10 +162,11 @@ export default async function TransfersPage({ params }) {
                               {t.oneWay ?? "One way"}
                             </span>
                             <span className="font-semibold text-crimson-700">
-                              {money(perPerson(p.transfer.oneWay, VEHICLE_CAPACITY))}
+                              {money(p.transfer.oneWay)}
                             </span>
                             <span className="block text-[0.7rem] text-ink/45">
-                              {money(p.transfer.oneWay)} {t.totalWord ?? "total"}
+                              {t.minFrom ?? "from"}{" "}
+                              {money(minimumFare(p.transfer.oneWay))}
                             </span>
                           </div>
                           <div>
@@ -173,10 +174,11 @@ export default async function TransfersPage({ params }) {
                               {t.roundTrip ?? "Round trip"}
                             </span>
                             <span className="font-semibold text-ink/80">
-                              {money(perPerson(p.transfer.roundTrip, VEHICLE_CAPACITY))}
+                              {money(p.transfer.roundTrip)}
                             </span>
                             <span className="block text-[0.7rem] text-ink/45">
-                              {money(p.transfer.roundTrip)} {t.totalWord ?? "total"}
+                              {t.minFrom ?? "from"}{" "}
+                              {money(minimumFare(p.transfer.roundTrip))}
                             </span>
                           </div>
                         </div>
@@ -198,9 +200,6 @@ export default async function TransfersPage({ params }) {
                         <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
                           {t.roundTrip ?? "Round trip"}
                         </th>
-                        <th className="px-5 py-3.5 text-right font-semibold text-ink/70">
-                          {t.each ?? "Each extra"}
-                        </th>
                         <th className="w-10" />
                       </tr>
                     </thead>
@@ -217,26 +216,21 @@ export default async function TransfersPage({ params }) {
                           </td>
                           <td className="px-5 py-3.5 text-right">
                             <span className="font-semibold text-crimson-700">
-                              {money(
-                                perPerson(p.transfer.oneWay, VEHICLE_CAPACITY)
-                              )}
+                              {money(p.transfer.oneWay)}
                             </span>
                             <span className="block text-xs text-ink/45">
-                              {money(p.transfer.oneWay)} {t.totalWord ?? "total"}
+                              {t.minFrom ?? "from"}{" "}
+                              {money(minimumFare(p.transfer.oneWay))}
                             </span>
                           </td>
                           <td className="px-5 py-3.5 text-right">
                             <span className="font-semibold text-ink/80">
-                              {money(
-                                perPerson(p.transfer.roundTrip, VEHICLE_CAPACITY)
-                              )}
+                              {money(p.transfer.roundTrip)}
                             </span>
                             <span className="block text-xs text-ink/45">
-                              {money(p.transfer.roundTrip)} {t.totalWord ?? "total"}
+                              {t.minFrom ?? "from"}{" "}
+                              {money(minimumFare(p.transfer.roundTrip))}
                             </span>
-                          </td>
-                          <td className="px-5 py-3.5 text-right text-ink/50">
-                            {money(p.transfer.oneWayExtra)} / {money(p.transfer.roundTripExtra)}
                           </td>
                           <td className="pr-4 text-right">
                             <Link

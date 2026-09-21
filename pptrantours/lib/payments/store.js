@@ -236,13 +236,16 @@ export async function settlePayment({
 
       tx.update(bookingRef, {
         /*
-         * `status` is deliberately NOT touched.
+         * `status` is deliberately NOT touched — but no longer for the reason
+         * that used to be written here.
          *
-         * Paying does not confirm availability — the whole site promises we
-         * confirm the date first. Flipping a paid booking to "confirmed" would
-         * turn a scheduling clash into a refund the owner does not know he
-         * owes. Paid-and-still-new is a normal state, and it is the top row of
-         * the admin attention band for exactly that reason.
+         * A priced booking is already `confirmed` when it is created (see
+         * app/api/bookings/route.js), so there is nothing for a payment to
+         * promote. Paying is a separate axis: it settles the money, not the
+         * booking. The one case that still reaches here as `new` is a quote
+         * request or an enquiry, and paying against one of those must not
+         * confirm a date nobody has agreed a price for — which is exactly what
+         * the admin attention band surfaces.
          */
         "payment.state": bookingPaymentState({
           outcome,

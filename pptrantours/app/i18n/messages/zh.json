@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",
-    "description": "牙买加私人机场接送、环岛游览与邮轮码头出发的行程——整车一口价，景点门票始终单独列出，绝不加价。",
+    "description": "牙买加各地的私人机场接送、环岛旅游与邮轮码头行程 — 按人计价，最少四人起，景点门票单独列出，绝不加价。",
     "keywords": [
       "牙买加机场接送",
       "蒙特哥贝私人包车",
@@ -111,10 +111,9 @@
     "fromYourResort": "从您的酒店出发",
     "askUs": "请咨询",
     "weWillQuote": "我们为您报价",
-    "perVehicle": "四人以内",
     "perPerson": "／人",
-    "vehicleBasis": "整车 {amount}・最多 {capacity} 人",
-    "estimated": "参考价"
+    "estimated": "参考价",
+    "minimumPax": "最少 {n} 人起"
   },
   "place": {
     "title": "您住在哪里？",
@@ -190,7 +189,6 @@
     "bookNow": "立即预订",
     "transportLabel": "车费",
     "transferPrice": "私人接送",
-    "perVehicleLong": "每车",
     "pickResortFirst": "请先选择酒店",
     "askUsPrice": "我们为您报价",
     "stayingAt": "您住在哪里？",
@@ -206,8 +204,6 @@
     "children": "儿童",
     "child": "位儿童",
     "childrenWord": "位儿童",
-    "vehicleNote": "一辆专车最多可坐 4 人，价格相同。",
-    "extraNote": "人数较多——上方价格已包含超出的乘客。",
     "gateNote": "在景点入口支付，不是付给我们。",
     "addons": "可选加项",
     "fromWord": "起",
@@ -227,7 +223,6 @@
     "notesPlaceholder": "儿童座椅、额外停靠点、想加的第二个景点…",
     "pickResortHint": "告诉我们您住在哪家酒店，这里就会显示您这组人的准确价格。",
     "unpricedHint": "我们尚未公布从您所住酒店出发的此行程固定价格。请直接提交，我们当天回复确定报价——不加价。",
-    "extraBreakdown": "已包含前四位之外的乘客。",
     "transportIsOurs": "这是 PPP 收取的费用，不会再加任何东西。",
     "gatesLabel": "入口处支付",
     "gatesNote": "景点门票，当天现场支付。我们从不转售，也不加价。",
@@ -244,8 +239,6 @@
     "notPersisted": "本网站的预订存储功能尚未开启。请用下方的 WhatsApp 把详情直接发给我们，我们立刻为您锁定。",
     "confirmWhatsApp": "通过 WhatsApp 确认",
     "browseMore": "浏览更多行程",
-    "worksOutAt": "折合",
-    "estimatedNote": "这是您酒店的参考价——从这里出发尚未公布固定价格，我们会在您付款前确认准确金额。",
     "requiredNote": "必填。其余信息有助于我们安排，但可以不填。",
     "payHow": "还是想现在付款？",
     "payOptional": "现在付款是可选的，不会改变您的预订。您随时可以用现金付给司机。",
@@ -266,7 +259,16 @@
     "noPaymentQuote": "不收取任何费用——我们当天给出确定报价。",
     "payDidntOpen": "付款页面未能打开",
     "payDidntOpenBody": "无论如何您的预订都已确认——没有产生任何扣款。可在下方重试，或当天直接付给司机。",
-    "payUnavailable": "此预订目前无法使用银行卡支付。没有产生任何扣款，您的预订依然有效——可当天付给司机，或联系我们以其他方式付款。"
+    "payUnavailable": "此预订目前无法使用银行卡支付。没有产生任何扣款，您的预订依然有效——可当天付给司机，或联系我们以其他方式付款。",
+    "minimumNote": "每笔预订至少按 {n} 人计费，因此还可以再多来 {spare} 位，无需额外付费。",
+    "perHeadNote": "{n} 人，每人均按上方价格计算。",
+    "totalWordLong": "合计",
+    "transportPlusGates": "车费加门票",
+    "sectionTrip": "您的行程",
+    "sectionParty": "同行人数",
+    "sectionPrice": "您的价格",
+    "sectionDetails": "您的信息",
+    "sectionPay": "付款方式"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
@@ -278,16 +280,15 @@
     "passengers": "乘客人数",
     "fewer": "减少乘客",
     "more": "增加乘客",
-    "note": "一辆专车最多可坐 4 位乘客，价格固定。费用以美元计，含在到达大厅的接机服务。",
+    "note": "价格按人计算，每笔预订至少按四位乘客计费。以美元报价，并含到达大厅接机。",
     "prompt": "选择您的酒店，准确价格就会显示在这里——不必填表，也不用等邮件。",
     "roundTripLabel": "私人往返接送",
     "oneWayLabel": "私人单程接送",
-    "upTo": "最多 4 位乘客",
-    "extraPassenger": "位额外乘客",
     "book": "预订此接送",
     "ask": "提个问题",
     "perPerson": "／人",
-    "totalFor": "{n} 人合计"
+    "totalFor": "{n} 人合计",
+    "minimumNote": "按最低人数 {n} 人计费。还可以再多来 {spare} 位，无需额外付费。"
   },
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",
@@ -342,7 +343,7 @@
   "browse": {
     "eyebrow": "牙买加有什么好玩的",
     "title": "这一天您想在哪里度过？",
-    "description": "按教区浏览，或者按您想要的那种一天来选。所有价格都是整车的车费，门票在旁边单独列出。",
+    "description": "按教区浏览，或按您想要的行程类型浏览。所有价格均按人计算、最少四人起，门票费用列在旁边。",
     "seeEverything": "查看全部",
     "option": "个选择",
     "options": "个选择"
@@ -353,7 +354,7 @@
     "popularDescription": "邓恩河瀑布、蓝洞、日落时分的 Rick's Cafe——最后都会出现在相册里。",
     "transfersEyebrow": "机场接送",
     "transfersTitle": "从桑斯特机场直达酒店门口。",
-    "transfersDescription": "选择您的酒店，立刻看到准确价格——四人以内一口价，航班有人追踪，司机在到达大厅等您。",
+    "transfersDescription": "选择您的酒店即可看到准确车费 — 按人计价，最少四人，航班全程跟踪，司机在到达大厅等候。",
     "allRates": "全部价目",
     "combosEyebrow": "一天两个景点",
     "combosTitle": "组合套餐，不用赶。",
@@ -465,9 +466,7 @@
     "inc3": "酒店门口接送",
     "inc4": "没有固定发车时间——节奏由您决定",
     "transportTable": "车费是多少",
-    "transportTableNote": "每人价格是整车价格除以 4——无论是一位还是四位同行，车费都一样。第五位乘客起，每多一位加收最后一列的金额。",
     "pickingUpFrom": "接您的地点",
-    "upToFour": "4 人以内",
     "eachExtra": "每多一位",
     "otherResorts": "住在其他地方？这条行程我们照样跑——发消息给我们，直接为您的酒店报价。",
     "entryTable": "景点收费是多少",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "牙买加有什么好玩的",
-    "metaDescription": "PPP Tran Tours 的全部行程，按教区分类——蒙特哥贝、奥乔里奥斯、法尔茅斯、尼格瑞尔和南海岸。车费按车计价，门票单独列出。",
+    "metaDescription": "PPP Tran Tours 的全部行程，按教区分类 — 蒙特哥贝、奥乔里奥斯、法尔茅斯、尼格瑞尔与南岸。车费按人计算、最少四人起，门票单独列出。",
     "eyebrow": "全部行程",
     "title": "牙买加有什么好玩的。",
     "description": "我们提供的每一条行程，车费和门票分开标示，让您清楚看到哪部分是我们的、哪部分是景点的。",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "蒙特哥贝机场接送",
-    "metaDescription": "从桑斯特国际机场（MBJ）到牙买加各大度假村的私人接送。四人以内固定价格，航班追踪，到达大厅接机。",
+    "metaDescription": "从桑斯特国际机场（MBJ）到牙买加各大度假村的私人接送。公开的按人价格，最少四人起，航班全程跟踪，到达大厅接机。",
     "eyebrow": "机场接送",
     "title": "从桑斯特国际机场直达您的门口。",
     "description": "我们服务的每一家度假村都有固定公开的价格。在下方选择您的酒店，在提供任何个人信息之前就能看到价格。",
@@ -511,23 +510,22 @@
     "p3Title": "始终私人专属",
     "p3Body": "只有您一行人。不拼车，也不会先绕去别的酒店接人。",
     "p4Title": "看到的就是全部价格",
-    "p4Body": "四人以内一口价。没有燃油附加费，也没有机场附加费。",
+    "p4Body": "按人计价，且从不少于四人计费。无燃油附加费，无机场附加费。",
     "ratesEyebrow": "我们公布的全部价格",
     "ratesTitle": "完整价目表，公开透明。",
-    "ratesDescription": "每人价格是车费除以四——无论是一位还是四位同行，车费都一样。最后一列是第四位之后每多一位乘客需要加收的金额。",
+    "ratesDescription": "每个价格都按人计算，每个团队至少按四人计费。所以一人、两人、三人和四人付的钱是一样的，从第五人起，每多一人就加一份价格。",
     "resort": "酒店",
     "oneWay": "单程",
     "roundTrip": "往返",
-    "each": "每多一位",
     "book": "预订",
     "notListed": "别墅、Airbnb 或列表里没有的酒店？岛上任何地方我们都去——把地址发给我们，当天就给您报价。",
-    "totalWord": "合计"
+    "minFrom": "起"
   },
   "transferPage": {
     "metaTitle": "{fare} 起｜前往 {resort} 的机场接送",
     "metaDescription": "从蒙特哥贝桑斯特国际机场（MBJ）到 {resort} 的私人接送。单程 {fare}，4 人以内；往返 {roundTrip}。航班追踪，到达大厅接机。",
     "h1": "前往 {resort} 的私人机场接送",
-    "intro": "从桑斯特国际机场（MBJ）到 {resort}——每人 {perPerson}，或整车 {fare}，最多 {capacity} 位乘客。司机会举着名牌在到达大厅等您，直接送您抵达。",
+    "intro": "从桑斯特国际机场（MBJ）到{resort} — 每人 {perPerson}，最少 {capacity} 人（{fare}）。司机会在到达大厅举着写有您姓名的牌子等候，直接送您过去。",
     "transferTo": "机场接送前往",
     "oneWay": "单程",
     "roundTrip": "往返",
@@ -546,8 +544,8 @@
     "nearby": "我们服务的附近其他酒店",
     "toursEyebrow": "既然来了",
     "toursTitle": "从 {resort} 出发的行程",
-    "toursDescription": "下方价格专门对应您的酒店——车费按整车计算，门票单独列出。",
-    "totalWord": "合计"
+    "toursDescription": "下方价格是专门针对您所住酒店的 — 车费按人计算、最少四人起，门票另行列出。",
+    "minFrom": "起"
   },
   "destinationsPage": {
     "metaTitle": "目的地",
@@ -658,8 +656,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "你们的价格是按人算还是按车算？",
-      "a": "按车算。一个公布的价格覆盖四人以内的整个团队，所以两位旅客和四位旅客的车费完全一样。从第五位乘客起，每多一位加收一小笔固定金额，这个金额就标在每个价格旁边。"
+      "q": "你们的价格是怎么算的？",
+      "a": "按人计算，最少四人起。所以一人、两人、三人和四人付的完全一样 — 也就是单价乘以四 — 从第五位乘客起，每多一人就加一份单价。也就是说，同行的人越多，每个人付得越少。"
     },
     {
       "key": "entry",
@@ -961,21 +959,21 @@
     }
   },
   "bookingResult": {
-    "paidTitle": "Payment received. Thank you.",
-    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
-    "failedTitle": "That payment did not go through",
+    "paidTitle": "已收到付款，谢谢。",
+    "paidBody": "您的预订已确认。司机和准确的接送时间我们会尽快通过 WhatsApp 或电子邮件告知您。",
+    "failedTitle": "这笔付款未能完成",
     "failedBody": "您的银行卡未被扣款，预订依然有效。您可以重试，或当天直接付给司机。",
     "pendingTitle": "您的付款正在结算",
     "pendingBody": "PayPal 已收到您的款项，但尚未放行——银行转账时会出现这种情况，通常几天内完成。请不要重复付款。款项到账后我们会立即确认，无论如何都会就您的日期与您联系。",
     "cancelledTitle": "Payment cancelled",
     "cancelledBody": "没有产生任何扣款，预订依然有效。您可以当天付款，或重新尝试。",
-    "unconfirmedTitle": "We could not confirm that payment",
-    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
-    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
-    "reference": "Your reference",
-    "amountPaid": "Paid",
-    "balance": "To your driver on the day",
-    "whatsapp": "Message us on WhatsApp",
-    "home": "Back to home"
+    "unconfirmedTitle": "我们无法确认这笔付款",
+    "unconfirmedBody": "无论如何，您的预订都已成立。如果您的卡已被扣款，请告知我们您的预订编号，我们会核对 — 不会有任何损失。",
+    "unconfirmedNote": "在我们联系您之前，请不要重复付款。",
+    "reference": "您的预订编号",
+    "amountPaid": "已付",
+    "balance": "当天付给司机",
+    "whatsapp": "用 WhatsApp 联系我们",
+    "home": "返回首页"
   }
 }

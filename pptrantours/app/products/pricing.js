@@ -1,54 +1,54 @@
 /**
  * Every number the site quotes comes out of this file.
  *
- * The rule that shapes all of it: **PPP charges for the vehicle, the attraction
- * charges for the head.** Transport is one price for up to four people with a
- * per-head rate after that; entry fees are per person and are paid at the gate,
- * never to us. Mixing the two up would misquote every booking, so they are
- * priced separately and only added together at the very end, clearly labelled.
+ * The rule that shapes all of it: **transport is per person with a four-person
+ * minimum, and the attraction charges its own heads.** Transport is
+ * `rate * max(4, pax)`, so one, two, three and four people pay the same and
+ * the fifth guest onward each add the plain rate; entry fees are per person and
+ * are paid at the gate, never to us. Mixing the two up would misquote every
+ * booking, so they are priced separately and only added together at the very
+ * end, clearly labelled.
  *
  * The browser and the API route both import this. If they ever disagreed, a
  * guest would be shown one total and charged another.
  */
-import { VEHICLE_CAPACITY } from "@/app/data/catalogue";
+import { MIN_BILLED_PAX } from "@/app/data/catalogue";
 import { getPlace } from "@/app/data/places";
 
-export { VEHICLE_CAPACITY };
+export { MIN_BILLED_PAX };
 
 export const MAX_PARTY = 30;
+
+/**
+ * Heads charged for, which is not the same as heads travelling.
+ *
+ * The floor is the whole commercial model: a solo guest still occupies the
+ * driver's day, so four is the least anyone is billed for. It is also the
+ * reason the site can honestly say that the more people join, the less each
+ * pays.
+ */
+export function billedPax(pax) {
+  return Math.max(MIN_BILLED_PAX, clampPax(pax));
+}
 
 /* ── Transport ─────────────────────────────────────────────────────────────── */
 
 /**
  * Transport for an excursion, from one zone.
  *
- * @returns {{base:number, extra:number, extraPax:number, total:number}|null}
- *   null when the owner has published no price for that zone — the caller must
+ * `rate` is the per-head figure and `minimum` is what a party of fewer than
+ * four pays; `billed` says how many heads the total was actually struck on, so
+ * the UI can explain a total without recomputing it.
+ *
+ * @returns {{rate:number, billed:number, pax:number, minimum:number,
+ *   atMinimum:boolean, total:number}|null}
+ *   null when the owner has published no rate for that zone — the caller must
  *   show an "ask us" path rather than a number.
  */
 export function priceTransport(tour, zoneKey, pax) {
   const band = tour?.zones?.[zoneKey];
   if (!band) return null;
-
-  const people = clampPax(pax);
-  const extraPax = Math.max(0, people - VEHICLE_CAPACITY);
-
-  return {
-    base: band.price,
-    extra: band.extra,
-    extraPax,
-    total: band.price + band.extra * extraPax,
-    /*
-     * True when this band was derived by us rather than quoted by him.
-     *
-     * This used not to be returned at all, which meant `booking.estimatedNote`
-     * in the booking form — already translated into ten languages, and reading
-     * "we confirm the exact price before you pay anything" — had never once
-     * rendered. Harmless while nothing could be charged. Load-bearing now:
-     * `payable()` below refuses to collect against a figure carrying this flag.
-     */
-    est: Boolean(band.est),
-  };
+  return quote(band.rate, pax);
 }
 
 /**
@@ -61,15 +61,27 @@ export function priceTransfer(placeKey, tripType, pax) {
   if (!place?.transfer) return null;
 
   const round = tripType === "round-trip";
-  const base = round ? place.transfer.roundTrip : place.transfer.oneWay;
-  const extra = round
-    ? place.transfer.roundTripExtra
-    : place.transfer.oneWayExtra;
+  const rate = round ? place.transfer.roundTrip : place.transfer.oneWay;
+  if (rate == null) return null;
 
+  return { ...quote(rate, pax), round };
+}
+
+/** The one piece of transport arithmetic on the site. */
+function quote(rate, pax) {
   const people = clampPax(pax);
-  const extraPax = Math.max(0, people - VEHICLE_CAPACITY);
+  const billed = billedPax(people);
 
-  return { base, extra, extraPax, total: base + extra * extraPax, round };
+  return {
+    rate,
+    billed,
+    pax: people,
+    minimum: rate * MIN_BILLED_PAX,
+    // Below the floor the guest is paying for heads that are not travelling,
+    // which is the one thing the page must never leave unexplained.
+    atMinimum: people < MIN_BILLED_PAX,
+    total: rate * billed,
+  };
 }
 
 /* ── Entry fees ────────────────────────────────────────────────────────────── */
@@ -170,25 +182,22 @@ function describeHeads(rate, adults, children) {
  */
 export function quoteExcursion(
   tour,
-  { zoneKey, zoneEst = false, adults, children, choices, addons }
+  { zoneKey, adults, children, choices, addons }
 ) {
   const pax = clampPax(adults + children);
-  const base = priceTransport(tour, zoneKey, pax);
+  const transport = priceTransport(tour, zoneKey, pax);
   const entry = priceEntry(tour, { adults, children, choices, addons });
 
   /*
-   * Two independent ways a transport figure can be provisional, and either is
-   * enough to make it so:
+   * A derived rate is no longer distinguished here.
    *
-   *   band.est   he never published a price for this zone, so we derived one
-   *   zoneEst    he never said which price list this resort belongs to, so we
-   *              inferred that too — the figure is his, the mapping is not
-   *
-   * 19 of the 46 resorts carry `zoneEst`. The 46 airport-transfer rates
-   * themselves are all his, transcribed from the WhatsApp thread, so nothing
-   * equivalent is needed on `priceTransfer`.
+   * It used to be: a band we worked out, or a resort whose price list we had
+   * inferred, came back flagged, and `payable()` then refused to collect
+   * against it. That put seventeen of the forty-eight resorts — a third of the
+   * list — on an "ask us" path with no way to pay, to protect a figure that is
+   * transport only and is in the right band either way. The flag is gone and
+   * the provenance lives in the header of estimated-zones.js, where it belongs.
    */
-  const transport = base ? { ...base, est: base.est || Boolean(zoneEst) } : null;
 
   return {
     pax,
@@ -239,8 +248,6 @@ export function fromCents(cents) {
  *
  *   no-transport    the owner publishes no rate from that resort for that tour.
  *                   The page shows "Ask us" and there is no number to charge.
- *   estimated       the figure is our inference, not his rate, and the form
- *                   already promises the guest we confirm it before they pay.
  *   below-minimum   PayPal rejects an order under $0.01, and a transfer
  *                   priced under a dollar is a data error rather than a fare.
  *                   The $1.00 floor is kept from the WiPay era on that basis.
@@ -252,9 +259,6 @@ export function payable(quote) {
 
   if (total == null) {
     return { collectible: false, reason: "no-transport", payableCents: 0 };
-  }
-  if (quote.transport.est) {
-    return { collectible: false, reason: "estimated", payableCents: 0 };
   }
 
   const payableCents = toCents(total);
@@ -268,16 +272,32 @@ export function payable(quote) {
 /* ── Shop-window figures ───────────────────────────────────────────────────── */
 
 /**
- * Cheapest transport across every zone a tour is priced from — the "from $X" on
- * a card, when we do not yet know where the guest is staying.
+ * Cheapest per-person rate across every zone a tour is priced from — the
+ * "from $X / person" on a card, when we do not yet know where the guest is
+ * staying.
+ *
+ * A rate, not a total. It is the same number the booking page will show once
+ * the guest names a resort, which is the whole point: the card and the form
+ * used to print two different per-head figures for the same tour.
  */
 export function lowestTransport(tour) {
   const bands = Object.values(tour?.zones ?? {});
   if (bands.length === 0) return null;
-  return Math.min(...bands.map((b) => b.price));
+  return Math.min(...bands.map((b) => b.rate));
 }
 
-/** Cheapest one-way transfer in a group of places. */
+/**
+ * What a party of four or fewer actually pays at this rate.
+ *
+ * Shop-window copy needs both numbers: the rate is the headline, but "$7.50 one
+ * way" is not a fare anybody is ever charged — the smallest cheque is $30. Any
+ * sentence quoting a single amount for a trip wants this, not the rate.
+ */
+export function minimumFare(rate) {
+  return rate == null ? null : rate * MIN_BILLED_PAX;
+}
+
+/** Cheapest one-way transfer rate in a group of places. */
 export function lowestTransfer(placeKeys) {
   const rates = placeKeys
     .map((k) => getPlace(k)?.transfer?.oneWay)
@@ -298,31 +318,16 @@ export function money(value) {
   return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
 }
 
-/** "up to 4 people" / "6 people" — the unit a transport price is quoted in. */
-export function describeVehicle(pax) {
-  return pax <= VEHICLE_CAPACITY
-    ? `up to ${VEHICLE_CAPACITY} people`
-    : `${pax} people`;
-}
-
-/**
- * The same money, divided by heads.
+/*
+ * `describeVehicle()` and `perPerson()` stood here and are deliberately gone.
  *
- * A whole-vehicle figure is what the guest actually pays, but $200 next to a
- * competitor's "$50pp" reads as four times the price when it is the same price.
- * So the per-head figure leads and the vehicle total sits beside it — the
- * division is presentation, never a separate charge, and both numbers are
- * always shown together so nobody can mistake one for the other.
- *
- * Where the party size is not yet known (a card in a grid), callers pass
- * `VEHICLE_CAPACITY`: four is the most people the base price covers, so it
- * yields the lowest per-head figure the tour can reach — which is exactly what
- * "from" means, and why it must never appear without that qualifier.
+ * `perPerson(total, pax)` divided the total by the party actually travelling,
+ * so a couple booking a $50/person tour were shown "$100 / person" on the
+ * booking page and "$50 / person" on the card that sent them there. The rate is
+ * stored now, so there is nothing to derive and no second number to disagree
+ * with. Do not reintroduce it: below the four-head floor, total ÷ pax is not a
+ * price anybody is charged.
  */
-export function perPerson(total, pax) {
-  const heads = Math.max(1, Number.parseInt(pax, 10) || 1);
-  return total / heads;
-}
 
 function clampPax(n) {
   const v = Number.parseInt(n, 10);

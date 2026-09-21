@@ -68,17 +68,20 @@ export const AREAS = [
  * @property {string}    name      as the guest would say it
  * @property {string}    area      AREAS key
  * @property {string?}   zone      ZONES key, or null if excursions are quote-only
- * @property {object?}   transfer  {oneWay, oneWayExtra, roundTrip, roundTripExtra}
+ * @property {object?}   transfer  {oneWay, roundTrip} — per-person rates
  * @property {string[]?} aka       extra search terms
  */
 
-/** Airport transfer bands, so the 45 rates below stay readable and checkable. */
-const t = (oneWay, oneWayExtra, roundTrip, roundTripExtra) => ({
-  oneWay,
-  oneWayExtra,
-  roundTrip,
-  roundTripExtra,
-});
+/**
+ * Airport transfer rates, per person, so the 46 below stay readable and
+ * checkable.
+ *
+ * Both numbers are per head, and a party is billed for at least four of them.
+ * The separate `oneWayExtra`/`roundTripExtra` figures these replaced had
+ * drifted on thirteen of the rows — $30 one way with a $10 fifth head, when
+ * the four who paid the $30 were being charged $7.50 each.
+ */
+const t = (oneWay, roundTrip) => ({ oneWay, roundTrip });
 
 const MOBAY = "mobay-hotels";
 const FALMOUTH = "falmouth-hotels";
@@ -89,62 +92,62 @@ const SOUTH = "south-coast-hotels";
 
 export const PLACES = [
   // Montego Bay
-  { key: "toby-resort", name: "Toby Resort", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "royal-decameron-cornwall", name: "Royal Decameron Cornwall Beach", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10), aka: ["Decameron"] },
-  { key: "s-hotel", name: "S Hotel Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "deja-resort", name: "Deja Resort", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "club-montego-bay", name: "Club Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "altamont", name: "Altamont Hotel", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10), aka: ["Altamont West"] },
-  { key: "hotel-39", name: "Hotel 39", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "caribic-house", name: "Caribic House Hotel", area: "montego-bay", zone: MOBAY, transfer: t(20, 5, 40, 10) },
-  { key: "secrets-wild-orchid", name: "Secrets Wild Orchid", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "secrets-st-james", name: "Secrets St. James", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "breathless", name: "Breathless Montego Bay Resort & Spa", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "sandals-montego-bay", name: "Sandals Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "riu-montego-bay", name: "Riu Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "riu-palace", name: "Riu Palace Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "riu-reggae", name: "Riu Reggae", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "sandals-royal-caribbean", name: "Sandals Royal Caribbean", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "zoetry", name: "Zoetry Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(30, 10, 60, 15) },
-  { key: "half-moon", name: "Half Moon Resort", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
-  { key: "jewel-grande", name: "Jewel Grande Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
-  { key: "iberostar-waves", name: "Iberostar Waves Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
-  { key: "iberostar-selection", name: "Iberostar Selection Rose Hall Suites", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
-  { key: "iberostar-joia", name: "Iberostar Joia Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(40, 10, 80, 20) },
+  { key: "toby-resort", name: "Toby Resort", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "royal-decameron-cornwall", name: "Royal Decameron Cornwall Beach", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), aka: ["Decameron"] },
+  { key: "s-hotel", name: "S Hotel Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "deja-resort", name: "Deja Resort", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "club-montego-bay", name: "Club Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "altamont", name: "Altamont Hotel", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), aka: ["Altamont West"] },
+  { key: "hotel-39", name: "Hotel 39", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "caribic-house", name: "Caribic House Hotel", area: "montego-bay", zone: MOBAY, transfer: t(5, 10) },
+  { key: "secrets-wild-orchid", name: "Secrets Wild Orchid", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "secrets-st-james", name: "Secrets St. James", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "breathless", name: "Breathless Montego Bay Resort & Spa", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "sandals-montego-bay", name: "Sandals Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "riu-montego-bay", name: "Riu Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "riu-palace", name: "Riu Palace Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "riu-reggae", name: "Riu Reggae", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "sandals-royal-caribbean", name: "Sandals Royal Caribbean", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "zoetry", name: "Zoetry Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(7.5, 15) },
+  { key: "half-moon", name: "Half Moon Resort", area: "montego-bay", zone: MOBAY, transfer: t(10, 20) },
+  { key: "jewel-grande", name: "Jewel Grande Montego Bay", area: "montego-bay", zone: MOBAY, transfer: t(10, 20) },
+  { key: "iberostar-waves", name: "Iberostar Waves Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(10, 20) },
+  { key: "iberostar-selection", name: "Iberostar Selection Rose Hall Suites", area: "montego-bay", zone: MOBAY, transfer: t(10, 20) },
+  { key: "iberostar-joia", name: "Iberostar Joia Rose Hall", area: "montego-bay", zone: MOBAY, transfer: t(10, 20) },
 
   // Falmouth & Trelawny
-  { key: "excellence-oyster-bay", name: "Excellence Oyster Bay", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
-  { key: "riu-aquarelle", name: "Riu Aquarelle", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
-  { key: "royalton-blue-waters", name: "Royalton Blue Waters", area: "falmouth", zone: FALMOUTH, transfer: t(60, 15, 120, 30) },
-  { key: "ocean-eden-bay", name: "Ocean Eden Bay", area: "falmouth", zone: FALMOUTH, transfer: t(70, 20, 140, 40) },
-  { key: "ocean-coral-spring", name: "Ocean Coral Spring", area: "falmouth", zone: FALMOUTH, transfer: t(70, 20, 140, 40), aka: ["Ocean Coral Springs"] },
-  { key: "bahia-principe", name: "Bahia Principe Grand Jamaica", area: "falmouth", zone: FALMOUTH, zoneEst: true, transfer: t(80, 20, 160, 40) },
-  { key: "franklyn-d", name: "Franklyn D. Resort & Spa", area: "falmouth", zone: FALMOUTH, zoneEst: true, transfer: t(80, 20, 160, 40), aka: ["FDR"] },
+  { key: "excellence-oyster-bay", name: "Excellence Oyster Bay", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30) },
+  { key: "riu-aquarelle", name: "Riu Aquarelle", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30) },
+  { key: "royalton-blue-waters", name: "Royalton Blue Waters", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30) },
+  { key: "ocean-eden-bay", name: "Ocean Eden Bay", area: "falmouth", zone: FALMOUTH, transfer: t(17.5, 35) },
+  { key: "ocean-coral-spring", name: "Ocean Coral Spring", area: "falmouth", zone: FALMOUTH, transfer: t(17.5, 35), aka: ["Ocean Coral Springs"] },
+  { key: "bahia-principe", name: "Bahia Principe Grand Jamaica", area: "falmouth", zone: FALMOUTH, zoneEst: true, transfer: t(20, 40) },
+  { key: "franklyn-d", name: "Franklyn D. Resort & Spa", area: "falmouth", zone: FALMOUTH, zoneEst: true, transfer: t(20, 40), aka: ["FDR"] },
 
   // Hanover & Green Island
-  { key: "round-hill", name: "Round Hill Hotel & Villas", area: "hanover", zone: MOBAY, zoneEst: true, transfer: t(40, 10, 80, 20) },
-  { key: "tryall", name: "Tryall Club", area: "hanover", zone: MOBAY, zoneEst: true, transfer: t(50, 15, 100, 30) },
-  { key: "grand-palladium", name: "Grand Palladium Jamaica", area: "hanover", zone: PALLADIUM, transfer: t(60, 15, 120, 30) },
-  { key: "lady-hamilton", name: "Grand Palladium Lady Hamilton", area: "hanover", zone: PALLADIUM, transfer: t(60, 15, 120, 30) },
-  { key: "princess-jamaica", name: "Princess Grand / Senses Jamaica", area: "hanover", zone: PALLADIUM, zoneEst: true, transfer: t(100, 25, 200, 50), aka: ["Princess Resort"] },
+  { key: "round-hill", name: "Round Hill Hotel & Villas", area: "hanover", zone: MOBAY, zoneEst: true, transfer: t(10, 20) },
+  { key: "tryall", name: "Tryall Club", area: "hanover", zone: MOBAY, zoneEst: true, transfer: t(12.5, 25) },
+  { key: "grand-palladium", name: "Grand Palladium Jamaica", area: "hanover", zone: PALLADIUM, transfer: t(15, 30) },
+  { key: "lady-hamilton", name: "Grand Palladium Lady Hamilton", area: "hanover", zone: PALLADIUM, transfer: t(15, 30) },
+  { key: "princess-jamaica", name: "Princess Grand / Senses Jamaica", area: "hanover", zone: PALLADIUM, zoneEst: true, transfer: t(25, 50), aka: ["Princess Resort"] },
 
   // Ocho Rios & St. Ann
-  { key: "riu-ocho-rios", name: "Riu Ocho Rios", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "sandals-dunns-river", name: "Sandals Dunns River", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "moon-palace", name: "Moon Palace Jamaica", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "sandals-ochi", name: "Sandals Ochi Beach Resort", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "sandals-royal-plantation", name: "Sandals Royal Plantation", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "jamaica-inn", name: "Jamaica Inn", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "couples-sans-souci", name: "Couples Sans Souci", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(120, 30, 240, 60), aka: ["San Souci"] },
-  { key: "couples-tower-isle", name: "Couples Tower Isle", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(120, 30, 240, 60) },
-  { key: "goldeneye", name: "GoldenEye Resort", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(170, 45, 340, 90) },
+  { key: "riu-ocho-rios", name: "Riu Ocho Rios", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "sandals-dunns-river", name: "Sandals Dunns River", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "moon-palace", name: "Moon Palace Jamaica", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "sandals-ochi", name: "Sandals Ochi Beach Resort", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "sandals-royal-plantation", name: "Sandals Royal Plantation", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "jamaica-inn", name: "Jamaica Inn", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(25, 50) },
+  { key: "couples-sans-souci", name: "Couples Sans Souci", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(30, 60), aka: ["San Souci"] },
+  { key: "couples-tower-isle", name: "Couples Tower Isle", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(30, 60) },
+  { key: "goldeneye", name: "GoldenEye Resort", area: "ocho-rios", zone: OCHO, zoneEst: true, transfer: t(42.5, 85) },
 
   // Negril
-  { key: "negril-beach", name: "Negril beach hotels (Seven Mile Beach)", area: "negril", zone: NEGRIL, zoneEst: true, transfer: t(100, 25, 200, 50) },
-  { key: "negril-west-end", name: "Negril West End hotels", area: "negril", zone: NEGRIL, zoneEst: true, transfer: t(120, 30, 240, 60), aka: ["cliffs"] },
+  { key: "negril-beach", name: "Negril beach hotels (Seven Mile Beach)", area: "negril", zone: NEGRIL, zoneEst: true, transfer: t(25, 50) },
+  { key: "negril-west-end", name: "Negril West End hotels", area: "negril", zone: NEGRIL, zoneEst: true, transfer: t(30, 60), aka: ["cliffs"] },
 
   // South Coast
-  { key: "sandals-south-coast", name: "Sandals South Coast", area: "south-coast", zone: SOUTH, zoneEst: true, transfer: t(120, 30, 240, 60), aka: ["Whitehouse"] },
+  { key: "sandals-south-coast", name: "Sandals South Coast", area: "south-coast", zone: SOUTH, zoneEst: true, transfer: t(30, 60), aka: ["Whitehouse"] },
 
   // Cruise piers
   { key: "mobay-cruise-pier", name: "Montego Bay Cruise Terminal", area: "piers", zone: "mobay-pier", transfer: null, aka: ["cruise ship", "pier"] },

@@ -4,9 +4,11 @@
  * Two things about this data drive the whole pricing UI, and both differ from
  * how the site used to work:
  *
- * 1. **Transport is per vehicle, not per person.** Every `zones` figure buys
- *    the vehicle for up to four people. A fifth, sixth and seventh guest each
- *    add `extra`. Two people and four people pay the same.
+ * 1. **Transport is per person, with a four-person minimum.** Every `zones`
+ *    figure is a per-head rate, and a party is billed for at least four heads:
+ *    `rate * max(4, pax)`. So one, two, three and four people all pay the same,
+ *    and the fifth guest onward each pay the plain rate. The more people join,
+ *    the less each pays — which is the offer, not a vehicle thrown in.
  *
  * 2. **Entry fees are not ours.** They are listed here so a guest can see the
  *    true cost of the day up front, but they are paid at the gate. The owner is
@@ -18,11 +20,19 @@
 
 import { ESTIMATED } from "./estimated-zones.js";
 
-/** Transport for up to 4 people, plus a per-head rate from the 5th onward. */
-const z = (price, extra) => ({ price, extra });
+/**
+ * A transport rate, per person.
+ *
+ * One number, deliberately. This used to be `z(price, extra)` — a four-person
+ * base AND a per-head rate — with nothing enforcing that the second was a
+ * quarter of the first. Fifteen rows had drifted out of step, so a party of
+ * five was charged an extra head at a figure that did not match the fare the
+ * other four had paid. With a single rate that row is unrepresentable.
+ */
+const z = (rate) => ({ rate });
 
-/** How many people one vehicle price covers before `extra` starts. */
-export const VEHICLE_CAPACITY = 4;
+/** Nobody is billed for fewer heads than this, however few actually travel. */
+export const MIN_BILLED_PAX = 4;
 
 /* ── Entry-fee components ────────────────────────────────────────────────────
  * Shared where two tours charge the same gate, so a price change is one edit.
@@ -121,11 +131,11 @@ const QUOTED = [
       "Bring water shoes and a dry bag",
     ],
     zones: {
-      "mobay-hotels": z(200, 50),
-      "mobay-pier": z(200, 50),
-      "falmouth-hotels": z(180, 45),
-      "falmouth-pier": z(200, 45),
-      palladium: z(260, 65),
+      "mobay-hotels": z(50),
+      "mobay-pier": z(50),
+      "falmouth-hotels": z(45),
+      "falmouth-pier": z(50),
+      palladium: z(65),
     },
     entry: { components: [ENTRY_BLUE_HOLE] },
   },
@@ -146,11 +156,11 @@ const QUOTED = [
       "Lockers and changing rooms on site",
     ],
     zones: {
-      "mobay-hotels": z(180, 45),
-      "mobay-pier": z(180, 45),
-      "falmouth-hotels": z(160, 40),
-      "falmouth-pier": z(160, 40),
-      palladium: z(240, 60),
+      "mobay-hotels": z(45),
+      "mobay-pier": z(45),
+      "falmouth-hotels": z(40),
+      "falmouth-pier": z(40),
+      palladium: z(60),
     },
     entry: { components: [ENTRY_DUNNS] },
   },
@@ -171,11 +181,11 @@ const QUOTED = [
       "Infinity pool and waterslide at the summit",
     ],
     zones: {
-      "mobay-hotels": z(180, 45),
-      "mobay-pier": z(180, 45),
-      "falmouth-hotels": z(160, 40),
-      "falmouth-pier": z(160, 40),
-      palladium: z(240, 60),
+      "mobay-hotels": z(45),
+      "mobay-pier": z(45),
+      "falmouth-hotels": z(40),
+      "falmouth-pier": z(40),
+      palladium: z(60),
     },
     entry: {
       note: "Pick your package at the gate. Bundles are cheaper than single activities.",
@@ -213,11 +223,11 @@ const QUOTED = [
       "Non-swimmers can watch from the deck",
     ],
     zones: {
-      "mobay-hotels": z(180, 45),
-      "mobay-pier": z(180, 45),
-      "falmouth-hotels": z(160, 40),
-      "falmouth-pier": z(160, 40),
-      palladium: z(240, 60),
+      "mobay-hotels": z(45),
+      "mobay-pier": z(45),
+      "falmouth-hotels": z(40),
+      "falmouth-pier": z(40),
+      palladium: z(60),
     },
     entry: {
       note: "Programme prices start from these figures and rise with season and availability. Toddlers 0-3 are free with a paying adult.",
@@ -255,11 +265,11 @@ const QUOTED = [
       "Mountain scenery most visitors never see",
     ],
     zones: {
-      "mobay-hotels": z(200, 50),
-      "mobay-pier": z(200, 50),
-      "falmouth-hotels": z(180, 45),
-      "falmouth-pier": z(200, 50),
-      palladium: z(260, 65),
+      "mobay-hotels": z(50),
+      "mobay-pier": z(50),
+      "falmouth-hotels": z(45),
+      "falmouth-pier": z(50),
+      palladium: z(65),
     },
     entry: {
       components: [
@@ -291,10 +301,10 @@ const QUOTED = [
       "Infants free, kids priced from 3.3 ft tall",
     ],
     zones: {
-      "mobay-hotels": z(80, 20),
-      "mobay-pier": z(80, 20),
-      "falmouth-hotels": z(140, 35),
-      "falmouth-pier": z(180, 45),
+      "mobay-hotels": z(20),
+      "mobay-pier": z(20),
+      "falmouth-hotels": z(35),
+      "falmouth-pier": z(45),
     },
     entry: {
       note: "Programme prices start from these figures. Infants are free; children are priced once they are taller than 3.3 ft.",
@@ -329,11 +339,11 @@ const QUOTED = [
       "Haunted night tour by candlelight",
     ],
     zones: {
-      "mobay-hotels": z(80, 20),
-      "mobay-pier": z(80, 20),
-      "falmouth-hotels": z(80, 20),
-      "falmouth-pier": z(120, 30),
-      palladium: z(100, 25),
+      "mobay-hotels": z(20),
+      "mobay-pier": z(20),
+      "falmouth-hotels": z(20),
+      "falmouth-pier": z(30),
+      palladium: z(25),
     },
     entry: {
       note: "Children 2 and under are free on both tours. From the cruise piers the owner quotes the Day and Garden tour.",
@@ -367,11 +377,11 @@ const QUOTED = [
       "Easiest half day for a cruise call",
     ],
     zones: {
-      "mobay-hotels": z(100, 25),
-      "mobay-pier": z(100, 25),
-      "falmouth-hotels": z(140, 35),
-      "falmouth-pier": z(140, 35),
-      palladium: z(120, 30),
+      "mobay-hotels": z(25),
+      "mobay-pier": z(25),
+      "falmouth-hotels": z(35),
+      "falmouth-pier": z(35),
+      palladium: z(30),
     },
     entry: { components: [ENTRY_DOCTORS_CAVE] },
   },
@@ -391,10 +401,10 @@ const QUOTED = [
       "Grooms lead throughout",
     ],
     zones: {
-      "mobay-hotels": z(80, 20),
-      "mobay-pier": z(140, 35),
-      "falmouth-hotels": z(80, 20),
-      "falmouth-pier": z(120, 30),
+      "mobay-hotels": z(20),
+      "mobay-pier": z(35),
+      "falmouth-hotels": z(20),
+      "falmouth-pier": z(30),
     },
     entry: { components: [ENTRY_HORSEBACK] },
   },
@@ -416,11 +426,11 @@ const QUOTED = [
       "Changing rooms and a bar at the exit",
     ],
     zones: {
-      "mobay-hotels": z(80, 20),
-      "mobay-pier": z(140, 35),
-      "falmouth-hotels": z(80, 20),
-      "falmouth-pier": z(120, 30),
-      palladium: z(140, 35),
+      "mobay-hotels": z(20),
+      "mobay-pier": z(35),
+      "falmouth-hotels": z(20),
+      "falmouth-pier": z(30),
+      palladium: z(35),
     },
     entry: { components: [ENTRY_TUBING] },
   },
@@ -441,11 +451,11 @@ const QUOTED = [
       "Riverside bar and craft stalls at the landing",
     ],
     zones: {
-      "mobay-hotels": z(100, 25),
-      "mobay-pier": z(120, 30),
-      "falmouth-hotels": z(80, 20),
-      "falmouth-pier": z(80, 20),
-      palladium: z(160, 40),
+      "mobay-hotels": z(25),
+      "mobay-pier": z(30),
+      "falmouth-hotels": z(20),
+      "falmouth-pier": z(20),
+      palladium: z(40),
     },
     entry: { components: [ENTRY_MARTHA_BRAE] },
   },
@@ -465,9 +475,9 @@ const QUOTED = [
       "Restaurant and bar at the dock",
     ],
     zones: {
-      "mobay-hotels": z(80, 20),
-      "falmouth-hotels": z(60, 15),
-      palladium: z(160, 40),
+      "mobay-hotels": z(20),
+      "falmouth-hotels": z(15),
+      palladium: z(40),
     },
     entry: {
       components: [
@@ -494,10 +504,10 @@ const QUOTED = [
       "Your driver waits as long as you like",
     ],
     zones: {
-      "mobay-hotels": z(180, 45),
-      "mobay-pier": z(180, 45),
-      "falmouth-hotels": z(240, 60),
-      palladium: z(140, 35),
+      "mobay-hotels": z(45),
+      "mobay-pier": z(45),
+      "falmouth-hotels": z(60),
+      palladium: z(35),
     },
     entry: { components: [] },
   },
@@ -518,10 +528,10 @@ const QUOTED = [
       "Live band most evenings",
     ],
     zones: {
-      "mobay-hotels": z(180, 45),
-      "mobay-pier": z(180, 45),
-      "falmouth-hotels": z(240, 60),
-      palladium: z(140, 35),
+      "mobay-hotels": z(45),
+      "mobay-pier": z(45),
+      "falmouth-hotels": z(60),
+      palladium: z(35),
     },
     entry: { components: [] },
   },
@@ -544,10 +554,10 @@ const QUOTED = [
       "Zipline over the falls, if you want it",
     ],
     zones: {
-      "mobay-hotels": z(200, 50),
-      "mobay-pier": z(200, 50),
-      "falmouth-hotels": z(300, 75),
-      palladium: z(240, 60),
+      "mobay-hotels": z(50),
+      "mobay-pier": z(50),
+      "falmouth-hotels": z(75),
+      palladium: z(60),
     },
     entry: {
       components: [ENTRY_YS],
@@ -578,10 +588,10 @@ const QUOTED = [
       "Pairs naturally with YS Falls",
     ],
     zones: {
-      "mobay-hotels": z(200, 50),
-      "mobay-pier": z(200, 50),
-      "falmouth-hotels": z(300, 75),
-      palladium: z(240, 60),
+      "mobay-hotels": z(50),
+      "mobay-pier": z(50),
+      "falmouth-hotels": z(75),
+      palladium: z(60),
     },
     entry: { components: [ENTRY_BLACK_RIVER] },
   },
@@ -601,10 +611,10 @@ const QUOTED = [
       "The drive through Cockpit Country",
     ],
     zones: {
-      "mobay-hotels": z(240, 60),
-      "mobay-pier": z(240, 60),
-      "falmouth-hotels": z(320, 80),
-      palladium: z(280, 70),
+      "mobay-hotels": z(60),
+      "mobay-pier": z(60),
+      "falmouth-hotels": z(80),
+      palladium: z(70),
     },
     entry: { components: [ENTRY_APPLETON] },
   },
@@ -626,7 +636,7 @@ const QUOTED = [
       "Do them in either order",
     ],
     combines: ["blue-hole", "dunns-river-falls"],
-    zones: { "mobay-pier": z(260, 65) },
+    zones: { "mobay-pier": z(65) },
     entry: { components: [ENTRY_BLUE_HOLE, ENTRY_DUNNS] },
   },
   {
@@ -645,7 +655,7 @@ const QUOTED = [
       "Zipline at YS Falls if you want it",
     ],
     combines: ["ys-falls", "black-river-safari"],
-    zones: { "mobay-pier": z(240, 60), palladium: z(300, 75) },
+    zones: { "mobay-pier": z(60), palladium: z(75) },
     entry: {
       components: [ENTRY_YS, ENTRY_BLACK_RIVER],
       addons: [
@@ -675,7 +685,7 @@ const QUOTED = [
       "A long, unhurried South Coast day",
     ],
     combines: ["appleton-estate", "ys-falls"],
-    zones: { "mobay-pier": z(300, 75) },
+    zones: { "mobay-pier": z(75) },
     entry: { components: [ENTRY_APPLETON, ENTRY_YS] },
   },
   {
@@ -694,7 +704,7 @@ const QUOTED = [
       "Home after dark, at your pace",
     ],
     combines: ["negril-seven-mile-beach", "ricks-cafe"],
-    zones: { "mobay-pier": z(200, 50) },
+    zones: { "mobay-pier": z(50) },
     entry: { components: [] },
   },
   {
@@ -713,7 +723,7 @@ const QUOTED = [
       "Nothing here needs experience",
     ],
     combines: ["sand-and-saddle", "river-rapids-tubing"],
-    zones: { "mobay-pier": z(180, 45), palladium: z(180, 35) },
+    zones: { "mobay-pier": z(45), palladium: z(45) },
     entry: {
       note: "From Grand Palladium the owner quotes these gates at $80 per horse and $80 per raft.",
       components: [ENTRY_HORSEBACK, ENTRY_TUBING],
@@ -734,7 +744,7 @@ const QUOTED = [
       "Good with small children",
     ],
     combines: ["martha-brae-rafting", "montego-bay-highlights"],
-    zones: { "mobay-pier": z(200, 50) },
+    zones: { "mobay-pier": z(50) },
     entry: { components: [ENTRY_MARTHA_BRAE, ENTRY_DOCTORS_CAVE] },
   },
   {
@@ -857,21 +867,21 @@ export const TRANSFERS = [
 ];
 
 /**
- * His quoted prices, with our derived ones filled in behind them.
+ * His quoted rates, with our derived ones filled in behind them.
  *
- * A band that came from him has no `est`; one we worked out carries
- * `est: true` all the way to the page, where it is shown as indicative rather
- * than published. Merging here rather than editing `QUOTED` above keeps his
- * numbers auditable against the WhatsApp thread they came from.
+ * Merging here rather than editing `QUOTED` above keeps his numbers auditable
+ * against the WhatsApp thread they came from. A derived band is no longer
+ * marked or treated differently once merged — see the header of
+ * estimated-zones.js for why.
  */
 export const TOURS = QUOTED.map((tour) => {
   const derived = ESTIMATED[tour.id];
   if (!derived) return tour;
 
   const zones = { ...tour.zones };
-  for (const [zone, price] of Object.entries(derived)) {
+  for (const [zone, rate] of Object.entries(derived)) {
     if (zones[zone]) continue; // never override a figure he gave us
-    zones[zone] = { price, extra: price / 4, est: true };
+    zones[zone] = { rate };
   }
   return { ...tour, zones };
 });

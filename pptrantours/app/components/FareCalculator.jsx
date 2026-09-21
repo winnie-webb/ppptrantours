@@ -7,8 +7,7 @@ import { AREAS, PLACES } from "@/app/data/places";
 import {
   priceTransfer,
   money,
-  perPerson,
-  VEHICLE_CAPACITY,
+  MIN_BILLED_PAX,
   MAX_PARTY,
 } from "@/app/products/pricing";
 import { localePath } from "@/app/i18n/config";
@@ -129,7 +128,7 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
 
           <p className="text-xs leading-relaxed text-ink/45">
             {t.note ??
-              `One private vehicle covers up to ${VEHICLE_CAPACITY} passengers for a flat price. Rates are in US dollars and include the meet-and-greet inside arrivals.`}
+              `Rates are per person, and every party is charged for at least ${MIN_BILLED_PAX}. In US dollars, and they include the meet-and-greet inside arrivals.`}
           </p>
         </div>
 
@@ -148,7 +147,7 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                   : t.oneWayLabel ?? "One-way private transfer"}
               </p>
               <p className="mt-1.5 font-display text-5xl font-semibold text-gold-400">
-                {money(perPerson(quote.total, pax))}
+                {money(quote.rate)}
                 <span className="ml-1.5 text-lg font-medium text-white/50">
                   {t.perPerson ?? "/ person"}
                 </span>
@@ -162,20 +161,28 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
               </p>
               <p className="mt-2 text-sm text-white/60">{place.name}</p>
 
-              <div className="mt-4 space-y-1 border-t border-white/10 pt-4 text-xs text-white/50">
+              <div className="mt-4 border-t border-white/10 pt-4 text-xs text-white/50">
                 <div className="flex justify-between gap-3">
                   <span>
-                    {t.upTo ?? `Up to ${VEHICLE_CAPACITY} passengers`}
+                    {quote.billed} × {money(quote.rate)}
                   </span>
-                  <span>{money(quote.base)}</span>
+                  <span>{money(quote.total)}</span>
                 </div>
-                {quote.extraPax > 0 && (
-                  <div className="flex justify-between gap-3">
-                    <span>
-                      {quote.extraPax} × {t.extraPassenger ?? "extra passenger"}
-                    </span>
-                    <span>{money(quote.extra * quote.extraPax)}</span>
-                  </div>
+                {/*
+                  Below the floor the guest is paying for seats nobody is
+                  sitting in. Saying so, and saying what it buys them, is the
+                  difference between a minimum that feels like a catch and one
+                  that reads as an invitation.
+                */}
+                {quote.atMinimum && (
+                  <p className="mt-2 leading-relaxed text-gold-400/80">
+                    {t.minimumNote
+                      ?.replace("{n}", String(MIN_BILLED_PAX))
+                      .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
+                      `Charged for ${MIN_BILLED_PAX} — the minimum. ${
+                        MIN_BILLED_PAX - pax
+                      } more can come at no extra cost.`}
+                  </p>
                 )}
               </div>
 

@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "プライベート。パーソナル。プロフェッショナル。",
-    "description": "ジャマイカの空港送迎、島内観光、クルーズ埠頭発のツアー。料金は車両1台あたりの一律制で、観光施設の入場料はつねに別建て。上乗せは一切ありません。",
+    "description": "ジャマイカ全土の空港プライベート送迎、島内ツアー、クルーズ埠頭発エクスカーション — 料金はお一人あたり、最少4名から。入場料は別途表示し、上乗せは一切ありません。",
     "keywords": [
       "ジャマイカ 空港送迎",
       "モンテゴベイ プライベートツアー",
@@ -111,10 +111,9 @@
     "fromYourResort": "ご滞在先から",
     "askUs": "お問い合わせを",
     "weWillQuote": "お見積りします",
-    "perVehicle": "4名まで",
     "perPerson": "／人",
-    "vehicleBasis": "車両1台 {amount}・{capacity}名まで",
-    "estimated": "目安"
+    "estimated": "目安",
+    "minimumPax": "最少{n}名から"
   },
   "place": {
     "title": "どちらにご滞在ですか？",
@@ -190,7 +189,6 @@
     "bookNow": "今すぐ予約",
     "transportLabel": "移動費",
     "transferPrice": "プライベート送迎",
-    "perVehicleLong": "1台あたり",
     "pickResortFirst": "ご滞在先をお選びください",
     "askUsPrice": "お見積りします",
     "stayingAt": "どちらにご滞在ですか？",
@@ -206,8 +204,6 @@
     "children": "子ども",
     "child": "名（子ども）",
     "childrenWord": "名（子ども）",
-    "vehicleNote": "プライベート車両1台で4名様まで、料金は同じです。",
-    "extraNote": "人数が多い場合——上記の料金には追加のお客様分がすでに含まれています。",
     "gateNote": "現地の入口でお支払いいただきます。当社へのお支払いではありません。",
     "addons": "オプション",
     "fromWord": "〜より",
@@ -227,7 +223,6 @@
     "notesPlaceholder": "チャイルドシート、途中の立ち寄り、追加したい観光地など…",
     "pickResortHint": "ご滞在先のホテルをお知らせいただくと、お客様の人数での正確な料金がここに表示されます。",
     "unpricedHint": "ご滞在先からのこのツアーは定額料金を公開しておりません。そのままお送りいただければ、当日中に確定料金をお知らせします（上乗せはありません）。",
-    "extraBreakdown": "最初の4名を超えるお客様分を含みます。",
     "transportIsOurs": "これがPPPの料金です。ここに何かが加算されることはありません。",
     "gatesLabel": "現地でのお支払い",
     "gatesNote": "観光施設の入場券で、当日現地でお支払いいただきます。当社が転売したり上乗せしたりすることは一切ありません。",
@@ -244,8 +239,6 @@
     "notPersisted": "このサイトの予約保存機能はまだ有効になっていません。下のWhatsAppから詳細をお送りいただければ、確実にお取りします。",
     "confirmWhatsApp": "WhatsAppで確定する",
     "browseMore": "ほかのツアーを見る",
-    "worksOutAt": "お一人あたり",
-    "estimatedNote": "ご滞在先からの目安です。ここからの定額は公開していないため、お支払い前に正確な金額をご確認いただきます。",
     "requiredNote": "必須項目です。その他はご記入いただけると助かりますが任意です。",
     "payHow": "やはり今お支払いになりますか？",
     "payOptional": "今のお支払いは任意で、ご予約内容は変わりません。当日ドライバーに現金でお支払いいただけます。",
@@ -266,7 +259,16 @@
     "noPaymentQuote": "お支払いはありません。当日中に確定料金をお知らせします。",
     "payDidntOpen": "決済ページが開きませんでした",
     "payDidntOpenBody": "ご予約はいずれにせよ確定しており、請求は発生していません。下から再度お試しいただくか、当日ドライバーにお支払いください。",
-    "payUnavailable": "このご予約では現在カードでのお支払いをご利用いただけません。請求は発生しておらず、ご予約はそのまま有効です。当日ドライバーにお支払いいただくか、別のお支払い方法についてはご連絡ください。"
+    "payUnavailable": "このご予約では現在カードでのお支払いをご利用いただけません。請求は発生しておらず、ご予約はそのまま有効です。当日ドライバーにお支払いいただくか、別のお支払い方法についてはご連絡ください。",
+    "minimumNote": "ご予約は最少{n}名分で計算されます。あと{spare}名までは追加料金なしでご一緒いただけます。",
+    "perHeadNote": "{n}名、お一人につき上記の料金です。",
+    "totalWordLong": "合計",
+    "transportPlusGates": "送迎と入場料の合計",
+    "sectionTrip": "ご旅程",
+    "sectionParty": "ご参加人数",
+    "sectionPrice": "料金",
+    "sectionDetails": "お客様情報",
+    "sectionPay": "お支払い方法"
   },
   "fare": {
     "from": "サングスター国際空港（MBJ）発",
@@ -278,16 +280,15 @@
     "passengers": "ご人数",
     "fewer": "人数を減らす",
     "more": "人数を増やす",
-    "note": "プライベート車両1台で4名様まで定額です。料金は米ドル建てで、到着ロビーでのお出迎えを含みます。",
+    "note": "料金はお一人あたりで、ご予約は最少4名分で計算されます。米ドル表示で、到着ロビーでのお出迎えを含みます。",
     "prompt": "ご滞在先を選ぶと、ここに正確な料金が表示されます。フォーム入力もメール待ちも不要です。",
     "roundTripLabel": "プライベート送迎（往復）",
     "oneWayLabel": "プライベート送迎（片道）",
-    "upTo": "4名様まで",
-    "extraPassenger": "名の追加",
     "book": "この送迎を予約する",
     "ask": "質問する",
     "perPerson": "／人",
-    "totalFor": "{n}名の合計"
+    "totalFor": "{n}名の合計",
+    "minimumNote": "最少人数の{n}名分で計算しています。あと{spare}名までは追加料金なしでご一緒いただけます。"
   },
   "hero": {
     "tagline": "プライベート。パーソナル。プロフェッショナル。",
@@ -342,7 +343,7 @@
   "browse": {
     "eyebrow": "ジャマイカの楽しみ方",
     "title": "この1日をどこで過ごしますか？",
-    "description": "教区ごと、あるいは過ごし方のタイプごとにご覧ください。表示価格はすべて車両1台分の移動費で、入場料はその横に別記しています。",
+    "description": "教区別、またはご希望の過ごし方からお選びください。料金はすべてお一人あたり最少4名からで、入場料は横に併記しています。",
     "seeEverything": "すべて見る",
     "option": "件",
     "options": "件"
@@ -353,7 +354,7 @@
     "popularDescription": "ダンズリバー、ブルーホール、夕暮れのリックス・カフェ——写真アルバムに残る一日。",
     "transfersEyebrow": "空港送迎",
     "transfersTitle": "サングスター空港からお部屋の前まで。",
-    "transfersDescription": "ご滞在先を選ぶと正確な料金が表示されます。4名まで定額、フライトは追跡、ドライバーは到着ロビーでお待ちしています。",
+    "transfersDescription": "ご滞在先をお選びいただくと正確な料金が表示されます — お一人あたりの料金、最少4名、フライト追跡、到着ロビーでドライバーがお待ちしています。",
     "allRates": "全料金表",
     "combosEyebrow": "1日で2か所",
     "combosTitle": "コンボ・パッケージ、急がずに。",
@@ -465,9 +466,7 @@
     "inc3": "ご滞在先の入口での送迎",
     "inc4": "出発時刻の縛りなし——ペースはお客様次第",
     "transportTable": "移動費の目安",
-    "transportTableNote": "「お一人あたり」は車両料金を4で割った額です。1名でも4名でも車両料金は同じです。5人目以降はお一人ごとに右端の金額が加算されます。",
     "pickingUpFrom": "お迎え場所",
-    "upToFour": "4名まで",
     "eachExtra": "追加1名につき",
     "otherResorts": "ほかの場所にご滞在ですか？この行程はもちろん承ります——メッセージをいただければ、ご滞在先向けに直接お見積りします。",
     "entryTable": "施設側の料金",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "ジャマイカの楽しみ方",
-    "metaDescription": "PPP Tran Tours の全ツアーを教区別に——モンテゴベイ、オーチョリオス、ファルマス、ネグリル、サウスコースト。移動費は車両単位、入場料は別記です。",
+    "metaDescription": "PPP Tran Tours の全ツアーを教区別に — モンテゴベイ、オーチョリオス、ファルマス、ネグリル、サウスコースト。送迎はお一人あたり最少4名から、入場料は別途表示。",
     "eyebrow": "全ツアー",
     "title": "ジャマイカの楽しみ方。",
     "description": "当社が運行するすべてのツアーを、移動費と入場料を分けて掲載しています。どこまでが当社の料金で、どこからが施設の料金かがはっきり分かります。",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "モンテゴベイ空港送迎",
-    "metaDescription": "サングスター国際空港（MBJ）からジャマイカの主要リゾートへのプライベート送迎。4名まで定額、フライト追跡、到着ロビーでお出迎え。",
+    "metaDescription": "サングスター国際空港（MBJ）からジャマイカの主要リゾートへのプライベート送迎。お一人あたりの公開料金、最少4名から、フライト追跡、到着ロビーでお出迎え。",
     "eyebrow": "空港送迎",
     "title": "サングスター国際空港からお部屋の前まで。",
     "description": "当社が対応するすべてのリゾートについて、定額料金を公開しています。下からご滞在先を選べば、情報を入力する前に料金をご確認いただけます。",
@@ -511,23 +510,22 @@
     "p3Title": "つねにプライベート",
     "p3Body": "お客様のグループだけ。相乗りも、途中でほかのホテルを回ることもありません。",
     "p4Title": "表示価格がすべて",
-    "p4Body": "4名まで一律の定額。燃油サーチャージも空港追加料金もありません。",
+    "p4Body": "お一人あたりの料金で、計算は必ず4名以上。燃油サーチャージも空港追加料金もありません。",
     "ratesEyebrow": "公開しているすべての料金",
     "ratesTitle": "料金表のすべてを、そのまま公開。",
-    "ratesDescription": "「お一人あたり」は料金を4で割った額です。1名でも4名でも車両料金は同じです。右端の列は、5人目以降お一人ごとに加算される金額です。",
+    "ratesDescription": "料金はすべてお一人あたりで、どのグループも最少4名分で計算されます。ですから1名、2名、3名、4名は同額となり、5名目からはお一人ずつ料金が加算されるだけです。",
     "resort": "ホテル",
     "oneWay": "片道",
     "roundTrip": "往復",
-    "each": "追加1名",
     "book": "予約",
     "notListed": "ヴィラやAirbnb、一覧にないホテルでしょうか。島内どこへでも伺います——住所をお送りいただければ、その日のうちにお見積りします。",
-    "totalWord": "合計"
+    "minFrom": "〜より"
   },
   "transferPage": {
     "metaTitle": "{resort} への空港送迎 {fare}〜",
     "metaDescription": "モンテゴベイのサングスター国際空港（MBJ）から {resort} へのプライベート送迎。片道 {fare}（4名まで）、往復 {roundTrip}。フライト追跡、到着ロビーでお出迎え。",
     "h1": "{resort} へのプライベート空港送迎",
-    "intro": "サングスター国際空港（MBJ）から {resort} まで——お一人あたり {perPerson}、車両1台なら {capacity} 名まで {fare} です。ドライバーが到着ロビーで名前を書いたボードを持ってお待ちし、そのままお送りします。",
+    "intro": "サングスター国際空港（MBJ）から{resort}へ — お一人あたり{perPerson}、最少{capacity}名（{fare}）。ドライバーが到着ロビーでネームボードを持ってお待ちし、そのままお送りします。",
     "transferTo": "空港送迎：",
     "oneWay": "片道",
     "roundTrip": "往復",
@@ -546,8 +544,8 @@
     "nearby": "近隣で対応しているほかのホテル",
     "toursEyebrow": "せっかくのご滞在に",
     "toursTitle": "{resort} 発のツアー",
-    "toursDescription": "以下の料金はお客様のご滞在先に対応したものです。移動費は車両1台分で、入場料は別記しています。",
-    "totalWord": "合計"
+    "toursDescription": "以下の料金はお客様のご滞在先に合わせたものです — 送迎はお一人あたり最少4名から、入場料は別途記載しています。",
+    "minFrom": "〜より"
   },
   "destinationsPage": {
     "metaTitle": "エリア",
@@ -658,8 +656,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "料金は1名あたりですか、それとも車両1台あたりですか？",
-      "a": "車両1台あたりです。公開している料金は4名までのグループ全体をカバーしますので、2名でも4名でも移動費はまったく同じです。5人目以降はお一人ごとに小額の定額が加算され、その金額は各料金の横に表示しています。"
+      "q": "料金はどのように決まりますか？",
+      "a": "お一人あたりの料金で、最少4名からとなります。ですから1名、2名、3名、4名のいずれでもお支払いは同額 — 料金の4名分 — で、5名目からはお一人ずつ料金が加算されるだけです。つまり人数が増えるほど、お一人あたりの負担は軽くなります。"
     },
     {
       "key": "entry",
@@ -961,21 +959,21 @@
     }
   },
   "bookingResult": {
-    "paidTitle": "Payment received. Thank you.",
-    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
-    "failedTitle": "That payment did not go through",
+    "paidTitle": "お支払いを受け付けました。ありがとうございます。",
+    "paidBody": "ご予約は確定しています。ドライバーと正確なお迎え時刻は、追ってWhatsAppまたはメールでお知らせします。",
+    "failedTitle": "お支払いが完了しませんでした",
     "failedBody": "カードへの請求は発生しておらず、ご予約はそのまま有効です。下から再度お試しいただくか、当日ドライバーにお支払いください。",
     "pendingTitle": "お支払いを処理しています",
     "pendingBody": "PayPal がお支払いを受け取りましたが、まだ確定していません。銀行振込の場合に起こり、通常は数日で完了します。重ねてお支払いなさらないでください。入金が確認でき次第ご連絡し、ご希望日については いずれにせよご案内いたします。",
     "cancelledTitle": "Payment cancelled",
     "cancelledBody": "請求は発生しておらず、ご予約はそのまま有効です。当日お支払いいただくか、再度お試しください。",
-    "unconfirmedTitle": "We could not confirm that payment",
-    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
-    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
-    "reference": "Your reference",
-    "amountPaid": "Paid",
-    "balance": "To your driver on the day",
-    "whatsapp": "Message us on WhatsApp",
-    "home": "Back to home"
+    "unconfirmedTitle": "お支払いを確認できませんでした",
+    "unconfirmedBody": "いずれにせよご予約は有効です。カードに請求が立っている場合は、予約番号をお知らせいただければ照合いたします。失われるものはありません。",
+    "unconfirmedNote": "こちらからご連絡するまで、再度のお支払いはお控えください。",
+    "reference": "予約番号",
+    "amountPaid": "お支払い済み",
+    "balance": "当日ドライバーへお支払い",
+    "whatsapp": "WhatsAppで連絡する",
+    "home": "ホームに戻る"
   }
 }

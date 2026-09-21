@@ -22,7 +22,7 @@
  */
 
 import { site } from "./site";
-import { VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { MIN_BILLED_PAX } from "@/app/products/pricing";
 
 /** Booking, payment, cancellation and liability. */
 export const bookingTerms = [
@@ -41,14 +41,13 @@ export const bookingTerms = [
       "Sending the form on this site makes a booking. Where we publish a set rate for your route, that booking is confirmed straight away and you will get a reference beginning PPP- to quote back to us. You do not need to wait for us to accept it.",
       "Your driver and the exact pickup time follow separately, by WhatsApp or email, usually within the hour during dispatch hours.",
       "Where we do not publish a set rate, the form asks for a price instead of taking a booking, and it says so. Nothing is agreed until we have come back with a firm figure and you have confirmed it.",
-      "In the rare case that we cannot cover a confirmed date — two parties asking for the same vehicle at the same hour — we will telephone you, offer the nearest time we can do, and refund you in full if that does not suit. We would rather tell you than quietly move you.",
     ],
   },
   {
     key: "price",
     heading: "What the price covers",
     body: [
-      `Transport is priced per vehicle, not per person. One published price covers your whole group up to ${VEHICLE_CAPACITY} people; from the fifth passenger each additional person adds the fixed amount shown beside every rate.`,
+      `Transport is priced per person, and every party is charged for at least ${MIN_BILLED_PAX} people. So one, two, three and four travellers all pay the same, and from the fifth passenger each person simply adds the published rate.`,
       "Attraction entry fees are not ours and we never collect them. They are paid at the gate, directly to the attraction, at the gate's own prices — which are listed beside our own on every tour page so you can see the true cost of the day.",
       "Prices are quoted in United States dollars. Where a rate is marked indicative, we have not published a set price for that route and will confirm the exact figure before you pay anything.",
       "No fuel levy, no airport surcharge and no late-night premium is added to a confirmed price.",

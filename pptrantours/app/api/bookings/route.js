@@ -202,10 +202,6 @@ export async function POST(request) {
 
       const q = quoteExcursion(tour, {
         zoneKey: place?.zone ?? null,
-        // 19 of 46 resorts have an inferred zone mapping. Either that or a
-        // derived band makes the figure provisional, and payable() refuses to
-        // collect against a provisional figure.
-        zoneEst: Boolean(place?.zoneEst),
         adults,
         children,
         choices: cleanChoices(body.choices),

@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
-    "description": "Privétransfers vanaf de luchthaven, excursies over het eiland en tochten vanaf de cruisekades op Jamaica — één prijs voor het hele voertuig, entreegelden altijd apart vermeld en nooit met opslag.",
+    "description": "Privétransfers vanaf de luchthaven, eilandtours en excursies vanaf de cruisekade door heel Jamaica — prijs per persoon met een minimum van vier, entreegelden apart vermeld en nooit met opslag.",
     "keywords": [
       "luchthaventransfer Jamaica",
       "privétours Montego Bay",
@@ -111,10 +111,9 @@
     "fromYourResort": "Vanaf uw hotel",
     "askUs": "Vraag het ons",
     "weWillQuote": "wij geven u de prijs",
-    "perVehicle": "voor maximaal 4",
     "perPerson": "/ persoon",
-    "vehicleBasis": "{amount} per voertuig · tot {capacity}",
-    "estimated": "indicatief"
+    "estimated": "indicatief",
+    "minimumPax": "minimaal {n} personen"
   },
   "place": {
     "title": "Waar logeert u?",
@@ -190,7 +189,6 @@
     "bookNow": "Nu boeken",
     "transportLabel": "Vervoer",
     "transferPrice": "Privétransfer",
-    "perVehicleLong": "per voertuig",
     "pickResortFirst": "Kies uw hotel",
     "askUsPrice": "Wij geven u de prijs",
     "stayingAt": "Waar logeert u?",
@@ -206,8 +204,6 @@
     "children": "Kinderen",
     "child": "kind",
     "childrenWord": "kinderen",
-    "vehicleNote": "Eén privévoertuig dekt tot 4 personen voor dezelfde prijs.",
-    "extraNote": "Grotere groep — de prijs hierboven bevat de extra passagiers al.",
     "gateNote": "Wordt bij de ingang betaald, niet aan ons.",
     "addons": "Optionele extra's",
     "fromWord": "vanaf",
@@ -227,7 +223,6 @@
     "notesPlaceholder": "Kinderzitjes, extra stops, een tweede attractie die u erbij wilt…",
     "pickResortHint": "Vertel ons in welk hotel u logeert en hier verschijnt de exacte prijs voor uw groep.",
     "unpricedHint": "Voor deze tour vanaf uw resort hebben we geen vast tarief gepubliceerd. Stuur hem door, dan komen we terug met een vaste prijs — dezelfde dag, zonder opslag.",
-    "extraBreakdown": "Inclusief de passagiers boven de eerste vier.",
     "transportIsOurs": "Dit is wat PPP rekent. Er komt niets bij.",
     "gatesLabel": "Bij de ingang te betalen",
     "gatesNote": "Toegangskaarten van de attracties, op de dag zelf te betalen. We verkopen ze nooit door en rekenen er niets bovenop.",
@@ -244,8 +239,6 @@
     "notPersisted": "De opslag van boekingen staat op deze site nog niet aan. Stuur ons de gegevens hieronder via WhatsApp, dan zetten we het vast.",
     "confirmWhatsApp": "Bevestigen via WhatsApp",
     "browseMore": "Meer tours bekijken",
-    "worksOutAt": "Dat is",
-    "estimatedNote": "Indicatief voor uw hotel — vanaf hier is geen vast tarief gepubliceerd, dus we bevestigen de exacte prijs voordat u iets betaalt.",
     "requiredNote": "Verplicht. Al het andere helpt, maar is optioneel.",
     "payHow": "Toch liever nu betalen?",
     "payOptional": "Nu betalen is optioneel en verandert niets aan uw boeking. U kunt altijd contant bij de chauffeur afrekenen.",
@@ -266,7 +259,16 @@
     "noPaymentQuote": "Geen betaling — we komen dezelfde dag terug met een vaste prijs.",
     "payDidntOpen": "De betaalpagina ging niet open",
     "payDidntOpenBody": "Uw boeking is hoe dan ook bevestigd — er is niets afgeschreven. Probeer het hieronder opnieuw, of reken gewoon af met uw chauffeur op de dag zelf.",
-    "payUnavailable": "Betalen met kaart is op dit moment niet beschikbaar voor deze boeking. Er is niets afgeschreven en uw boeking staat gewoon — reken af met uw chauffeur op de dag zelf, of stuur ons een bericht om anders te betalen."
+    "payUnavailable": "Betalen met kaart is op dit moment niet beschikbaar voor deze boeking. Er is niets afgeschreven en uw boeking staat gewoon — reken af met uw chauffeur op de dag zelf, of stuur ons een bericht om anders te betalen.",
+    "minimumNote": "Elke boeking wordt voor minstens {n} personen berekend, dus {spare} extra kunnen zonder meerkosten mee.",
+    "perHeadNote": "{n} personen, elk tegen het tarief hierboven.",
+    "totalWordLong": "totaal",
+    "transportPlusGates": "vervoer plus entreegelden",
+    "sectionTrip": "Uw rit",
+    "sectionParty": "Wie er meegaan",
+    "sectionPrice": "Uw prijs",
+    "sectionDetails": "Uw gegevens",
+    "sectionPay": "Hoe u betaalt"
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
@@ -278,16 +280,15 @@
     "passengers": "Passagiers",
     "fewer": "Minder passagiers",
     "more": "Meer passagiers",
-    "note": "Eén privévoertuig dekt tot 4 passagiers voor een vaste prijs. De tarieven zijn in Amerikaanse dollars en zijn inclusief ontvangst in de aankomsthal.",
+    "note": "De tarieven zijn per persoon, en elke boeking wordt voor minstens vier passagiers berekend. In Amerikaanse dollars, inclusief de ontvangst in de aankomsthal.",
     "prompt": "Kies uw hotel en het exacte tarief verschijnt hier — geen formulieren, geen wachten op een e-mail.",
     "roundTripLabel": "Privétransfer heen en terug",
     "oneWayLabel": "Privétransfer enkele reis",
-    "upTo": "Tot 4 passagiers",
-    "extraPassenger": "extra passagier",
     "book": "Deze transfer boeken",
     "ask": "Een vraag stellen",
     "perPerson": "/ persoon",
-    "totalFor": "totaal voor {n}"
+    "totalFor": "totaal voor {n}",
+    "minimumNote": "Berekend voor {n} — het minimum. {spare} extra kunnen zonder meerkosten mee."
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
@@ -342,7 +343,7 @@
   "browse": {
     "eyebrow": "Wat te doen op Jamaica",
     "title": "Waar wilt u de dag doorbrengen?",
-    "description": "Blader per parish, of op het soort dag dat u zoekt. Alle prijzen zijn vervoerprijzen voor het hele voertuig, met de entreegelden ernaast vermeld.",
+    "description": "Blader op parochie, of op het soort dag dat u zoekt. Elke prijs is per persoon met een minimum van vier, en de entreegelden staan ernaast.",
     "seeEverything": "Alles bekijken",
     "option": "optie",
     "options": "opties"
@@ -353,7 +354,7 @@
     "popularDescription": "Dunn's River, het Blue Hole, Rick's Cafe bij zonsondergang — de dagen die in het fotoalbum belanden.",
     "transfersEyebrow": "Luchthaventransfers",
     "transfersTitle": "Van Sangster tot aan uw deur.",
-    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één vaste prijs voor maximaal vier personen, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
+    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één tarief per persoon, minimaal vier, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
     "allRates": "Alle tarieven",
     "combosEyebrow": "Twee op één dag",
     "combosTitle": "Combipakketten, zonder haast.",
@@ -465,9 +466,7 @@
     "inc3": "Ophalen en terugbrengen voor de deur",
     "inc4": "Geen vast vertrektijdstip — u bepaalt het tempo",
     "transportTable": "Wat het vervoer kost",
-    "transportTableNote": "De prijs per persoon is de voertuigprijs gedeeld door 4 — het voertuig kost hetzelfde of er nu één of vier meegaan. Vanaf de vijfde passagier komt er per persoon het laatste bedrag bij.",
     "pickingUpFrom": "We halen u op bij",
-    "upToFour": "Tot 4",
     "eachExtra": "Elke extra",
     "otherResorts": "Logeert u ergens anders? We rijden deze tocht gewoon — stuur ons een bericht en we geven u de prijs voor uw hotel.",
     "entryTable": "Wat de attractie rekent",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Wat te doen op Jamaica",
-    "metaDescription": "Alle tours van PPP Tran Tours, per parish — Montego Bay, Ocho Rios, Falmouth, Negril en de Zuidkust. Vervoer geprijsd per voertuig, entreegelden apart vermeld.",
+    "metaDescription": "Alle tours van PPP Tran Tours, per parochie — Montego Bay, Ocho Rios, Falmouth, Negril en de zuidkust. Vervoer per persoon met een minimum van vier, entreegelden apart vermeld.",
     "eyebrow": "De catalogus",
     "title": "Wat te doen op Jamaica.",
     "description": "Alle tours die we rijden, met de vervoerprijs en het entreegeld apart vermeld, zodat u precies ziet wat van ons is en wat van de attractie.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Luchthaventransfers Montego Bay",
-    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar alle grote Jamaicaanse resorts. Vaste tarieven tot vier passagiers, vlucht gevolgd, ontvangst in de aankomsthal.",
+    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar elk groot Jamaicaans resort. Gepubliceerde tarieven per persoon met een minimum van vier, vlucht gevolgd, ontvangst in de aankomsthal.",
     "eyebrow": "Luchthaventransfers",
     "title": "Van Sangster International tot aan uw deur.",
     "description": "Vaste, gepubliceerde tarieven naar elk resort dat we bedienen. Kies hieronder uw hotel en zie het tarief voordat u ons ook maar één gegeven geeft.",
@@ -511,23 +510,22 @@
     "p3Title": "Altijd privé",
     "p3Body": "Alleen uw groep. Geen gedeeld busje, geen rondje langs andere hotels eerst.",
     "p4Title": "De prijs is de prijs",
-    "p4Body": "Eén vast tarief voor maximaal vier personen. Geen brandstoftoeslag, geen luchthaventoeslag.",
+    "p4Body": "Eén tarief per persoon, en nooit minder dan vier berekend. Geen brandstoftoeslag, geen luchthaventoeslag.",
     "ratesEyebrow": "Al onze tarieven",
     "ratesTitle": "De volledige prijslijst, open en bloot.",
-    "ratesDescription": "De prijs per persoon is het tarief gedeeld door vier — het voertuig kost hetzelfde of er nu één of vier meegaan. De laatste kolom is wat elke passagier boven de vierde erbij kost.",
+    "ratesDescription": "Elk tarief is per persoon, en elk gezelschap wordt voor minstens vier berekend. Eén, twee, drie en vier personen betalen dus hetzelfde, en vanaf de vijfde telt elke persoon simpelweg het tarief erbij op.",
     "resort": "Hotel",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
-    "each": "Elke extra",
     "book": "Boeken",
     "notListed": "Villa, Airbnb of een hotel dat er niet bij staat? We komen overal op het eiland — stuur ons het adres en we geven u dezelfde dag nog de prijs.",
-    "totalWord": "totaal"
+    "minFrom": "vanaf"
   },
   "transferPage": {
     "metaTitle": "Luchthaventransfer naar {resort} voor {fare}",
     "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst in de aankomsthal.",
     "h1": "Privé-luchthaventransfer naar {resort}",
-    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon, of {fare} voor het hele voertuig met maximaal {capacity} passagiers. Uw chauffeur staat met een naambord in de aankomsthal en brengt u er rechtstreeks heen.",
+    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon, met een minimum van {capacity} ({fare}). Uw chauffeur wacht u op in de aankomsthal met een naambord en brengt u er rechtstreeks heen.",
     "transferTo": "Luchthaventransfer naar",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
@@ -546,8 +544,8 @@
     "nearby": "Andere hotels in de buurt die we bedienen",
     "toursEyebrow": "Nu u er toch bent",
     "toursTitle": "Tours vanaf {resort}",
-    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer voor het hele voertuig, met de entreegelden apart vermeld.",
-    "totalWord": "totaal"
+    "toursDescription": "De prijzen hieronder gelden specifiek voor uw hotel — vervoer per persoon met een minimum van vier, met de entreegelden apart vermeld.",
+    "minFrom": "vanaf"
   },
   "destinationsPage": {
     "metaTitle": "Bestemmingen",
@@ -658,8 +656,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "Zijn uw prijzen per persoon of per voertuig?",
-      "a": "Per voertuig. Eén gepubliceerde prijs dekt de hele groep tot vier personen, dus twee reizigers en vier reizigers betalen precies hetzelfde voor het vervoer. Vanaf de vijfde passagier komt er per persoon een klein vast bedrag bij, dat naast elk tarief staat vermeld."
+      "q": "Hoe werkt uw prijsstelling?",
+      "a": "Per persoon, met een minimum van vier. Eén, twee, drie en vier reizigers betalen dus precies hetzelfde — het tarief maal vier — en vanaf de vijfde passagier telt elke persoon simpelweg het tarief erbij op. Hoe meer mensen u meeneemt, hoe minder ieder van u betaalt."
     },
     {
       "key": "entry",
@@ -961,21 +959,21 @@
     }
   },
   "bookingResult": {
-    "paidTitle": "Payment received. Thank you.",
-    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
-    "failedTitle": "That payment did not go through",
+    "paidTitle": "Betaling ontvangen. Hartelijk dank.",
+    "paidBody": "Uw boeking is bevestigd. De chauffeur en de exacte ophaaltijd sturen we u binnenkort, via WhatsApp of e-mail.",
+    "failedTitle": "Die betaling is niet gelukt",
     "failedBody": "Uw kaart is niet belast en uw boeking staat gewoon. U kunt het opnieuw proberen, of gewoon op de dag zelf met uw chauffeur afrekenen.",
     "pendingTitle": "Uw betaling wordt verwerkt",
     "pendingBody": "PayPal heeft uw betaling, maar heeft deze nog niet vrijgegeven — dit gebeurt bij bankoverschrijvingen en duurt meestal een paar dagen. Betaal niet opnieuw. We bevestigen zodra het binnen is, en we nemen sowieso contact op over uw datum.",
     "cancelledTitle": "Payment cancelled",
     "cancelledBody": "Er is niets afgeschreven en uw boeking staat gewoon. U kunt op de dag zelf betalen, of het opnieuw proberen.",
-    "unconfirmedTitle": "We could not confirm that payment",
-    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
-    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
-    "reference": "Your reference",
-    "amountPaid": "Paid",
-    "balance": "To your driver on the day",
-    "whatsapp": "Message us on WhatsApp",
-    "home": "Back to home"
+    "unconfirmedTitle": "We konden die betaling niet bevestigen",
+    "unconfirmedBody": "Uw boeking staat hoe dan ook. Is uw kaart belast, geef dan uw referentie door en wij koppelen het — er gaat niets verloren.",
+    "unconfirmedNote": "Betaal niet opnieuw voordat wij contact met u hebben opgenomen.",
+    "reference": "Uw referentie",
+    "amountPaid": "Betaald",
+    "balance": "Aan uw chauffeur op de dag zelf",
+    "whatsapp": "Stuur ons een WhatsApp",
+    "home": "Terug naar home"
   }
 }

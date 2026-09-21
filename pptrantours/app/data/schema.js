@@ -21,7 +21,7 @@
 import { site } from "./site";
 import { TOURS } from "./catalogue";
 import { PLACES } from "./places";
-import { lowestTransport, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { lowestTransport, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 
 const ORG_ID = "#organization";
 
@@ -154,7 +154,7 @@ export function tourSchema(tour, url, baseUrl, title, description) {
           availability: "https://schema.org/InStock",
           offerCount: Object.keys(tour.zones ?? {}).length || 1,
           seller: { "@id": `${baseUrl}/${ORG_ID}` },
-          description: `Per vehicle, up to ${VEHICLE_CAPACITY} guests. Attraction entry is paid at the gate and is not included.`,
+          description: `Per person, minimum ${MIN_BILLED_PAX} guests. Attraction entry is paid at the gate and is not included.`,
         };
 
   return {
@@ -193,7 +193,7 @@ export function transferSchema(place, url, baseUrl, description) {
           priceCurrency: "USD",
           price: rate.oneWay,
           availability: "https://schema.org/InStock",
-          description: `One way, per vehicle, up to ${VEHICLE_CAPACITY} guests. Round trip ${rate.roundTrip} USD.`,
+          description: `One way, per person, minimum ${MIN_BILLED_PAX} guests (${minimumFare(rate.oneWay)} USD). Round trip ${rate.roundTrip} USD per person.`,
         }
       : undefined,
   };

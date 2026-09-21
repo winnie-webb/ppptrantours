@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Privato. Personalizzato. Professionale.",
-    "description": "Transfer privati dall'aeroporto, escursioni sull'isola e gite dai moli delle navi da crociera in Giamaica: un solo prezzo per veicolo, con i biglietti d'ingresso sempre indicati a parte e mai ricaricati.",
+    "description": "Transfer privati dall'aeroporto, tour dell'isola ed escursioni dal molo delle crociere in tutta la Giamaica — prezzo a persona con un minimo di quattro, biglietti d'ingresso indicati a parte e mai maggiorati.",
     "keywords": [
       "transfer aeroporto Giamaica",
       "tour privati Montego Bay",
@@ -111,10 +111,9 @@
     "fromYourResort": "Dal tuo hotel",
     "askUs": "Chiedi a noi",
     "weWillQuote": "ti facciamo un preventivo",
-    "perVehicle": "fino a 4 persone",
     "perPerson": "/ persona",
-    "vehicleBasis": "{amount} per veicolo · fino a {capacity}",
-    "estimated": "indicativo"
+    "estimated": "indicativo",
+    "minimumPax": "minimo {n} persone"
   },
   "place": {
     "title": "Dove alloggi?",
@@ -190,7 +189,6 @@
     "bookNow": "Prenota ora",
     "transportLabel": "Trasporto",
     "transferPrice": "Transfer privato",
-    "perVehicleLong": "per veicolo",
     "pickResortFirst": "Scegli il tuo hotel",
     "askUsPrice": "Ti facciamo un preventivo",
     "stayingAt": "Dove alloggi?",
@@ -206,8 +204,6 @@
     "children": "Bambini",
     "child": "bambino",
     "childrenWord": "bambini",
-    "vehicleNote": "Un veicolo privato copre fino a 4 persone allo stesso prezzo.",
-    "extraNote": "Gruppo più numeroso: il prezzo qui sopra comprende già i passeggeri aggiuntivi.",
     "gateNote": "Si paga all'ingresso, non a noi.",
     "addons": "Extra facoltativi",
     "fromWord": "da",
@@ -227,7 +223,6 @@
     "notesPlaceholder": "Seggiolini, soste extra, una seconda attrazione da aggiungere…",
     "pickResortHint": "Dicci in quale hotel alloggi e qui comparirà il prezzo esatto per il tuo gruppo.",
     "unpricedHint": "Non abbiamo pubblicato una tariffa fissa dal tuo resort per questa. Invia la richiesta e ti daremo un prezzo definitivo — in giornata, senza ricarichi.",
-    "extraBreakdown": "Comprende i passeggeri oltre i primi quattro.",
     "transportIsOurs": "Questo è quanto chiede PPP. Non ci si aggiunge nulla.",
     "gatesLabel": "Si paga all'ingresso",
     "gatesNote": "Biglietti delle attrazioni, pagati sul posto il giorno stesso. Non li rivendiamo mai e non ci aggiungiamo nulla.",
@@ -244,8 +239,6 @@
     "notPersisted": "L'archiviazione delle prenotazioni non è ancora attiva su questo sito. Inviaci i dettagli qui sotto su WhatsApp e la blocchiamo subito.",
     "confirmWhatsApp": "Conferma su WhatsApp",
     "browseMore": "Guarda altri tour",
-    "worksOutAt": "Fanno",
-    "estimatedNote": "Indicativo per il tuo hotel: da qui non c'è una tariffa pubblicata, quindi confermiamo il prezzo esatto prima che tu paghi qualcosa.",
     "requiredNote": "Obbligatorio. Tutto il resto ci aiuta, ma è facoltativo.",
     "payHow": "Preferisci pagare ora?",
     "payOptional": "Pagare ora è facoltativo e non cambia nulla della tua prenotazione. Puoi sempre pagare l'autista in contanti.",
@@ -266,7 +259,16 @@
     "noPaymentQuote": "Nessun pagamento — ti diamo un prezzo definitivo in giornata.",
     "payDidntOpen": "La pagina di pagamento non si è aperta",
     "payDidntOpenBody": "La tua prenotazione è confermata comunque — non è stato addebitato nulla. Riprova qui sotto, oppure salda con l'autista il giorno stesso.",
-    "payUnavailable": "Il pagamento con carta non è disponibile per questa prenotazione al momento. Non è stato addebitato nulla e la tua prenotazione resta valida — paga l'autista il giorno stesso, oppure scrivici per pagare in altro modo."
+    "payUnavailable": "Il pagamento con carta non è disponibile per questa prenotazione al momento. Non è stato addebitato nulla e la tua prenotazione resta valida — paga l'autista il giorno stesso, oppure scrivici per pagare in altro modo.",
+    "minimumNote": "Ogni prenotazione viene addebitata per almeno {n} persone, quindi altre {spare} possono unirsi a voi senza costi aggiuntivi.",
+    "perHeadNote": "{n} persone, ciascuna alla tariffa qui sopra.",
+    "totalWordLong": "in totale",
+    "transportPlusGates": "trasporto più biglietti d'ingresso",
+    "sectionTrip": "Il tuo viaggio",
+    "sectionParty": "Chi viene",
+    "sectionPrice": "Il tuo prezzo",
+    "sectionDetails": "I tuoi dati",
+    "sectionPay": "Come paghi"
   },
   "fare": {
     "from": "Da Sangster International (MBJ)",
@@ -278,16 +280,15 @@
     "passengers": "Passeggeri",
     "fewer": "Meno passeggeri",
     "more": "Più passeggeri",
-    "note": "Un veicolo privato copre fino a 4 passeggeri a un prezzo fisso. Le tariffe sono in dollari statunitensi e comprendono l'accoglienza dentro l'area arrivi.",
+    "note": "Le tariffe sono a persona, e ogni prenotazione viene addebitata per almeno quattro passeggeri. In dollari statunitensi, e includono l'accoglienza all'interno degli arrivi.",
     "prompt": "Scegli il tuo hotel e qui comparirà la tariffa esatta: niente moduli, nessuna e-mail da aspettare.",
     "roundTripLabel": "Transfer privato andata e ritorno",
     "oneWayLabel": "Transfer privato solo andata",
-    "upTo": "Fino a 4 passeggeri",
-    "extraPassenger": "passeggero aggiuntivo",
     "book": "Prenota questo transfer",
     "ask": "Fai una domanda",
     "perPerson": "/ persona",
-    "totalFor": "in tutto per {n}"
+    "totalFor": "in tutto per {n}",
+    "minimumNote": "Addebitato per {n} — il minimo. Altre {spare} possono venire senza costi aggiuntivi."
   },
   "hero": {
     "tagline": "Privato. Personalizzato. Professionale.",
@@ -342,7 +343,7 @@
   "browse": {
     "eyebrow": "Cosa fare in Giamaica",
     "title": "Dove vuoi passare la giornata?",
-    "description": "Esplora per parrocchia o per il tipo di giornata che cerchi. Tutti i prezzi sono di trasporto per l'intero veicolo, con gli ingressi indicati accanto.",
+    "description": "Sfoglia per parrocchia, o per il tipo di giornata che cerchi. Ogni prezzo è a persona con un minimo di quattro, e i biglietti d'ingresso sono indicati accanto.",
     "seeEverything": "Vedi tutto",
     "option": "opzione",
     "options": "opzioni"
@@ -353,7 +354,7 @@
     "popularDescription": "Dunn's River, il Blue Hole, Rick's Cafe al tramonto: le giornate che finiscono nell'album di famiglia.",
     "transfersEyebrow": "Transfer aeroporto",
     "transfersTitle": "Da Sangster fino alla tua porta.",
-    "transfersDescription": "Scegli il tuo hotel e vedi la tariffa esatta: un prezzo fisso fino a quattro persone, volo monitorato e autista che ti aspetta dentro l'area arrivi.",
+    "transfersDescription": "Scegli il tuo hotel e vedi la tariffa esatta — una tariffa a persona, minimo quattro, volo monitorato, autista che ti aspetta agli arrivi.",
     "allRates": "Tutte le tariffe",
     "combosEyebrow": "Due in un giorno",
     "combosTitle": "Pacchetti combinati, senza corse.",
@@ -465,9 +466,7 @@
     "inc3": "Ritiro e rientro davanti al tuo alloggio",
     "inc4": "Nessun orario di partenza fisso: il ritmo lo decidi tu",
     "transportTable": "Quanto costa il trasporto",
-    "transportTableNote": "Il prezzo a persona è quello del veicolo diviso per 4: il veicolo costa uguale che viaggi uno o che viaggino in quattro. Dal quinto passeggero in poi ciascuno aggiunge l'ultima cifra.",
     "pickingUpFrom": "Ti veniamo a prendere a",
-    "upToFour": "Fino a 4",
     "eachExtra": "Ogni extra",
     "otherResorts": "Alloggi altrove? Questo tragitto lo facciamo comunque: scrivici e ti facciamo un preventivo per il tuo hotel.",
     "entryTable": "Quanto chiede l'attrazione",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Cosa fare in Giamaica",
-    "metaDescription": "Tutti i tour di PPP Tran Tours, per parrocchia: Montego Bay, Ocho Rios, Falmouth, Negril e la costa sud. Trasporto a prezzo per veicolo e ingressi indicati a parte.",
+    "metaDescription": "Tutti i tour di PPP Tran Tours, per parrocchia — Montego Bay, Ocho Rios, Falmouth, Negril e la costa sud. Trasporto a persona con un minimo di quattro, biglietti d'ingresso indicati a parte.",
     "eyebrow": "Il catalogo",
     "title": "Cosa fare in Giamaica.",
     "description": "Tutti i tour che organizziamo, con il prezzo del trasporto e quello dell'ingresso separati, così vedi esattamente cosa è nostro e cosa è dell'attrazione.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Transfer dall'aeroporto di Montego Bay",
-    "metaDescription": "Transfer privati dall'aeroporto Sangster International (MBJ) a tutti i grandi resort giamaicani. Tariffe fisse fino a quattro passeggeri, volo monitorato, accoglienza dentro l'area arrivi.",
+    "metaDescription": "Transfer privati dal Sangster International (MBJ) a tutti i principali resort della Giamaica. Tariffe pubblicate a persona con un minimo di quattro, volo monitorato, accoglienza agli arrivi.",
     "eyebrow": "Transfer aeroporto",
     "title": "Dal Sangster International fino alla tua porta.",
     "description": "Tariffe fisse e pubblicate per ogni resort che serviamo. Scegli il tuo hotel qui sotto e vedi la tariffa prima di darci un solo dato.",
@@ -511,23 +510,22 @@
     "p3Title": "Privato, sempre",
     "p3Body": "Solo il tuo gruppo. Niente van condivisi, niente giro degli altri hotel prima.",
     "p4Title": "Il prezzo è il prezzo",
-    "p4Body": "Una tariffa fissa fino a quattro persone. Nessun supplemento carburante, nessun sovrapprezzo aeroportuale.",
+    "p4Body": "Una tariffa a persona, e mai meno di quattro addebitate. Nessun supplemento carburante, nessuna tassa aeroportuale.",
     "ratesEyebrow": "Tutte le nostre tariffe",
     "ratesTitle": "Il listino completo, alla luce del sole.",
-    "ratesDescription": "Il prezzo a persona è la tariffa divisa per quattro: il veicolo costa uguale che viaggi uno o che viaggino in quattro. L'ultima colonna è quanto aggiunge ogni passeggero oltre il quarto.",
+    "ratesDescription": "Ogni tariffa è a persona, e ogni gruppo viene addebitato per almeno quattro. Quindi una, due, tre e quattro persone pagano lo stesso, e dalla quinta in poi ogni persona aggiunge semplicemente la tariffa.",
     "resort": "Hotel",
     "oneWay": "Solo andata",
     "roundTrip": "Andata e ritorno",
-    "each": "Ogni extra",
     "book": "Prenota",
     "notListed": "Villa, Airbnb o un hotel che non compare? Andiamo ovunque sull'isola: mandaci l'indirizzo e ti facciamo un preventivo in giornata.",
-    "totalWord": "in tutto"
+    "minFrom": "da"
   },
   "transferPage": {
     "metaTitle": "Transfer aeroporto per {resort} a {fare}",
     "metaDescription": "Transfer privato dall'aeroporto Sangster International di Montego Bay (MBJ) a {resort}. {fare} solo andata fino a 4 passeggeri, {roundTrip} andata e ritorno. Volo monitorato, accoglienza dentro l'area arrivi.",
     "h1": "Transfer privato dall'aeroporto a {resort}",
-    "intro": "Da Sangster International (MBJ) a {resort}: {perPerson} a persona, oppure {fare} per il veicolo intero con fino a {capacity} passeggeri. Il tuo autista ti aspetta dentro l'area arrivi con un cartello e ti porta direttamente lì.",
+    "intro": "Dal Sangster International (MBJ) a {resort} — {perPerson} a persona, con un minimo di {capacity} ({fare}). Il tuo autista ti aspetta agli arrivi con un cartello col tuo nome e ti porta direttamente a destinazione.",
     "transferTo": "Transfer aeroporto per",
     "oneWay": "Solo andata",
     "roundTrip": "Andata e ritorno",
@@ -546,8 +544,8 @@
     "nearby": "Altri hotel vicini che serviamo",
     "toursEyebrow": "Già che sei qui",
     "toursTitle": "Tour che partono da {resort}",
-    "toursDescription": "I prezzi qui sotto sono specifici per il tuo hotel: trasporto per l'intero veicolo, con gli ingressi indicati a parte.",
-    "totalWord": "in tutto"
+    "toursDescription": "I prezzi qui sotto sono specifici per il tuo hotel — trasporto a persona con un minimo di quattro, con i biglietti d'ingresso indicati a parte.",
+    "minFrom": "da"
   },
   "destinationsPage": {
     "metaTitle": "Destinazioni",
@@ -658,8 +656,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "I vostri prezzi sono a persona o per veicolo?",
-      "a": "Per veicolo. Un prezzo pubblicato copre tutto il gruppo fino a quattro persone, quindi due viaggiatori e quattro pagano esattamente lo stesso per il trasporto. Dal quinto passeggero in poi, ciascuno aggiunge una piccola cifra fissa indicata accanto a ogni tariffa."
+      "q": "Come funzionano i vostri prezzi?",
+      "a": "A persona, con un minimo di quattro. Quindi una, due, tre e quattro persone pagano esattamente lo stesso — la tariffa per quattro — e dal quinto passeggero in poi ogni persona aggiunge semplicemente la tariffa. Vuol dire che più siete, meno paga ciascuno."
     },
     {
       "key": "entry",
@@ -961,21 +959,21 @@
     }
   },
   "bookingResult": {
-    "paidTitle": "Payment received. Thank you.",
-    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
-    "failedTitle": "That payment did not go through",
+    "paidTitle": "Pagamento ricevuto. Grazie.",
+    "paidBody": "La tua prenotazione è confermata. Ti comunicheremo a breve l'autista e l'orario esatto del ritiro, via WhatsApp o e-mail.",
+    "failedTitle": "Quel pagamento non è andato a buon fine",
     "failedBody": "La tua carta non è stata addebitata e la tua prenotazione resta valida. Puoi riprovare, oppure semplicemente pagare l'autista il giorno stesso.",
     "pendingTitle": "Il tuo pagamento è in elaborazione",
     "pendingBody": "PayPal ha ricevuto il pagamento ma non lo ha ancora sbloccato — succede con i bonifici bancari e di solito si risolve in pochi giorni. Non pagare una seconda volta. Ti confermeremo appena arriva e in ogni caso ti scriveremo per la tua data.",
     "cancelledTitle": "Payment cancelled",
     "cancelledBody": "Non è stato addebitato nulla e la tua prenotazione resta valida. Puoi pagare il giorno stesso, oppure riprovare.",
-    "unconfirmedTitle": "We could not confirm that payment",
-    "unconfirmedBody": "Your booking is saved either way. If your card was charged, quote your reference and we will match it up — nothing is lost.",
-    "unconfirmedNote": "This can happen if the payment page was closed early or your connection dropped. It does not mean the booking was lost.",
-    "reference": "Your reference",
-    "amountPaid": "Paid",
-    "balance": "To your driver on the day",
-    "whatsapp": "Message us on WhatsApp",
-    "home": "Back to home"
+    "unconfirmedTitle": "Non siamo riusciti a confermare quel pagamento",
+    "unconfirmedBody": "La tua prenotazione resta valida in ogni caso. Se la carta è stata addebitata, comunicaci il tuo riferimento e faremo la corrispondenza — non si perde nulla.",
+    "unconfirmedNote": "Non pagare di nuovo prima che ti abbiamo ricontattato.",
+    "reference": "Il tuo riferimento",
+    "amountPaid": "Pagato",
+    "balance": "Al tuo autista il giorno stesso",
+    "whatsapp": "Scrivici su WhatsApp",
+    "home": "Torna alla home"
   }
 }

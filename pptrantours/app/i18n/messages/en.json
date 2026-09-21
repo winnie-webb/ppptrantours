@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Private. Personalized. Professional.",
-    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — one price for the whole vehicle, attraction entry fees quoted separately and never marked up.",
+    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — priced per person with a four-person minimum, attraction entry fees quoted separately and never marked up.",
     "keywords": [
       "Jamaica airport transfer",
       "Montego Bay private tours",
@@ -111,10 +111,9 @@
     "fromYourResort": "From your resort",
     "askUs": "Ask us",
     "weWillQuote": "we'll quote it",
-    "perVehicle": "for up to 4",
     "perPerson": "/ person",
-    "vehicleBasis": "{amount} per vehicle · up to {capacity}",
-    "estimated": "indicative"
+    "estimated": "indicative",
+    "minimumPax": "minimum {n} people"
   },
   "place": {
     "title": "Where are you staying?",
@@ -190,7 +189,6 @@
     "bookNow": "Book now",
     "transportLabel": "Transport",
     "transferPrice": "Private transfer",
-    "perVehicleLong": "per vehicle",
     "pickResortFirst": "Pick your resort",
     "askUsPrice": "We'll quote it",
     "stayingAt": "Where are you staying?",
@@ -206,8 +204,6 @@
     "children": "Children",
     "child": "child",
     "childrenWord": "children",
-    "vehicleNote": "One private vehicle covers up to 4 people for the same price.",
-    "extraNote": "Larger group — the price above already includes the extra passengers.",
     "gateNote": "Paid at the gate, not to us.",
     "addons": "Optional extras",
     "fromWord": "from",
@@ -227,7 +223,6 @@
     "notesPlaceholder": "Car seats, extra stops, a second attraction you'd like to add…",
     "pickResortHint": "Tell us which resort you're staying at and the exact price for your group appears here.",
     "unpricedHint": "We haven't published a set rate from your resort for this one. Send it through and we'll come back with a firm price — same day, no markup.",
-    "extraBreakdown": "Includes the extra passengers beyond the first four.",
     "transportIsOurs": "This is what PPP charges. Nothing is added to it.",
     "gatesLabel": "Paid at the gate",
     "gatesNote": "Attraction tickets, paid on the day. We never resell them or add to them.",
@@ -244,8 +239,6 @@
     "notPersisted": "Online booking storage isn't switched on for this site yet. Send the details straight to us on WhatsApp below and we'll lock it in.",
     "confirmWhatsApp": "Confirm on WhatsApp",
     "browseMore": "Browse more tours",
-    "worksOutAt": "Works out at",
-    "estimatedNote": "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything.",
     "requiredNote": "Required. Everything else helps but is optional.",
     "payHow": "Want to pay now instead?",
     "payOptional": "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash.",
@@ -266,7 +259,16 @@
     "noPaymentQuote": "No payment taken — we come back with a firm price, same day.",
     "payDidntOpen": "The payment page didn't open",
     "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
-    "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way."
+    "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way.",
+    "minimumNote": "Every booking is charged for at least {n} people, so {spare} more can join you at no extra cost.",
+    "perHeadNote": "{n} people, each at the rate above.",
+    "totalWordLong": "total",
+    "transportPlusGates": "transport plus gate fees",
+    "sectionTrip": "Your trip",
+    "sectionParty": "Who's coming",
+    "sectionPrice": "Your price",
+    "sectionDetails": "Your details",
+    "sectionPay": "How you'll pay"
   },
   "fare": {
     "from": "From Sangster International (MBJ)",
@@ -278,16 +280,15 @@
     "passengers": "Passengers",
     "fewer": "Fewer passengers",
     "more": "More passengers",
-    "note": "One private vehicle covers up to 4 passengers for a flat price. Rates are in US dollars and include the meet-and-greet inside arrivals.",
+    "note": "Rates are per person, and every booking is charged for at least four passengers. In US dollars, and they include the meet-and-greet inside arrivals.",
     "prompt": "Choose your resort and the exact fare appears here — no forms, no waiting for an email.",
     "roundTripLabel": "Round-trip private transfer",
     "oneWayLabel": "One-way private transfer",
-    "upTo": "Up to 4 passengers",
-    "extraPassenger": "extra passenger",
     "book": "Book this transfer",
     "ask": "Ask a question",
     "perPerson": "/ person",
-    "totalFor": "total for {n}"
+    "totalFor": "total for {n}",
+    "minimumNote": "Charged for {n} — the minimum. {spare} more can come at no extra cost."
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",
@@ -342,7 +343,7 @@
   "browse": {
     "eyebrow": "Things to do in Jamaica",
     "title": "Where do you want to spend the day?",
-    "description": "Browse by parish, or by the kind of day you're after. Every price is transport for the whole vehicle, with the gate fees listed beside it.",
+    "description": "Browse by parish, or by the kind of day you're after. Every price is per person with a four-person minimum, and the gate fees are listed beside it.",
     "seeEverything": "See everything",
     "option": "option",
     "options": "options"
@@ -353,7 +354,7 @@
     "popularDescription": "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album.",
     "transfersEyebrow": "Airport transfers",
     "transfersTitle": "From Sangster to your front door.",
-    "transfersDescription": "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting inside arrivals.",
+    "transfersDescription": "Pick your resort and see the exact fare — one rate per person, minimum four, flight tracked, driver waiting inside arrivals.",
     "allRates": "All rates",
     "combosEyebrow": "Two in one day",
     "combosTitle": "Combo packages, no rushing.",
@@ -465,9 +466,7 @@
     "inc3": "Pickup and drop-off at your door",
     "inc4": "No fixed departure — you set the pace",
     "transportTable": "What the transport costs",
-    "transportTableNote": "Per person is the vehicle price shared between 4 — the vehicle costs the same whether one of you travels or four. A fifth passenger and each one after adds the last figure.",
     "pickingUpFrom": "Picking you up from",
-    "upToFour": "Up to 4",
     "eachExtra": "Each extra",
     "otherResorts": "Staying somewhere else? We still run this trip — send us a message and we'll quote your resort directly.",
     "entryTable": "What the attraction charges",
@@ -484,7 +483,7 @@
   },
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
-    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per vehicle, entry fees listed separately.",
+    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per person with a four-person minimum, entry fees listed separately.",
     "eyebrow": "The catalogue",
     "title": "Things to do in Jamaica.",
     "description": "Every tour we run, with the transport price and the gate fee shown separately so you can see exactly what is ours and what is the attraction's.",
@@ -500,7 +499,7 @@
   },
   "transfersPage": {
     "metaTitle": "Montego Bay Airport Transfers",
-    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Flat rates for up to four passengers, flight tracked, met inside arrivals.",
+    "metaDescription": "Private airport transfers from Sangster International (MBJ) to every major Jamaican resort. Published per-person rates with a four-person minimum, flight tracked, met inside arrivals.",
     "eyebrow": "Airport transfers",
     "title": "Sangster International to your front door.",
     "description": "Flat, published rates to every resort we serve. Pick your hotel below and see the fare before you give us a single detail.",
@@ -511,23 +510,22 @@
     "p3Title": "Private, always",
     "p3Body": "Your group alone. No shared van, no circuit of other hotels first.",
     "p4Title": "The price is the price",
-    "p4Body": "One flat fare for up to four people. No fuel levy, no airport surcharge.",
+    "p4Body": "One rate per person, and never fewer than four charged. No fuel levy, no airport surcharge.",
     "ratesEyebrow": "Every rate we publish",
     "ratesTitle": "The whole price list, in the open.",
-    "ratesDescription": "Per person is the fare shared between four — the vehicle costs the same whether one of you travels or four. The last column is what each passenger beyond the fourth adds.",
+    "ratesDescription": "Every rate is per person, and every party is charged for at least four. So one, two, three and four people pay the same, and from the fifth on each person simply adds the rate.",
     "resort": "Resort",
     "oneWay": "One way",
     "roundTrip": "Round trip",
-    "each": "Each extra",
     "book": "Book",
     "notListed": "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day.",
-    "totalWord": "total"
+    "minFrom": "from"
   },
   "transferPage": {
     "metaTitle": "{fare} Airport Transfer to {resort}",
     "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met inside arrivals.",
     "h1": "Private airport transfer to {resort}",
-    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person, or {fare} for the whole vehicle with up to {capacity} passengers. Your driver meets you inside arrivals with a name board and takes you straight there.",
+    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person, with a minimum of {capacity} ({fare}). Your driver meets you inside arrivals with a name board and takes you straight there.",
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
@@ -546,8 +544,8 @@
     "nearby": "Other resorts we serve nearby",
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
-    "toursDescription": "Prices below are for your resort specifically — transport for the whole vehicle, with the gate fees listed separately.",
-    "totalWord": "total"
+    "toursDescription": "Prices below are for your resort specifically — transport per person with a four-person minimum, with the gate fees listed separately.",
+    "minFrom": "from"
   },
   "destinationsPage": {
     "metaTitle": "Destinations",
@@ -658,8 +656,8 @@
   "faqs": [
     {
       "key": "pricing",
-      "q": "Are your prices per person or per vehicle?",
-      "a": "Per vehicle. One published price covers the whole group up to four people, so two travellers and four travellers pay exactly the same for the transport. From the fifth passenger on, each one adds a small fixed amount that is shown next to every rate."
+      "q": "How does your pricing work?",
+      "a": "Per person, with a four-person minimum. So one, two, three and four travellers all pay exactly the same — the rate times four — and from the fifth passenger on each person simply adds the rate. It means the more people you bring, the less each of you pays."
     },
     {
       "key": "entry",
@@ -715,7 +713,7 @@
   "tours": {},
   "bookingResult": {
     "paidTitle": "Payment received. Thank you.",
-    "paidBody": "We still confirm availability for your date, and if we cannot take it you are refunded in full. You will hear from us shortly.",
+    "paidBody": "Your booking is confirmed. Your driver and the exact pickup time follow shortly, by WhatsApp or email.",
     "failedTitle": "That payment did not go through",
     "failedBody": "Your card was not charged and your booking still stands. You can try again, or simply settle with your driver on the day.",
     "pendingTitle": "Your payment is clearing",

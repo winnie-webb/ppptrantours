@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import { TOURS } from "@/app/data/catalogue";
 import { filterProductById, getRelatedProducts } from "@/app/products/product";
-import { money, perPerson, VEHICLE_CAPACITY } from "@/app/products/pricing";
+import { money, MIN_BILLED_PAX } from "@/app/products/pricing";
 import { site } from "@/app/data/site";
 import BookingForm from "@/app/components/BookingForm";
 import FarePill from "@/app/components/FarePill";
@@ -99,10 +99,11 @@ export default async function TourPage({ params }) {
   // The headline "from" figure for the hero, so the page answers "how much?"
   // before the guest scrolls or opens the resort picker. Same floor as the one
   // the cards sort on (sortByPrice in app/products/product.js): the cheapest
-  // published vehicle band, shared between a full vehicle.
+  // published per-head rate. It is the rate itself, not a total divided by an
+  // assumed party — so the hero, the card and the booking form all agree.
   const bands = Object.values(base.zones ?? {});
   const fromPerPerson = bands.length
-    ? perPerson(Math.min(...bands.map((b) => b.price)), VEHICLE_CAPACITY)
+    ? Math.min(...bands.map((b) => b.rate))
     : null;
 
   // Mirrors the visible breadcrumb below, one for one. Absolute URLs, as
@@ -223,7 +224,12 @@ export default async function TourPage({ params }) {
                 label={dict.price?.from ?? "From"}
                 value={money(fromPerPerson)}
                 unit={dict.price?.perPerson ?? "/ person"}
-                extra={dict.price?.perVehicle ?? `for up to ${VEHICLE_CAPACITY}`}
+                extra={
+                  dict.price?.minimumPax?.replace(
+                    "{n}",
+                    String(MIN_BILLED_PAX)
+                  ) ?? `minimum ${MIN_BILLED_PAX} people`
+                }
                 highlight
               />
             </div>

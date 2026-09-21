@@ -18,8 +18,7 @@ import {
   quoteExcursion,
   quoteTransfer,
   money,
-  perPerson,
-  VEHICLE_CAPACITY,
+  MIN_BILLED_PAX,
   MAX_PARTY,
 } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
@@ -308,9 +307,9 @@ export default function BookingForm({
    * offering a card option the server would refuse costs a confused guest, not
    * a mispriced booking.
    *
-   * An estimated fare is excluded on purpose: it is our inference, not the
-   * owner's published rate, and the form promises we confirm it before anyone
-   * pays.
+   * A derived rate is no longer excluded. It used to be, which put a third of
+   * the resort list on an "ask us" path with no way to pay — see the note in
+   * `quoteExcursion`.
    *
    * `paymentsEnabled` comes from the server, and it is the half the form
    * cannot work out alone: whether a payment provider is actually configured.
@@ -320,11 +319,7 @@ export default function BookingForm({
    * payment method that cannot be honoured is worse than offering none.
    */
   const canOfferCard = Boolean(
-    paymentsEnabled &&
-      !needsPlace &&
-      !unpriced &&
-      quote.transport &&
-      !quote.transport.est
+    paymentsEnabled && !needsPlace && !unpriced && quote.transport
   );
 
   /*
@@ -482,7 +477,8 @@ export default function BookingForm({
         dict={dict}
       />
 
-      <div className="space-y-5 p-6">
+      <div className="space-y-7 p-6">
+        <Section title={t.sectionTrip ?? "Your trip"}>
         {/* Where from / where to */}
         {isTransfer ? (
           <div>
@@ -587,95 +583,6 @@ export default function BookingForm({
           </div>
         )}
 
-        {/* Party size */}
-        <div className="grid grid-cols-2 gap-4">
-          <Stepper
-            label={t.adults ?? "Adults"}
-            value={adults}
-            min={1}
-            onChange={setAdults}
-          />
-          <Stepper
-            label={t.children ?? "Children"}
-            value={children}
-            min={0}
-            onChange={setChildren}
-          />
-        </div>
-        <p className="-mt-2 flex items-start gap-2 text-xs leading-relaxed text-ink/50">
-          <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
-          {pax <= VEHICLE_CAPACITY
-            ? t.vehicleNote ??
-              `One private vehicle covers up to ${VEHICLE_CAPACITY} people for the same price.`
-            : t.extraNote ??
-              `${pax} people — the price above includes ${
-                pax - VEHICLE_CAPACITY
-              } extra beyond the first ${VEHICLE_CAPACITY}.`}
-        </p>
-
-        {/* Entry-fee choices */}
-        {!isTransfer &&
-          (tour.entry?.components ?? [])
-            .filter((c) => c.kind === "choice")
-            .map((c) => (
-              <div key={c.key}>
-                <label htmlFor={`choice-${c.key}`} className="label">
-                  {c.label}
-                </label>
-                <select
-                  id={`choice-${c.key}`}
-                  value={choices[c.key] ?? c.options[0].key}
-                  onChange={(e) =>
-                    setChoices((prev) => ({ ...prev, [c.key]: e.target.value }))
-                  }
-                  className="field"
-                >
-                  {c.options.map((o) => (
-                    <option key={o.key} value={o.key}>
-                      {o.label} — {o.from ? `${t.fromWord ?? "from"} ` : ""}
-                      {money(o.adult)}
-                      {o.child != null && o.child !== o.adult
-                        ? ` / ${money(o.child)} ${t.childWord ?? "child"}`
-                        : ""}
-                    </option>
-                  ))}
-                </select>
-                <p className="mt-1.5 text-xs text-ink/45">
-                  {t.gateNote ?? "Paid at the gate, not to us."}
-                </p>
-              </div>
-            ))}
-
-        {/* Optional extras at the attraction */}
-        {!isTransfer && (tour.entry?.addons ?? []).length > 0 && (
-          <div className="space-y-2">
-            <span className="label">{t.addons ?? "Optional extras"}</span>
-            {tour.entry.addons.map((a) => (
-              <label
-                key={a.key}
-                className="flex cursor-pointer items-center gap-3 rounded-xl border border-ink/15 px-4 py-3 transition hover:bg-crimson-50/40"
-              >
-                <input
-                  type="checkbox"
-                  checked={addons.includes(a.key)}
-                  onChange={(e) =>
-                    setAddons((prev) =>
-                      e.target.checked
-                        ? [...prev, a.key]
-                        : prev.filter((k) => k !== a.key)
-                    )
-                  }
-                  className="h-4 w-4 accent-crimson-600"
-                />
-                <span className="flex-1 text-sm text-ink/80">{a.label}</span>
-                <span className="text-sm font-semibold text-ink/60">
-                  {money(a.adult)}
-                </span>
-              </label>
-            ))}
-          </div>
-        )}
-
         {/* When */}
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -775,7 +682,117 @@ export default function BookingForm({
           </>
         )}
 
-        <div className="hairline" />
+        </Section>
+
+        <Section title={t.sectionParty ?? "Who's coming"}>
+        {/* Party size */}
+        <div className="grid grid-cols-2 gap-4">
+          <Stepper
+            label={t.adults ?? "Adults"}
+            value={adults}
+            min={1}
+            onChange={setAdults}
+          />
+          <Stepper
+            label={t.children ?? "Children"}
+            value={children}
+            min={0}
+            onChange={setChildren}
+          />
+        </div>
+        <p className="-mt-2 flex items-start gap-2 text-xs leading-relaxed text-ink/50">
+          <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
+          {pax < MIN_BILLED_PAX
+            ? t.minimumNote
+                ?.replace("{n}", String(MIN_BILLED_PAX))
+                .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
+              `Every booking is charged for at least ${MIN_BILLED_PAX} people, so ${
+                MIN_BILLED_PAX - pax
+              } more can join you at no extra cost.`
+            : t.perHeadNote?.replace("{n}", String(pax)) ??
+              `${pax} people, each at the rate above.`}
+        </p>
+
+        {/* Entry-fee choices */}
+        {!isTransfer &&
+          (tour.entry?.components ?? [])
+            .filter((c) => c.kind === "choice")
+            .map((c) => (
+              <div key={c.key}>
+                <label htmlFor={`choice-${c.key}`} className="label">
+                  {c.label}
+                </label>
+                <select
+                  id={`choice-${c.key}`}
+                  value={choices[c.key] ?? c.options[0].key}
+                  onChange={(e) =>
+                    setChoices((prev) => ({ ...prev, [c.key]: e.target.value }))
+                  }
+                  className="field"
+                >
+                  {c.options.map((o) => (
+                    <option key={o.key} value={o.key}>
+                      {o.label} — {o.from ? `${t.fromWord ?? "from"} ` : ""}
+                      {money(o.adult)}
+                      {o.child != null && o.child !== o.adult
+                        ? ` / ${money(o.child)} ${t.childWord ?? "child"}`
+                        : ""}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1.5 text-xs text-ink/45">
+                  {t.gateNote ?? "Paid at the gate, not to us."}
+                </p>
+              </div>
+            ))}
+
+        {/* Optional extras at the attraction */}
+        {!isTransfer && (tour.entry?.addons ?? []).length > 0 && (
+          <div className="space-y-2">
+            <span className="label">{t.addons ?? "Optional extras"}</span>
+            {tour.entry.addons.map((a) => (
+              <label
+                key={a.key}
+                className="flex cursor-pointer items-center gap-3 rounded-xl border border-ink/15 px-4 py-3 transition hover:bg-crimson-50/40"
+              >
+                <input
+                  type="checkbox"
+                  checked={addons.includes(a.key)}
+                  onChange={(e) =>
+                    setAddons((prev) =>
+                      e.target.checked
+                        ? [...prev, a.key]
+                        : prev.filter((k) => k !== a.key)
+                    )
+                  }
+                  className="h-4 w-4 accent-crimson-600"
+                />
+                <span className="flex-1 text-sm text-ink/80">{a.label}</span>
+                <span className="text-sm font-semibold text-ink/60">
+                  {money(a.adult)}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
+
+        </Section>
+
+        <Section title={t.sectionPrice ?? "Your price"}>
+        <Breakdown
+          quote={quote}
+          isTransfer={isTransfer}
+          tripType={tripType}
+          adults={adults}
+          childCount={children}
+          needsPlace={needsPlace}
+          unpriced={unpriced}
+          dict={dict}
+        />
+
+        </Section>
+
+        <Section title={t.sectionDetails ?? "Your details"}>
 
         <div>
           <label htmlFor="name" className="label">
@@ -855,17 +872,9 @@ export default function BookingForm({
           />
         </div>
 
-        <Breakdown
-          quote={quote}
-          isTransfer={isTransfer}
-          tripType={tripType}
-          adults={adults}
-          childCount={children}
-          needsPlace={needsPlace}
-          unpriced={unpriced}
-          dict={dict}
-        />
+        </Section>
 
+        <Section title={t.sectionPay ?? "How you'll pay"}>
         {status === "error" && (
           <p
             role="alert"
@@ -1001,8 +1010,29 @@ export default function BookingForm({
           <FaWhatsapp className="text-base text-crimson-600" />
           {t.ratherMessage ?? "Rather just message us?"}
         </a>
+        </Section>
       </div>
     </form>
+  );
+}
+
+/**
+ * One labelled block of the form.
+ *
+ * The form is fourteen inputs on a phone, and it used to run as a single
+ * undifferentiated column with the price banner at the top and the breakdown
+ * below the personal details — so the number moved while the guest was looking
+ * somewhere else. Five headings, and the price sitting directly after the
+ * fields that change it, is the whole fix.
+ */
+function Section({ title, children }) {
+  return (
+    <section className="space-y-5">
+      <h3 className="text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40">
+        {title}
+      </h3>
+      {children}
+    </section>
   );
 }
 
@@ -1010,11 +1040,15 @@ export default function BookingForm({
 
 function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
   const t = dict?.booking ?? {};
-  // The party size is known here, so this per-head figure is exact rather
-  // than the "from" estimate the cards have to use.
-  const each = quote.transport
-    ? perPerson(quote.transport.total, quote.pax)
-    : null;
+  /*
+   * The stored rate, not the total divided by the party.
+   *
+   * This printed `total / pax` and so told a couple looking at a $50/person
+   * tour that it was "$100 / person" — on the very page the card promising $50
+   * had sent them to. The rate does not move with party size; only the total
+   * does, and the total is on the line underneath.
+   */
+  const rate = quote.transport?.rate ?? null;
 
   return (
     <div className="border-b border-ink/[0.07] bg-sand px-6 py-5">
@@ -1028,14 +1062,23 @@ function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
           {quote.transport ? (
             <>
               <p className="font-display text-3xl font-semibold text-crimson-700">
-                {money(each)}
+                {money(rate)}
                 <span className="ml-1.5 text-sm font-medium text-ink/45">
                   {dict?.price?.perPerson ?? "/ person"}
                 </span>
               </p>
               <p className="text-xs text-ink/45">
                 {money(quote.transport.total)}{" "}
-                {t.perVehicleLong ?? "per vehicle"}
+                {t.totalWordLong ?? "total"}
+                {quote.transport.atMinimum && (
+                  <span className="ml-1 text-ink/40">
+                    ·{" "}
+                    {dict?.price?.minimumPax?.replace(
+                      "{n}",
+                      String(MIN_BILLED_PAX)
+                    ) ?? `minimum ${MIN_BILLED_PAX} people`}
+                  </span>
+                )}
               </p>
             </>
           ) : (
@@ -1116,28 +1159,26 @@ function Breakdown({
         </div>
 
         <div className="flex items-baseline justify-between gap-4 text-xs text-white/45">
-          <span>{dict?.booking?.worksOutAt ?? "Works out at"}</span>
+          <span>
+            {transport.billed} × {money(transport.rate)}
+          </span>
           <span className="shrink-0">
-            {money(perPerson(transport.total, adults + childCount))}{" "}
-            {dict?.price?.perPerson ?? "/ person"}
+            {money(transport.rate)} {dict?.price?.perPerson ?? "/ person"}
           </span>
         </div>
 
-        {transport.extraPax > 0 && (
-          <p className="text-xs text-white/40">
-            {t.extraBreakdown ??
-              `${money(transport.base)} for the first ${VEHICLE_CAPACITY}, plus ${
-                transport.extraPax
-              } × ${money(transport.extra)}`}
-          </p>
-        )}
+        {/*
+          The minimum is NOT restated here.
 
+          It is the line directly above this block, under the party steppers,
+          and the two sections now sit next to each other — so printing it twice
+          read as the page labouring the point. What has to survive is the
+          arithmetic, and `{billed} × {rate}` against the total says it: four
+          lots of fifty is two hundred, whoever is actually in the car.
+        */}
         <p className="text-[0.7rem] leading-relaxed text-white/45">
-          {transport.est
-            ? t.estimatedNote ??
-              "Indicative for your resort — he has not published a set rate from here, so we confirm the exact price before you pay anything."
-            : t.transportIsOurs ??
-              "This is what PPP charges. Nothing is added to it."}
+          {t.transportIsOurs ??
+            "This is what PPP charges. Nothing is added to it."}
         </p>
       </div>
 
@@ -1186,8 +1227,7 @@ function Breakdown({
             {money(quote.dayTotal)}
           </span>
           <span className="block text-xs text-white/45">
-            {money(perPerson(quote.dayTotal, adults + childCount))}{" "}
-            {dict?.price?.perPerson ?? "/ person"}
+            {t.transportPlusGates ?? "transport plus gate fees"}
           </span>
         </span>
       </div>
