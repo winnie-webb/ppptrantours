@@ -61,9 +61,14 @@ const STATUS_LABEL = {
   cancelled: "Cancelled",
 };
 
+/*
+ * Imperatives. These are buttons, so they have to say what pressing them does,
+ * not name the state they lead to — "Driver assigned" on a confirmed booking
+ * read as a statement that one already had been.
+ */
 const ACTION_LABEL = {
   confirmed: "Confirm",
-  assigned: "Driver assigned",
+  assigned: "Assign a driver",
   completed: "Mark done",
   cancelled: "Cancel",
 };
