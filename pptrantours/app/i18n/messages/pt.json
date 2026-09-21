@@ -268,7 +268,8 @@
     "sectionParty": "Quem vem",
     "sectionPrice": "O seu preço",
     "sectionDetails": "Os seus dados",
-    "sectionPay": "Como vai pagar"
+    "sectionPay": "Como vai pagar",
+    "browseTransfers": "Ver todas as tarifas de transfer"
   },
   "fare": {
     "from": "De Sangster International (MBJ)",

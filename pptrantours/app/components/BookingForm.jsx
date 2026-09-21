@@ -460,6 +460,8 @@ export default function BookingForm({
         payMethod={payIntent}
         paypal={paypal}
         quoted={!unpriced && !needsPlace}
+        isTransfer={isTransfer}
+        tripType={tripType}
       />
     );
   }
@@ -472,6 +474,7 @@ export default function BookingForm({
         quote={quote}
         tour={tour}
         isTransfer={isTransfer}
+        tripType={tripType}
         needsPlace={needsPlace}
         unpriced={unpriced}
         dict={dict}
@@ -1038,7 +1041,15 @@ function Section({ title, children }) {
 
 /* ── Pieces ─────────────────────────────────────────────────────────────────── */
 
-function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
+function PriceHeader({
+  quote,
+  tour,
+  isTransfer,
+  tripType,
+  needsPlace,
+  unpriced,
+  dict,
+}) {
   const t = dict?.booking ?? {};
   /*
    * The stored rate, not the total divided by the party.
@@ -1055,8 +1066,19 @@ function PriceHeader({ quote, tour, isTransfer, needsPlace, unpriced, dict }) {
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="text-[0.68rem] font-semibold uppercase tracking-wider text-ink/45">
+            {/*
+              A transfer's direction belongs on the same line as its price.
+              This said only "Private transfer", so the largest number on the
+              form — the one the guest is agreeing to — did not say whether it
+              bought one journey or two. The toggle that sets it is below the
+              fold on a phone, and the breakdown further down still.
+            */}
             {isTransfer
-              ? t.transferPrice ?? "Private transfer"
+              ? `${t.transferPrice ?? "Private transfer"} · ${
+                  tripType === "round-trip"
+                    ? t.roundTrip ?? "Round trip"
+                    : t.oneWay ?? "One way"
+                }`
               : t.transportLabel ?? "Transport"}
           </p>
           {quote.transport ? (
@@ -1248,7 +1270,16 @@ function Breakdown({
  * that is a quote request, carries an indicative price, or has nowhere to be
  * recorded because no service account is configured.
  */
-function Success({ result, locale, dict, payMethod, quoted, paypal }) {
+function Success({
+  result,
+  locale,
+  dict,
+  payMethod,
+  quoted,
+  paypal,
+  isTransfer,
+  tripType,
+}) {
   const t = dict?.booking ?? {};
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
@@ -1510,8 +1541,18 @@ function Success({ result, locale, dict, payMethod, quoted, paypal }) {
           <FaWhatsapp className="text-lg" />
           {t.confirmWhatsApp ?? "Confirm on WhatsApp"}
         </a>
-        <Link href={localePath(locale, "/tours")} className="btn-ghost">
-          {t.browseMore ?? "Browse more tours"}
+        {/*
+          An airport transfer is not a tour, and this screen used to end by
+          offering to "browse more tours" whichever had just been booked — the
+          one word the owner does not want anywhere near a transfer.
+        */}
+        <Link
+          href={localePath(locale, isTransfer ? "/transfers" : "/tours")}
+          className="btn-ghost"
+        >
+          {isTransfer
+            ? t.browseTransfers ?? "See all transfer rates"
+            : t.browseMore ?? "Browse more tours"}
         </Link>
       </div>
     </div>

@@ -268,7 +268,8 @@
     "sectionParty": "ご参加人数",
     "sectionPrice": "料金",
     "sectionDetails": "お客様情報",
-    "sectionPay": "お支払い方法"
+    "sectionPay": "お支払い方法",
+    "browseTransfers": "送迎料金の一覧を見る"
   },
   "fare": {
     "from": "サングスター国際空港（MBJ）発",

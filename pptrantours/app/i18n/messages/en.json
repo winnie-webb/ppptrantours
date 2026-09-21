@@ -268,7 +268,8 @@
     "sectionParty": "Who's coming",
     "sectionPrice": "Your price",
     "sectionDetails": "Your details",
-    "sectionPay": "How you'll pay"
+    "sectionPay": "How you'll pay",
+    "browseTransfers": "See all transfer rates"
   },
   "fare": {
     "from": "From Sangster International (MBJ)",

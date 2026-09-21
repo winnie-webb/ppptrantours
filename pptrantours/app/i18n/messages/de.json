@@ -268,7 +268,8 @@
     "sectionParty": "Wer mitkommt",
     "sectionPrice": "Ihr Preis",
     "sectionDetails": "Ihre Angaben",
-    "sectionPay": "Ihre Zahlungsweise"
+    "sectionPay": "Ihre Zahlungsweise",
+    "browseTransfers": "Alle Transferpreise ansehen"
   },
   "fare": {
     "from": "Ab Sangster International (MBJ)",

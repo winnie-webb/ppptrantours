@@ -268,7 +268,8 @@
     "sectionParty": "Qui vient",
     "sectionPrice": "Votre tarif",
     "sectionDetails": "Vos coordonnées",
-    "sectionPay": "Votre paiement"
+    "sectionPay": "Votre paiement",
+    "browseTransfers": "Voir tous les tarifs de transfert"
   },
   "fare": {
     "from": "Depuis Sangster International (MBJ)",

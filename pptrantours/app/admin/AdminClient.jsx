@@ -539,7 +539,23 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               <span className="block text-xs text-ink/50">{b.phone}</span>
             )}
           </Field>
-          <Field label={b.kind === "transfer" ? "Transfer" : "Tour"}>
+          {/*
+            One way or return, on the row rather than only in the expanded
+            panel. A transfer's fare is double for a return, so "$40.00" in the
+            Transport column is unreadable without it — and it decides whether
+            the driver is doing one journey or two.
+          */}
+          <Field
+            label={
+              b.kind === "transfer"
+                ? `Transfer${
+                    b.tripType
+                      ? ` · ${b.tripType === "one-way" ? "One way" : "Round trip"}`
+                      : ""
+                  }`
+                : "Tour"
+            }
+          >
             <span className="text-ink/80">{b.tourTitle || "—"}</span>
             {b.placeLabel && (
               <span className="block text-xs text-ink/50">{b.placeLabel}</span>

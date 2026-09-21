@@ -268,7 +268,8 @@
     "sectionParty": "Wie er meegaan",
     "sectionPrice": "Uw prijs",
     "sectionDetails": "Uw gegevens",
-    "sectionPay": "Hoe u betaalt"
+    "sectionPay": "Hoe u betaalt",
+    "browseTransfers": "Alle transfertarieven bekijken"
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",

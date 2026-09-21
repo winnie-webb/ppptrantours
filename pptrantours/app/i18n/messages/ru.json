@@ -268,7 +268,8 @@
     "sectionParty": "Кто едет",
     "sectionPrice": "Ваша цена",
     "sectionDetails": "Ваши данные",
-    "sectionPay": "Способ оплаты"
+    "sectionPay": "Способ оплаты",
+    "browseTransfers": "Все тарифы на трансфер"
   },
   "fare": {
     "from": "Из аэропорта Сангстер (MBJ)",

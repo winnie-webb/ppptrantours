@@ -268,7 +268,8 @@
     "sectionParty": "同行人数",
     "sectionPrice": "您的价格",
     "sectionDetails": "您的信息",
-    "sectionPay": "付款方式"
+    "sectionPay": "付款方式",
+    "browseTransfers": "查看所有接送价格"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
