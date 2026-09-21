@@ -313,7 +313,7 @@ export default async function TransferPage({ params }) {
               }
               description={
                 t.toursDescription ??
-                "Prices below are for your resort specifically — transport for the whole vehicle, with the gate fees listed separately."
+                "Prices below are for your resort specifically — the transport, worked out for your group."
               }
               href={localePath(locale, "/tours")}
               linkLabel={dict.common?.seeAll ?? "See all"}

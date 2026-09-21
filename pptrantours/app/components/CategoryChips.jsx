@@ -35,7 +35,7 @@ export default function CategoryChips({ locale = "en", dict }) {
         title={t.title ?? "Where do you want to spend the day?"}
         description={
           t.description ??
-          "Browse by parish, or by the kind of day you're after. Every price is transport for the whole vehicle, with the gate fees listed beside it."
+          "Browse by parish, or by the kind of day you're after. Every price is the transport, worked out for your group."
         }
         href={localePath(locale, "/tours")}
         linkLabel={t.seeEverything ?? "See everything"}

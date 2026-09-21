@@ -35,7 +35,17 @@ const z = (rate) => ({ rate });
 export const MIN_BILLED_PAX = 4;
 
 /* ── Entry-fee components ────────────────────────────────────────────────────
- * Shared where two tours charge the same gate, so a price change is one edit.
+ * REFERENCE ONLY. THESE AMOUNTS ARE NOT QUOTED TO ANYONE (Winston, 2026-09-21).
+ *
+ * The site prices transport and nothing else, so nothing reads these numbers:
+ * `app/products/pricing.js` has no entry arithmetic left and the booking form
+ * shows one total. What still reads `entry` is the tour page, and only to ask
+ * whether an attraction charges at all — so it can say admission is extra —
+ * plus `entry.note`, which is guest-facing prose.
+ *
+ * They are kept because the owner uses them when a guest asks what a gate will
+ * cost. Adding a price back into a quote means reopening a product decision,
+ * not just wiring up a field.
  *
  *   kind "person"  adult/child rate per head
  *   kind "choice"  guest picks one package (Mystic Mountain, Dolphin Cove)

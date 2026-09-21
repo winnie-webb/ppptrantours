@@ -64,7 +64,7 @@ export default async function ToursPage({ params }) {
         title={t.title ?? "Things to do in Jamaica."}
         description={
           t.description ??
-          "Every tour we run, with the transport price and the gate fee shown separately so you can see exactly what is ours and what is the attraction's."
+          "Every tour we run, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it."
         }
         image="/local/hero-3.jpg"
         locale={locale}

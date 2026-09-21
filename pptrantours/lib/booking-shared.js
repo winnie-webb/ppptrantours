@@ -82,12 +82,6 @@ export function buildWhatsAppMessage(booking) {
     booking.transportTotal != null
       ? `Transport (PPP): ${money(booking.transportTotal)}`
       : `Transport: please quote me`,
-    ...(booking.entryLines?.length
-      ? [`Entry fees at the gate:`, ...booking.entryLines.map((l) => `  · ${l}`)]
-      : []),
-    booking.transportTotal != null && booking.entryTotal
-      ? `Estimated day total: ${money(booking.transportTotal + booking.entryTotal)}`
-      : null,
     ``,
     `Name: ${booking.name}`,
     `Email: ${booking.email}`,

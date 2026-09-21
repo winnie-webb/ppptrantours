@@ -2,12 +2,16 @@
  * Every number the site quotes comes out of this file.
  *
  * The rule that shapes all of it: **transport is per person with a four-person
- * minimum, and the attraction charges its own heads.** Transport is
+ * minimum, and transport is the only thing PPP prices.** The total is
  * `rate * max(4, pax)`, so one, two, three and four people pay the same and
- * the fifth guest onward each add the plain rate; entry fees are per person and
- * are paid at the gate, never to us. Mixing the two up would misquote every
- * booking, so they are priced separately and only added together at the very
- * end, clearly labelled.
+ * the fifth guest onward each add the plain rate.
+ *
+ * ATTRACTION ADMISSION IS NOT PRICED HERE, BY DECISION (Winston, 2026-09-21).
+ * The gates are the attraction's business, the guest pays them directly, and
+ * the site quotes one number: what PPP charges to drive them. An earlier
+ * version itemised gate fees beside the fare and printed a combined "day
+ * total", which put three numbers on a booking form that needs one. Do not
+ * bring entry-fee arithmetic back into this file.
  *
  * The browser and the API route both import this. If they ever disagreed, a
  * guest would be shown one total and charged another.
@@ -91,109 +95,18 @@ function quote(rate, pax) {
   };
 }
 
-/* ── Entry fees ────────────────────────────────────────────────────────────── */
+/* ── One quote, one number ─────────────────────────────────────────────────── */
 
 /**
- * What the gates will cost, itemised.
+ * What this excursion costs, which is the transport and nothing else.
  *
- * `from` propagates up: if any single line is a "starts at" figure (the Dolphin
- * Cove programmes are), the whole estimate is a "from" and the UI must say so
- * rather than presenting it as a firm total.
- *
- * @param {object} tour
- * @param {{adults:number, children:number, choices?:object, addons?:string[]}} party
- * @returns {{lines:Array, total:number, from:boolean}}
+ * `transport` is kept alongside `total` because the payment path needs the
+ * structured figure (see `payable`), not because there is a second number to
+ * show. The form prints `total`.
  */
-export function priceEntry(tour, { adults, children, choices = {}, addons = [] }) {
-  const lines = [];
-  let from = false;
-
-  for (const c of tour?.entry?.components ?? []) {
-    const line = priceComponent(c, adults, children, choices);
-    if (line) {
-      lines.push(line);
-      if (line.from) from = true;
-    }
-  }
-
-  for (const a of tour?.entry?.addons ?? []) {
-    if (!addons.includes(a.key)) continue;
-    const line = priceComponent(a, adults, children, choices);
-    if (line) {
-      lines.push({ ...line, addon: true });
-      if (line.from) from = true;
-    }
-  }
-
-  return {
-    lines,
-    total: lines.reduce((sum, l) => sum + l.amount, 0),
-    from,
-  };
-}
-
-function priceComponent(c, adults, children, choices) {
-  if (c.kind === "person") {
-    return {
-      key: c.key ?? c.label,
-      label: c.label,
-      detail: describeHeads(c, adults, children),
-      amount: c.adult * adults + (c.child ?? 0) * children,
-      from: Boolean(c.from),
-    };
-  }
-
-  if (c.kind === "choice") {
-    const chosen =
-      c.options.find((o) => o.key === choices[c.key]) ?? c.options[0];
-    return {
-      key: c.key,
-      label: c.label,
-      option: chosen.label,
-      detail: describeHeads(chosen, adults, children),
-      amount: chosen.adult * adults + (chosen.child ?? 0) * children,
-      from: Boolean(chosen.from),
-    };
-  }
-
-  if (c.kind === "unit") {
-    // A Martha Brae raft seats two adults; a child under 12 rides free with
-    // them. Three adults therefore need two rafts, not one and a half.
-    const units = Math.max(1, Math.ceil(adults / c.per));
-    return {
-      key: c.key ?? c.label,
-      label: c.label,
-      detail: `${units} × ${c.unit} at ${money(c.price)}`,
-      amount: units * c.price,
-      from: false,
-    };
-  }
-
-  return null;
-}
-
-function describeHeads(rate, adults, children) {
-  const parts = [];
-  if (adults > 0) parts.push(`${adults} × ${money(rate.adult)}`);
-  if (children > 0 && rate.child != null) {
-    parts.push(`${children} × ${money(rate.child)}`);
-  }
-  return parts.join(" + ");
-}
-
-/* ── The whole day ─────────────────────────────────────────────────────────── */
-
-/**
- * Transport plus gates, kept apart in the result so the UI can be honest about
- * which half of the money is ours.
- */
-export function quoteExcursion(
-  tour,
-  { zoneKey, adults, children, choices, addons }
-) {
+export function quoteExcursion(tour, { zoneKey, adults, children }) {
   const pax = clampPax(adults + children);
   const transport = priceTransport(tour, zoneKey, pax);
-  const entry = priceEntry(tour, { adults, children, choices, addons });
 
   /*
    * A derived rate is no longer distinguished here.
@@ -206,20 +119,14 @@ export function quoteExcursion(
    * the provenance lives in the header of estimated-zones.js, where it belongs.
    */
 
-  return {
-    pax,
-    transport,
-    entry,
-    // Null transport means "ask us", so there is no day total to show yet.
-    dayTotal: transport ? transport.total + entry.total : null,
-    from: entry.from,
-  };
+  // Null transport means "ask us", so there is no total to show yet.
+  return { pax, transport, total: transport?.total ?? null };
 }
 
 export function quoteTransfer(placeKey, { tripType, adults, children }) {
   const pax = clampPax(adults + children);
   const transport = priceTransfer(placeKey, tripType, pax);
-  return { pax, transport, entry: null, dayTotal: transport?.total ?? null };
+  return { pax, transport, total: transport?.total ?? null };
 }
 
 /* ── What may actually be collected ────────────────────────────────────────── */
@@ -244,13 +151,11 @@ export function fromCents(cents) {
  *
  * THE BASIS IS `transport.total`, AND ONLY `transport.total`.
  *
- * Entry fees are the attraction's money, handed over at the gate (see the
- * header of this file). Collecting a share of them into PPP's merchant account
- * would mean owing it straight back out again, and it would break the promise
- * made on every tour page that PPP never touches gate money. Never pass
- * `quote.dayTotal` to this function.
+ * It is the same figure as `quote.total` now that transport is the only thing
+ * priced, and it is read from `transport` deliberately: if anything is ever
+ * added to a quote again, this must keep charging the fare and nothing else.
  *
- * Three reasons a booking is not collectible, all already representable in the
+ * Two reasons a booking is not collectible, both already representable in the
  * data rather than invented here:
  *
  *   no-transport    the owner publishes no rate from that resort for that tour.

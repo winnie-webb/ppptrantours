@@ -312,7 +312,7 @@ export default async function TourPage({ params }) {
               <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
               {hasEntry
                 ? t.entryTableNote ??
-                  "Gate fees are paid at the attraction on the day. We never resell them or add anything to them."
+                  "Attraction admission is not included and we do not sell it. You pay the gate directly on the day, at the gate's own price — we never resell it or add anything to it."
                 : t.noEntry ?? "Nothing. There is no gate fee on this one."}
             </p>
 

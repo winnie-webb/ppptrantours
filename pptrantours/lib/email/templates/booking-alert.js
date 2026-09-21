@@ -65,26 +65,6 @@ export function bookingAlert(booking) {
   const date = dash(booking.date);
   const tourTitle = dash(booking.tourTitle);
 
-  /*
-   * Entry fees and the day total are computed for every booking but had no home
-   * in the dashboard template, so they were being sent and silently discarded.
-   * They render here only when there are any — a tour with no gate fee should
-   * not grow two empty rows.
-   */
-  const extras = booking.entryTotal
-    ? html`
-        <tr>
-          <td style="padding:12px 20px 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#ffffff;opacity:0.55;">
-            Entry fees ${money(booking.entryTotal)} paid at the gate${
-              booking.dayTotal != null
-                ? ` &middot; day total ${money(booking.dayTotal)}`
-                : ""
-            }
-          </td>
-        </tr>
-      `
-    : null;
-
   const body = html`
 <div style="margin:0;padding:0;background-color:${SAND};">
   <!-- Preheader: the grey line shown next to the subject in an inbox list.
@@ -176,7 +156,6 @@ export function bookingAlert(booking) {
                     ${total}
                   </td>
                 </tr>
-                ${extras}
                 <tr><td colspan="2" style="height:4px;line-height:4px;">&nbsp;</td></tr>
               </table>
             </td>

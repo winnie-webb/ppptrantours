@@ -48,7 +48,7 @@ export const bookingTerms = [
     heading: "What the price covers",
     body: [
       `Transport is priced per person, and every party is charged for at least ${MIN_BILLED_PAX} people. So one, two, three and four travellers all pay the same, and from the fifth passenger each person simply adds the published rate.`,
-      "Attraction entry fees are not ours and we never collect them. They are paid at the gate, directly to the attraction, at the gate's own prices — which are listed beside our own on every tour page so you can see the true cost of the day.",
+      "Attraction entry fees are not ours, we never quote them and we never collect them. They are paid at the gate, directly to the attraction, at the gate's own prices. What we quote is the transport, and that is the whole of what you owe us.",
       "Prices are quoted in United States dollars. Where a rate is marked indicative, we have not published a set price for that route and will confirm the exact figure before you pay anything.",
       "No fuel levy, no airport surcharge and no late-night premium is added to a confirmed price.",
     ],

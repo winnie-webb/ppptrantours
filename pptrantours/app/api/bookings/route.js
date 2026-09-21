@@ -36,26 +36,6 @@ function looksLikeEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 }
 
-/** Keep only keys and values that exist in the catalogue. */
-function cleanChoices(raw) {
-  if (!raw || typeof raw !== "object") return {};
-  const out = {};
-  for (const [k, v] of Object.entries(raw)) {
-    if (typeof k === "string" && typeof v === "string" && k.length < 40) {
-      out[k.slice(0, 40)] = v.slice(0, 40);
-    }
-  }
-  return out;
-}
-
-function cleanAddons(raw) {
-  if (!Array.isArray(raw)) return [];
-  return raw
-    .filter((v) => typeof v === "string")
-    .slice(0, 10)
-    .map((v) => v.slice(0, 40));
-}
-
 /**
  * A date in the past is a mistake, not a booking.
  *
@@ -174,14 +154,12 @@ export async function POST(request) {
    * A posted price is just a claim. Without this, anyone could book a $340
    * GoldenEye transfer for $1 by editing the request before it is sent.
    *
-   * Two totals now come back rather than one, and they mean different things:
-   * `transportTotal` is what PPP is owed, `entryTotal` is what the guest should
-   * expect to hand over at the gate. Only the first is a debt to us, so they
-   * are stored separately and never silently added together.
+   * One total, which is the transport: the only thing PPP prices. Attraction
+   * admission used to be re-priced here too and stored beside it; it is not
+   * quoted anywhere on the site any more, so a posted `choices`/`addons` is
+   * now ignored outright rather than cleaned and kept.
    */
   let transportTotal = null;
-  let entryTotal = 0;
-  let entryLines = [];
   let quoted = false;
   let quote = null;
 
@@ -211,18 +189,12 @@ export async function POST(request) {
         zoneKey: place?.zone ?? null,
         adults,
         children,
-        choices: cleanChoices(body.choices),
-        addons: cleanAddons(body.addons),
       });
 
       // A null transport total is legitimate: the owner publishes no rate from
       // every resort for every tour. That is a quote request, not an error.
       quote = q;
       transportTotal = q.transport?.total ?? null;
-      entryTotal = q.entry?.total ?? 0;
-      entryLines = (q.entry?.lines ?? []).map(
-        (l) => `${l.label}${l.option ? ` (${l.option})` : ""}: $${l.amount.toFixed(2)}`
-      );
       quoted = transportTotal != null;
     }
   }
@@ -256,14 +228,7 @@ export async function POST(request) {
       : "",
     adults,
     children,
-    choices: cleanChoices(body.choices),
-    addons: cleanAddons(body.addons),
     transportTotal,
-    entryTotal,
-    entryLines,
-    // Kept for the alert email and the admin list, but it is an estimate of the
-    // guest's whole day, not an amount we are charging.
-    dayTotal: transportTotal == null ? null : transportTotal + entryTotal,
     date,
     time: str(body.time, 20),
     returnDate: str(body.returnDate, 30),
@@ -335,7 +300,6 @@ export async function POST(request) {
       persisted: false,
       emailed: alert.sent,
       transportTotal,
-      entryTotal,
       paymentOptions: {
         collectible: false,
         reason: "storage-unavailable",
@@ -385,7 +349,6 @@ export async function POST(request) {
             duplicate: true,
             emailed: false,
             transportTotal,
-            entryTotal,
             paymentOptions: {
               collectible:
                 Boolean(priorPay.payableCents) && providerReady,
@@ -448,7 +411,6 @@ export async function POST(request) {
     persisted: true,
     emailed: alert.sent,
     transportTotal,
-    entryTotal,
     paymentOptions: {
       collectible: pay.collectible && providerReady,
       reason: pay.collectible

@@ -14,12 +14,7 @@ import {
   FaInfoCircle,
   FaCreditCard,
 } from "react-icons/fa";
-import {
-  quoteExcursion,
-  quoteTransfer,
-  money,
-  MIN_BILLED_PAX,
-} from "@/app/products/pricing";
+import { quoteExcursion, quoteTransfer, money } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
 import { createBooking, startPayment } from "@/lib/bookings";
 import { site } from "@/app/data/site";
@@ -30,9 +25,12 @@ import PayPalCheckout from "./PayPalCheckout";
 /**
  * One form for both halves of the catalogue.
  *
- * `mode="tour"`     the guest's resort decides the price, and the gates are
- *                   itemised beside it but never added to what we charge.
+ * `mode="tour"`     the guest's resort decides the price.
  * `mode="transfer"` the destination resort decides it, plus one-way or return.
+ *
+ * Either way the form quotes ONE number, the transport, because that is the
+ * only thing PPP sells. Attraction admission is not priced, chosen or
+ * collected here.
  *
  * The two share every guest-detail field and the whole submit path, which is
  * why they are one component rather than two that drift apart.
@@ -117,8 +115,6 @@ export default function BookingForm({
   const [tripType, setTripType] = useState("round-trip");
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
-  const [choices, setChoices] = useState({});
-  const [addons, setAddons] = useState([]);
   const [form, setForm] = useState({
     date: "",
     time: "",
@@ -228,14 +224,8 @@ export default function BookingForm({
     if (isTransfer) {
       return quoteTransfer(transferPlace.key, { tripType, adults, children });
     }
-    return quoteExcursion(tour, {
-      zoneKey: zone,
-      adults,
-      children,
-      choices,
-      addons,
-    });
-  }, [isTransfer, transferPlace, tripType, tour, zone, adults, children, choices, addons]);
+    return quoteExcursion(tour, { zoneKey: zone, adults, children });
+  }, [isTransfer, transferPlace, tripType, tour, zone, adults, children]);
 
   const pax = adults + children;
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -376,14 +366,8 @@ export default function BookingForm({
         tripType: isTransfer ? tripType : "",
         adults,
         children,
-        choices,
-        addons,
         transportTotal: quote.transport?.total ?? null,
-        entryTotal: quote.entry?.total ?? 0,
-        entryLines: (quote.entry?.lines ?? []).map(
-          (l) => `${l.label}${l.option ? ` (${l.option})` : ""}: ${money(l.amount)}`
-        ),
-        total: quote.dayTotal,
+        total: quote.total,
         // Abuse signals. `company` is the honeypot and must stay empty; a real
         // guest never sees the field.
         company: honeypot,
@@ -469,16 +453,16 @@ export default function BookingForm({
     // noValidate: validation is ours now, so the messages are translated and
     // every field's problem is stated next to it rather than one at a time.
     <form noValidate onSubmit={onSubmit} className="card relative overflow-hidden">
-      <PriceHeader
-        quote={quote}
-        tour={tour}
-        isTransfer={isTransfer}
-        tripType={tripType}
-        needsPlace={needsPlace}
-        unpriced={unpriced}
-        dict={dict}
-      />
+      {/*
+        No price banner sits above the fields any more.
 
+        It printed the per-head rate big and the total small underneath, which
+        is two numbers for a form that quotes one, and it sat above the party
+        steppers — so on a 390px phone the figure moved while the guest was
+        looking at the control that moved it. The single total now renders
+        directly beneath the steppers, where it can be watched changing. The
+        tour and transfer pages still carry the shop-window "from" price.
+      */}
       <div className="space-y-7 p-6">
         <Section title={t.sectionTrip ?? "Your trip"}>
         {/* Where from / where to */}
@@ -702,91 +686,10 @@ export default function BookingForm({
             onChange={setChildren}
           />
         </div>
-        <p className="-mt-2 flex items-start gap-2 text-xs leading-relaxed text-ink/50">
-          <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
-          {/*
-            The owner's own wording, from islandwaystours, stated plainly and
-            always — not conditionally, and not reworded. "Minimum booking
-            COST" is the whole distinction: it is a floor on the price, not a
-            rule about how many people may come. Two attempts to phrase this
-            myself both read as a condition of booking.
-          */}
-          {t.minimumNote ??
-            `Minimum booking cost for 1–${MIN_BILLED_PAX} persons is ${MIN_BILLED_PAX} times the per-person rate.`}
-        </p>
-
-        {/* Entry-fee choices */}
-        {!isTransfer &&
-          (tour.entry?.components ?? [])
-            .filter((c) => c.kind === "choice")
-            .map((c) => (
-              <div key={c.key}>
-                <label htmlFor={`choice-${c.key}`} className="label">
-                  {c.label}
-                </label>
-                <select
-                  id={`choice-${c.key}`}
-                  value={choices[c.key] ?? c.options[0].key}
-                  onChange={(e) =>
-                    setChoices((prev) => ({ ...prev, [c.key]: e.target.value }))
-                  }
-                  className="field"
-                >
-                  {c.options.map((o) => (
-                    <option key={o.key} value={o.key}>
-                      {o.label} — {o.from ? `${t.fromWord ?? "from"} ` : ""}
-                      {money(o.adult)}
-                      {o.child != null && o.child !== o.adult
-                        ? ` / ${money(o.child)} ${t.childWord ?? "child"}`
-                        : ""}
-                    </option>
-                  ))}
-                </select>
-                <p className="mt-1.5 text-xs text-ink/45">
-                  {t.gateNote ?? "Paid at the gate, not to us."}
-                </p>
-              </div>
-            ))}
-
-        {/* Optional extras at the attraction */}
-        {!isTransfer && (tour.entry?.addons ?? []).length > 0 && (
-          <div className="space-y-2">
-            <span className="label">{t.addons ?? "Optional extras"}</span>
-            {tour.entry.addons.map((a) => (
-              <label
-                key={a.key}
-                className="flex cursor-pointer items-center gap-3 rounded-xl border border-ink/15 px-4 py-3 transition hover:bg-crimson-50/40"
-              >
-                <input
-                  type="checkbox"
-                  checked={addons.includes(a.key)}
-                  onChange={(e) =>
-                    setAddons((prev) =>
-                      e.target.checked
-                        ? [...prev, a.key]
-                        : prev.filter((k) => k !== a.key)
-                    )
-                  }
-                  className="h-4 w-4 accent-crimson-600"
-                />
-                <span className="flex-1 text-sm text-ink/80">{a.label}</span>
-                <span className="text-sm font-semibold text-ink/60">
-                  {money(a.adult)}
-                </span>
-              </label>
-            ))}
-          </div>
-        )}
-
-        </Section>
-
-        <Section title={t.sectionPrice ?? "Your price"}>
-        <Breakdown
+        <Price
           quote={quote}
           isTransfer={isTransfer}
           tripType={tripType}
-          adults={adults}
-          childCount={children}
           needsPlace={needsPlace}
           unpriced={unpriced}
           dict={dict}
@@ -1040,100 +943,23 @@ function Section({ title, children }) {
 
 /* ── Pieces ─────────────────────────────────────────────────────────────────── */
 
-function PriceHeader({
-  quote,
-  tour,
-  isTransfer,
-  tripType,
-  needsPlace,
-  unpriced,
-  dict,
-}) {
+/**
+ * The one number on this form.
+ *
+ * It used to be three: a per-head rate in the banner, a transport subtotal
+ * with its arithmetic, an itemised gate-fee block, and a combined "your day,
+ * all in". PPP sells transport, the attraction sells admission, and quoting
+ * both made the form read like an invoice the guest had to audit. The owner's
+ * ruling (2026-09-21): show what PPP charges, once.
+ *
+ * `needsPlace` and `unpriced` are two different silences and only the second
+ * is worth explaining: on the server render localStorage has not been read, so
+ * "no resort yet" is also the state every guest starts in.
+ */
+function Price({ quote, isTransfer, tripType, needsPlace, unpriced, dict }) {
   const t = dict?.booking ?? {};
-  /*
-   * The stored rate, not the total divided by the party.
-   *
-   * This printed `total / pax` and so told a couple looking at a $50/person
-   * tour that it was "$100 / person" — on the very page the card promising $50
-   * had sent them to. The rate does not move with party size; only the total
-   * does, and the total is on the line underneath.
-   */
-  const rate = quote.transport?.rate ?? null;
 
-  return (
-    <div className="border-b border-ink/[0.07] bg-sand px-6 py-5">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <p className="text-[0.68rem] font-semibold uppercase tracking-wider text-ink/45">
-            {/*
-              A transfer's direction belongs on the same line as its price.
-              This said only "Private transfer", so the largest number on the
-              form — the one the guest is agreeing to — did not say whether it
-              bought one journey or two. The toggle that sets it is below the
-              fold on a phone, and the breakdown further down still.
-            */}
-            {isTransfer
-              ? `${t.transferPrice ?? "Private transfer"} · ${
-                  tripType === "round-trip"
-                    ? t.roundTrip ?? "Round trip"
-                    : t.oneWay ?? "One way"
-                }`
-              : t.transportLabel ?? "Transport"}
-          </p>
-          {quote.transport ? (
-            <>
-              <p className="font-display text-3xl font-semibold text-crimson-700">
-                {money(rate)}
-                <span className="ml-1.5 text-sm font-medium text-ink/45">
-                  {dict?.price?.perPerson ?? "/ person"}
-                </span>
-              </p>
-              <p className="text-xs text-ink/45">
-                {money(quote.transport.total)}{" "}
-                {t.totalWordLong ?? "total"}
-              </p>
-            </>
-          ) : (
-            <p className="font-display text-2xl font-semibold text-crimson-700">
-              {needsPlace
-                ? t.pickResortFirst ?? "Pick your resort"
-                : t.askUsPrice ?? "We'll quote it"}
-            </p>
-          )}
-        </div>
-        <span className="rounded-full bg-crimson-600/10 px-3 py-1.5 text-xs font-semibold text-crimson-700">
-          {dict?.durations?.[tour.duration] ?? tour.duration}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function Breakdown({
-  quote,
-  isTransfer,
-  tripType,
-  adults,
-  childCount,
-  needsPlace,
-  unpriced,
-  dict,
-}) {
-  const t = dict?.booking ?? {};
-  const { transport, entry } = quote;
-
-  /*
-   * No transport figure covers three different situations, and this must catch
-   * all of them before touching `transport`:
-   *
-   *   - the server render, where localStorage has not been read yet so we do
-   *     not know the resort (`ready` is false, so `needsPlace` is too);
-   *   - the guest genuinely has not picked one;
-   *   - they have, and the owner publishes no rate for that run.
-   *
-   * The first two say the same thing to the guest. Only the third is different.
-   */
-  if (!transport) {
+  if (!quote.transport) {
     return (
       <div className="rounded-xl bg-gold-200/40 px-5 py-4 text-sm leading-relaxed text-ink/70">
         {unpriced
@@ -1145,104 +971,37 @@ function Breakdown({
     );
   }
 
-  const party =
-    `${adults} ${adults === 1 ? t.adult ?? "adult" : t.adults ?? "adults"}` +
-    (childCount > 0
-      ? `, ${childCount} ${
-          childCount === 1 ? t.child ?? "child" : t.childrenWord ?? "children"
-        }`
-      : "");
+  /*
+   * A transfer's direction belongs on the same line as its price: a return
+   * fare is double a one-way one, so the biggest number on the form is
+   * meaningless without it. The toggle that sets it is above, but on a phone
+   * it is off-screen by the time the total is read.
+   */
+  const label = isTransfer
+    ? tripType === "round-trip"
+      ? t.roundTrip ?? "Round trip"
+      : t.oneWay ?? "One way"
+    : t.total ?? "Total";
 
   return (
-    <div className="overflow-hidden rounded-xl bg-ink text-white">
-      <div className="space-y-2.5 px-5 py-4">
-        <div className="flex items-baseline justify-between gap-4 text-sm">
-          <span className="text-white/70">
-            {isTransfer
-              ? tripType === "round-trip"
-                ? t.roundTrip ?? "Round trip"
-                : t.oneWay ?? "One way"
-              : t.transportLabel ?? "Transport"}
-            <span className="ml-1.5 text-white/40">({party})</span>
-          </span>
-          <span className="shrink-0 font-semibold">
-            {money(transport.total)}
-          </span>
-        </div>
-
-        <div className="flex items-baseline justify-between gap-4 text-xs text-white/45">
-          <span>
-            {transport.billed} × {money(transport.rate)}
-          </span>
-          <span className="shrink-0">
-            {money(transport.rate)} {dict?.price?.perPerson ?? "/ person"}
-          </span>
-        </div>
-
-        {/*
-          The minimum is NOT restated here.
-
-          It is the line directly above this block, under the party steppers,
-          and the two sections now sit next to each other — so printing it twice
-          read as the page labouring the point. What has to survive is the
-          arithmetic, and `{billed} × {rate}` against the total says it: four
-          lots of fifty is two hundred, whoever is actually in the car.
-        */}
-        <p className="text-[0.7rem] leading-relaxed text-white/45">
-          {t.transportIsOurs ??
-            "This is what PPP charges. Nothing is added to it."}
-        </p>
-      </div>
-
-      {entry && entry.lines.length > 0 && (
-        <div className="space-y-2 border-t border-white/10 px-5 py-4">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-wider text-white/50">
-            {t.gatesLabel ?? "Paid at the gate"}
-          </p>
-          {entry.lines.map((line) => (
-            <div
-              key={line.key + (line.addon ? "-addon" : "")}
-              className="flex items-baseline justify-between gap-4 text-sm"
-            >
-              <span className="text-white/70">
-                {line.label}
-                {line.option && (
-                  <span className="text-white/40"> · {line.option}</span>
-                )}
-              </span>
-              <span className="shrink-0 text-white/80">
-                {line.from ? `${t.fromWord ?? "from"} ` : ""}
-                {money(line.amount)}
-              </span>
-            </div>
-          ))}
-          <p className="text-[0.7rem] leading-relaxed text-white/45">
-            {t.gatesNote ??
-              "Attraction tickets, paid on the day. We never resell them or add to them."}
-          </p>
-        </div>
-      )}
-
-      <div className="flex items-baseline justify-between border-t border-white/10 bg-white/[0.04] px-5 py-4">
-        <span className="text-sm font-semibold">
-          {entry && entry.lines.length > 0
-            ? t.dayTotal ?? "Your day, all in"
-            : t.total ?? "Total"}
-        </span>
-        <span className="text-right">
-          <span className="block font-display text-3xl font-semibold text-gold-400">
-            {quote.from ? (
-              <span className="mr-1 text-base font-medium text-white/50">
-                {t.fromWord ?? "from"}
-              </span>
-            ) : null}
-            {money(quote.dayTotal)}
-          </span>
-          <span className="block text-xs text-white/45">
-            {t.transportPlusGates ?? "transport plus gate fees"}
-          </span>
+    <div className="rounded-xl bg-ink px-5 py-4 text-white">
+      <div className="flex items-baseline justify-between gap-4">
+        <span className="text-sm font-semibold">{label}</span>
+        <span className="shrink-0 font-display text-3xl font-semibold text-gold-400">
+          {money(quote.total)}
         </span>
       </div>
+      {/*
+        The owner's own wording, verbatim and unconditional. It explains the
+        only thing about this total that is not self-evident — why a couple
+        and a family of four are charged the same — and it is a floor on the
+        PRICE, never a rule about how many people may come.
+      */}
+      <p className="mt-2.5 flex items-start gap-2 text-[0.7rem] leading-relaxed text-white/50">
+        <FaInfoCircle className="mt-0.5 shrink-0 text-white/30" />
+        {t.minimumNote ??
+          "For bookings of 1 to 4 people, the total tour/transfer price is based on the 4-person rate, so groups of 1, 2, 3, or 4 people all pay the same total price."}
+      </p>
     </div>
   );
 }

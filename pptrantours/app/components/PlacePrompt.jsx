@@ -38,7 +38,7 @@ export default function PlacePrompt({ dict }) {
             <p className="mt-0.5 text-sm leading-relaxed text-ink/60">
               {chosen
                 ? t.chosenBody ??
-                  "Every price on the site is now the real price from your resort, transport and gate fees separated."
+                  "Every price on the site is now the real transport price from your resort."
                 : t.body ??
                   "Tell us your hotel, resort or cruise pier and every price on the site becomes yours — no zones, no guessing."}
             </p>

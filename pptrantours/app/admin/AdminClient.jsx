@@ -692,18 +692,6 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               <p className="whitespace-pre-wrap leading-relaxed text-ink/70">
                 {b.notes?.trim() || <span className="text-ink/35">None.</span>}
               </p>
-              {b.entryLines?.length > 0 && (
-                <>
-                  <p className="pt-2 text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40">
-                    Gate fees (guest pays at the gate)
-                  </p>
-                  <ul className="text-xs text-ink/60">
-                    {b.entryLines.map((l) => (
-                      <li key={l}>· {l}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
             </div>
           </div>
 

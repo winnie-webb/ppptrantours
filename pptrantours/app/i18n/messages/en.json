@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Private. Personalized. Professional.",
-    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — priced per person, attraction entry fees quoted separately and never marked up.",
+    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — one transport price per booking, with a four-person minimum and nothing added on top.",
     "keywords": [
       "Jamaica airport transfer",
       "Montego Bay private tours",
@@ -128,7 +128,7 @@
     "title": "Where are you staying?",
     "body": "Tell us your hotel, resort or cruise pier and every price on the site becomes yours — no zones, no guessing.",
     "showingFor": "Showing prices for",
-    "chosenBody": "Every price on the site is now the real price from your resort, transport and gate fees separated.",
+    "chosenBody": "Every price on the site is now the real transport price from your resort.",
     "choose": "Choose your resort",
     "change": "Change resort"
   },
@@ -186,10 +186,6 @@
     "yesCorrect": "Yes, that's right",
     "changeHotel": "No, change it",
     "bookNow": "Book now",
-    "transportLabel": "Transport",
-    "transferPrice": "Private transfer",
-    "pickResortFirst": "Pick your resort",
-    "askUsPrice": "We'll quote it",
     "stayingAt": "Where are you staying?",
     "choosePlace": "Choose your hotel or pier",
     "choose": "Choose",
@@ -199,14 +195,7 @@
     "oneWay": "One way",
     "transferTo": "To",
     "adults": "Adults",
-    "adult": "adult",
     "children": "Children",
-    "child": "child",
-    "childrenWord": "children",
-    "gateNote": "Paid at the gate, not to us.",
-    "addons": "Optional extras",
-    "fromWord": "from",
-    "childWord": "child",
     "tourDate": "Tour date",
     "arrivalDate": "Arrival date",
     "pickupTime": "Pickup time",
@@ -222,10 +211,6 @@
     "notesPlaceholder": "Car seats, extra stops, a second attraction you'd like to add…",
     "pickResortHint": "Tell us which resort you're staying at and the exact price for your group appears here.",
     "unpricedHint": "We haven't published a set rate from your resort for this one. Send it through and we'll come back with a firm price — same day, no markup.",
-    "transportIsOurs": "This is what PPP charges. Nothing is added to it.",
-    "gatesLabel": "Paid at the gate",
-    "gatesNote": "Attraction tickets, paid on the day. We never resell them or add to them.",
-    "dayTotal": "Your day, all in",
     "total": "Total",
     "errorSaving": "We couldn't save that booking. Please try again, or send it to us on WhatsApp and we'll confirm by hand.",
     "sending": "Sending…",
@@ -259,12 +244,9 @@
     "payDidntOpen": "The payment page didn't open",
     "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
     "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way.",
-    "minimumNote": "Minimum booking cost for 1–4 persons is four times the per-person rate.",
-    "totalWordLong": "total",
-    "transportPlusGates": "transport plus gate fees",
+    "minimumNote": "For bookings of 1 to 4 people, the total tour/transfer price is based on the 4-person rate, so groups of 1, 2, 3, or 4 people all pay the same total price.",
     "sectionTrip": "Your trip",
     "sectionParty": "Who's coming",
-    "sectionPrice": "Your price",
     "sectionDetails": "Your details",
     "sectionPay": "How you'll pay",
     "browseTransfers": "See all transfer rates"
@@ -341,7 +323,7 @@
   "browse": {
     "eyebrow": "Things to do in Jamaica",
     "title": "Where do you want to spend the day?",
-    "description": "Browse by parish, or by the kind of day you're after. Every price is per person, with the gate fees listed beside it.",
+    "description": "Browse by parish, or by the kind of day you're after. Every price is the transport, worked out for your group.",
     "seeEverything": "See everything",
     "option": "option",
     "options": "options"
@@ -468,7 +450,7 @@
     "eachExtra": "Each extra",
     "otherResorts": "Staying somewhere else? We still run this trip — send us a message and we'll quote your resort directly.",
     "entryTable": "What the attraction charges",
-    "entryTableNote": "Paid at the gate on the day, straight to the attraction. We never resell these or add anything to them.",
+    "entryTableNote": "Attraction admission is not included and we do not sell it. You pay the gate directly on the day, at the gate's own price — we never resell it or add anything to it.",
     "noEntry": "Nothing. There is no gate fee on this one.",
     "entryItem": "Ticket",
     "entryAdult": "Adult",
@@ -481,10 +463,10 @@
   },
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
-    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. Transport priced per person, entry fees listed separately.",
+    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. One transport price per booking, with a four-person minimum.",
     "eyebrow": "The catalogue",
     "title": "Things to do in Jamaica.",
-    "description": "Every tour we run, with the transport price and the gate fee shown separately so you can see exactly what is ours and what is the attraction's.",
+    "description": "Every tour we run, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it.",
     "crumb": "Things to do",
     "parishEyebrow": "By parish",
     "parishTitle": "Pick a corner of the island.",
@@ -542,7 +524,7 @@
     "nearby": "Other resorts we serve nearby",
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
-    "toursDescription": "Prices below are for your resort specifically — transport per person, with the gate fees listed separately.",
+    "toursDescription": "Prices below are for your resort specifically — the transport, worked out for your group.",
     "minFrom": "from"
   },
   "destinationsPage": {
@@ -660,7 +642,7 @@
     {
       "key": "entry",
       "q": "Do your prices include the attraction entry fees?",
-      "a": "No, and that is deliberate. What you pay us is the transport and the guiding. Entry fees are paid at the gate, straight to the attraction, and we never resell them or add anything on top. Every tour page lists the gate prices beside ours so you can see the true cost of the day and know how much cash to carry."
+      "a": "No, and that is deliberate. What you pay us is the transport and the guiding, and that single price is all we quote. Attraction admission is paid at the gate, straight to the attraction, at the gate's own price — we never resell it or add anything on top. Check the attraction's own prices before you go, so you know how much cash to carry."
     },
     {
       "key": "quote",

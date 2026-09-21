@@ -32,8 +32,6 @@ const FULL = {
   children: 1,
   notes: "Travelling with a folding wheelchair.",
   transportTotal: 187.5,
-  entryTotal: 30,
-  dayTotal: 217.5,
 };
 
 describe("bookingAlert — injection", () => {
@@ -82,11 +80,13 @@ describe("bookingAlert — content", () => {
     assert.ok(out.html.includes("US$187.50"));
   });
 
-  test("renders entry fees and day total", () => {
-    // Both were computed and sent for the life of the site, and the dashboard
-    // template had nowhere to put them, so they were silently discarded.
-    assert.ok(out.html.includes("US$30.00"));
-    assert.ok(out.html.includes("US$217.50"));
+  test("quotes the transport and nothing else", () => {
+    // Gate fees used to be re-priced, stored and printed here as a second
+    // figure and a combined day total. The site quotes one number now, so a
+    // second money figure in this email would be one the owner cannot
+    // reconcile against anything the guest was shown.
+    const amounts = out.html.match(/US\$[\d,]+\.\d{2}/g) ?? [];
+    assert.deepStrictEqual([...new Set(amounts)], ["US$187.50"]);
   });
 
   test("pluralises travellers", () => {

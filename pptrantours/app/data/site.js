@@ -336,7 +336,7 @@ export const faqs = [
   {
     key: "entry",
     q: "Do your prices include the attraction entry fees?",
-    a: "No, and that is deliberate. What you pay us is the transport and the guiding. Entry fees are paid at the gate, straight to the attraction, and we never resell them or add anything on top. Every tour page lists the gate prices beside ours so you can see the true cost of the day and know how much cash to carry.",
+    a: "No, and that is deliberate. What you pay us is the transport and the guiding, and that single price is all we quote. Attraction admission is paid at the gate, straight to the attraction, at the gate's own price — we never resell it or add anything on top. Check the attraction's own prices before you go, so you know how much cash to carry.",
   },
   {
     key: "quote",
