@@ -47,7 +47,26 @@ export async function requireAdmin(request) {
   }
 
   const email = (decoded.email ?? "").toLowerCase();
-  if (!decoded.email_verified || !allow.includes(email)) {
+  if (!allow.includes(email)) {
+    return { error: "That account is not permitted.", status: 403 };
+  }
+
+  /*
+   * `email_verified` is demanded of federated providers, and not of a password.
+   *
+   * The check exists because a federated provider can assert an address it has
+   * not proven the user owns, and the allowlist is keyed on the address — so an
+   * unverified Google claim to donovan@… would be enough to walk in.
+   *
+   * A password account cannot do that. It is created by us, in the Firebase
+   * console, for an address already on the allowlist, and the thing being
+   * proven at sign-in is possession of the password rather than of the mailbox.
+   * Firebase marks such accounts `emailVerified: false` until someone clicks a
+   * verification link, so requiring the flag here would lock out every account
+   * the console can create — which is what this route is for.
+   */
+  const provider = decoded.firebase?.sign_in_provider ?? "";
+  if (provider !== "password" && !decoded.email_verified) {
     return { error: "That account is not permitted.", status: 403 };
   }
 

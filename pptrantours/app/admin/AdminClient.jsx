@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  FaGoogle,
+  FaLock,
   FaSignOutAlt,
   FaSpinner,
   FaExclamationTriangle,
@@ -191,20 +191,31 @@ export default function AdminClient() {
     };
   }, [load]);
 
-  const signIn = async () => {
+  /*
+   * Email and password, not a Google popup.
+   *
+   * A popup is the wrong shape for this: it is the owner signing in to his own
+   * business on a phone, often the same phone the WhatsApp message arrived on,
+   * and mobile browsers block or lose popups often enough that the failure has
+   * no explanation he can act on. It also tied getting into his own bookings to
+   * a Google account he may not want to keep using.
+   *
+   * There is no sign-up. Accounts are created in the Firebase console for an
+   * address already in ADMIN_EMAILS, and the server checks that allowlist on
+   * every request regardless of what happens here — see lib/admin-auth.js.
+   */
+  const signIn = async ({ email, password }) => {
     const auth = getFirebaseAuth();
     if (!auth) return;
-    setError("");
-    try {
-      const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
-      await signInWithPopup(auth, new GoogleAuthProvider());
-    } catch (err) {
-      setError(
-        err?.code === "auth/operation-not-allowed"
-          ? "Google sign-in is not enabled for this Firebase project yet."
-          : (err?.message ?? "Sign-in failed.")
-      );
-    }
+    const { signInWithEmailAndPassword } = await import("firebase/auth");
+    await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const resetPassword = async (email) => {
+    const auth = getFirebaseAuth();
+    if (!auth) return;
+    const { sendPasswordResetEmail } = await import("firebase/auth");
+    await sendPasswordResetEmail(auth, email);
   };
 
   const signOutNow = async () => {
@@ -261,19 +272,7 @@ export default function AdminClient() {
   }
 
   if (!user) {
-    return (
-      <div className="card max-w-md p-8">
-        <h2 className="font-display text-2xl font-semibold text-ink">Sign in</h2>
-        <p className="mt-2 text-sm leading-relaxed text-ink/60">
-          This page is limited to the accounts listed in{" "}
-          <code className="text-ink/70">ADMIN_EMAILS</code>.
-        </p>
-        <button type="button" onClick={signIn} className="btn-primary mt-6 w-full">
-          <FaGoogle /> Continue with Google
-        </button>
-        {error && <ErrorLine>{error}</ErrorLine>}
-      </div>
-    );
+    return <SignIn onSignIn={signIn} onReset={resetPassword} />;
   }
 
   const urgent =
@@ -827,6 +826,146 @@ function RecordPayment({ reference, defaultCents, call, onDone, onCancel }) {
       </button>
       <p className="mt-2 text-[0.68rem] leading-relaxed text-ink/45">
         Recorded against your account, so it is clear later who vouched for it.
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The sign-in screen.
+ *
+ * Its own component and its own state, so a half-typed password is not sitting
+ * in the state of the page that lists every guest's phone number.
+ *
+ * Firebase's error codes are reported as its own sentences by default, which
+ * range from unhelpful ("auth/invalid-credential") to alarming for someone who
+ * has simply mistyped. They are translated here into what the person can
+ * actually do next, and a wrong address and a wrong password deliberately give
+ * the same message — telling an anonymous visitor which addresses exist is
+ * exactly the enumeration the allowlist is there to prevent.
+ */
+function SignIn({ onSignIn, onReset }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const explain = (code, fallback) => {
+    if (code === "auth/invalid-email") return "That doesn't look like an email address.";
+    if (code === "auth/user-disabled") return "That account has been disabled.";
+    if (code === "auth/too-many-requests")
+      return "Too many attempts. Wait a few minutes, or reset the password below.";
+    if (code === "auth/network-request-failed")
+      return "Couldn't reach the server. Check your connection and try again.";
+    if (code === "auth/operation-not-allowed")
+      return "Email sign-in is not switched on for this Firebase project yet.";
+    if (
+      code === "auth/invalid-credential" ||
+      code === "auth/wrong-password" ||
+      code === "auth/user-not-found"
+    ) {
+      return "That email and password don't match.";
+    }
+    return fallback ?? "Sign-in failed.";
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !password) {
+      setErr("Enter your email and password.");
+      return;
+    }
+    setBusy(true);
+    setErr("");
+    try {
+      await onSignIn({ email: email.trim(), password });
+      // No success state: the auth listener swaps this whole screen out.
+    } catch (e2) {
+      setErr(explain(e2?.code, e2?.message));
+      setBusy(false);
+    }
+  };
+
+  const reset = async () => {
+    if (!email.trim()) {
+      setErr("Enter your email first, then tap this again.");
+      return;
+    }
+    setErr("");
+    try {
+      await onReset(email.trim());
+    } catch {
+      // Deliberately swallowed. Whether the address exists is not something an
+      // unauthenticated visitor gets to learn from the outcome of this button.
+    }
+    setSent(true);
+  };
+
+  return (
+    <div className="card mx-auto max-w-sm p-7">
+      <h2 className="font-display text-2xl font-semibold text-ink">Sign in</h2>
+      <p className="mt-1.5 text-sm leading-relaxed text-ink/55">
+        Your bookings, payments and drivers.
+      </p>
+
+      <form onSubmit={submit} className="mt-6 space-y-4" noValidate>
+        <div>
+          <label htmlFor="admin-email" className="label">
+            Email
+          </label>
+          <input
+            id="admin-email"
+            type="email"
+            autoComplete="username"
+            autoCapitalize="none"
+            autoCorrect="off"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="field"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="admin-password" className="label">
+            Password
+          </label>
+          <input
+            id="admin-password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="field"
+          />
+        </div>
+
+        {err && <ErrorLine>{err}</ErrorLine>}
+
+        {sent && (
+          <p className="rounded-xl bg-green-50 px-3.5 py-2.5 text-sm leading-relaxed text-green-800">
+            If that address has an account, a reset link is on its way to it.
+          </p>
+        )}
+
+        <button type="submit" disabled={busy} className="btn-primary w-full disabled:opacity-60">
+          {busy ? <FaSpinner className="animate-spin" /> : <FaLock className="text-xs" />}
+          Sign in
+        </button>
+      </form>
+
+      <button
+        type="button"
+        onClick={reset}
+        className="mt-4 w-full text-center text-xs font-semibold text-crimson-700 underline"
+      >
+        Forgotten your password?
+      </button>
+
+      <p className="mt-5 border-t border-ink/[0.07] pt-4 text-xs leading-relaxed text-ink/45">
+        Accounts are set up for you — there is nothing to sign up for here. If
+        you cannot get in, the address has to be listed in{" "}
+        <code className="text-ink/60">ADMIN_EMAILS</code>.
       </p>
     </div>
   );
