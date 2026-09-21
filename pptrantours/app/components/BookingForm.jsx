@@ -19,7 +19,6 @@ import {
   quoteTransfer,
   money,
   MIN_BILLED_PAX,
-  MAX_PARTY,
 } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
 import { createBooking, startPayment } from "@/lib/bookings";
@@ -705,13 +704,15 @@ export default function BookingForm({
         </div>
         <p className="-mt-2 flex items-start gap-2 text-xs leading-relaxed text-ink/50">
           <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
-          {pax < MIN_BILLED_PAX
-            ? t.minimumNote
-                ?.replace("{n}", String(MIN_BILLED_PAX))
-                .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
-              `${MIN_BILLED_PAX - pax} more can join you at no extra cost.`
-            : t.perHeadNote?.replace("{n}", String(pax)) ??
-              `${pax} people, each at the rate above.`}
+          {/*
+            The owner's own wording, from islandwaystours, stated plainly and
+            always — not conditionally, and not reworded. "Minimum booking
+            COST" is the whole distinction: it is a floor on the price, not a
+            rule about how many people may come. Two attempts to phrase this
+            myself both read as a condition of booking.
+          */}
+          {t.minimumNote ??
+            `Minimum booking cost for 1–${MIN_BILLED_PAX} persons is ${MIN_BILLED_PAX} times the per-person rate.`}
         </p>
 
         {/* Entry-fee choices */}
@@ -1548,6 +1549,17 @@ function Success({
   );
 }
 
+/**
+ * A -/+ counter.
+ *
+ * `onChange` is the state setter itself, so the updates are functional rather
+ * than computed from the captured `value`. Tapping + twice inside one render
+ * used to land on one increment, because both handlers read the same stale
+ * value — invisible when a person clicks and re-renders in between, and very
+ * visible to a fast thumb on a phone.
+ *
+ * There is no upper bound. The owner takes any number of passengers.
+ */
 function Stepper({ label, value, min, onChange }) {
   return (
     <div>
@@ -1556,7 +1568,7 @@ function Stepper({ label, value, min, onChange }) {
         <button
           type="button"
           aria-label={`Decrease ${label}`}
-          onClick={() => onChange(Math.max(min, value - 1))}
+          onClick={() => onChange((v) => Math.max(min, v - 1))}
           disabled={value <= min}
           className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/70 transition hover:bg-ink/10 disabled:opacity-30"
         >
@@ -1568,7 +1580,7 @@ function Stepper({ label, value, min, onChange }) {
         <button
           type="button"
           aria-label={`Increase ${label}`}
-          onClick={() => onChange(Math.min(MAX_PARTY, value + 1))}
+          onClick={() => onChange((v) => v + 1)}
           className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/70 transition hover:bg-ink/10"
         >
           <FaPlus className="text-[0.6rem]" />

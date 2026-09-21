@@ -8,7 +8,6 @@ import {
   priceTransfer,
   money,
   MIN_BILLED_PAX,
-  MAX_PARTY,
 } from "@/app/products/pricing";
 import { localePath } from "@/app/i18n/config";
 import { site } from "@/app/data/site";
@@ -117,7 +116,7 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                 <button
                   type="button"
                   aria-label={t.more ?? "More passengers"}
-                  onClick={() => setPax((v) => Math.min(MAX_PARTY, v + 1))}
+                  onClick={() => setPax((v) => v + 1)}
                   className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/70 transition hover:bg-ink/10"
                 >
                   <FaPlus className="text-[0.6rem]" />
@@ -128,7 +127,7 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
 
           <p className="text-xs leading-relaxed text-ink/45">
             {t.note ??
-              "Rates are per person. In US dollars, and they include the meet-and-greet inside arrivals."}
+              `Rates are per person. Minimum booking cost for 1–${MIN_BILLED_PAX} persons is ${MIN_BILLED_PAX} times the per-person rate. In US dollars, and they include the meet-and-greet inside arrivals.`}
           </p>
         </div>
 
@@ -168,23 +167,6 @@ export default function FareCalculator({ locale = "en", dict, initialPlace = "" 
                   </span>
                   <span>{money(quote.total)}</span>
                 </div>
-                {/*
-                  Only the invitation, never the condition.
-
-                  This used to open with "Charged for 4 — the minimum", which
-                  the owner read as a rule about who may book: it "leads me to
-                  believe that unless I have four persons, I couldn't do it
-                  alone". What is left says what the spare seats buy and states
-                  no requirement at all.
-                */}
-                {quote.atMinimum && (
-                  <p className="mt-2 leading-relaxed text-gold-400/80">
-                    {t.minimumNote
-                      ?.replace("{n}", String(MIN_BILLED_PAX))
-                      .replace("{spare}", String(MIN_BILLED_PAX - pax)) ??
-                      `${MIN_BILLED_PAX - pax} more can come at no extra cost.`}
-                  </p>
-                )}
               </div>
 
               <div className="mt-5 flex flex-col gap-2.5">

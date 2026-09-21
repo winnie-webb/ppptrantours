@@ -259,8 +259,7 @@
     "payDidntOpen": "Die Zahlungsseite hat sich nicht geöffnet",
     "payDidntOpenBody": "Ihre Buchung ist in jedem Fall bestätigt — es wurde nichts abgebucht. Versuchen Sie es unten erneut, oder zahlen Sie einfach am Tag selbst beim Fahrer.",
     "payUnavailable": "Kartenzahlung ist für diese Buchung derzeit nicht verfügbar. Es wurde nichts abgebucht und Ihre Buchung besteht weiter — zahlen Sie am Tag selbst bei Ihrem Fahrer, oder schreiben Sie uns für eine andere Zahlungsart.",
-    "minimumNote": "{spare} weitere können ohne Aufpreis mitkommen.",
-    "perHeadNote": "{n} Personen, jede zum oben genannten Preis.",
+    "minimumNote": "Der Mindestbuchungspreis für 1–4 Personen entspricht dem vierfachen Preis pro Person.",
     "totalWordLong": "gesamt",
     "transportPlusGates": "Transport plus Eintrittsgelder",
     "sectionTrip": "Ihre Fahrt",
@@ -280,15 +279,14 @@
     "passengers": "Fahrgäste",
     "fewer": "Weniger Fahrgäste",
     "more": "Mehr Fahrgäste",
-    "note": "Die Preise gelten pro Person. In US-Dollar, inklusive Empfang in der Ankunftshalle.",
+    "note": "Die Preise gelten pro Person. Der Mindestbuchungspreis für 1–4 Personen entspricht dem vierfachen Preis pro Person. In US-Dollar, inklusive Empfang in der Ankunftshalle.",
     "prompt": "Wählen Sie Ihr Hotel, und hier erscheint der genaue Preis — ohne Formular und ohne auf eine E-Mail zu warten.",
     "roundTripLabel": "Privater Transfer hin und zurück",
     "oneWayLabel": "Privater Transfer, einfache Fahrt",
     "book": "Diesen Transfer buchen",
     "ask": "Eine Frage stellen",
     "perPerson": "/ Person",
-    "totalFor": "insgesamt für {n}",
-    "minimumNote": "{spare} weitere können ohne Aufpreis mitkommen."
+    "totalFor": "insgesamt für {n}"
   },
   "hero": {
     "tagline": "Privat. Persönlich. Professionell.",

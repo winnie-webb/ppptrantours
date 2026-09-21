@@ -259,8 +259,7 @@
     "payDidntOpen": "The payment page didn't open",
     "payDidntOpenBody": "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day.",
     "payUnavailable": "Card payment isn't available for this booking right now. Nothing was charged and your booking stands — settle with your driver on the day, or message us to pay another way.",
-    "minimumNote": "{spare} more can join you at no extra cost.",
-    "perHeadNote": "{n} people, each at the rate above.",
+    "minimumNote": "Minimum booking cost for 1–4 persons is four times the per-person rate.",
     "totalWordLong": "total",
     "transportPlusGates": "transport plus gate fees",
     "sectionTrip": "Your trip",
@@ -280,15 +279,14 @@
     "passengers": "Passengers",
     "fewer": "Fewer passengers",
     "more": "More passengers",
-    "note": "Rates are per person. In US dollars, and they include the meet-and-greet inside arrivals.",
+    "note": "Rates are per person. Minimum booking cost for 1–4 persons is four times the per-person rate. In US dollars, and they include the meet-and-greet inside arrivals.",
     "prompt": "Choose your resort and the exact fare appears here — no forms, no waiting for an email.",
     "roundTripLabel": "Round-trip private transfer",
     "oneWayLabel": "One-way private transfer",
     "book": "Book this transfer",
     "ask": "Ask a question",
     "perPerson": "/ person",
-    "totalFor": "total for {n}",
-    "minimumNote": "{spare} more can come at no extra cost."
+    "totalFor": "total for {n}"
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",

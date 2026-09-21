@@ -259,8 +259,7 @@
     "payDidntOpen": "De betaalpagina ging niet open",
     "payDidntOpenBody": "Uw boeking is hoe dan ook bevestigd — er is niets afgeschreven. Probeer het hieronder opnieuw, of reken gewoon af met uw chauffeur op de dag zelf.",
     "payUnavailable": "Betalen met kaart is op dit moment niet beschikbaar voor deze boeking. Er is niets afgeschreven en uw boeking staat gewoon — reken af met uw chauffeur op de dag zelf, of stuur ons een bericht om anders te betalen.",
-    "minimumNote": "Er kunnen nog {spare} mee zonder meerkosten.",
-    "perHeadNote": "{n} personen, elk tegen het tarief hierboven.",
+    "minimumNote": "De minimale boekingsprijs voor 1–4 personen is vier keer het tarief per persoon.",
     "totalWordLong": "totaal",
     "transportPlusGates": "vervoer plus entreegelden",
     "sectionTrip": "Uw rit",
@@ -280,15 +279,14 @@
     "passengers": "Passagiers",
     "fewer": "Minder passagiers",
     "more": "Meer passagiers",
-    "note": "De tarieven zijn per persoon. In Amerikaanse dollars, inclusief de ontvangst in de aankomsthal.",
+    "note": "De tarieven zijn per persoon. De minimale boekingsprijs voor 1–4 personen is vier keer het tarief per persoon. In Amerikaanse dollars, inclusief de ontvangst in de aankomsthal.",
     "prompt": "Kies uw hotel en het exacte tarief verschijnt hier — geen formulieren, geen wachten op een e-mail.",
     "roundTripLabel": "Privétransfer heen en terug",
     "oneWayLabel": "Privétransfer enkele reis",
     "book": "Deze transfer boeken",
     "ask": "Een vraag stellen",
     "perPerson": "/ persoon",
-    "totalFor": "totaal voor {n}",
-    "minimumNote": "Er kunnen nog {spare} mee zonder meerkosten."
+    "totalFor": "totaal voor {n}"
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",

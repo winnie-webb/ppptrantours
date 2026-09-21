@@ -259,8 +259,7 @@
     "payDidntOpen": "A página de pagamento não abriu",
     "payDidntOpenBody": "A sua reserva está confirmada de qualquer forma — nada foi cobrado. Tente novamente abaixo, ou simplesmente pague ao motorista no próprio dia.",
     "payUnavailable": "O pagamento com cartão não está disponível para esta reserva neste momento. Não foi cobrado nada e a sua reserva mantém-se — pague ao motorista no próprio dia, ou contacte-nos para pagar de outra forma.",
-    "minimumNote": "Mais {spare} podem acompanhá-lo sem custo adicional.",
-    "perHeadNote": "{n} pessoas, cada uma à tarifa acima.",
+    "minimumNote": "O custo mínimo de reserva para 1–4 pessoas é quatro vezes a tarifa por pessoa.",
     "totalWordLong": "no total",
     "transportPlusGates": "transporte mais ingressos",
     "sectionTrip": "A sua viagem",
@@ -280,15 +279,14 @@
     "passengers": "Passageiros",
     "fewer": "Menos passageiros",
     "more": "Mais passageiros",
-    "note": "As tarifas são por pessoa. Em dólares americanos, e incluem a recepção dentro do desembarque.",
+    "note": "As tarifas são por pessoa. O custo mínimo de reserva para 1–4 pessoas é quatro vezes a tarifa por pessoa. Em dólares americanos, e incluem a recepção dentro do desembarque.",
     "prompt": "Escolha o seu hotel e a tarifa exata aparece aqui — sem formulários nem esperar por um e-mail.",
     "roundTripLabel": "Transfer privado de ida e volta",
     "oneWayLabel": "Transfer privado só de ida",
     "book": "Reservar este transfer",
     "ask": "Fazer uma pergunta",
     "perPerson": "/ pessoa",
-    "totalFor": "no total para {n}",
-    "minimumNote": "Mais {spare} podem vir sem custo adicional."
+    "totalFor": "no total para {n}"
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profissional.",

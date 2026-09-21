@@ -3,7 +3,13 @@ import { getAdminDb } from "@/lib/firebase-admin";
 import { sendBookingAlert } from "@/lib/notify";
 import { makeServerReference } from "@/lib/booking-shared";
 import { filterProductById } from "@/app/products/product";
-import { quoteExcursion, quoteTransfer, payable, fromCents } from "@/app/products/pricing";
+import {
+  quoteExcursion,
+  quoteTransfer,
+  payable,
+  fromCents,
+  MAX_PARTY,
+} from "@/app/products/pricing";
 import { paymentsConfigured } from "@/lib/payments";
 import { makeLookupToken, sweepAbandoned } from "@/lib/payments/store";
 import { getPlace } from "@/app/data/places";
@@ -156,8 +162,9 @@ export async function POST(request) {
 
   const isEnquiry = body.type === "enquiry";
   const isTransfer = body.kind === "transfer";
-  const adults = int(body.adults, 1, 30, 1);
-  const children = int(body.children, 0, 30, 0);
+  // No party-size limit; MAX_PARTY is only a sanity bound on a posted body.
+  const adults = int(body.adults, 1, MAX_PARTY, 1);
+  const children = int(body.children, 0, MAX_PARTY, 0);
   const placeKey = str(body.placeKey, MAX.place);
   const place = getPlace(placeKey);
 

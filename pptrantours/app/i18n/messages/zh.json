@@ -259,8 +259,7 @@
     "payDidntOpen": "付款页面未能打开",
     "payDidntOpenBody": "无论如何您的预订都已确认——没有产生任何扣款。可在下方重试，或当天直接付给司机。",
     "payUnavailable": "此预订目前无法使用银行卡支付。没有产生任何扣款，您的预订依然有效——可当天付给司机，或联系我们以其他方式付款。",
-    "minimumNote": "还可以再多来 {spare} 位，无需额外付费。",
-    "perHeadNote": "{n} 人，每人均按上方价格计算。",
+    "minimumNote": "1–4 人预订的最低费用为单人价格的四倍。",
     "totalWordLong": "合计",
     "transportPlusGates": "车费加门票",
     "sectionTrip": "您的行程",
@@ -280,15 +279,14 @@
     "passengers": "乘客人数",
     "fewer": "减少乘客",
     "more": "增加乘客",
-    "note": "价格按人计算。以美元报价，并含到达大厅接机。",
+    "note": "价格按人计算。1–4 人预订的最低费用为单人价格的四倍。 以美元报价，并含到达大厅接机。",
     "prompt": "选择您的酒店，准确价格就会显示在这里——不必填表，也不用等邮件。",
     "roundTripLabel": "私人往返接送",
     "oneWayLabel": "私人单程接送",
     "book": "预订此接送",
     "ask": "提个问题",
     "perPerson": "／人",
-    "totalFor": "{n} 人合计",
-    "minimumNote": "还可以再多来 {spare} 位，无需额外付费。"
+    "totalFor": "{n} 人合计"
   },
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",

@@ -17,7 +17,14 @@ import { getPlace } from "@/app/data/places";
 
 export { MIN_BILLED_PAX };
 
-export const MAX_PARTY = 30;
+/**
+ * No cap on party size — the owner takes any number and hires in what it needs.
+ *
+ * This was 30, which silently stopped the stepper and clamped anything larger.
+ * The guard that is left exists only so a hand-posted body cannot put an absurd
+ * integer through the price arithmetic; no real party will ever reach it.
+ */
+export const MAX_PARTY = 999;
 
 /**
  * Heads charged for, which is not the same as heads travelling.
