@@ -113,7 +113,7 @@ export default function PromiseSection({ locale = "en", dict }) {
                 <span className="block text-sm font-semibold text-white">
                   {site.owner.name}
                 </span>
-                <span className="block text-[0.7rem] text-white/60">
+                <span className="block text-xs text-white/60">
                   {site.owner.role}
                 </span>
               </figcaption>
@@ -125,7 +125,7 @@ export default function PromiseSection({ locale = "en", dict }) {
             <p className="font-display text-3xl font-semibold text-gold-400">
               {site.rating.score}
             </p>
-            <p className="mt-1 text-[0.7rem] uppercase tracking-wider text-white/55">
+            <p className="mt-1 text-xs uppercase tracking-wider text-white/70">
               {site.rating.count} Tripadvisor reviews
             </p>
           </div>

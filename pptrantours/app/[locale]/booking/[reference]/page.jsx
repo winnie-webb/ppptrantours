@@ -101,7 +101,7 @@ export default async function BookingResultPage({ params, searchParams }) {
       "PayPal has your payment but hasn't released it yet — this happens with bank transfers and usually clears within a few days. Don't pay again. We'll confirm as soon as it lands, and you'll hear from us about your date either way.";
   } else if (cancelled) {
     Icon = FaTimesCircle;
-    tone = "text-ink/40";
+    tone = "text-ink/70";
     heading = t.cancelledTitle ?? "Payment cancelled";
     bodyText =
       t.cancelledBody ??

@@ -150,7 +150,7 @@ export default async function TransferPage({ params }) {
 
         <div className="shell relative">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/50">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/70">
               <li>
                 <Link href={localePath(locale, "/")} className="transition hover:text-white">
                   {dict.nav?.home ?? "Home"}
@@ -173,7 +173,7 @@ export default async function TransferPage({ params }) {
           </nav>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-crimson-600/20 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider text-crimson-300">
+            <span className="rounded-full bg-crimson-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-crimson-300">
               {dict.nav?.transfers ?? "Airport transfer"}
             </span>
             <span className="flex items-center gap-1.5 text-xs text-white/60">
@@ -248,7 +248,7 @@ export default async function TransferPage({ params }) {
               and at min-w-[26rem] it had to be scrolled sideways on a phone.
               The claim it carried is worth keeping, so the note stays.
             */}
-            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/55">
+            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/70">
               <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
               {t.pricingNote ??
                 "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare."}

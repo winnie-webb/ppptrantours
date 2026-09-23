@@ -107,7 +107,7 @@ export default function GallerySection({ items = gallery, heading = true, dict }
                              transition duration-300 group-hover:translate-y-0 group-hover:opacity-100
                              group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
                 >
-                  <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-400">
+                  <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">
                     {item.place}
                   </span>
                   <span className="mt-1 block text-sm font-medium leading-snug text-white">
@@ -140,7 +140,7 @@ export default function GallerySection({ items = gallery, heading = true, dict }
           className="fixed inset-0 z-[90] flex flex-col items-center justify-center gap-4 bg-ink/95 p-4 backdrop-blur-sm sm:p-8"
         >
           <div className="flex w-full max-w-5xl items-center justify-between gap-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
               {openIdx + 1} / {items.length}
             </p>
             <button
@@ -172,7 +172,7 @@ export default function GallerySection({ items = gallery, heading = true, dict }
               className="max-h-[65vh] w-auto max-w-full rounded-2xl object-contain shadow-lift"
             />
             <figcaption className="max-w-2xl text-center">
-              <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-400">
+              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">
                 {active.place}
               </span>
               <span className="mt-1.5 block text-[0.95rem] text-white/75">

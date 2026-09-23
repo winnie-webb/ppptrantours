@@ -192,7 +192,7 @@ export default function Footer({ locale = "en", dict }) {
             <Link href={path("/privacy")} className="transition hover:text-crimson-300">
               {t.privacy ?? "Privacy"}
             </Link>
-            <p className="text-white/45">
+            <p className="text-white/70">
               {t.licensed ??
                 "Licensed by the Jamaica Tourist Board & the Transport Authority of Jamaica."}
             </p>

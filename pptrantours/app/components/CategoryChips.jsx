@@ -63,7 +63,7 @@ export default function CategoryChips({ locale = "en", dict }) {
                 <span className="block text-sm font-semibold leading-snug text-ink">
                   {cats[c.type]?.title ?? c.title}
                 </span>
-                <span className="mt-1 block text-xs text-ink/45">
+                <span className="mt-1 block text-xs text-ink/70">
                   {c.parish ? `${c.parish} · ` : ""}
                   {count}{" "}
                   {count === 1 ? t.option ?? "option" : t.options ?? "options"}

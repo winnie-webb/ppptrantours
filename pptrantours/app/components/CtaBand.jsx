@@ -47,7 +47,7 @@ export default function CtaBand({ locale = "en", dict }) {
             </Link>
           </div>
 
-          <p className="mt-6 text-xs text-white/45">{t.hours ?? site.hours}</p>
+          <p className="mt-6 text-xs text-white/70">{t.hours ?? site.hours}</p>
         </div>
       </div>
     </section>

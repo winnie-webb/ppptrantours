@@ -77,7 +77,7 @@ export default function Hero({ locale = "en", dict }) {
               </span>
               {site.rating.score} · {site.rating.count} {dict?.common?.reviews ?? "reviews"}
             </span>
-            <span className="hidden text-xs font-medium uppercase tracking-[0.18em] text-white/55 sm:inline">
+            <span className="hidden text-xs font-medium uppercase tracking-[0.18em] text-white/70 sm:inline">
               {t.tagline ?? site.tagline}
             </span>
           </div>

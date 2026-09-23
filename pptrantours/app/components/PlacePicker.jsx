@@ -82,7 +82,7 @@ export default function PlacePicker({ dict }) {
               <h2 className="font-display text-xl font-semibold text-ink">
                 {t.title ?? "Where are you staying?"}
               </h2>
-              <p className="mt-1 text-sm leading-relaxed text-ink/55">
+              <p className="mt-1 text-sm leading-relaxed text-ink/70">
                 {t.subtitle ??
                   "Pick your resort and every price on the site becomes yours — no zones to work out."}
               </p>
@@ -91,7 +91,7 @@ export default function PlacePicker({ dict }) {
               type="button"
               onClick={closePicker}
               aria-label={t.close ?? "Close"}
-              className="-mr-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-ink/40 transition hover:bg-ink/5 hover:text-ink"
+              className="-mr-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-ink/70 transition hover:bg-ink/5 hover:text-ink"
             >
               <FaTimes />
             </button>
@@ -112,7 +112,7 @@ export default function PlacePicker({ dict }) {
 
         <div className="flex-1 overflow-y-auto px-2 py-2 sm:px-3">
           {total === 0 && (
-            <p className="px-4 py-10 text-center text-sm text-ink/50">
+            <p className="px-4 py-10 text-center text-sm text-ink/70">
               {t.noMatch ??
                 "No match. Pick the closest resort, or tell us in the notes — we cover the whole island."}
             </p>
@@ -120,7 +120,7 @@ export default function PlacePicker({ dict }) {
 
           {groups.map((group) => (
             <section key={group.key} className="mb-1">
-              <h3 className="sticky top-0 z-10 bg-white/95 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40 backdrop-blur">
+              <h3 className="sticky top-0 z-10 bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink/70 backdrop-blur">
                 {group.label}
               </h3>
               <ul>
@@ -155,7 +155,7 @@ export default function PlacePicker({ dict }) {
         </div>
 
         <div className="border-t border-ink/[0.07] bg-sand px-5 py-3.5 sm:px-6">
-          <p className="text-xs leading-relaxed text-ink/50">
+          <p className="text-xs leading-relaxed text-ink/70">
             {t.footnote ??
               "Not on the list? Choose the nearest one to get an idea of the price, then message us — we run to every corner of the island."}
           </p>

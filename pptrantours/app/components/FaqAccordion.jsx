@@ -11,6 +11,7 @@ export default function FaqAccordion({ items = faqs }) {
     <div className="divide-y divide-ink/[0.07] overflow-hidden rounded-2xl border border-ink/[0.07] bg-white shadow-card">
       {items.map((item, i) => {
         const isOpen = open === i;
+        const panelId = `faq-panel-${i}`;
         return (
           <div key={item.q}>
             <h3>
@@ -18,6 +19,7 @@ export default function FaqAccordion({ items = faqs }) {
                 type="button"
                 onClick={() => setOpen(isOpen ? -1 : i)}
                 aria-expanded={isOpen}
+                aria-controls={panelId}
                 className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-colors hover:bg-crimson-50/60"
               >
                 <span className="font-display text-[1.05rem] font-semibold text-ink">
@@ -32,13 +34,16 @@ export default function FaqAccordion({ items = faqs }) {
                 </span>
               </button>
             </h3>
+            {/* inert, not just opacity: a collapsed answer must not be read out. */}
             <div
+              id={panelId}
+              inert={!isOpen}
               className={`grid transition-all duration-300 ease-out ${
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-6 pb-6 pr-16 text-[0.95rem] leading-relaxed text-ink/65">
+                <p className="px-6 pb-6 pr-16 text-base leading-relaxed text-ink/80">
                   {item.a}
                 </p>
               </div>

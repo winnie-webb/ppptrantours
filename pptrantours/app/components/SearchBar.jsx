@@ -118,7 +118,7 @@ export default function SearchBar({
               setQuery("");
               inputRef.current?.focus();
             }}
-            className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full bg-ink/5 text-[0.6rem] text-ink/50 hover:bg-ink/10"
+            className="absolute right-3 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full bg-ink/5 text-[0.6rem] text-ink/70 hover:bg-ink/10"
           >
             <FaTimes />
           </button>
@@ -128,14 +128,14 @@ export default function SearchBar({
       {open && query.trim().length >= 2 && (
         <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[24rem] animate-fade-up overflow-y-auto rounded-2xl border border-ink/[0.07] bg-white shadow-lift">
           {!hasResults ? (
-            <p className="px-4 py-6 text-center text-sm text-ink/50">
+            <p className="px-4 py-6 text-center text-sm text-ink/70">
               {t.noResults ?? "Nothing matches that. Try “Dunn’s River”, “Negril” or your hotel name."}
             </p>
           ) : (
             <div className="p-1.5">
               {tours.length > 0 && (
                 <>
-                  <p className="px-3 pb-1 pt-2 text-[0.65rem] font-semibold uppercase tracking-wider text-ink/40">
+                  <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink/70">
                     {t.tours ?? "Tours"}
                   </p>
                   <ul>
@@ -161,7 +161,7 @@ export default function SearchBar({
                               <span className="block truncate text-sm font-medium text-ink">
                                 {dict?.tourTitles?.[tour.id] ?? tour.title}
                               </span>
-                              <span className="text-xs text-ink/50">
+                              <span className="text-xs text-ink/70">
                                 {floor != null ? (
                                   <>
                                     {t.from ?? "from"}{" "}
@@ -184,7 +184,7 @@ export default function SearchBar({
 
               {places.length > 0 && (
                 <>
-                  <p className="px-3 pb-1 pt-3 text-[0.65rem] font-semibold uppercase tracking-wider text-ink/40">
+                  <p className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-ink/70">
                     {t.transfers ?? "Airport transfers"}
                   </p>
                   <ul>
@@ -202,7 +202,7 @@ export default function SearchBar({
                             <span className="block truncate text-sm font-medium text-ink">
                               {p.name}
                             </span>
-                            <span className="text-xs text-ink/50">
+                            <span className="text-xs text-ink/70">
                               {t.from ?? "from"}{" "}
                               <span className="font-semibold text-crimson-600">
                                 {money(p.transfer.oneWay)}

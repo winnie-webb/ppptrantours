@@ -203,7 +203,7 @@ export default function TourGrid({
                   {label}
                   <span
                     className={`ml-1.5 text-xs font-medium ${
-                      active ? "text-white/70" : "text-ink/40"
+                      active ? "text-white/70" : "text-ink/70"
                     }`}
                   >
                     {n}
@@ -257,7 +257,7 @@ export default function TourGrid({
       </div>
 
       <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-sm text-ink/55">
+        <p className="text-sm text-ink/70">
           {t.showing ?? "Showing"}{" "}
           <span className="font-semibold text-ink">
             {filtered.length === 0 ? 0 : (current - 1) * PER_PAGE + 1}–
@@ -288,7 +288,7 @@ export default function TourGrid({
           <p className="font-display text-xl font-semibold text-ink">
             {t.emptyTitle ?? "Nothing matches those filters."}
           </p>
-          <p className="mt-2 text-sm text-ink/55">
+          <p className="mt-2 text-sm text-ink/70">
             {t.emptyBody ??
               "Try a broader search — or ask us directly, we build custom days all the time."}
           </p>

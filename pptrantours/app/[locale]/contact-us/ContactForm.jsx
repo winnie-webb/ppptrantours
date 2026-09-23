@@ -290,7 +290,7 @@ export default function ContactForm({ dict }) {
         )}
       </button>
 
-      <p className="text-center text-xs text-ink/45">
+      <p className="text-center text-xs text-ink/70">
         {t.footnote?.replace("{phone}", site.contact.phone) ??
           `Or message ${site.contact.phone} directly on WhatsApp`}
       </p>

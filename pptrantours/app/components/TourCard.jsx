@@ -40,7 +40,7 @@ export default function TourCard({
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent opacity-70"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-ink/70 backdrop-blur">
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink/70 backdrop-blur">
           {badge}
         </span>
         <span className="absolute bottom-3 left-3 flex items-center gap-1.5 text-xs font-medium text-white/90">
@@ -54,7 +54,7 @@ export default function TourCard({
           {tour.title}
         </h3>
         {tour.subtitle && (
-          <p className="mt-0.5 text-xs font-medium text-ink/40">{tour.subtitle}</p>
+          <p className="mt-0.5 text-xs font-medium text-ink/70">{tour.subtitle}</p>
         )}
         <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink/60">
           {tour.desc}

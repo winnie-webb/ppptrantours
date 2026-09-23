@@ -102,13 +102,13 @@ export default async function ContactPage({ params }) {
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-crimson-50 text-crimson-600 transition-colors group-hover:bg-crimson-600 group-hover:text-white">
                 <Icon className="text-lg" />
               </span>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ink/45">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ink/70">
                 {label}
               </p>
               <p className="mt-1 break-all font-display text-lg font-semibold text-ink">
                 {value}
               </p>
-              <p className="mt-1 text-xs text-ink/50">{note}</p>
+              <p className="mt-1 text-xs text-ink/70">{note}</p>
             </a>
           ))}
         </div>

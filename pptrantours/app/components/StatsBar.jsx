@@ -13,7 +13,7 @@ export default function StatsBar({ dict }) {
             <p className="mt-2 text-sm font-semibold text-ink">
               {t[s.key]?.label ?? s.label}
             </p>
-            <p className="mt-0.5 text-xs text-ink/50">{t[s.key]?.sub ?? s.sub}</p>
+            <p className="mt-0.5 text-xs text-ink/70">{t[s.key]?.sub ?? s.sub}</p>
           </div>
         ))}
       </div>

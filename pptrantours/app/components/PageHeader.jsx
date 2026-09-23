@@ -36,7 +36,7 @@ export default function PageHeader({
       <div className="shell relative">
         {breadcrumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/50">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/70">
               <li>
                 <Link
                   href={localePath(locale, "/")}

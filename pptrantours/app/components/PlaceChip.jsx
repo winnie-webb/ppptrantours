@@ -36,7 +36,7 @@ export default function PlaceChip({
       } ${className}`}
     >
       <FaMapMarkerAlt
-        className={`shrink-0 ${compact ? "text-[0.7rem]" : "text-xs"} ${
+        className={`shrink-0 ${compact ? "text-xs" : "text-xs"} ${
           ready && place ? "text-crimson-500" : "opacity-50"
         }`}
       />

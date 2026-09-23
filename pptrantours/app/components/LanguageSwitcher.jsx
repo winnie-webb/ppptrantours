@@ -80,7 +80,7 @@ export default function LanguageSwitcher({ locale, light = false }) {
               }`}
             >
               <span className="flex-1">{l.native}</span>
-              <span className="text-xs text-ink/35">{l.name}</span>
+              <span className="text-xs text-ink/70">{l.name}</span>
               {l.code === locale && <FaCheck className="text-[0.6rem]" />}
             </a>
           ))}

@@ -124,7 +124,7 @@ export default async function AboutPage({ params }) {
             <p className="mt-4 text-[1.15rem] leading-relaxed text-white/75">
               {t.ownerBio ?? site.owner.bio}
             </p>
-            <p className="mt-5 text-[1.05rem] leading-relaxed text-white/55">
+            <p className="mt-5 text-[1.05rem] leading-relaxed text-white/70">
               {t.ownerNote?.replace("{count}", String(site.rating.count)) ??
                 `Being a private-services-only company allows us to pay close attention to what our customers want. It is also why, across ${site.rating.count} Tripadvisor reviews, most people mention Mr. Pugh by name.`}
             </p>

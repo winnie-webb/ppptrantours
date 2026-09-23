@@ -24,10 +24,26 @@
   }
 
   h1,
-  h2,
-  h3 {
+  h2 {
     @apply font-display tracking-[-0.02em];
     font-variation-settings: "SOFT" 0, "WONK" 0;
+  }
+
+  /* Small functional headings (form sections, footer columns) read better in
+     the UI face; card titles that want the serif opt in with font-display. */
+  h3 {
+    @apply font-sans;
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid theme("colors.crimson.600");
+    outline-offset: 2px;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+           focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:text-base
+           focus:font-semibold focus:text-ink focus:shadow-lift;
   }
 
   ::selection {
@@ -64,15 +80,15 @@
   }
 
   .eyebrow {
-    @apply text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-crimson-600;
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-crimson-700;
   }
 
   .eyebrow-light {
-    @apply text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-crimson-300;
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-crimson-300;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold
            transition-all duration-200 focus-visible:outline-none focus-visible:ring-2
            focus-visible:ring-crimson-500 focus-visible:ring-offset-2;
   }
@@ -86,7 +102,12 @@
   }
 
   .btn-ghost {
-    @apply btn border border-ink/15 bg-white/70 text-ink backdrop-blur hover:border-ink/30 hover:bg-white;
+    @apply btn border border-ink/20 bg-white/70 text-ink backdrop-blur hover:border-ink/35 hover:bg-white;
+  }
+
+  .btn-link {
+    @apply inline-flex min-h-[44px] items-center gap-1.5 font-semibold text-crimson-700
+           underline-offset-4 hover:underline focus-visible:underline;
   }
 
   .btn-ghost-light {
@@ -101,19 +122,18 @@
    * `text-base` on mobile is load-bearing, not a style choice: iOS Safari
    * auto-zooms the viewport whenever a focused input's font-size is under 16px,
    * and it does not zoom back out afterwards. At `text-sm` every field on the
-   * booking form wrenched the layout sideways on the first tap. `sm:text-sm`
-   * keeps the intended desktop size, where no such behaviour exists.
+   * booking form wrenched the layout sideways on the first tap. It stays 16px
+   * at every width so the form reads the same on every device.
    */
   .field {
-    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base text-ink
-           placeholder:text-ink/45 transition sm:text-sm
-           focus:border-crimson-500 focus:outline-none focus:ring-4 focus:ring-crimson-500/10;
+    @apply min-h-[48px] w-full rounded-xl border border-ink/25 bg-white px-4 py-3 text-base text-ink
+           placeholder:text-ink/60 transition
+           focus:border-crimson-600 focus:outline-none focus:ring-2 focus:ring-crimson-600/30;
   }
 
-  /* text-ink/70, not /55: at text-xs the lighter tint measured 4.28:1 on white,
-     under the 4.5:1 AA floor, and these label price-critical fields. */
+  /* Labels outrank helper text and sit just under form section headings. */
   .label {
-    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink/70;
+    @apply mb-1.5 block text-[0.9375rem] font-semibold text-ink;
   }
 
   /* Thin hairline used to separate stacked sections. */

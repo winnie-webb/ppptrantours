@@ -120,9 +120,14 @@ export default async function LocaleLayout({ children, params }) {
   return (
     <html lang={locale} dir={dir} className={`${sans.variable} ${display.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <a href="#main" className="skip-link">
+          {dict.common?.skipToContent ?? "Skip to content"}
+        </a>
         <PlaceProvider>
           <Header locale={locale} dict={client} />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
           <Footer locale={locale} dict={dict} />
           <WhatsAppFab dict={client} />
           <PlacePicker dict={client} />

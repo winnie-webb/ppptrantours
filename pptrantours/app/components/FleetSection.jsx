@@ -73,7 +73,7 @@ export default function FleetSection({ dict }) {
                 <p className="mt-2 text-sm leading-relaxed text-ink/60">
                   {t.vehicles?.[v.key]?.blurb ?? v.blurb}
                 </p>
-                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/[0.07] pt-4 text-xs text-ink/55">
+                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/[0.07] pt-4 text-xs text-ink/70">
                   <li className="flex items-center gap-1.5">
                     <FaUsers className="text-crimson-600" />
                     {t.vehicles?.[v.key]?.seats ?? v.seats}

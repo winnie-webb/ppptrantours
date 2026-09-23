@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -49,10 +49,40 @@ export default function Header({ locale = "en", dict }) {
     setToursOpen(false);
   }
 
+  const menuButtonRef = useRef(null);
+  const sheetRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+    if (!mobileOpen) return;
+
+    const sheet = sheetRef.current;
+    const trigger = menuButtonRef.current;
+    const focusables = () =>
+      sheet?.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) ?? [];
+    focusables()[0]?.focus();
+
+    const onKey = (e) => {
+      if (e.key === "Escape") return setMobileOpen(false);
+      if (e.key !== "Tab") return;
+      const list = focusables();
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+      trigger?.focus();
     };
   }, [mobileOpen]);
 
@@ -194,7 +224,7 @@ export default function Header({ locale = "en", dict }) {
                             {cats[c.type]?.title ?? c.title}
                           </span>
                           {c.parish && (
-                            <span className="mt-0.5 block text-xs text-ink/45">
+                            <span className="mt-0.5 block text-xs text-ink/70">
                               {c.parish}
                             </span>
                           )}
@@ -242,10 +272,13 @@ export default function Header({ locale = "en", dict }) {
             </a>
 
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label={nav.openMenu ?? "Open menu"}
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition lg:hidden ${
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full transition lg:hidden ${
                 overHero
                   ? "bg-white/15 text-white hover:bg-white/25"
                   : "bg-ink/5 text-ink/70 hover:bg-ink/10"
@@ -265,14 +298,21 @@ export default function Header({ locale = "en", dict }) {
             onClick={() => setMobileOpen(false)}
             role="presentation"
           />
-          <div className="absolute inset-y-0 right-0 flex w-[min(22rem,88vw)] flex-col overflow-y-auto bg-white shadow-lift">
+          <div
+            ref={sheetRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label={nav.menu ?? "Menu"}
+            className="absolute inset-y-0 right-0 flex w-[min(22rem,88vw)] flex-col overflow-y-auto bg-white shadow-lift"
+          >
             <div className="flex items-center justify-between border-b border-ink/[0.07] px-5 py-4">
               <Logo />
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label={nav.closeMenu ?? "Close menu"}
-                className="grid h-9 w-9 place-items-center rounded-full bg-ink/5 text-ink/60 transition hover:bg-ink/10"
+                className="grid h-11 w-11 place-items-center rounded-full bg-ink/5 text-ink/70 transition hover:bg-ink/10"
               >
                 <FaTimes />
               </button>
@@ -291,13 +331,13 @@ export default function Header({ locale = "en", dict }) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-crimson-50"
+                  className="block rounded-xl px-4 py-3 text-base font-semibold text-ink transition hover:bg-crimson-50"
                 >
                   {l.label}
                 </Link>
               ))}
 
-              <p className="px-4 pb-2 pt-5 text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40">
+              <p className="px-4 pb-2 pt-5 text-xs font-semibold uppercase tracking-wider text-ink/70">
                 {nav.browse ?? "Browse"}
               </p>
               {CATEGORIES.map((c) => (
@@ -308,7 +348,7 @@ export default function Header({ locale = "en", dict }) {
                       ? path("/transfers")
                       : path(`/category/${c.type}`)
                   }
-                  className="block rounded-xl px-4 py-2.5 text-sm text-ink/70 transition hover:bg-crimson-50"
+                  className="block rounded-xl px-4 py-3 text-base text-ink/80 transition hover:bg-crimson-50"
                 >
                   {cats[c.type]?.title ?? c.title}
                 </Link>

@@ -150,7 +150,7 @@ export default async function TourPage({ params }) {
 
         <div className="shell relative">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/50">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/70">
               <li>
                 <Link href={localePath(locale, "/")} className="transition hover:text-white">
                   {dict.nav?.home ?? "Home"}
@@ -178,7 +178,7 @@ export default async function TourPage({ params }) {
           </nav>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-crimson-600/20 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider text-crimson-300">
+            <span className="rounded-full bg-crimson-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-crimson-300">
               {base.kind === "combo"
                 ? dict.categories?.combos?.short ?? "Combo"
                 : dict.categories?.[base.region]?.short ?? base.region}
@@ -202,7 +202,7 @@ export default async function TourPage({ params }) {
             {tour.title}
           </h1>
           {tour.subtitle && (
-            <p className="mt-2 text-sm font-medium text-white/50">{tour.subtitle}</p>
+            <p className="mt-2 text-sm font-medium text-white/70">{tour.subtitle}</p>
           )}
 
           {/*
@@ -294,7 +294,7 @@ export default async function TourPage({ params }) {
               worth keeping is the transparency one, and it belongs next to the
               price rather than five screens below it.
             */}
-            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/55">
+            <p className="mt-8 flex items-start gap-2 text-sm leading-relaxed text-ink/70">
               <FaCheck className="mt-1 shrink-0 text-xs text-crimson-600" />
               {hasEntry
                 ? t.entryTableNote ??
@@ -303,7 +303,7 @@ export default async function TourPage({ params }) {
             </p>
 
             {base.entry?.note && (
-              <p className="mt-3 text-sm leading-relaxed text-ink/55">
+              <p className="mt-3 text-sm leading-relaxed text-ink/70">
                 {base.entry.note}
               </p>
             )}

@@ -55,17 +55,17 @@ export default function TourPrice({ tour, dict, align = "left" }) {
 
   return (
     <div className={wrap}>
-      <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-ink/45">
+      <span className="block text-xs font-medium uppercase tracking-wider text-ink/70">
         {band ? t.fromYourResort ?? "From your resort" : t.from ?? "From"}
       </span>
       <span className="font-display text-2xl font-semibold text-crimson-700">
         {money(rate)}
       </span>
-      <span className="ml-1 text-xs text-ink/45">
+      <span className="ml-1 text-xs text-ink/70">
         {t.perPerson ?? "/ person"}
       </span>
       {unpricedForPlace && (
-        <span className="block text-[0.68rem] leading-snug text-ink/40">
+        <span className="block text-xs leading-snug text-ink/70">
           {t.confirmYours ?? "we'll confirm yours"}
         </span>
       )}

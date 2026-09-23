@@ -51,7 +51,7 @@ export default function DestinationsGrid({ heading = true, locale = "en", dict }
             />
 
             <div className="relative flex h-full flex-col justify-end p-6">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-400">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">
                 {d.parish}
               </p>
               <h3

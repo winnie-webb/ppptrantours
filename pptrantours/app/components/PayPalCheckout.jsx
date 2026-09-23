@@ -232,7 +232,7 @@ export default function PayPalCheckout({
   return (
     <div>
       {state === "loading" && (
-        <p className="flex items-center justify-center gap-2 py-3 text-xs text-ink/50">
+        <p className="flex items-center justify-center gap-2 py-3 text-xs text-ink/70">
           <FaSpinner className="animate-spin" />
           {t.payLoading ?? "Loading secure payment…"}
         </p>
@@ -249,7 +249,7 @@ export default function PayPalCheckout({
       )}
 
       {state === "ready" && (
-        <p className="mt-3 flex items-center justify-center gap-2 text-center text-[0.7rem] leading-relaxed text-ink/60">
+        <p className="mt-3 flex items-center justify-center gap-2 text-center text-xs leading-relaxed text-ink/60">
           <FaLock className="shrink-0 text-[0.6rem]" />
           {t.payCardNote ??
             "Card or PayPal — no account needed. Your card details go straight to PayPal and never touch this site."}

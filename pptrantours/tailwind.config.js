@@ -34,6 +34,11 @@ module.exports = {
           600: "#ab9412",
         },
         sand: "#fbf7f4",
+        success: "#15803d",
+      },
+      // 13px floor: nothing a guest has to read renders smaller than this.
+      fontSize: {
+        xs: ["0.8125rem", { lineHeight: "1.25rem" }],
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],

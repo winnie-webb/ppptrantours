@@ -173,7 +173,7 @@ export default async function TransfersPage({ params }) {
                         </div>
                         <div className="mt-2 grid grid-cols-2 gap-3 text-xs">
                           <div>
-                            <span className="block text-ink/45">
+                            <span className="block text-ink/70">
                               {t.oneWay ?? "One way"}
                             </span>
                             <span className="font-semibold text-crimson-700">
@@ -181,7 +181,7 @@ export default async function TransfersPage({ params }) {
                             </span>
                           </div>
                           <div>
-                            <span className="block text-ink/45">
+                            <span className="block text-ink/70">
                               {t.roundTrip ?? "Round trip"}
                             </span>
                             <span className="font-semibold text-ink/80">
@@ -249,7 +249,7 @@ export default async function TransfersPage({ params }) {
             ))}
           </div>
 
-          <p className="mt-6 text-sm leading-relaxed text-ink/55">
+          <p className="mt-6 text-sm leading-relaxed text-ink/70">
             {t.notListed ??
               "Villa, Airbnb or a resort that isn't listed? We go everywhere on the island — message us with the address and we'll quote it the same day."}
           </p>

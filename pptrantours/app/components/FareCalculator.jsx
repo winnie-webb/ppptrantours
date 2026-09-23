@@ -141,7 +141,7 @@ export default function FareCalculator({ locale = "en", dict }) {
             </div>
           </div>
 
-          <p className="text-xs leading-relaxed text-ink/45">
+          <p className="text-xs leading-relaxed text-ink/70">
             {t.noteTotal ??
               `For bookings of 1 to ${MIN_BILLED_PAX} people the total is based on the ${MIN_BILLED_PAX}-person rate, so 1, 2, 3 or ${MIN_BILLED_PAX} people all pay the same. In US dollars, and the meet-and-greet inside arrivals is included.`}
           </p>
@@ -150,13 +150,13 @@ export default function FareCalculator({ locale = "en", dict }) {
         {/* Result */}
         <div className="flex flex-col justify-center bg-ink p-6 text-white sm:p-8">
           {!quote ? (
-            <p className="text-sm leading-relaxed text-white/55">
+            <p className="text-sm leading-relaxed text-white/70">
               {t.prompt ??
                 "Choose your resort and the exact fare appears here — no forms, no waiting for an email."}
             </p>
           ) : (
             <>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-wider text-white/45">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
                 {tripType === "round-trip"
                   ? t.roundTripLabel ?? "Round-trip private transfer"
                   : t.oneWayLabel ?? "One-way private transfer"}

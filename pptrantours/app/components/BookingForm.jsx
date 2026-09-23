@@ -70,9 +70,9 @@ function FieldError({ id, children }) {
     <p
       id={id}
       role="alert"
-      className="mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-700"
+      className="mt-1.5 flex items-start gap-1.5 text-sm font-medium text-red-700"
     >
-      <FaExclamationTriangle className="mt-0.5 shrink-0 text-[0.65rem]" />
+      <FaExclamationTriangle className="mt-1 shrink-0 text-xs" />
       {children}
     </p>
   );
@@ -561,17 +561,17 @@ export default function BookingForm({
                   type="button"
                   onClick={() => setTripType(opt.key)}
                   aria-pressed={tripType === opt.key}
-                  className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                  className={`min-h-[44px] rounded-lg px-3 py-2 text-base font-semibold transition ${
                     tripType === opt.key
                       ? "bg-crimson-600 text-white shadow-sm"
-                      : "text-ink/60 hover:bg-ink/5"
+                      : "text-ink/70 hover:bg-ink/5"
                   }`}
                 >
                   {opt.label}
                 </button>
               ))}
             </div>
-            <p className="mt-1.5 text-xs text-ink/45">
+            <p className="mt-1.5 text-xs text-ink/70">
               {t.transferTo ?? "To"}{" "}
               <span className="font-semibold text-ink/70">
                 {transferPlace.name}
@@ -635,7 +635,7 @@ export default function BookingForm({
                 />
                 <span
                   className={`flex-1 text-sm ${
-                    place ? "font-semibold text-ink" : "text-ink/50"
+                    place ? "font-semibold text-ink" : "text-ink/70"
                   }`}
                 >
                   {ready && place
@@ -652,7 +652,7 @@ export default function BookingForm({
         )}
 
         {/* When */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="date" className="label">
               {isTransfer ? t.arrivalDate ?? "Arrival date" : t.tourDate ?? "Tour date"}
@@ -701,7 +701,7 @@ export default function BookingForm({
                 onChange={set("flightNumber")}
                 className="field"
               />
-              <p className="mt-1.5 text-xs text-ink/45">
+              <p className="mt-1.5 text-xs text-ink/70">
                 {t.flightNote ??
                   "We track it and adjust for delays at no extra charge."}
               </p>
@@ -1015,7 +1015,7 @@ export default function BookingForm({
 function Section({ title, children }) {
   return (
     <section className="space-y-5">
-      <h3 className="text-[0.68rem] font-semibold uppercase tracking-wider text-ink/40">
+      <h3 className="border-b border-ink/10 pb-2 text-lg font-bold text-ink">
         {title}
       </h3>
       {children}
@@ -1302,7 +1302,7 @@ function Success({
             )}
           </button>
 
-          <p className="mt-3 flex items-center justify-center gap-2 text-[0.7rem] text-ink/60">
+          <p className="mt-3 flex items-center justify-center gap-2 text-xs text-ink/60">
             <FaLock className="text-[0.6rem]" />
             {t.paySecureNote ??
               "Card details are entered on our payment provider's own page and never touch this site."}
@@ -1400,26 +1400,26 @@ function Stepper({ label, value, min, onChange }) {
   return (
     <div>
       <span className="label">{label}</span>
-      <div className="flex items-center gap-2 rounded-xl border border-ink/15 p-1.5">
+      <div className="flex items-center gap-2 rounded-xl border border-ink/25 p-1">
         <button
           type="button"
           aria-label={`Decrease ${label}`}
           onClick={() => onChange((v) => Math.max(min, v - 1))}
           disabled={value <= min}
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/70 transition hover:bg-ink/10 disabled:opacity-30"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink transition hover:bg-ink/10 disabled:opacity-30"
         >
-          <FaMinus className="text-[0.6rem]" />
+          <FaMinus className="text-xs" />
         </button>
-        <span className="flex-1 text-center text-sm font-semibold text-ink">
+        <span aria-live="polite" className="flex-1 text-center text-lg font-bold text-ink">
           {value}
         </span>
         <button
           type="button"
           aria-label={`Increase ${label}`}
           onClick={() => onChange((v) => v + 1)}
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/70 transition hover:bg-ink/10"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink transition hover:bg-ink/10"
         >
-          <FaPlus className="text-[0.6rem]" />
+          <FaPlus className="text-xs" />
         </button>
       </div>
     </div>

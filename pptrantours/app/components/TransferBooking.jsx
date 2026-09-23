@@ -137,7 +137,7 @@ export default function TransferBooking({
             </select>
 
             {!place && (
-              <p className="mt-3 text-sm leading-relaxed text-ink/55">
+              <p className="mt-3 text-sm leading-relaxed text-ink/70">
                 {t.chooseFirst ??
                   "Choose your resort and the rest of the booking appears here, price included."}
               </p>
