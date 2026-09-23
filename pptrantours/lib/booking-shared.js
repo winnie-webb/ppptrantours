@@ -4,6 +4,7 @@
  * the client Firebase SDK being dragged into the API route's bundle.
  */
 import { site } from "@/app/data/site";
+import { describeDirection } from "@/app/products/pricing";
 
 // No I, O, 0 or 1 — these get read down a phone line.
 const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -70,8 +71,8 @@ export function buildWhatsAppMessage(booking) {
     booking.placeLabel
       ? `${isTransfer ? "Destination" : "Staying at"}: ${booking.placeLabel}`
       : null,
-    isTransfer && booking.tripType
-      ? `Trip: ${booking.tripType === "one-way" ? "One way" : "Round trip"}`
+    isTransfer && (booking.direction || booking.tripType)
+      ? `Trip: ${describeDirection(booking.direction ?? (booking.tripType === "one-way" ? "to-hotel" : "both"))}`
       : null,
     `Date: ${booking.date}${booking.time ? ` at ${booking.time}` : ""}`,
     booking.returnDate ? `Return: ${booking.returnDate}` : null,

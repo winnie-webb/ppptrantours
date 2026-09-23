@@ -103,6 +103,49 @@ describe("bookingAlert — content", () => {
   });
 });
 
+describe("bookingAlert — transfer direction", () => {
+  test("a departure-only transfer is labelled Hotel → airport, not Round trip", () => {
+    const out = bookingAlert({
+      ...FULL,
+      kind: "transfer",
+      direction: "to-airport",
+    });
+    assert.ok(out.html.includes("Hotel &rarr; airport") || out.html.includes("Hotel → airport"));
+    assert.ok(!out.html.includes("Round trip"));
+  });
+
+  test("an arrival is labelled Airport → hotel", () => {
+    const out = bookingAlert({ ...FULL, kind: "transfer", direction: "to-hotel" });
+    assert.ok(out.html.includes("Airport &rarr; hotel") || out.html.includes("Airport → hotel"));
+  });
+
+  test("a round trip shows the return leg", () => {
+    const out = bookingAlert({
+      ...FULL,
+      kind: "transfer",
+      direction: "both",
+      returnDate: "2026-10-11",
+      returnFlight: "AA1654",
+    });
+    assert.ok(out.html.includes("Round trip"));
+    assert.ok(out.html.includes("2026-10-11"));
+    assert.ok(out.html.includes("AA1654"));
+  });
+
+  test("a legacy tripType-only booking still gets a direction label", () => {
+    const oneWay = bookingAlert({ ...FULL, kind: "transfer", tripType: "one-way", direction: undefined });
+    assert.ok(oneWay.html.includes("Airport &rarr; hotel") || oneWay.html.includes("Airport → hotel"));
+
+    const roundTrip = bookingAlert({ ...FULL, kind: "transfer", tripType: "round-trip", direction: undefined });
+    assert.ok(roundTrip.html.includes("Round trip"));
+  });
+
+  test("a tour booking (no direction) shows no Direction row", () => {
+    const out = bookingAlert(FULL);
+    assert.ok(!out.html.includes(">Direction<"));
+  });
+});
+
 describe("bookingAlert — sparse enquiry", () => {
   const out = bookingAlert({
     reference: "PPP-AAA111",

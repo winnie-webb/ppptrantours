@@ -381,6 +381,6 @@ export const faqs = [
   {
     key: "advance",
     q: "How far in advance should I book?",
-    a: "As early as you can. Our days sell out in high season, and airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead.",
+    a: "As early as you can. Airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead.",
   },
 ];

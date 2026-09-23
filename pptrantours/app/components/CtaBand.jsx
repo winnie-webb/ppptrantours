@@ -28,7 +28,7 @@ export default function CtaBand({ locale = "en", dict }) {
           </h2>
           <p className="mt-5 text-[1.05rem] leading-relaxed text-white/70">
             {t.body ??
-              "Our days sell out in high season. Send us your dates and group size and we'll come back with a plan and a price — usually within the hour."}
+              "Send us your dates and group size and we'll come back with a plan and a price — usually within the hour."}
           </p>
 
           <div className="mt-9 flex flex-wrap justify-center gap-3">

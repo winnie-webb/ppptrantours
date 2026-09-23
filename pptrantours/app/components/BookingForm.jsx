@@ -25,10 +25,10 @@ import {
   quoteTransfer,
   money,
   MAX_PARTY,
+  describeDirection,
 } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
 import { createBooking, startPayment } from "@/lib/bookings";
-import { site } from "@/app/data/site";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
@@ -101,14 +101,25 @@ const subscribeToNothing = () => () => {};
 const readSearch = () => window.location.search;
 const noSearch = () => "";
 
+const VALID_DIRECTIONS = ["to-hotel", "to-airport", "both"];
+
 function parseHandoff(search) {
   const q = new URLSearchParams(search);
 
-  const trip = q.get("trip");
+  const direction = q.get("direction");
+  // `trip=one-way|round-trip` is the old two-way query param — kept working
+  // for any link or bookmark still carrying it.
+  const legacyTrip = q.get("trip");
   const pax = Number.parseInt(q.get("pax") ?? "", 10);
 
   return {
-    trip: trip === "one-way" || trip === "round-trip" ? trip : null,
+    direction: VALID_DIRECTIONS.includes(direction)
+      ? direction
+      : legacyTrip === "one-way"
+        ? "to-hotel"
+        : legacyTrip === "round-trip"
+          ? "both"
+          : null,
     pax: Number.isFinite(pax) && pax >= 1 && pax <= MAX_PARTY ? pax : null,
   };
 }
@@ -149,6 +160,21 @@ export default function BookingForm({
    * resort appears to do nothing.
    */
   onBooked,
+  /*
+   * Transfer mode has two ways to arrive at a direction: a standalone page
+   * like /transfer/[place] has no "stage 1" ahead of it, so the form owns its
+   * own three-way toggle. TransferBooking's two-stage flow decides the
+   * direction (and the party size) in its own Stage 1, with the price already
+   * shown and confirmed before "Continue" — so passing `direction` here
+   * switches the form to a read-only summary of that choice, with
+   * `onChangeSelection` wired to a "Change" link back to Stage 1. Both modes
+   * share the same validation, pricing and submit path; only this one prop
+   * decides which UI renders.
+   */
+  direction: controlledDirection = null,
+  initialAdults = null,
+  initialChildren = null,
+  onChangeSelection = null,
 }) {
   const isTransfer = mode === "transfer";
   // Memoised because `?? {}` mints a new object every render, which would make
@@ -175,13 +201,14 @@ export default function BookingForm({
   );
   const handoff = useMemo(() => parseHandoff(search), [search]);
 
-  const [tripChoice, setTripType] = useState(null);
-  const tripType = tripChoice ?? handoff.trip ?? "round-trip";
+  const [directionChoice, setDirectionChoice] = useState(null);
+  const direction =
+    controlledDirection ?? directionChoice ?? handoff.direction ?? "both";
 
   const [adultChoice, setAdults] = useState(null);
-  const adults = adultChoice ?? handoff.pax ?? 2;
+  const adults = adultChoice ?? handoff.pax ?? initialAdults ?? 2;
 
-  const [children, setChildren] = useState(0);
+  const [children, setChildren] = useState(initialChildren ?? 0);
   const [form, setForm] = useState({
     date: "",
     time: "",
@@ -262,14 +289,20 @@ export default function BookingForm({
     const today = todayISO();
     if (dateRef.current) dateRef.current.min = today;
     if (returnDateRef.current) returnDateRef.current.min = form.date || today;
-  }, [form.date, tripType]);
+  }, [form.date, direction]);
 
   const quote = useMemo(() => {
     if (isTransfer) {
-      return quoteTransfer(transferPlace.key, { tripType, adults, children });
+      return quoteTransfer(transferPlace.key, { direction, adults, children });
     }
     return quoteExcursion(tour, { zoneKey: zone, adults, children });
-  }, [isTransfer, transferPlace, tripType, tour, zone, adults, children]);
+  }, [isTransfer, transferPlace, direction, tour, zone, adults, children]);
+
+  // Q-12 (09_DECISIONS.md): a flight number is required for the arrival leg —
+  // "to-hotel" outright, and the outbound leg of "both" — because that is the
+  // flight PPP tracks to meet the guest. It stays optional for a departure
+  // ("to-airport"), where there is no one to meet at the airport end.
+  const needsArrivalFlight = isTransfer && (direction === "to-hotel" || direction === "both");
 
   const pax = adults + children;
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -305,17 +338,20 @@ export default function BookingForm({
     if (form.phone.trim() && digits.length < 7)
       errs.phone = t.errPhone ?? "That number looks too short to call back.";
 
-    if (isTransfer && tripType === "round-trip" && form.returnDate && form.date) {
+    if (isTransfer && direction === "both" && form.returnDate && form.date) {
       if (form.returnDate < form.date)
         errs.returnDate =
           t.errReturnBeforeArrival ?? "Your return cannot be before you arrive.";
     }
 
+    if (needsArrivalFlight && !form.flightNumber.trim())
+      errs.flightNumber = t.errFlightNumber ?? "Please add your arrival flight number.";
+
     if (needsPlace)
       errs.place = t.errPickPlace ?? "Please choose where you are staying.";
 
     return errs;
-  }, [form, isTransfer, tripType, needsPlace, t]);
+  }, [form, isTransfer, direction, needsArrivalFlight, needsPlace, t]);
 
   // Derived, not stored: the errors are a pure function of the form's values,
   // so there is nothing to keep in sync and no effect to run.
@@ -402,7 +438,7 @@ export default function BookingForm({
         placeKey: isTransfer ? transferPlace.key : place?.key ?? "",
         placeLabel: isTransfer ? transferPlace.name : place?.name ?? "",
         zoneKey: isTransfer ? "" : zone ?? "",
-        tripType: isTransfer ? tripType : "",
+        direction: isTransfer ? direction : "",
         adults,
         children,
         transportTotal: quote.transport?.total ?? null,
@@ -484,7 +520,6 @@ export default function BookingForm({
         paypal={paypal}
         quoted={!unpriced && !needsPlace}
         isTransfer={isTransfer}
-        tripType={tripType}
       />
     );
   }
@@ -521,35 +556,68 @@ export default function BookingForm({
         <Section title={t.sectionTrip ?? "Your trip"}>
         {/* Where from / where to */}
         {isTransfer ? (
-          <div>
-            <span className="label">{t.tripType ?? "Trip type"}</span>
-            <div className="grid grid-cols-2 gap-2 rounded-xl border border-ink/15 p-1.5">
-              {[
-                { key: "round-trip", label: t.roundTrip ?? "Round trip" },
-                { key: "one-way", label: t.oneWay ?? "One way" },
-              ].map((opt) => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setTripType(opt.key)}
-                  aria-pressed={tripType === opt.key}
-                  className={`min-h-[44px] rounded-lg px-3 py-2 text-base font-semibold transition ${
-                    tripType === opt.key
-                      ? "bg-crimson-600 text-white shadow-sm"
-                      : "text-ink/70 hover:bg-ink/5"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
+          onChangeSelection ? (
+            /*
+             * Chosen already, in TransferBooking's Stage 1 — where the price
+             * was live and confirmed before "Continue" ever appeared. Redoing
+             * that choice here as a second, editable toggle would let it drift
+             * from the price already shown; "Change" goes back to the one
+             * place that recalculates it.
+             */
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-ink/15 bg-sand px-4 py-3">
+              <div>
+                <span className="block text-sm font-semibold text-ink">
+                  {describeDirection(direction) &&
+                    (t[
+                      direction === "both"
+                        ? "roundTrip"
+                        : direction === "to-airport"
+                          ? "toAirport"
+                          : "toHotel"
+                    ] ?? describeDirection(direction))}
+                </span>
+                <span className="mt-0.5 block text-xs text-ink/60">{transferPlace.name}</span>
+              </div>
+              <button
+                type="button"
+                onClick={onChangeSelection}
+                className="shrink-0 rounded-full border border-ink/15 bg-white px-3.5 py-1.5 text-xs font-semibold text-ink/75 transition hover:border-crimson-300 hover:text-crimson-700"
+              >
+                {t.change ?? "Change"}
+              </button>
             </div>
-            <p className="mt-1.5 text-xs text-ink/70">
-              {t.transferTo ?? "To"}{" "}
-              <span className="font-semibold text-ink/70">
-                {transferPlace.name}
-              </span>
-            </p>
-          </div>
+          ) : (
+            <div>
+              <span className="label">{t.direction ?? "Which way?"}</span>
+              <div className="grid grid-cols-3 gap-1.5 rounded-xl border border-ink/15 p-1.5">
+                {[
+                  { key: "to-hotel", label: t.toHotel ?? "Airport → hotel" },
+                  { key: "to-airport", label: t.toAirport ?? "Hotel → airport" },
+                  { key: "both", label: t.roundTrip ?? "Round trip" },
+                ].map((opt) => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setDirectionChoice(opt.key)}
+                    aria-pressed={direction === opt.key}
+                    className={`min-h-[44px] rounded-lg px-2 py-2 text-xs font-semibold transition sm:text-sm ${
+                      direction === opt.key
+                        ? "bg-crimson-600 text-white shadow-sm"
+                        : "text-ink/70 hover:bg-ink/5"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-1.5 text-xs text-ink/70">
+                {t.transferTo ?? "To"}{" "}
+                <span className="font-semibold text-ink/70">
+                  {transferPlace.name}
+                </span>
+              </p>
+            </div>
+          )
         ) : (
           <div>
             <span className="label">{t.stayingAt ?? "Where are you staying?"}</span>
@@ -570,11 +638,23 @@ export default function BookingForm({
           </div>
         )}
 
+        {/*
+          Q-02 (09_DECISIONS.md): PPP sets the pickup time from the flight,
+          the guest never chooses one. So the primary date/time/flight block
+          below asks for the ARRIVAL leg whenever one exists ("to-hotel" or
+          "both") — that is the flight PPP actually tracks — and only asks for
+          the DEPARTURE leg here when the booking is departure-only
+          ("to-airport"), where there is no arrival leg to ask about instead.
+        */}
         {/* When */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="date" className="label">
-              {isTransfer ? t.arrivalDate ?? "Arrival date" : t.tourDate ?? "Tour date"}
+              {isTransfer
+                ? direction === "to-airport"
+                  ? t.departureDate ?? "Departure date"
+                  : t.arrivalDate ?? "Arrival date"
+                : t.tourDate ?? "Tour date"}
               <Req />
             </label>
             <input
@@ -594,7 +674,11 @@ export default function BookingForm({
           </div>
           <div>
             <label htmlFor="time" className="label">
-              {isTransfer ? t.landingTime ?? "Landing time" : t.pickupTime ?? "Pickup time"}
+              {isTransfer
+                ? direction === "to-airport"
+                  ? t.departureTime ?? "Departure flight time"
+                  : t.landingTime ?? "Arrival flight time"
+                : t.pickupTime ?? "Pickup time"}
             </label>
             <input
               id="time"
@@ -610,27 +694,41 @@ export default function BookingForm({
           <>
             <div>
               <label htmlFor="flightNumber" className="label">
-                {t.flightNumber ?? "Arrival flight number"}
+                {direction === "to-airport"
+                  ? t.departureFlightNumber ?? "Departure flight number"
+                  : t.flightNumber ?? "Arrival flight number"}
+                {needsArrivalFlight && <Req />}
               </label>
               <input
                 id="flightNumber"
                 type="text"
                 placeholder="AA 1573"
+                required={needsArrivalFlight}
+                aria-required={needsArrivalFlight ? "true" : undefined}
+                aria-invalid={showError("flightNumber") ? "true" : undefined}
+                aria-describedby={
+                  showError("flightNumber") ? "flightNumber-err" : undefined
+                }
                 value={form.flightNumber}
                 onChange={set("flightNumber")}
-                className="field"
+                onBlur={blur("flightNumber")}
+                className={`field ${showError("flightNumber") ? "border-red-400" : ""}`}
               />
+              <FieldError id="flightNumber-err">{showError("flightNumber")}</FieldError>
               <p className="mt-1.5 text-xs text-ink/70">
-                {t.flightNote ??
-                  "We track it and adjust for delays at no extra charge."}
+                {direction === "to-airport"
+                  ? t.pickupFromFlightNote ??
+                    "We work out your pickup time from this flight — no need to tell us one."
+                  : t.flightNote ??
+                    "We track it and meet you inside arrivals. We'll confirm your hotel pickup time once we have it."}
               </p>
             </div>
 
-            {tripType === "round-trip" && (
+            {direction === "both" && (
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="returnDate" className="label">
-                    {t.returnDate ?? "Return date"}
+                    {t.returnDate ?? "Departure date"}
                   </label>
                   <input
                     id="returnDate"
@@ -653,7 +751,7 @@ export default function BookingForm({
                 </div>
                 <div>
                   <label htmlFor="returnFlight" className="label">
-                    {t.returnFlight ?? "Return flight"}
+                    {t.returnFlight ?? "Departure flight number"}
                   </label>
                   <input
                     id="returnFlight"
@@ -663,6 +761,10 @@ export default function BookingForm({
                     onChange={set("returnFlight")}
                     className="field"
                   />
+                  <p className="mt-1.5 text-xs text-ink/70">
+                    {t.pickupFromFlightNote ??
+                      "Optional — we work out your pickup time from your hotel either way."}
+                  </p>
                 </div>
               </div>
             )}
@@ -690,7 +792,7 @@ export default function BookingForm({
         <Price
           quote={quote}
           isTransfer={isTransfer}
-          tripType={tripType}
+          direction={direction}
           needsPlace={needsPlace}
           unpriced={unpriced}
           dict={dict}
@@ -841,7 +943,7 @@ export default function BookingForm({
                   key: "card",
                   icon: <FaCreditCard className="text-sm" />,
                   label: t.payCard ?? "Pay now by card",
-                  hint: t.payCardHint ?? "Secure checkout, no account needed",
+                  hint: t.payCardHint ?? "Secured by PayPal — no account needed",
                 },
               ].map((opt) => (
                 <button
@@ -895,27 +997,16 @@ export default function BookingForm({
           )}
         </button>
 
-        <p className="flex items-center justify-center gap-2 text-center text-xs text-ink/60">
-          <FaLock className="shrink-0 text-[0.65rem]" />
-          {unpriced || needsPlace
-            ? t.noPaymentQuote ??
-              "No payment taken — we come back with a firm price, same day."
-            : payIntent === "card"
-              ? t.payNote ??
-                "You'll be taken to a secure checkout. Card details never touch this site."
-              : t.cashNote ??
-                "Nothing to pay now. Settle with your driver on the day."}
-        </p>
-
-        <a
-          href={site.contact.whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-          className="btn-ghost w-full"
-        >
-          <FaWhatsapp className="text-base text-crimson-600" />
-          {t.ratherMessage ?? "Rather just message us?"}
-        </a>
+        {(unpriced || needsPlace || payIntent === "card") && (
+          <p className="flex items-center justify-center gap-2 text-center text-xs text-ink/60">
+            <FaLock className="shrink-0 text-[0.65rem]" />
+            {unpriced || needsPlace
+              ? t.noPaymentQuote ??
+                "No payment taken — we come back with a firm price, same day."
+              : t.payNote ??
+                "You'll be taken to a secure checkout. Card details never touch this site."}
+          </p>
+        )}
         </Section>
       </div>
     </form>
@@ -957,7 +1048,7 @@ function Section({ title, children }) {
  * is worth explaining: on the server render localStorage has not been read, so
  * "no resort yet" is also the state every guest starts in.
  */
-function Price({ quote, isTransfer, tripType, needsPlace, unpriced, dict }) {
+function Price({ quote, isTransfer, direction, needsPlace, unpriced, dict }) {
   const t = dict?.booking ?? {};
 
   if (!quote.transport) {
@@ -973,15 +1064,19 @@ function Price({ quote, isTransfer, tripType, needsPlace, unpriced, dict }) {
   }
 
   /*
-   * A transfer's direction belongs on the same line as its price: a return
-   * fare is double a one-way one, so the biggest number on the form is
+   * A transfer's direction belongs on the same line as its price: a round
+   * trip fare is double a one-way one, so the biggest number on the form is
    * meaningless without it. The toggle that sets it is above, but on a phone
    * it is off-screen by the time the total is read.
    */
   const label = isTransfer
-    ? tripType === "round-trip"
-      ? t.roundTrip ?? "Round trip"
-      : t.oneWay ?? "One way"
+    ? (t[
+        direction === "both"
+          ? "roundTrip"
+          : direction === "to-airport"
+            ? "toAirport"
+            : "toHotel"
+      ] ?? describeDirection(direction))
     : t.total ?? "Total";
 
   return (
@@ -1023,7 +1118,6 @@ function Success({
   quoted,
   paypal,
   isTransfer,
-  tripType,
 }) {
   const t = dict?.booking ?? {};
   const [paying, setPaying] = useState(false);
@@ -1315,7 +1409,7 @@ function Success({
  *
  * There is no upper bound. The owner takes any number of passengers.
  */
-function Stepper({ label, value, min, onChange }) {
+export function Stepper({ label, value, min, onChange }) {
   return (
     <div>
       <span className="label">{label}</span>

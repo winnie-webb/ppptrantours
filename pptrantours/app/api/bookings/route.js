@@ -10,6 +10,7 @@ import {
   fromCents,
   MAX_PARTY,
 } from "@/app/products/pricing";
+import { resolveDirection } from "@/app/products/resolve-direction";
 import { paymentsConfigured } from "@/lib/payments";
 import { makeLookupToken, sweepAbandoned } from "@/lib/payments/store";
 import { getPlace } from "@/app/data/places";
@@ -162,6 +163,7 @@ export async function POST(request) {
   let transportTotal = null;
   let quoted = false;
   let quote = null;
+  const direction = isTransfer ? resolveDirection(body) : null;
 
   if (!isEnquiry) {
     if (isTransfer) {
@@ -171,8 +173,7 @@ export async function POST(request) {
           { status: 422 }
         );
       }
-      const tripType = body.tripType === "one-way" ? "one-way" : "round-trip";
-      const q = quoteTransfer(placeKey, { tripType, adults, children });
+      const q = quoteTransfer(placeKey, { direction, adults, children });
       quote = q;
       transportTotal = q.transport?.total ?? null;
       quoted = transportTotal != null;
@@ -221,11 +222,10 @@ export async function POST(request) {
     placeKey,
     placeLabel: place ? place.name : str(body.placeLabel, MAX.place),
     zoneKey: place?.zone ?? "",
-    tripType: isTransfer
-      ? body.tripType === "one-way"
-        ? "one-way"
-        : "round-trip"
-      : "",
+    direction: direction ?? "",
+    // Derived, kept alongside `direction` so anything still reading the old
+    // two-way field (a cached admin tab, an external report) still works.
+    tripType: isTransfer ? (direction === "both" ? "round-trip" : "one-way") : "",
     adults,
     children,
     transportTotal,

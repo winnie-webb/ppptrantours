@@ -16,8 +16,13 @@
  * The browser and the API route both import this. If they ever disagreed, a
  * guest would be shown one total and charged another.
  */
-import { MIN_BILLED_PAX } from "@/app/data/catalogue";
-import { getPlace } from "@/app/data/places";
+/*
+ * Relative, not `@/`, imports: this module needs to be importable by
+ * `node --test` directly (see pricing.test.js), which has no alias resolver
+ * for `@/` the way Next's bundler does. Relative paths work under both.
+ */
+import { MIN_BILLED_PAX } from "../data/catalogue.js";
+import { getPlace } from "../data/places.js";
 
 export { MIN_BILLED_PAX };
 
@@ -63,19 +68,45 @@ export function priceTransport(tour, zoneKey, pax) {
 }
 
 /**
+ * Every direction a transfer can run. Both one-way legs cost the same — the
+ * hotel's one-way rate — per the owner's decision (09_DECISIONS.md Q-01):
+ * "Both one-way directions cost the same (the hotel's one-way price)."
+ */
+export const DIRECTIONS = ["to-hotel", "to-airport", "both"];
+
+/**
  * Transport for an airport transfer, to or from Sangster.
  *
- * @param {string} tripType "one-way" | "round-trip"
+ * @param {string} direction "to-hotel" | "to-airport" | "both"
+ *   Only `"both"` (a round trip) bills the round-trip rate. The two one-way
+ *   directions are priced identically, which is why this takes the direction
+ *   rather than a boolean: a caller that used to write
+ *   `tripType === "one-way"` and treated everything else as a round trip is
+ *   exactly the bug that would silently double-charge a departure-only
+ *   transfer if `direction` were ever collapsed back to two states.
  */
-export function priceTransfer(placeKey, tripType, pax) {
+export function priceTransfer(placeKey, direction, pax) {
   const place = getPlace(placeKey);
   if (!place?.transfer) return null;
 
-  const round = tripType === "round-trip";
+  const round = direction === "both";
   const rate = round ? place.transfer.roundTrip : place.transfer.oneWay;
   if (rate == null) return null;
 
-  return { ...quote(rate, pax), round };
+  return { ...quote(rate, pax), round, direction };
+}
+
+/**
+ * The direction, in plain English, for contexts with no dictionary to
+ * translate through — the owner-facing email, the WhatsApp handoff text, the
+ * admin console. UI components pass this as the `??` fallback for their own
+ * translated string, so there is one place that knows what each direction is
+ * called.
+ */
+export function describeDirection(direction) {
+  if (direction === "to-airport") return "Hotel → airport";
+  if (direction === "to-hotel") return "Airport → hotel";
+  return "Round trip";
 }
 
 /** The one piece of transport arithmetic on the site. */
@@ -123,9 +154,9 @@ export function quoteExcursion(tour, { zoneKey, adults, children }) {
   return { pax, transport, total: transport?.total ?? null };
 }
 
-export function quoteTransfer(placeKey, { tripType, adults, children }) {
+export function quoteTransfer(placeKey, { direction, adults, children }) {
   const pax = clampPax(adults + children);
-  const transport = priceTransfer(placeKey, tripType, pax);
+  const transport = priceTransfer(placeKey, direction, pax);
   return { pax, transport, total: transport?.total ?? null };
 }
 

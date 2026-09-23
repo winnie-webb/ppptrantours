@@ -39,11 +39,27 @@ function money(cents) {
 }
 
 /**
+ * Kept as a small local copy of `describeDirection` in
+ * app/products/pricing.js rather than an import: that module reaches into
+ * `app/data/*` via the `@/` alias, which only Next's bundler resolves — this
+ * template is also loaded directly by `node --test`, which does not.
+ */
+function directionLabel(direction) {
+  if (direction === "to-airport") return "Hotel → airport";
+  if (direction === "to-hotel") return "Airport → hotel";
+  return "Round trip";
+}
+
+/**
  * @param {object} booking  the same shape the bookings route persists
  * @returns {{subject: string, html: string, replyTo: string, preheader: string}}
  */
 export function bookingAlert(booking) {
   const kind = booking.type === "enquiry" ? "Enquiry" : "Booking";
+  const isTransfer = booking.kind === "transfer";
+
+  const direction =
+    booking.direction || (booking.tripType === "one-way" ? "to-hotel" : booking.tripType ? "both" : "");
 
   const travellers =
     `${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
@@ -132,11 +148,21 @@ export function bookingAlert(booking) {
                 </tr>
                 ${row(html`Tour`, html`<strong>${tourTitle}</strong>`, { first: true })}
                 ${row("Pickup / drop-off", dash(booking.placeLabel))}
+                ${isTransfer && direction ? row("Direction", directionLabel(direction)) : ""}
                 ${row(
-                  "Date",
+                  isTransfer && direction === "to-airport" ? "Departure date" : "Date",
                   html`${date} &nbsp;<span style="opacity:0.55;">${dash(booking.time)}</span>`
                 )}
-                ${row("Flight", dash(booking.flightNumber))}
+                ${row(
+                  isTransfer && direction === "to-airport" ? "Departure flight" : "Flight",
+                  dash(booking.flightNumber)
+                )}
+                ${isTransfer && direction === "both" && (booking.returnDate || booking.returnFlight)
+                  ? row(
+                      "Departure",
+                      html`${dash(booking.returnDate)} &nbsp;<span style="opacity:0.55;">${dash(booking.returnFlight)}</span>`
+                    )
+                  : ""}
                 ${row("Hotel / villa / pier", dash(booking.placeLabel))}
                 ${row("Travellers", travellers)}
               </table>

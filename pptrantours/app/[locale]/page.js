@@ -13,11 +13,12 @@ import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import TourCard from "@/app/components/TourCard";
-import FareCalculator from "@/app/components/FareCalculator";
+import TransferBooking from "@/app/components/TransferBooking";
 import { filterProductByCategory, sortByPrice } from "@/app/products/product";
 import { localePath, LOCALES } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { clientDict } from "@/app/i18n/client";
+import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 
 export function generateStaticParams() {
   return LOCALES.map((l) => ({ locale: l.code }));
@@ -74,7 +75,7 @@ export default async function Home({ params }) {
       {/* Browse the rest, straight under the rail it continues. */}
       <CategoryChips locale={locale} dict={dict} />
 
-      {/* Airport fare calculator */}
+      {/* Airport transfer booking */}
       <section className="bg-sand py-16 lg:py-24">
         <div className="shell">
           <SectionHeading
@@ -87,7 +88,13 @@ export default async function Home({ params }) {
             href={localePath(locale, "/transfers")}
             linkLabel={t.allRates ?? "All rates"}
           />
-          <FareCalculator locale={locale} dict={client} />
+          <TransferBooking
+            locale={locale}
+            dict={client}
+            titlePrefix={dict.transferPage?.transferTo ?? "Airport transfer to"}
+            paymentsEnabled={paymentsConfigured("USD")}
+            paypal={paypalPublicConfig("USD")}
+          />
         </div>
       </section>
 

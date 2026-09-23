@@ -16,6 +16,18 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
+import { describeDirection } from "@/app/products/pricing";
+
+/**
+ * `direction` is the current three-way field; older bookings only carry the
+ * two-way `tripType`. Reading it in one place means every future field on a
+ * booking gets the same treatment, rather than each display site guessing.
+ */
+function directionOf(b) {
+  if (b.direction) return b.direction;
+  if (!b.tripType) return null;
+  return b.tripType === "one-way" ? "to-hotel" : "both";
+}
 
 /**
  * Bookings console.
@@ -549,9 +561,7 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
             label={
               b.kind === "transfer"
                 ? `Transfer${
-                    b.tripType
-                      ? ` · ${b.tripType === "one-way" ? "One way" : "Round trip"}`
-                      : ""
+                    directionOf(b) ? ` · ${describeDirection(directionOf(b))}` : ""
                   }`
                 : "Tour"
             }
@@ -670,9 +680,9 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               <p className="pt-1 text-xs text-ink/45">
                 Received {when(b.createdAt)}
               </p>
-              {b.tripType && (
+              {directionOf(b) && (
                 <p className="text-xs text-ink/45">
-                  {b.tripType === "one-way" ? "One way" : "Round trip"}
+                  {describeDirection(directionOf(b))}
                   {b.returnDate && ` · back ${b.returnDate}`}
                   {b.returnFlight && ` · ${b.returnFlight}`}
                 </p>
