@@ -16,7 +16,6 @@ import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
-import PlaceChip from "./PlaceChip";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header({ locale = "en", dict }) {
@@ -130,10 +129,6 @@ export default function Header({ locale = "en", dict }) {
               {nav.licensed ??
                 "Licensed by the Jamaica Tourist Board & Transport Authority"}
             </p>
-            {/* The resort picker lives here rather than in the main row: it is a
-                persistent setting, not navigation, and the row below has no space
-                left once the nav and the booking button are in it. */}
-            <PlaceChip dict={dict} compact />
           </div>
           <div className="flex shrink-0 items-center gap-5">
             <a
@@ -316,10 +311,6 @@ export default function Header({ locale = "en", dict }) {
               >
                 <FaTimes />
               </button>
-            </div>
-
-            <div className="border-b border-ink/[0.07] px-4 py-3">
-              <PlaceChip dict={dict} className="w-full !max-w-none justify-start" />
             </div>
 
             <div className="px-4 py-3">

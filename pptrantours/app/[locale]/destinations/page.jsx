@@ -3,7 +3,6 @@ import DestinationsGrid from "@/app/components/DestinationsGrid";
 import TourRail from "@/app/components/TourRail";
 import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
-import PlacePrompt from "@/app/components/PlacePrompt";
 import { filterProductByCategory, sortByPrice } from "@/app/products/product";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
@@ -55,8 +54,6 @@ export default async function DestinationsPage({ params }) {
         homeLabel={dict.nav?.home ?? "Home"}
         breadcrumbs={[{ label: t.crumb ?? "Destinations" }]}
       />
-
-      <PlacePrompt dict={client} />
 
       <DestinationsGrid heading={false} locale={locale} dict={dict} />
 

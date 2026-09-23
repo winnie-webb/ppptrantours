@@ -1,6 +1,5 @@
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
-import PlacePrompt from "@/app/components/PlacePrompt";
 import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
 import { TOURS } from "@/app/data/catalogue";
@@ -67,8 +66,6 @@ export default async function ToursPage({ params }) {
         homeLabel={dict.nav?.home ?? "Home"}
         breadcrumbs={[{ label: t.crumb ?? "Things to do" }]}
       />
-
-      <PlacePrompt dict={client} />
 
       {/*
         The "By parish" index of five tiles stood here.

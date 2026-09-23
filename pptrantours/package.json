@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test \"lib/**/*.test.js\""
+    "test": "node --test \"lib/**/*.test.js\" \"app/**/*.test.js\""
   },
   "dependencies": {
     "firebase": "^11.1.0",

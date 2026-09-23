@@ -114,23 +114,24 @@
     "perPerson": "/ person",
     "estimated": "indicative"
   },
-  "place": {
+  "hotelSearch": {
     "title": "Where are you staying?",
-    "subtitle": "Pick your resort and every price on the site becomes yours — no zones to work out.",
-    "search": "Search hotels, resorts and piers…",
+    "search": "Search your hotel or resort…",
+    "placeholder": "Search your hotel or resort",
+    "chooseYourHotel": "Choose your hotel to see your price",
+    "choose": "Choose",
+    "change": "Change",
     "close": "Close",
-    "noMatch": "No match. Pick the closest resort, or tell us in the notes — we cover the whole island.",
-    "footnote": "Not on the list? Choose the nearest one to get an idea of the price, then message us — we run to every corner of the island.",
-    "prompt": "Where are you staying?",
-    "change": "Change your resort"
-  },
-  "placePrompt": {
-    "title": "Where are you staying?",
-    "body": "Tell us your hotel, resort or cruise pier and every price on the site becomes yours — no zones, no guessing.",
-    "showingFor": "Showing prices for",
-    "chosenBody": "Every price on the site is now the real transport price from your resort.",
-    "choose": "Choose your resort",
-    "change": "Change resort"
+    "back": "Back",
+    "clear": "Clear",
+    "fromLastVisit": "From your last visit",
+    "browseByArea": "Browse by area",
+    "allAreas": "All areas",
+    "noMatch": "No match for \"{q}\".",
+    "didYouMean": "Did you mean…?",
+    "notListed": "My hotel isn't listed",
+    "unlistedMessage": "Hi PPP Tran Tours, my hotel isn't on your website's list. Could you let me know if you serve it and what the transfer price would be?",
+    "resultsAnnounced": "results"
   },
   "search": {
     "label": "Search",
@@ -144,6 +145,8 @@
     "askUs": "ask us"
   },
   "grid": {
+    "pricesFor": "Prices for",
+    "chooseHotelPrompt": "Choose your hotel to see your price",
     "filter": "Filter by name or keyword…",
     "filterCategory": "Filter by category",
     "allCategories": "All categories",
@@ -180,17 +183,9 @@
     "errEmail": "That doesn't look like an email address.",
     "errPhone": "That number looks too short to call back.",
     "errReturnBeforeArrival": "Your return cannot be before you arrive.",
-    "errConfirmPlace": "Please confirm where you are staying.",
     "errPickPlace": "Please choose where you are staying.",
-    "rememberedTitle": "Check this is still right",
-    "rememberedBody": "We saved this earlier in your visit. Your price and your pickup are both for this hotel.",
-    "yesCorrect": "Yes, that's right",
-    "changeHotel": "No, change it",
     "bookNow": "Book now",
     "stayingAt": "Where are you staying?",
-    "choosePlace": "Choose your hotel or pier",
-    "choose": "Choose",
-    "change": "Change",
     "tripType": "Trip type",
     "roundTrip": "Round trip",
     "oneWay": "One way",

@@ -4,6 +4,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import TourCard from "./TourCard";
+import HotelSearch from "./HotelSearch";
 import { localePath } from "../i18n/config";
 import { CATEGORIES } from "../products/product";
 import { lowestTransport } from "../products/pricing";
@@ -68,7 +69,7 @@ export default function TourGrid({
   const category = categoryChoice ?? urlCategory ?? "all";
   const [sort, setSort] = useState("price-asc");
   const [page, setPage] = useState(1);
-  const { zone } = usePlace();
+  const { place, zone } = usePlace();
   const t = dict?.grid ?? {};
 
   const priceOf = useMemo(
@@ -213,6 +214,21 @@ export default function TourGrid({
             })}
         </div>
       )}
+
+      {/*
+        Replaces the PlacePrompt banner that used to sit above this grid on
+        every catalogue page. A compact "Prices for {hotel}" beats a full-width
+        band now that the price on every card already reflects the guest's
+        resort — this is a reminder and a way to change it, not the ask.
+      */}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-ink/[0.07] bg-white px-4 py-3 shadow-card">
+        <span className="text-sm text-ink/70">
+          {place
+            ? `${t.pricesFor ?? "Prices for"} ${place.name}`
+            : t.chooseHotelPrompt ?? "Choose your hotel to see your price"}
+        </span>
+        <HotelSearch variant="compact" dict={dict} id="tour-grid-hotel" />
+      </div>
 
       <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-ink/[0.07] bg-white p-4 shadow-card lg:flex-row lg:items-center">
         <div className="relative flex-1">

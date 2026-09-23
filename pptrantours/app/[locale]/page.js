@@ -51,9 +51,9 @@ export default async function Home({ params }) {
         someone who is reading rather than buying.
 
         PlacePrompt is gone rather than moved. It asked for a resort before
-        showing anything worth choosing, and the same picker already sits in the
-        header and inside the booking form — which is where the answer actually
-        changes a price.
+        showing anything worth choosing; the hotel search now lives on the
+        tour list and inside the booking form — which is where the answer
+        actually changes a price.
       */}
       <Hero locale={locale} dict={dict} />
 

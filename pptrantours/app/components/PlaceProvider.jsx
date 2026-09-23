@@ -32,7 +32,6 @@ export function PlaceProvider({ children }) {
   // Server-rendered HTML cannot know the stored place, so the first client
   // paint must match it. Everything place-dependent waits for this.
   const [ready, setReady] = useState(false);
-  const [pickerOpen, setPickerOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -66,7 +65,6 @@ export function PlaceProvider({ children }) {
 
   const choose = useCallback((key) => {
     setPlaceKey(key);
-    setPickerOpen(false);
     setChoiceCount((n) => n + 1);
     try {
       if (key) window.localStorage.setItem(STORAGE_KEY, key);
@@ -86,11 +84,8 @@ export function PlaceProvider({ children }) {
       choose,
       choiceCount,
       clear: () => choose(null),
-      pickerOpen,
-      openPicker: () => setPickerOpen(true),
-      closePicker: () => setPickerOpen(false),
     };
-  }, [placeKey, ready, pickerOpen, choose, choiceCount]);
+  }, [placeKey, ready, choose, choiceCount]);
 
   return (
     <PlaceContext.Provider value={value}>{children}</PlaceContext.Provider>

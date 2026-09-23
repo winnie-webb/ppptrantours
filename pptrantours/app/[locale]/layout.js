@@ -5,7 +5,6 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import WhatsAppFab from "@/app/components/WhatsAppFab";
 import { PlaceProvider } from "@/app/components/PlaceProvider";
-import PlacePicker from "@/app/components/PlacePicker";
 import JsonLd from "@/app/components/JsonLd";
 import { site } from "@/app/data/site";
 import { organizationSchema, websiteSchema } from "@/app/data/schema";
@@ -130,7 +129,6 @@ export default async function LocaleLayout({ children, params }) {
           </main>
           <Footer locale={locale} dict={dict} />
           <WhatsAppFab dict={client} />
-          <PlacePicker dict={client} />
         </PlaceProvider>
 
         {/*

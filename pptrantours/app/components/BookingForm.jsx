@@ -17,7 +17,6 @@ import {
   FaLock,
   FaSpinner,
   FaExclamationTriangle,
-  FaMapMarkerAlt,
   FaInfoCircle,
   FaCreditCard,
 } from "react-icons/fa";
@@ -32,6 +31,7 @@ import { createBooking, startPayment } from "@/lib/bookings";
 import { site } from "@/app/data/site";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
+import HotelSearch from "./HotelSearch";
 import PayPalCheckout from "./PayPalCheckout";
 
 /**
@@ -154,7 +154,7 @@ export default function BookingForm({
   // Memoised because `?? {}` mints a new object every render, which would make
   // the validation callback — and so the whole error map — recompute each time.
   const t = useMemo(() => dict?.booking ?? {}, [dict]);
-  const { place, zone, ready, openPicker, choiceCount } = usePlace();
+  const { place, zone, ready } = usePlace();
 
   // A transfer page is *about* one resort, so it fixes its own destination
   // rather than using whatever the guest picked for excursions.
@@ -215,29 +215,6 @@ export default function BookingForm({
    */
   const [touched, setTouched] = useState({});
   const [submitAttempted, setSubmitAttempted] = useState(false);
-
-  /*
-   * Whether the resort was confirmed FOR THIS BOOKING.
-   *
-   * The resort is remembered in localStorage across the whole visit, so a guest
-   * who picked one yesterday, or while pricing a different tour, arrives here
-   * with it already filled in. That is helpful for browsing and dangerous at
-   * the point of booking: the pickup address is the one thing on this form
-   * nobody re-reads, and getting it wrong means a driver at the wrong hotel.
-   *
-   * So a remembered resort starts UNCONFIRMED and the form will not submit
-   * until the guest says it is right. Picking one here counts as saying so;
-   * inheriting one silently does not.
-   */
-  const [placeAgreed, setPlaceAgreed] = useState(false);
-
-  /*
-   * `choiceCount` is the provider's count of explicit picks in this page
-   * session, so a resort the guest chose a moment ago needs no second
-   * agreement while one restored from storage does. Plain derivation — no ref
-   * read during render, no effect to keep in step.
-   */
-  const placeConfirmed = placeAgreed || choiceCount > 0;
 
   /*
    * How the guest intends to settle, chosen HERE rather than offered after the
@@ -301,9 +278,6 @@ export default function BookingForm({
   const needsPlace = !isTransfer && ready && !place;
   const unpriced = !isTransfer && ready && place && !quote.transport;
 
-  /** A remembered resort the guest has not yet said is still right. */
-  const needsPlaceConfirm = !isTransfer && ready && Boolean(place) && !placeConfirmed;
-
   /*
    * The whole of validation, in one place, run on blur and again on submit.
    * Mirrors the server's rules in app/api/bookings/route.js rather than
@@ -337,13 +311,11 @@ export default function BookingForm({
           t.errReturnBeforeArrival ?? "Your return cannot be before you arrive.";
     }
 
-    if (needsPlaceConfirm)
-      errs.place = t.errConfirmPlace ?? "Please confirm where you are staying.";
-    else if (needsPlace)
+    if (needsPlace)
       errs.place = t.errPickPlace ?? "Please choose where you are staying.";
 
     return errs;
-  }, [form, isTransfer, tripType, needsPlace, needsPlaceConfirm, t]);
+  }, [form, isTransfer, tripType, needsPlace, t]);
 
   // Derived, not stored: the errors are a pure function of the form's values,
   // so there is nothing to keep in sync and no effect to run.
@@ -579,74 +551,21 @@ export default function BookingForm({
             </p>
           </div>
         ) : (
-          <div id="place-field" tabIndex={-1}>
+          <div>
             <span className="label">{t.stayingAt ?? "Where are you staying?"}</span>
-
             {/*
-              A resort carried over from earlier in the visit is stated loudly
-              and has to be agreed to. It is the one field on this form a guest
-              will not re-read, and the cost of it being wrong is a driver at
-              the wrong hotel on the morning of a tour — so it is deliberately
-              not a quiet pre-filled input.
+              A resort carried over from earlier in the visit shows a quiet
+              "From your last visit" line rather than blocking the form on a
+              second agreement — the pre-submit summary card repeats the
+              hotel, which is the guest's real chance to catch a wrong one.
             */}
-            {needsPlaceConfirm ? (
-              <div className="rounded-xl border-2 border-gold-400 bg-gold-200/25 p-4">
-                <p className="flex items-start gap-2 text-xs font-semibold uppercase tracking-wide text-ink/70">
-                  <FaExclamationTriangle className="mt-0.5 shrink-0 text-gold-600" />
-                  {t.rememberedTitle ?? "Check this is still right"}
-                </p>
-                <p className="mt-2.5 font-display text-xl font-semibold leading-snug text-ink">
-                  {place.name}
-                </p>
-                <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
-                  {t.rememberedBody ??
-                    "We saved this earlier in your visit. Your price and your pickup are both for this hotel."}
-                </p>
-                <div className="mt-3.5 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setPlaceAgreed(true)}
-                    className="btn-primary flex-1 !py-2 text-sm"
-                  >
-                    {t.yesCorrect ?? "Yes, that's right"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={openPicker}
-                    className="btn-ghost flex-1 !py-2 text-sm"
-                  >
-                    {t.changeHotel ?? "No, change it"}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={openPicker}
-                aria-describedby={showError("place") ? "place-err" : undefined}
-                className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition hover:border-crimson-300 hover:bg-crimson-50/40 ${
-                  showError("place") ? "border-red-400" : "border-ink/15"
-                }`}
-              >
-                <FaMapMarkerAlt
-                  className={`shrink-0 text-sm ${
-                    place ? "text-crimson-600" : "text-ink/30"
-                  }`}
-                />
-                <span
-                  className={`flex-1 text-sm ${
-                    place ? "font-semibold text-ink" : "text-ink/70"
-                  }`}
-                >
-                  {ready && place
-                    ? place.name
-                    : t.choosePlace ?? "Choose your hotel or pier"}
-                </span>
-                <span className="text-xs font-semibold text-crimson-700">
-                  {ready && place ? t.change ?? "Change" : t.choose ?? "Choose"}
-                </span>
-              </button>
-            )}
+            <HotelSearch
+              variant="field"
+              id="place-field"
+              dict={dict}
+              error={showError("place")}
+              describedBy={showError("place") ? "place-err" : undefined}
+            />
             <FieldError id="place-err">{showError("place")}</FieldError>
           </div>
         )}

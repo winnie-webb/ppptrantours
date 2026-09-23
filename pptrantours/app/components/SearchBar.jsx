@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaTimes, FaPlane } from "react-icons/fa";
 import { searchProduct } from "../products/product";
-import { searchPlaces } from "../data/places";
+import { searchHotels } from "../data/hotel-search";
 import { lowestTransport, money } from "../products/pricing";
 import { localePath } from "@/app/i18n/config";
 
@@ -37,7 +37,7 @@ export default function SearchBar({
       tours: searchProduct(query)
         .filter((p) => p.kind !== "transfer")
         .slice(0, 5),
-      places: searchPlaces(query)
+      places: searchHotels(query, { limit: 8 })
         .filter((p) => p.transfer)
         .slice(0, 4),
     };

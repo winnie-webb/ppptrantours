@@ -1,7 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
-import PlacePrompt from "@/app/components/PlacePrompt";
 import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
 import ComboPitch from "@/app/components/ComboPitch";
@@ -86,8 +85,6 @@ export default async function CategoryPage({ params }) {
           { label: copy.short ?? category.short },
         ]}
       />
-
-      <PlacePrompt dict={client} />
 
       {type === "combos" && <ComboPitch locale={locale} dict={dict} />}
 
