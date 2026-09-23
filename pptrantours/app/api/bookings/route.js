@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getAdminDb } from "@/lib/firebase-admin";
-import { sendBookingAlert } from "@/lib/notify";
-import { makeServerReference } from "@/lib/booking-shared";
+import { sendBookingAlert, sendBookingConfirmation } from "@/lib/notify";
+import { makeServerReference, buildWhatsAppMessage } from "@/lib/booking-shared";
+import { site } from "@/app/data/site";
 import { filterProductById } from "@/app/products/product";
 import {
   quoteExcursion,
@@ -298,6 +299,7 @@ export async function POST(request) {
     return NextResponse.json({
       reference,
       persisted: false,
+      token: null,
       emailed: alert.sent,
       transportTotal,
       paymentOptions: {
@@ -346,6 +348,7 @@ export async function POST(request) {
           return NextResponse.json({
             reference: priorRef,
             persisted: true,
+            token: priorDoc.data()?.lookupToken ?? null,
             duplicate: true,
             emailed: false,
             transportTotal,
@@ -400,6 +403,20 @@ export async function POST(request) {
     );
   }
 
+  /*
+   * The guest's own copy. Sent alongside the owner alert above, never instead
+   * of it, and its failure must not fail the request any more than the
+   * owner's does — the on-screen confirmation the guest is about to be sent
+   * to is not contingent on mail delivery.
+   */
+  const guestAlert = await sendBookingConfirmation(booking, {
+    bookingUrl: `${site.url}/booking/${reference}?p=${encodeURIComponent(booking.lookupToken)}`,
+    whatsappUrl: buildWhatsAppMessage(booking),
+  });
+  if (!guestAlert.sent && guestAlert.reason !== "not-configured") {
+    console.error(`[bookings] ${reference} guest confirmation NOT sent: ${guestAlert.reason}`);
+  }
+
   // Cheap, capped, and this is a reliable enough trigger at this volume to need
   // no scheduler. Never allowed to fail the request.
   sweepAbandoned(20).catch((err) =>
@@ -409,6 +426,7 @@ export async function POST(request) {
   return NextResponse.json({
     reference,
     persisted: true,
+    token: booking.lookupToken,
     emailed: alert.sent,
     transportTotal,
     paymentOptions: {

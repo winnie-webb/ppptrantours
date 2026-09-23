@@ -19,6 +19,7 @@ import { buildWhatsAppMessage, makeReference } from "./booking-shared";
 export async function createBooking(booking, { idempotencyKey } = {}) {
   let reference = null;
   let persisted = false;
+  let token = null;
   let paymentOptions = null;
 
   try {
@@ -51,6 +52,7 @@ export async function createBooking(booking, { idempotencyKey } = {}) {
 
     reference = data.reference ?? null;
     persisted = Boolean(data.persisted);
+    token = data.token ?? null;
     paymentOptions = data.paymentOptions ?? null;
   } catch (err) {
     // A validation message is worth showing; anything else, we degrade quietly
@@ -63,6 +65,7 @@ export async function createBooking(booking, { idempotencyKey } = {}) {
   return {
     reference,
     persisted,
+    token,
     paymentOptions,
     whatsappUrl: buildWhatsAppMessage({ ...booking, reference }),
   };

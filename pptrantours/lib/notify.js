@@ -17,6 +17,7 @@
 import { sendEmail, isTransportConfigured, notifyRecipient } from "@/lib/email/transport";
 import { bookingAlert } from "@/lib/email/templates/booking-alert";
 import { paymentAlert } from "@/lib/email/templates/payment-alert";
+import { bookingConfirmation } from "@/lib/email/templates/booking-confirmation";
 
 export function isNotifyConfigured() {
   return isTransportConfigured();
@@ -42,6 +43,26 @@ export async function sendBookingAlert(booking) {
     subject,
     html,
     replyTo,
+  });
+}
+
+/**
+ * The guest's own copy, sent alongside (never instead of) the owner alert —
+ * this doubles the site's email volume, which matters on EmailJS's 200/month
+ * free-plan ceiling until the Resend migration lands (see
+ * lib/email/transport.js). Failing to send this must not fail the booking
+ * any more than a failed owner alert does; the guest still has their
+ * on-screen confirmation and the booking page link either way.
+ *
+ * @returns {Promise<{sent: boolean, reason?: string}>}
+ */
+export async function sendBookingConfirmation(booking, links) {
+  if (!booking.email) return { sent: false, reason: "no-recipient" };
+  const { subject, html } = bookingConfirmation(booking, links);
+  return sendEmail({
+    to: booking.email,
+    subject,
+    html,
   });
 }
 

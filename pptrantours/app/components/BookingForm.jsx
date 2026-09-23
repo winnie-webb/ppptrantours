@@ -9,6 +9,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   FaWhatsapp,
   FaCheckCircle,
@@ -33,6 +34,7 @@ import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
 import PayPalCheckout from "./PayPalCheckout";
+import { useBookingDraft, clearBookingDraft } from "./booking/useBookingDraft";
 
 /**
  * One form for both halves of the catalogue.
@@ -181,6 +183,7 @@ export default function BookingForm({
   // the validation callback — and so the whole error map — recompute each time.
   const t = useMemo(() => dict?.booking ?? {}, [dict]);
   const { place, zone, ready } = usePlace();
+  const router = useRouter();
 
   // A transfer page is *about* one resort, so it fixes its own destination
   // rather than using whatever the guest picked for excursions.
@@ -220,6 +223,8 @@ export default function BookingForm({
     phone: "",
     notes: "",
   });
+  const draftKey = `ppp.draft.${tour.id}`;
+  useBookingDraft(draftKey, form, setForm);
 
   const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
@@ -451,8 +456,8 @@ export default function BookingForm({
         ...form,
       }, { idempotencyKey: idemKey.current });
       setResult(res);
-      setStatus("done");
       onBooked?.(res);
+      clearBookingDraft(draftKey);
       // A fresh key, so a second booking in the same session is a second
       // booking rather than a replay of this one.
       idemKey.current =
@@ -460,8 +465,9 @@ export default function BookingForm({
         `k-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
       /*
-       * Card was chosen, so go straight to PayPal rather than showing a
-       * confirmation the guest has to click past.
+       * Card was chosen and there are no inline buttons to pay with instead,
+       * so go straight to PayPal's hosted checkout rather than landing on the
+       * booking page only to bounce off it again.
        *
        * THE BOOKING IS ALREADY SAVED at this point, and that ordering is the
        * whole reason this is safe to do. If the payment never starts, or the
@@ -470,33 +476,38 @@ export default function BookingForm({
        * reverse ordering, taking money before the booking is recorded, is how a
        * charge ends up with nothing attached to it.
        *
-       * A failure here is NOT rethrown: falling through leaves the success
-       * screen rendered with its own pay button and an explanation, which is a
-       * far better place to land than the form's error state telling someone
-       * their booking failed when it did not.
-       */
-      /*
-       * Only redirect when there are no inline buttons to redirect INSTEAD of.
-       *
-       * With the PayPal/card buttons on the success card, sending the guest to
-       * a hosted page is the worse half of the thing we just replaced — and it
-       * also made the success screen announce "The payment page didn't open",
-       * because reaching that screen with card selected used to mean the
-       * redirect had failed. It now means the buttons are waiting.
+       * A failure here falls through to the booking-page navigation below
+       * rather than rethrowing: that page has its own "pay now" button, which
+       * is a far better place to land than the form's error state telling
+       * someone their booking failed when it did not.
        */
       const hasInlineButtons = Boolean(paypal?.clientId);
-      if (
-        payIntent === "card" &&
-        res.paymentOptions?.collectible &&
-        !hasInlineButtons
-      ) {
+      if (payIntent === "card" && res.paymentOptions?.collectible && !hasInlineButtons) {
         try {
           const url = await startPayment(res.reference);
           window.location.assign(url);
+          return;
         } catch (payErr) {
           console.error("Payment could not start", payErr);
         }
       }
+
+      /*
+       * Every other case lands on the booking's own persistent page
+       * (08_IMPLEMENTATION_PLAN.md Phase 4) — a real navigation, not local
+       * state, so the confirmation survives a reload or a link opened from
+       * the confirmation email later. `token` gates that page; without one
+       * (storage was unavailable, so there is no real record to link to)
+       * the confirmation renders in place instead, same as before.
+       */
+      if (res.persisted && res.token) {
+        router.push(
+          `${localePath(locale, `/booking/${res.reference}`)}?p=${encodeURIComponent(res.token)}`
+        );
+        return;
+      }
+
+      setStatus("done");
     } catch (err) {
       console.error("Booking failed", err);
       setError(
@@ -882,7 +893,7 @@ export default function BookingForm({
 
         </Section>
 
-        <Section title={t.sectionPay ?? "How you'll pay"}>
+        <Section title={canOfferCard ? t.sectionPay ?? "How you'll pay" : null}>
         {status === "error" && (
           <p
             role="alert"
@@ -980,20 +991,27 @@ export default function BookingForm({
               <FaSpinner className="animate-spin" />
               {t.sending ?? "Sending…"}
             </>
-          ) : unpriced || needsPlace ? (
+          ) : unpriced || needsPlace || quote.total == null ? (
             /*
              * Still a request, and still says so. There is no published rate
-             * for this route, so the guest is asking what it costs — nothing
-             * has been agreed and nothing can be confirmed.
+             * for this route — or, on the very first pre-hydration paint,
+             * simply no price computed yet — so the guest is asking what it
+             * costs rather than confirming a number that doesn't exist.
              */
             t.requestQuote ?? "Request a price"
           ) : payIntent === "card" ? (
             <>
               <FaCreditCard className="text-base" />
-              {t.submitAndPay ?? "Book and pay now"}
+              {(t.submitAndPay ?? "Book and pay now · {amount}").replace(
+                "{amount}",
+                money(quote.total)
+              )}
             </>
           ) : (
-            t.submit ?? "Confirm this booking"
+            (t.submit ?? "Confirm this booking · {amount}").replace(
+              "{amount}",
+              money(quote.total)
+            )
           )}
         </button>
 
@@ -1025,9 +1043,11 @@ export default function BookingForm({
 function Section({ title, children }) {
   return (
     <section className="space-y-5">
-      <h3 className="border-b border-ink/10 pb-2 text-lg font-bold text-ink">
-        {title}
-      </h3>
+      {title && (
+        <h3 className="border-b border-ink/10 pb-2 text-lg font-bold text-ink">
+          {title}
+        </h3>
+      )}
       {children}
     </section>
   );
