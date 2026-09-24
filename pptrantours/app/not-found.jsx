@@ -42,7 +42,7 @@ export const metadata = {
  */
 export default function NotFound() {
   return (
-    <html lang="en" dir="ltr" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" dir="ltr" data-scroll-behavior="smooth" className={`${sans.variable} ${display.variable}`}>
       <body className="flex min-h-screen flex-col bg-ink">
         <main className="flex flex-1 items-center justify-center px-5 py-20">
           <div className="mx-auto max-w-lg text-center">
@@ -75,7 +75,7 @@ export default function NotFound() {
               rel="noreferrer"
               className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-gold-400 hover:text-gold-300"
             >
-              <FaWhatsapp className="text-base" />
+              <FaWhatsapp className="text-base text-whatsapp" />
               {site.contact.phone}
             </a>
           </div>

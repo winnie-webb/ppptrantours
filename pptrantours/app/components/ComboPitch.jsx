@@ -50,7 +50,7 @@ export default function ComboPitch({ locale = "en", dict }) {
             rel="noreferrer"
             className="btn-primary mt-6"
           >
-            <FaWhatsapp className="text-lg" />
+            <FaWhatsapp className="text-lg text-whatsapp" />
             {t.buildMyDay ?? "Build my day"}
           </a>
         </div>

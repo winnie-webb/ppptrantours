@@ -73,11 +73,17 @@ describe("priceTransfer — no published rate", () => {
 });
 
 describe("quoteTransfer", () => {
-  test("wraps priceTransfer and sums adults + children into pax", () => {
+  test("prices adults only — children under 5 are free and never billed (Q-06)", () => {
     const q = quoteTransfer(PLACE.key, { direction: "to-hotel", adults: 2, children: 2 });
-    assert.equal(q.pax, 4);
+    assert.equal(q.pax, 2);
     assert.equal(q.transport.total, oneWay * MIN_BILLED_PAX);
     assert.equal(q.total, q.transport.total);
+  });
+
+  test("a big group of children alone adds nothing to the bill", () => {
+    const withKids = quoteTransfer(PLACE.key, { direction: "to-hotel", adults: 4, children: 6 });
+    const withoutKids = quoteTransfer(PLACE.key, { direction: "to-hotel", adults: 4, children: 0 });
+    assert.equal(withKids.total, withoutKids.total);
   });
 
   test("an unpriced place quotes null, not zero", () => {
@@ -89,8 +95,8 @@ describe("quoteTransfer", () => {
 
 describe("describeDirection", () => {
   test("maps every direction to a distinct, human label", () => {
-    assert.equal(describeDirection("to-hotel"), "Airport → hotel");
-    assert.equal(describeDirection("to-airport"), "Hotel → airport");
+    assert.equal(describeDirection("to-hotel"), "Arrival");
+    assert.equal(describeDirection("to-airport"), "Departure");
     assert.equal(describeDirection("both"), "Round trip");
   });
 

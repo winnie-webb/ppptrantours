@@ -19,12 +19,12 @@
  * (ordering for "Popular" and rank ties), `kind` ("hotel" | "pier" | "area"),
  * and `active` (hide without deleting).
  *
- * `active: false` + `pendingReview: true` marks a hotel added by mapping it
- * to an existing PPP price tier for the same area, rather than a rate the
- * owner quoted for that specific property. Q-03 is explicit that nothing
- * goes live unreviewed, so these are excluded from `activePlaces()` /
- * `searchHotels()` until Mr. Pugh confirms the tier and flips the flag. See
- * `docs/v2-ux/hotel-review-2026-09-23.csv` for the review sheet.
+ * The 39 hotels added by mapping them to an existing PPP price tier for
+ * their area, rather than a rate the owner quoted for that specific
+ * property (see `docs/v2-ux/hotel-review-2026-09-23.csv`), went live
+ * 2026-09-24 — every hotel needs a price, and each one already carries its
+ * area's published rate. `active` still exists to hide a listing without
+ * deleting its record (a property that closes, a rate pulled for review).
  */
 
 import { ESTIMATED_ZONES } from "./estimated-zones.js";
@@ -163,12 +163,12 @@ export const PLACES = [
 
   // New Rose Hall / Montego Bay hotels, tier-mapped for owner review
   // (09_DECISIONS.md: "every new assignment is listed for owner review before launch").
-  { key: "hyatt-ziva-rose-hall", name: "Hyatt Ziva Rose Hall", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), aliases: ["Hyatt Ziva"], popularity: 8, kind: "hotel", active: false, pendingReview: true },
-  { key: "hyatt-zilara-rose-hall", name: "Hyatt Zilara Rose Hall", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), aliases: ["Hyatt Zilara"], popularity: 8, kind: "hotel", active: false, pendingReview: true },
-  { key: "hilton-rose-hall", name: "Hilton Rose Hall Resort & Spa", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 7, kind: "hotel", active: false, pendingReview: true },
-  { key: "dreams-rose-hall", name: "Dreams Rose Hall Resort & Spa", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "sea-castles", name: "Sea Castles Ocean Front Resort", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "holiday-inn-rose-hall", name: "Holiday Inn Rose Hall Resort", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(7.5, 15), aliases: ["Holiday Inn Montego Bay"], popularity: 5, kind: "hotel", active: false, pendingReview: true },
+  { key: "hyatt-ziva-rose-hall", name: "Hyatt Ziva Rose Hall", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), aliases: ["Hyatt Ziva"], popularity: 8, kind: "hotel", active: true },
+  { key: "hyatt-zilara-rose-hall", name: "Hyatt Zilara Rose Hall", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), aliases: ["Hyatt Zilara"], popularity: 8, kind: "hotel", active: true },
+  { key: "hilton-rose-hall", name: "Hilton Rose Hall Resort & Spa", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 7, kind: "hotel", active: true },
+  { key: "dreams-rose-hall", name: "Dreams Rose Hall Resort & Spa", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 6, kind: "hotel", active: true },
+  { key: "sea-castles", name: "Sea Castles Ocean Front Resort", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(10, 20), popularity: 4, kind: "hotel", active: true },
+  { key: "holiday-inn-rose-hall", name: "Holiday Inn Rose Hall Resort", area: "montego-bay", locality: "Rose Hall", zone: MOBAY, transfer: t(7.5, 15), aliases: ["Holiday Inn Montego Bay"], popularity: 5, kind: "hotel", active: true },
 
   // ── Falmouth & Trelawny ──────────────────────────────────────────────────
   { key: "excellence-oyster-bay", name: "Excellence Oyster Bay", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30), popularity: 7, kind: "hotel", active: true },
@@ -180,9 +180,9 @@ export const PLACES = [
   { key: "franklyn-d", name: "Franklyn D. Resort & Spa", area: "falmouth", zone: FALMOUTH, transfer: t(20, 40), aliases: ["FDR"], popularity: 6, kind: "hotel", active: true },
 
   // New Falmouth & Trelawny hotels, tier-mapped for owner review.
-  { key: "royalton-white-sands", name: "Royalton White Sands", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "melia-braco-village", name: "Meliá Braco Village", area: "falmouth", locality: "Braco", zone: FALMOUTH, transfer: t(20, 40), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "glistening-waters", name: "Glistening Waters Hotel & Attraction", area: "falmouth", zone: FALMOUTH, transfer: t(17.5, 35), popularity: 4, kind: "hotel", active: false, pendingReview: true },
+  { key: "royalton-white-sands", name: "Royalton White Sands", area: "falmouth", zone: FALMOUTH, transfer: t(15, 30), popularity: 6, kind: "hotel", active: true },
+  { key: "melia-braco-village", name: "Meliá Braco Village", area: "falmouth", locality: "Braco", zone: FALMOUTH, transfer: t(20, 40), popularity: 6, kind: "hotel", active: true },
+  { key: "glistening-waters", name: "Glistening Waters Hotel & Attraction", area: "falmouth", zone: FALMOUTH, transfer: t(17.5, 35), popularity: 4, kind: "hotel", active: true },
 
   // ── Hanover & Green Island ───────────────────────────────────────────────
   { key: "round-hill", name: "Round Hill Hotel & Villas", area: "hanover", zone: MOBAY, transfer: t(10, 20), popularity: 8, kind: "hotel", active: true },
@@ -203,12 +203,12 @@ export const PLACES = [
   { key: "goldeneye", name: "GoldenEye Resort", area: "ocho-rios", zone: OCHO, transfer: t(42.5, 85), popularity: 9, kind: "hotel", active: true },
 
   // New Ocho Rios / St. Ann hotels, tier-mapped for owner review.
-  { key: "hibiscus-lodge", name: "Hibiscus Lodge Hotel", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "sandcastles-jamaica", name: "Sandcastles Jamaica", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "fishermans-point", name: "Fisherman's Point", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
+  { key: "hibiscus-lodge", name: "Hibiscus Lodge Hotel", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 4, kind: "hotel", active: true },
+  { key: "sandcastles-jamaica", name: "Sandcastles Jamaica", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "fishermans-point", name: "Fisherman's Point", area: "ocho-rios", zone: OCHO, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
   // Runaway Bay: usable tier per 09_DECISIONS.md ($18 one way, exactly 2x round trip).
-  { key: "jewel-paradise-cove", name: "Jewel Paradise Cove Beach Resort & Spa", area: "ocho-rios", locality: "Runaway Bay", zone: OCHO, transfer: t(18, 36), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "cardiff-hotel-spa", name: "The Cardiff Hotel & Spa", area: "ocho-rios", locality: "Runaway Bay", zone: OCHO, transfer: t(18, 36), popularity: 4, kind: "hotel", active: false, pendingReview: true },
+  { key: "jewel-paradise-cove", name: "Jewel Paradise Cove Beach Resort & Spa", area: "ocho-rios", locality: "Runaway Bay", zone: OCHO, transfer: t(18, 36), popularity: 6, kind: "hotel", active: true },
+  { key: "cardiff-hotel-spa", name: "The Cardiff Hotel & Spa", area: "ocho-rios", locality: "Runaway Bay", zone: OCHO, transfer: t(18, 36), popularity: 4, kind: "hotel", active: true },
 
   // ── Negril ───────────────────────────────────────────────────────────────
   { key: "negril-beach", name: "Negril beach hotels (Seven Mile Beach)", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 5, kind: "area", active: true },
@@ -216,27 +216,27 @@ export const PLACES = [
 
   // New Negril hotels, tier-mapped to the existing Seven Mile Beach / West End
   // rates for owner review.
-  { key: "sandals-negril", name: "Sandals Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 9, kind: "hotel", active: false, pendingReview: true },
-  { key: "beaches-negril", name: "Beaches Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 8, kind: "hotel", active: false, pendingReview: true },
-  { key: "couples-negril", name: "Couples Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: false, pendingReview: true },
-  { key: "couples-swept-away", name: "Couples Swept Away", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "royalton-negril", name: "Royalton Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: false, pendingReview: true },
-  { key: "azul-beach-negril", name: "Azul Beach Resort Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 5, kind: "hotel", active: false, pendingReview: true },
-  { key: "hedonism-ii", name: "Hedonism II", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: false, pendingReview: true },
-  { key: "grand-lido-negril", name: "Grand Lido Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 5, kind: "hotel", active: false, pendingReview: true },
-  { key: "riu-palace-tropical-bay", name: "Riu Palace Tropical Bay", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "coco-la-palm", name: "Coco La Palm Seaside Resort", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "firefly-beach-cottages", name: "Firefly Beach Cottages", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "white-sands-negril", name: "White Sands Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "charela-inn", name: "Charela Inn", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "travellers-beach-resort", name: "Travellers Beach Resort", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "negril-palms", name: "Negril Palms Hotel", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "idle-awhile", name: "Idle Awhile Beach", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "rondel-village", name: "Rondel Village Resort & Spa", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "rockhouse", name: "Rockhouse Hotel", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 8, kind: "hotel", active: false, pendingReview: true },
-  { key: "tensing-pen", name: "Tensing Pen", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 6, kind: "hotel", active: false, pendingReview: true },
-  { key: "catcha-falling-star", name: "Catcha Falling Star", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 5, kind: "hotel", active: false, pendingReview: true },
-  { key: "xtabi-resort", name: "Xtabi Resort", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 4, kind: "hotel", active: false, pendingReview: true },
+  { key: "sandals-negril", name: "Sandals Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 9, kind: "hotel", active: true },
+  { key: "beaches-negril", name: "Beaches Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 8, kind: "hotel", active: true },
+  { key: "couples-negril", name: "Couples Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: true },
+  { key: "couples-swept-away", name: "Couples Swept Away", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 6, kind: "hotel", active: true },
+  { key: "royalton-negril", name: "Royalton Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: true },
+  { key: "azul-beach-negril", name: "Azul Beach Resort Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 5, kind: "hotel", active: true },
+  { key: "hedonism-ii", name: "Hedonism II", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 7, kind: "hotel", active: true },
+  { key: "grand-lido-negril", name: "Grand Lido Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 5, kind: "hotel", active: true },
+  { key: "riu-palace-tropical-bay", name: "Riu Palace Tropical Bay", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 6, kind: "hotel", active: true },
+  { key: "coco-la-palm", name: "Coco La Palm Seaside Resort", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: true },
+  { key: "firefly-beach-cottages", name: "Firefly Beach Cottages", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "white-sands-negril", name: "White Sands Negril", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: true },
+  { key: "charela-inn", name: "Charela Inn", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "travellers-beach-resort", name: "Travellers Beach Resort", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "negril-palms", name: "Negril Palms Hotel", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "idle-awhile", name: "Idle Awhile Beach", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 4, kind: "hotel", active: true },
+  { key: "rondel-village", name: "Rondel Village Resort & Spa", area: "negril", locality: "Seven Mile Beach", zone: NEGRIL, transfer: t(25, 50), popularity: 3, kind: "hotel", active: true },
+  { key: "rockhouse", name: "Rockhouse Hotel", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 8, kind: "hotel", active: true },
+  { key: "tensing-pen", name: "Tensing Pen", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 6, kind: "hotel", active: true },
+  { key: "catcha-falling-star", name: "Catcha Falling Star", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 5, kind: "hotel", active: true },
+  { key: "xtabi-resort", name: "Xtabi Resort", area: "negril", locality: "West End", zone: NEGRIL, transfer: t(30, 60), aliases: ["cliffs"], popularity: 4, kind: "hotel", active: true },
 
   // ── South Coast ──────────────────────────────────────────────────────────
   { key: "sandals-south-coast", name: "Sandals South Coast", area: "south-coast", locality: "Whitehouse", zone: SOUTH, transfer: t(30, 60), aliases: ["Whitehouse"], popularity: 8, kind: "hotel", active: true },
@@ -246,10 +246,10 @@ export const PLACES = [
   // are still unconfirmed ranges per 09_DECISIONS.md, so these carry the
   // nearest current published rate rather than a guess, pending Mr. Pugh's
   // sign-off.
-  { key: "south-coast-all-inclusive", name: "South Coast All Inclusive", area: "south-coast", locality: "Whitehouse", zone: SOUTH, transfer: t(30, 60), popularity: 4, kind: "hotel", active: false, pendingReview: true },
-  { key: "bluefields-on-the-bay", name: "Bluefields on the Bay", area: "south-coast", locality: "Whitehouse", zone: SOUTH, transfer: t(30, 60), popularity: 3, kind: "hotel", active: false, pendingReview: true },
-  { key: "jakes-hotel", name: "Jake's Hotel", area: "south-coast", locality: "Treasure Beach", zone: SOUTH, transfer: t(30, 60), popularity: 5, kind: "hotel", active: false, pendingReview: true },
-  { key: "idlers-rest", name: "Idlers' Rest Beach Hotel", area: "south-coast", locality: "Black River", zone: SOUTH, transfer: t(30, 60), popularity: 3, kind: "hotel", active: false, pendingReview: true },
+  { key: "south-coast-all-inclusive", name: "South Coast All Inclusive", area: "south-coast", locality: "Whitehouse", zone: SOUTH, transfer: t(30, 60), popularity: 4, kind: "hotel", active: true },
+  { key: "bluefields-on-the-bay", name: "Bluefields on the Bay", area: "south-coast", locality: "Whitehouse", zone: SOUTH, transfer: t(30, 60), popularity: 3, kind: "hotel", active: true },
+  { key: "jakes-hotel", name: "Jake's Hotel", area: "south-coast", locality: "Treasure Beach", zone: SOUTH, transfer: t(30, 60), popularity: 5, kind: "hotel", active: true },
+  { key: "idlers-rest", name: "Idlers' Rest Beach Hotel", area: "south-coast", locality: "Black River", zone: SOUTH, transfer: t(30, 60), popularity: 3, kind: "hotel", active: true },
 
   // ── Cruise piers ─────────────────────────────────────────────────────────
   { key: "mobay-cruise-pier", name: "Montego Bay Cruise Terminal", area: "piers", zone: "mobay-pier", transfer: null, aliases: ["cruise ship", "pier"], popularity: 5, kind: "pier", active: true },

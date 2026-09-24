@@ -20,18 +20,22 @@ export { CATALOGUE, TOURS, TRANSFERS };
  * those are the headings the owner wants keyword-optimised — the page titles
  * read "Things to do in Negril", not "Negril tours".
  */
+/*
+ * Airport transfers are deliberately NOT a browsable category here
+ * (03_INFORMATION_ARCHITECTURE.md §1, F-25): they are a separate top-level
+ * product with their own nav item and page, not a filter on the tour
+ * catalogue. A "transfers" entry here used to render as a tile inside
+ * "Things to do" / a chip on /tours with a permanent count of zero, since
+ * `TOURS` — what every tour list is actually built from — never contains a
+ * transfer-kind record; it was navigation to the same page dressed as a
+ * catalogue filter.
+ */
 export const CATEGORIES = [
   {
     type: "popular",
     title: "Most Popular Tours",
     short: "Most Popular",
     match: (t) => t.popular === true,
-  },
-  {
-    type: "transfers",
-    title: "Airport Transfers",
-    short: "Transfers",
-    match: (t) => t.kind === "transfer",
   },
   {
     type: "combos",

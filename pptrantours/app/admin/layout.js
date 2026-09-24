@@ -37,7 +37,7 @@ export const metadata = {
 
 export default function AdminLayout({ children }) {
   return (
-    <html lang="en" dir="ltr" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" dir="ltr" data-scroll-behavior="smooth" className={`${sans.variable} ${display.variable}`}>
       <body className="min-h-screen bg-sand">{children}</body>
     </html>
   );

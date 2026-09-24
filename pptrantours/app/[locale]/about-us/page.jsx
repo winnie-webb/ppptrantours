@@ -4,6 +4,7 @@ import { FaCheck, FaQuoteLeft, FaArrowRight } from "react-icons/fa";
 import PageHeader from "@/app/components/PageHeader";
 import StatsBar from "@/app/components/StatsBar";
 import FleetSection from "@/app/components/FleetSection";
+import GallerySection from "@/app/components/GallerySection";
 import Testimonials from "@/app/components/Testimonials";
 import CtaBand from "@/app/components/CtaBand";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }) {
 export default async function AboutPage({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
+  const client = clientDict(dict);
   const t = dict.aboutPage ?? {};
   const words = dict.promise?.words ?? {};
   const creds = t.credentials ?? {};
@@ -217,6 +219,7 @@ export default async function AboutPage({ params }) {
       </section>
 
       <FleetSection dict={dict} />
+      <GallerySection dict={client} />
       <Testimonials dict={dict} />
       <CtaBand locale={locale} dict={dict} />
       <SloganBand dict={dict} />

@@ -35,6 +35,10 @@ module.exports = {
         },
         sand: "#fbf7f4",
         success: "#15803d",
+        // WhatsApp's own brand green, used only for the WhatsApp glyph itself
+        // (icons, never buttons or text) so it reads as the app's own mark
+        // rather than another accent competing with crimson/gold.
+        whatsapp: "#25D366",
       },
       // 13px floor: nothing a guest has to read renders smaller than this.
       fontSize: {

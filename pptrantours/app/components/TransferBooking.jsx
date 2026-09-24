@@ -2,12 +2,10 @@
 
 import { useCallback, useRef, useState } from "react";
 import { FaPlane, FaSyncAlt } from "react-icons/fa";
-import { quoteTransfer, money, describeDirection } from "@/app/products/pricing";
+import { quoteTransfer, money } from "@/app/products/pricing";
 import HotelSearch from "./HotelSearch";
 import BookingForm, { Stepper } from "./BookingForm";
 import { usePlace } from "./PlaceProvider";
-
-const DIRECTIONS = ["to-hotel", "to-airport", "both"];
 
 /**
  * Booking an airport transfer, in two stages.
@@ -139,43 +137,45 @@ export default function TransferBooking({
       </div>
 
       <div>
-        <span className="label">{t.direction ?? "Which way?"}</span>
-        <div className="grid grid-cols-3 gap-1.5 rounded-xl border border-ink/15 p-1.5">
-          {DIRECTIONS.map((key) => {
-            const label =
-              key === "to-hotel"
-                ? t.toHotel ?? "Airport → hotel"
-                : key === "to-airport"
-                  ? t.toAirport ?? "Hotel → airport"
-                  : t.roundTrip ?? "Round trip";
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setDirection(key)}
-                aria-pressed={direction === key}
-                className={`min-h-[44px] rounded-lg px-2 py-2 text-xs font-semibold transition sm:text-sm ${
-                  direction === key
-                    ? "bg-crimson-600 text-white shadow-sm"
-                    : "text-ink/60 hover:bg-ink/5"
-                }`}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
+        <label htmlFor="transfer-type" className="label">
+          {t.direction ?? "Transfer type"}
+        </label>
+        <select
+          id="transfer-type"
+          value={direction}
+          onChange={(e) => setDirection(e.target.value)}
+          className="field"
+        >
+          <option value="to-hotel">{t.toHotelOption ?? "Pick up (Airport to Hotel/Resort)"}</option>
+          <option value="to-airport">
+            {t.toAirportOption ?? "Drop off (Hotel/Resort to Airport)"}
+          </option>
+          <option value="both">{t.roundTripOption ?? "Pickup & Drop off (Round Trip)"}</option>
+        </select>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <Stepper label={t.adults ?? "Adults"} value={adults} min={1} onChange={setAdults} />
-        <Stepper label={t.children ?? "Children"} value={children} min={0} onChange={setChildren} />
+        <Stepper
+          label={t.children ?? "Children (under 5)"}
+          value={children}
+          min={0}
+          onChange={setChildren}
+        />
       </div>
+      {/*
+        Q-06 (09_DECISIONS.md): under 5s ride free and never add to the
+        total. Blatant on the form, not tucked in an FAQ, per the owner.
+      */}
+      <p className="-mt-3 text-xs text-ink/60">
+        {t.childrenFree ?? "Children under 5 ride free — they don't add to your total."}
+      </p>
 
       {!ready || !place ? (
-        <p className="rounded-xl bg-sand px-4 py-3 text-sm leading-relaxed text-ink/70">
+        <p className="flex items-start gap-2.5 rounded-xl bg-sand px-4 py-3 text-sm leading-relaxed text-ink/70">
+          <FaSyncAlt className="mt-0.5 shrink-0 text-xs text-ink/35" />
           {t.chooseFirst ??
-            "Choose your hotel above and the price appears here — it updates automatically as you change anything on this page."}
+            "Choose your hotel and we'll calculate your price for you — no maths, nothing to work out."}
         </p>
       ) : (
         <div className="rounded-xl bg-ink px-5 py-4 text-white">
@@ -187,18 +187,10 @@ export default function TransferBooking({
           */}
           <p className="flex items-center gap-1.5 text-[0.7rem] font-medium uppercase tracking-wide text-white/50">
             <FaSyncAlt className="text-[0.6rem]" />
-            {t.autoPriced ?? "Price updates automatically"}
+            {t.autoPriced ?? "Calculated automatically for you"}
           </p>
           <div className="mt-1.5 flex items-baseline justify-between gap-4">
-            <span className="text-sm font-semibold">
-              {t[
-                direction === "both"
-                  ? "roundTrip"
-                  : direction === "to-airport"
-                    ? "toAirport"
-                    : "toHotel"
-              ] ?? describeDirection(direction)}
-            </span>
+            <span className="text-sm font-semibold">{t.total ?? "Total"}</span>
             <span className="shrink-0 font-display text-3xl font-semibold text-gold-400">
               {quote?.total != null ? money(quote.total) : t.askUs ?? "Ask us"}
             </span>

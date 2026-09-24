@@ -8,7 +8,7 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import { site, destinations } from "../data/site";
+import { site } from "../data/site";
 import { CATEGORIES } from "../products/product";
 import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
@@ -69,20 +69,18 @@ export default function Footer({ locale = "en", dict }) {
             </div>
           </div>
 
-          {/* Tours */}
+          {/* Tours — regions folded in rather than a separate "Destinations"
+              column, since that page now redirects to /tours
+              (03_INFORMATION_ARCHITECTURE.md §1, F-29). */}
           <nav aria-label="Tours">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              {t.tours ?? "Things to do"}
+              {t.tours ?? "Tours"}
             </h3>
             <ul className="mt-5 space-y-2.5 text-sm">
-              {CATEGORIES.slice(0, 6).map((c) => (
+              {CATEGORIES.map((c) => (
                 <li key={c.type}>
                   <Link
-                    href={
-                      c.type === "transfers"
-                        ? path("/transfers")
-                        : path(`/category/${c.type}`)
-                    }
+                    href={path(`/category/${c.type}`)}
                     className="transition hover:text-crimson-300"
                   >
                     {cats[c.type]?.title ?? c.title}
@@ -100,22 +98,17 @@ export default function Footer({ locale = "en", dict }) {
             </ul>
           </nav>
 
-          {/* Destinations */}
-          <nav aria-label="Destinations">
+          {/* Airport transfers, About, Contact */}
+          <nav aria-label="More">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              {t.destinations ?? "Destinations"}
+              {t.more ?? "More"}
             </h3>
             <ul className="mt-5 space-y-2.5 text-sm">
-              {destinations.map((d) => (
-                <li key={d.slug}>
-                  <Link
-                    href={path(`/destinations#${d.slug}`)}
-                    className="transition hover:text-crimson-300"
-                  >
-                    {d.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href={path("/transfers")} className="transition hover:text-crimson-300">
+                  {t.transfers ?? "Airport transfers"}
+                </Link>
+              </li>
               <li>
                 <Link href={path("/about-us")} className="transition hover:text-crimson-300">
                   {t.about ?? "About PPP"}
@@ -163,7 +156,7 @@ export default function Footer({ locale = "en", dict }) {
                   rel="noreferrer"
                   className="flex items-center gap-3 transition hover:text-crimson-300"
                 >
-                  <FaWhatsapp className="shrink-0 text-crimson-400" />
+                  <FaWhatsapp className="shrink-0 text-whatsapp" />
                   WhatsApp / Messenger
                 </a>
               </li>

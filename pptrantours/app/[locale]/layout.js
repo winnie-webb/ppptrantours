@@ -117,7 +117,12 @@ export default async function LocaleLayout({ children, params }) {
   const { dir } = getLocale(locale);
 
   return (
-    <html lang={locale} dir={dir} className={`${sans.variable} ${display.variable}`}>
+    <html
+      lang={locale}
+      dir={dir}
+      data-scroll-behavior="smooth"
+      className={`${sans.variable} ${display.variable}`}
+    >
       <body className="flex min-h-screen flex-col">
         <a href="#main" className="skip-link">
           {dict.common?.skipToContent ?? "Skip to content"}

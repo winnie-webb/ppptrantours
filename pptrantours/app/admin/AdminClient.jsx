@@ -672,7 +672,7 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
                     rel="noreferrer"
                     className="flex items-center gap-2 text-ink/70 hover:text-crimson-700"
                   >
-                    <FaWhatsapp className="text-xs text-[#25D366]" />
+                    <FaWhatsapp className="text-xs text-whatsapp" />
                     WhatsApp
                   </a>
                 </>

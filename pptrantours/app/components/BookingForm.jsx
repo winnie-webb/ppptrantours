@@ -561,7 +561,7 @@ export default function BookingForm({
         <p className="-mb-2 flex items-start gap-2 rounded-xl bg-sand px-4 py-3 text-xs leading-relaxed text-ink/60">
           <FaInfoCircle className="mt-0.5 shrink-0 text-ink/30" />
           {t.autoNote ??
-            "Your total is worked out automatically as you fill this in. For bookings of 1 to 4 people, the total is based on the 4-person rate, so 1, 2, 3 or 4 people all pay the same."}
+            "Relax — your total is calculated automatically as you fill this in. Nothing to work out yourself."}
         </p>
 
         <Section title={t.sectionTrip ?? "Your trip"}>
@@ -599,28 +599,23 @@ export default function BookingForm({
             </div>
           ) : (
             <div>
-              <span className="label">{t.direction ?? "Which way?"}</span>
-              <div className="grid grid-cols-3 gap-1.5 rounded-xl border border-ink/15 p-1.5">
-                {[
-                  { key: "to-hotel", label: t.toHotel ?? "Airport → hotel" },
-                  { key: "to-airport", label: t.toAirport ?? "Hotel → airport" },
-                  { key: "both", label: t.roundTrip ?? "Round trip" },
-                ].map((opt) => (
-                  <button
-                    key={opt.key}
-                    type="button"
-                    onClick={() => setDirectionChoice(opt.key)}
-                    aria-pressed={direction === opt.key}
-                    className={`min-h-[44px] rounded-lg px-2 py-2 text-xs font-semibold transition sm:text-sm ${
-                      direction === opt.key
-                        ? "bg-crimson-600 text-white shadow-sm"
-                        : "text-ink/70 hover:bg-ink/5"
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
+              <label htmlFor="transfer-type" className="label">
+                {t.direction ?? "Transfer type"}
+              </label>
+              <select
+                id="transfer-type"
+                value={direction}
+                onChange={(e) => setDirectionChoice(e.target.value)}
+                className="field"
+              >
+                <option value="to-hotel">
+                  {t.toHotelOption ?? "Pick up (Airport to Hotel/Resort)"}
+                </option>
+                <option value="to-airport">
+                  {t.toAirportOption ?? "Drop off (Hotel/Resort to Airport)"}
+                </option>
+                <option value="both">{t.roundTripOption ?? "Pickup & Drop off (Round Trip)"}</option>
+              </select>
               <p className="mt-1.5 text-xs text-ink/70">
                 {t.transferTo ?? "To"}{" "}
                 <span className="font-semibold text-ink/70">
@@ -794,12 +789,19 @@ export default function BookingForm({
             onChange={setAdults}
           />
           <Stepper
-            label={t.children ?? "Children"}
+            label={t.children ?? "Children (under 5)"}
             value={children}
             min={0}
             onChange={setChildren}
           />
         </div>
+        {/*
+          Q-06 (09_DECISIONS.md): under 5s ride free and never add to the
+          total. Blatant on the form, not tucked in an FAQ, per the owner.
+        */}
+        <p className="-mt-2 text-xs text-ink/60">
+          {t.childrenFree ?? "Children under 5 ride free — they don't add to your total."}
+        </p>
         <Price
           quote={quote}
           isTransfer={isTransfer}
@@ -1397,7 +1399,7 @@ function Success({
           rel="noreferrer"
           className={canPay ? "btn-ghost" : "btn-primary"}
         >
-          <FaWhatsapp className="text-lg" />
+          <FaWhatsapp className="text-lg text-whatsapp" />
           {t.confirmWhatsApp ?? "Confirm on WhatsApp"}
         </a>
         {/*

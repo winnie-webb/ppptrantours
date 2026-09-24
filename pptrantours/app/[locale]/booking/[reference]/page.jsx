@@ -213,7 +213,7 @@ export default async function BookingResultPage({ params, searchParams }) {
               {booking.tourTitle}
             </SummaryRow>
             {directionLabel && (
-              <SummaryRow label={tb.direction ?? "Which way?"}>{directionLabel}</SummaryRow>
+              <SummaryRow label={tb.direction ?? "Direction"}>{directionLabel}</SummaryRow>
             )}
             {booking.placeLabel && (
               <SummaryRow label={tb.stayingAt ?? "Hotel"}>{booking.placeLabel}</SummaryRow>
@@ -271,7 +271,7 @@ export default async function BookingResultPage({ params, searchParams }) {
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <a href={whatsapp} target="_blank" rel="noreferrer" className="btn-primary">
-            <FaWhatsapp className="text-base" />
+            <FaWhatsapp className="text-base text-whatsapp" />
             {t.whatsapp ?? "Message us on WhatsApp"}
           </a>
           <Link href={localePath(locale, authorised && isTransfer ? "/transfers" : "/")} className="btn-ghost">

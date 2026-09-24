@@ -1,5 +1,24 @@
+import { LOCALE_CODES, DEFAULT_LOCALE } from "./app/i18n/config.js";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /*
+   * /destinations duplicated the region chips and category pages already on
+   * /tours (03_INFORMATION_ARCHITECTURE.md §1, F-29) — permanent, so search
+   * engines drop the old URL from the index rather than keep it alongside
+   * the one it now points to. One rule per locale prefix, since English is
+   * served bare and every other language is `/xx/...` (see
+   * app/i18n/config.js `localePath`).
+   */
+  async redirects() {
+    return LOCALE_CODES.filter((code) => code !== DEFAULT_LOCALE)
+      .map((code) => ({
+        source: `/${code}/destinations`,
+        destination: `/${code}/tours`,
+        permanent: true,
+      }))
+      .concat([{ source: "/destinations", destination: "/tours", permanent: true }]);
+  },
   /*
    * Image optimization is ON.
    *

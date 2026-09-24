@@ -58,7 +58,7 @@ describe("bookingConfirmation — content", () => {
   });
 
   test("carries the direction for a transfer", () => {
-    assert.ok(out.html.includes("Hotel &rarr; airport") || out.html.includes("Hotel → airport"));
+    assert.ok(out.html.includes("Departure"));
   });
 
   test("links to the booking page with its token intact", () => {

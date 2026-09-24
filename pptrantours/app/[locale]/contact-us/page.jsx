@@ -46,6 +46,9 @@ function channels(t) {
       href: site.contact.whatsappHref,
       note: t.whatsappNote ?? "Fastest way to reach us",
       external: true,
+      // The WhatsApp glyph keeps its own brand green rather than the
+      // crimson every other channel badge uses.
+      badgeClass: "bg-whatsapp/10 text-whatsapp group-hover:bg-whatsapp group-hover:text-white",
     },
     {
       Icon: FaPhoneAlt,
@@ -92,14 +95,18 @@ export default async function ContactPage({ params }) {
       {/* Channels — lifted over the banner, so it needs to win the stacking order. */}
       <section className="shell relative z-10 -mt-8 lg:-mt-12">
         <div className="grid gap-4 sm:grid-cols-3">
-          {CHANNELS.map(({ Icon, label, value, href, note, external }) => (
+          {CHANNELS.map(({ Icon, label, value, href, note, external, badgeClass }) => (
             <a
               key={label}
               href={href}
               {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
               className="group card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
             >
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-crimson-50 text-crimson-600 transition-colors group-hover:bg-crimson-600 group-hover:text-white">
+              <span
+                className={`grid h-11 w-11 place-items-center rounded-xl transition-colors ${
+                  badgeClass ?? "bg-crimson-50 text-crimson-600 group-hover:bg-crimson-600 group-hover:text-white"
+                }`}
+              >
                 <Icon className="text-lg" />
               </span>
               <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ink/70">
@@ -180,7 +187,7 @@ export default async function ContactPage({ params }) {
                 rel="noreferrer"
                 className="btn-gold mt-6 w-full"
               >
-                <FaWhatsapp className="text-lg" />
+                <FaWhatsapp className="text-lg text-whatsapp" />
                 {t.sendFlight ?? "Send flight details"}
               </a>
             </div>

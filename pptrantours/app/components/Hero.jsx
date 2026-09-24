@@ -3,14 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaStar, FaWhatsapp, FaArrowRight } from "react-icons/fa";
+import { FaStar, FaWhatsapp, FaArrowRight, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
 import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
+import HotelSearch from "./HotelSearch";
+import { usePlace } from "./PlaceProvider";
 
 const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
 
 export default function Hero({ locale = "en", dict }) {
   const t = dict?.hero ?? {};
+  const { place, ready } = usePlace();
   const [index, setIndex] = useState(0);
 
   /*
@@ -35,7 +38,7 @@ export default function Hero({ locale = "en", dict }) {
   }, []);
 
   return (
-    <section className="relative -mt-[4.5rem] flex min-h-[32rem] items-end overflow-hidden bg-ink sm:min-h-[38rem] lg:-mt-20 lg:min-h-[44rem]">
+    <section className="relative -mt-[4.5rem] flex min-h-[36rem] items-end overflow-hidden bg-ink sm:min-h-[44rem] lg:-mt-20 lg:min-h-[52rem]">
       {/* Crossfading backdrop */}
       {(armed ? SLIDES : SLIDES.slice(0, 1)).map((src, i) => (
         <div
@@ -132,7 +135,6 @@ export default function Hero({ locale = "en", dict }) {
             .
           </p>
 
-
           <div
             className="mt-7 flex animate-fade-up flex-wrap items-center gap-3 lg:mt-9"
             style={{ animationDelay: "240ms" }}
@@ -152,7 +154,7 @@ export default function Hero({ locale = "en", dict }) {
               rel="noreferrer"
               className="btn hidden text-white/80 hover:text-white sm:inline-flex"
             >
-              <FaWhatsapp className="text-lg" />
+              <FaWhatsapp className="text-lg text-whatsapp" />
               {site.contact.phone}
             </a>
           </div>
@@ -178,6 +180,58 @@ export default function Hero({ locale = "en", dict }) {
                 }`}
               />
             ))}
+          </div>
+        </div>
+
+        {/*
+          Two task cards, under the original hero copy rather than replacing
+          it. Card 1 answers the time-critical question (an arriving guest's
+          transfer) with the same `HotelSearch` the rest of the site uses;
+          picking a hotel here writes to `PlaceProvider` exactly as it does
+          everywhere else, so "See price" on /transfers opens already knowing
+          it. Card 2 is the plain alternative for a guest not thinking about
+          the airport yet.
+        */}
+        <div
+          className="mt-8 grid max-w-3xl animate-fade-up gap-4 sm:grid-cols-2 lg:mt-10"
+          style={{ animationDelay: "380ms" }}
+        >
+          <div className="rounded-2xl bg-white/95 p-5 shadow-lift backdrop-blur">
+            <div className="flex items-center gap-2.5 text-sm font-semibold text-ink/70">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
+                <FaPlane className="text-xs" />
+              </span>
+              {t.transferCard ?? "Airport transfer"}
+            </div>
+            <div className="mt-3.5">
+              <HotelSearch variant="field" id="hero-hotel" dict={dict} />
+            </div>
+            <Link
+              href={localePath(locale, "/transfers")}
+              className="btn-primary mt-3.5 w-full !py-2.5 text-sm"
+            >
+              {ready && place
+                ? (t.seePriceFor ?? "See price for {hotel}").replace("{hotel}", place.name)
+                : t.seePrice ?? "See price"}
+              <FaArrowRight className="text-xs" />
+            </Link>
+          </div>
+
+          <div className="flex flex-col rounded-2xl bg-white/95 p-5 shadow-lift backdrop-blur">
+            <div className="flex items-center gap-2.5 text-sm font-semibold text-ink/70">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
+                <FaMapMarkedAlt className="text-xs" />
+              </span>
+              {t.toursCard ?? "Tours"}
+            </div>
+            <p className="mt-3.5 flex-1 text-sm leading-relaxed text-ink/60">
+              {t.toursCardBody ??
+                "Waterfalls, beaches, rafting and reggae — private, from your hotel."}
+            </p>
+            <Link href={localePath(locale, "/tours")} className="btn-ghost mt-3.5 w-full !py-2.5 text-sm">
+              {t.seeTours ?? "See tours"}
+              <FaArrowRight className="text-xs" />
+            </Link>
           </div>
         </div>
       </div>

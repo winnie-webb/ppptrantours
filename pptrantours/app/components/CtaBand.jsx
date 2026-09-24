@@ -38,7 +38,7 @@ export default function CtaBand({ locale = "en", dict }) {
               rel="noreferrer"
               className="btn-gold"
             >
-              <FaWhatsapp className="text-lg" />
+              <FaWhatsapp className="text-lg text-whatsapp" />
               WhatsApp {site.contact.phone}
             </a>
             <Link href={localePath(locale, "/contact-us")} className="btn-ghost-light group">

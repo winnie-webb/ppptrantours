@@ -2,8 +2,9 @@ import { FaStar, FaQuoteLeft, FaTripadvisor } from "react-icons/fa";
 import { testimonials, site } from "../data/site";
 import SectionHeading from "./SectionHeading";
 
-export default function Testimonials({ dict }) {
+export default function Testimonials({ dict, limit }) {
   const t = dict?.testimonials ?? {};
+  const shown = limit ? testimonials.slice(0, limit) : testimonials;
 
   /*
    * Score and count are substituted from site.rating rather than written into
@@ -31,7 +32,7 @@ export default function Testimonials({ dict }) {
         />
 
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {testimonials.map((review) => (
+          {shown.map((review) => (
             <figure
               key={review.author}
               className="break-inside-avoid rounded-2xl border border-ink/[0.07] bg-white p-6 shadow-card transition-shadow hover:shadow-lift"

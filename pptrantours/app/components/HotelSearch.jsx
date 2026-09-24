@@ -7,11 +7,9 @@ import {
   FaCheck,
   FaMapMarkerAlt,
   FaWhatsapp,
-  FaChevronRight,
   FaArrowLeft,
 } from "react-icons/fa";
 import { searchHotels, popularHotels, suggestClosest } from "@/app/data/hotel-search";
-import { placesByArea } from "@/app/data/places";
 import { site } from "@/app/data/site";
 import { usePlace } from "./PlaceProvider";
 
@@ -50,7 +48,6 @@ export default function HotelSearch({
 
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [browseArea, setBrowseArea] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const inputRef = useRef(null);
@@ -67,7 +64,6 @@ export default function HotelSearch({
      */
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setQuery("");
-    setBrowseArea(null);
     setActiveIndex(0);
     const raf = window.requestAnimationFrame(() => inputRef.current?.focus());
     return () => window.cancelAnimationFrame(raf);
@@ -104,14 +100,6 @@ export default function HotelSearch({
 
   const results = useMemo(() => (q ? searchHotels(q, { limit: 8 }) : []), [q]);
   const popular = useMemo(() => (q ? [] : popularHotels(8)), [q]);
-  const areaGroups = useMemo(
-    () => (q ? [] : placesByArea((p) => p.kind !== "pier")),
-    [q]
-  );
-  const browsed = useMemo(() => {
-    if (!browseArea) return [];
-    return areaGroups.find((g) => g.key === browseArea)?.places ?? [];
-  }, [browseArea, areaGroups]);
 
   const suggestions = useMemo(() => {
     if (!q || results.length > 0) return [];
@@ -119,7 +107,7 @@ export default function HotelSearch({
     return suggestClosest(q, 3);
   }, [q, results]);
 
-  const rows = q ? results : browseArea ? browsed : popular;
+  const rows = q ? results : popular;
 
   const select = (key) => {
     choose(key);
@@ -294,20 +282,6 @@ export default function HotelSearch({
                 </div>
               )}
 
-              {browseArea && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setBrowseArea(null);
-                    setActiveIndex(0);
-                  }}
-                  className="mb-1 flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-left text-sm font-semibold text-crimson-700 hover:bg-crimson-50"
-                >
-                  <FaArrowLeft className="text-xs" />
-                  {t.allAreas ?? "All areas"}
-                </button>
-              )}
-
               {rows.length > 0 && (
                 <ul id={listboxId} role="listbox" aria-label={t.title ?? "Where are you staying?"}>
                   {rows.map((p, i) => (
@@ -347,35 +321,6 @@ export default function HotelSearch({
                 </ul>
               )}
 
-              {!q && !browseArea && (
-                <div className="mt-1">
-                  <p className="px-4 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink/70">
-                    {t.browseByArea ?? "Browse by area"}
-                  </p>
-                  <ul>
-                    {areaGroups.map((group) => (
-                      <li key={group.key}>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setBrowseArea(group.key);
-                            setActiveIndex(0);
-                          }}
-                          className="flex w-full items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-left text-sm text-ink/80 transition hover:bg-crimson-50"
-                        >
-                          <span>
-                            {group.label}
-                            <span className="ml-1.5 text-xs text-ink/50">
-                              ({group.places.length})
-                            </span>
-                          </span>
-                          <FaChevronRight className="shrink-0 text-[0.6rem] text-ink/40" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
 
             <div className="border-t border-ink/[0.07] p-2">
@@ -391,8 +336,8 @@ export default function HotelSearch({
                   activeIndex === rows.length ? "bg-crimson-50" : ""
                 }`}
               >
-                <FaWhatsapp className="shrink-0 text-base" />
-                {t.notListed ?? "My hotel isn't listed"}
+                <FaWhatsapp className="shrink-0 text-base text-whatsapp" />
+                {t.notListed ?? "Can't find your hotel? Book via WhatsApp"}
               </a>
             </div>
           </div>

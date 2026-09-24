@@ -131,7 +131,7 @@ export default function ContactForm({ dict }) {
           rel="noreferrer"
           className="btn-primary mt-7"
         >
-          <FaWhatsapp className="text-lg" />
+          <FaWhatsapp className="text-lg text-whatsapp" />
           {t.sendWhatsApp ?? "Send on WhatsApp"}
         </a>
       </div>

@@ -24,7 +24,6 @@ export default function sitemap() {
     { path: "/", priority: 1, changeFrequency: "weekly" },
     { path: "/tours", priority: 0.9, changeFrequency: "weekly" },
     { path: "/transfers", priority: 0.9, changeFrequency: "weekly" },
-    { path: "/destinations", priority: 0.7, changeFrequency: "monthly" },
     { path: "/about-us", priority: 0.6, changeFrequency: "yearly" },
     { path: "/contact-us", priority: 0.7, changeFrequency: "yearly" },
     { path: "/terms", priority: 0.3, changeFrequency: "yearly" },

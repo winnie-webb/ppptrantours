@@ -104,8 +104,8 @@ export function priceTransfer(placeKey, direction, pax) {
  * called.
  */
 export function describeDirection(direction) {
-  if (direction === "to-airport") return "Hotel → airport";
-  if (direction === "to-hotel") return "Airport → hotel";
+  if (direction === "to-airport") return "Departure";
+  if (direction === "to-hotel") return "Arrival";
   return "Round trip";
 }
 
@@ -136,7 +136,13 @@ function quote(rate, pax) {
  * show. The form prints `total`.
  */
 export function quoteExcursion(tour, { zoneKey, adults, children }) {
-  const pax = clampPax(adults + children);
+  /*
+   * Children under 5 ride free (09_DECISIONS.md Q-06) and never add to the
+   * billed head count — only `adults` (everyone 5 and over) is priced.
+   * `children` still travels with the quote/booking payload so the owner
+   * knows total party size for vehicle sizing; it just never inflates `pax`.
+   */
+  const pax = clampPax(adults);
   const transport = priceTransport(tour, zoneKey, pax);
 
   /*
@@ -155,7 +161,8 @@ export function quoteExcursion(tour, { zoneKey, adults, children }) {
 }
 
 export function quoteTransfer(placeKey, { direction, adults, children }) {
-  const pax = clampPax(adults + children);
+  // See quoteExcursion: children under 5 are free and excluded from `pax`.
+  const pax = clampPax(adults);
   const transport = priceTransfer(placeKey, direction, pax);
   return { pax, transport, total: transport?.total ?? null };
 }
