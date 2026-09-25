@@ -7,13 +7,11 @@ import { FaStar, FaWhatsapp, FaArrowRight, FaPlane, FaMapMarkedAlt } from "react
 import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
 import HotelSearch from "./HotelSearch";
-import { usePlace } from "./PlaceProvider";
 
 const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
 
 export default function Hero({ locale = "en", dict }) {
   const t = dict?.hero ?? {};
-  const { place, ready } = usePlace();
   const [index, setIndex] = useState(0);
 
   /*
@@ -140,11 +138,11 @@ export default function Hero({ locale = "en", dict }) {
             style={{ animationDelay: "240ms" }}
           >
             <Link href={localePath(locale, "/tours")} className="btn-gold group">
-              {t.explore ?? "Explore tours"}
+              {dict?.common?.bookTourNow ?? "Book a Tour Now"}
               <FaArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link href={localePath(locale, "/transfers")} className="btn-ghost-light">
-              {t.transfer ?? "Book an airport transfer"}
+              {dict?.common?.bookTransferNow ?? "Book a Transfer Now"}
             </Link>
             {/* Third CTA, desktop only. On a phone WhatsApp is already the
                 floating button, and two choices here beat three. */}
@@ -188,7 +186,7 @@ export default function Hero({ locale = "en", dict }) {
           it. Card 1 answers the time-critical question (an arriving guest's
           transfer) with the same `HotelSearch` the rest of the site uses;
           picking a hotel here writes to `PlaceProvider` exactly as it does
-          everywhere else, so "See price" on /transfers opens already knowing
+          everywhere else, so "Book a Transfer Now" opens /transfers already knowing
           it. Card 2 is the plain alternative for a guest not thinking about
           the airport yet.
         */}
@@ -210,9 +208,7 @@ export default function Hero({ locale = "en", dict }) {
               href={localePath(locale, "/transfers")}
               className="btn-primary mt-3.5 w-full !py-2.5 text-sm"
             >
-              {ready && place
-                ? (t.seePriceFor ?? "See price for {hotel}").replace("{hotel}", place.name)
-                : t.seePrice ?? "See price"}
+              {dict?.common?.bookTransferNow ?? "Book a Transfer Now"}
               <FaArrowRight className="text-xs" />
             </Link>
           </div>
@@ -229,7 +225,7 @@ export default function Hero({ locale = "en", dict }) {
                 "Waterfalls, beaches, rafting and reggae — private, from your hotel."}
             </p>
             <Link href={localePath(locale, "/tours")} className="btn-ghost mt-3.5 w-full !py-2.5 text-sm">
-              {t.seeTours ?? "See tours"}
+              {dict?.common?.bookTourNow ?? "Book a Tour Now"}
               <FaArrowRight className="text-xs" />
             </Link>
           </div>

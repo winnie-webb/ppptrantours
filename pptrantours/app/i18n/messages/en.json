@@ -14,6 +14,9 @@
     ]
   },
   "common": {
+    "bookTourNow": "Book a Tour Now",
+    "bookTransferNow": "Book a Transfer Now",
+    "bookComboNow": "Book a Combo Tour Now",
     "reviews": "reviews",
     "seeAll": "See all",
     "scrollLeft": "Scroll left",

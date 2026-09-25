@@ -76,7 +76,7 @@ export default async function ToursPage({ params }) {
         the category pages they pointed at are still indexed, and the grid
         links to the active one.
       */}
-      <section className="shell pb-16 lg:pb-24">
+      <section className="shell pt-8 pb-16 lg:pt-10 lg:pb-24">
         <TourGrid
           tours={tours}
           locale={locale}

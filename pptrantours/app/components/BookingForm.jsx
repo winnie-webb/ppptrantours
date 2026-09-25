@@ -930,13 +930,6 @@ export default function BookingForm({
           />
         </div>
 
-        <p className="text-xs text-ink/60">
-          <span aria-hidden="true" className="text-crimson-600">
-            *
-          </span>{" "}
-          {t.requiredNote ?? "Required. Everything else helps but is optional."}
-        </p>
-
         {/*
           How they want to pay, asked BEFORE the booking is made rather than
           offered afterwards. Two equal options, cash pre-selected — see the
@@ -944,7 +937,6 @@ export default function BookingForm({
         */}
         {canOfferCard && (
           <div>
-            <span className="label">{t.payHowLabel ?? "How would you like to pay?"}</span>
             <div className="grid gap-2 sm:grid-cols-2">
               {[
                 {

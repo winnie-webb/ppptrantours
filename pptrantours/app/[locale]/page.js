@@ -66,7 +66,7 @@ export default async function Home({ params }) {
           "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album."
         }
         href={localePath(locale, "/category/popular")}
-        linkLabel={dict.common?.seeAll ?? "See all"}
+        linkLabel={dict.common?.bookTourNow ?? "Book a Tour Now"}
         tours={popular}
         locale={locale}
         dict={client}
@@ -86,7 +86,7 @@ export default async function Home({ params }) {
               "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting inside arrivals."
             }
             href={localePath(locale, "/transfers")}
-            linkLabel={t.allRates ?? "All rates"}
+            linkLabel={dict.common?.bookTransferNow ?? "Book a Transfer Now"}
           />
           <TransferBooking
             locale={locale}
@@ -110,7 +110,7 @@ export default async function Home({ params }) {
               "Most of our combo tours are in the same region, no more than a 20–30 minute drive apart, so you can do both in one day and we only charge a little more for the transport and the waiting."
             }
             href={localePath(locale, "/category/combos")}
-            linkLabel={dict.common?.seeAll ?? "See all"}
+            linkLabel={dict.common?.bookTourNow ?? "Book a Tour Now"}
           />
           <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0">
             {combos.slice(0, 4).map((tour) => (
@@ -195,12 +195,12 @@ function TransparencyBand({ locale, dict }) {
 
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <Link href={localePath(locale, "/category/combos")} className="btn-primary">
-            {t.seeCombos ?? "See the combo packages"}
+            {dict.common?.bookComboNow ?? "Book a Combo Tour Now"}
             <FaArrowRight className="text-xs" />
           </Link>
           <Link href={localePath(locale, "/transfers")} className="btn-ghost">
             <FaPlane className="text-xs" />
-            {t.seeRates ?? "See every transfer rate"}
+            {dict.common?.bookTransferNow ?? "Book a Transfer Now"}
           </Link>
         </div>
       </div>
