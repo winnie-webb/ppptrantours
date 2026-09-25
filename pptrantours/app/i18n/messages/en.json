@@ -242,6 +242,7 @@
     "payCash": "Pay the driver on the day",
     "payCashHint": "Cash, US or Jamaican dollars",
     "payCard": "Pay now by card",
+    "payCardPaypal": "Pay now by card or PayPal",
     "payCardHint": "Secured by PayPal — no account needed",
     "payNote": "You'll be taken to a secure checkout. Card details never touch this site.",
     "noPaymentQuote": "No payment taken — we come back with a firm price, same day.",

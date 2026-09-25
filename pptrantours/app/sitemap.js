@@ -22,6 +22,7 @@ const BASE = site.url;
 export default function sitemap() {
   const paths = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
+    { path: "/destinations", priority: 0.8, changeFrequency: "weekly" },
     { path: "/tours", priority: 0.9, changeFrequency: "weekly" },
     { path: "/transfers", priority: 0.9, changeFrequency: "weekly" },
     { path: "/about-us", priority: 0.6, changeFrequency: "yearly" },

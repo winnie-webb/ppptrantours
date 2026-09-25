@@ -20,6 +20,14 @@
 
 ---
 
+## Scope correction (2026-09-24)
+
+The owner has refocused this work on smoothing the booking flow, which is now good enough. This direction overrides the remaining redesign plan where it conflicts:
+
+- Keep `/transfer/[place]` and `/destinations` as actual indexable pages, including their sitemap entries; do not replace them with redirects to `/tours`.
+- Preserve the brand content and homepage sections.
+- Keep the existing email provider. Do not migrate to Resend.
+- The requested booking change is a recognizable PayPal symbol alongside the card-payment choice. Do not continue Phases 6–7 as a broader redesign without a new request.
 ## Transfer price areas (one-way, per person; total = rate × 4 for 1–4 people, rate × people for 5+)
 
 ### From PPP's current list (owner-supplied, unchanged)

@@ -20,6 +20,7 @@ import {
   FaExclamationTriangle,
   FaInfoCircle,
   FaCreditCard,
+  FaPaypal,
 } from "react-icons/fa";
 import {
   quoteExcursion,
@@ -954,8 +955,8 @@ export default function BookingForm({
                 },
                 {
                   key: "card",
-                  icon: <FaCreditCard className="text-sm" />,
-                  label: t.payCard ?? "Pay now by card",
+                  icon: <FaPaypal className="shrink-0 text-xl text-[#003087]" aria-hidden="true" />,
+                  label: t.payCardPaypal ?? "Pay now by card or PayPal",
                   hint: t.payCardHint ?? "Secured by PayPal — no account needed",
                 },
               ].map((opt) => (
