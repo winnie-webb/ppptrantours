@@ -43,7 +43,7 @@ export default function Logo({ light = false, className = "" }) {
           PPP Tran Tours
         </span>
         <span
-          className={`mt-1 block text-[0.58rem] font-semibold uppercase tracking-[0.14em] transition-colors ${
+          className={`mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.12em] transition-colors ${
             light ? "text-white/60" : "text-crimson-600"
           }`}
         >

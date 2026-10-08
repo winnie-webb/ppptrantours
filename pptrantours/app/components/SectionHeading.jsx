@@ -43,7 +43,7 @@ export default function SectionHeading({
       {href && (
         <Link
           href={href}
-          className={`group inline-flex shrink-0 items-center gap-2 text-sm font-semibold transition ${
+          className={`group inline-flex min-h-[44px] shrink-0 items-center gap-2 text-sm font-semibold transition ${
             light ? "text-crimson-300 hover:text-crimson-200" : "text-crimson-700 hover:text-crimson-800"
           } ${centered ? "mt-6" : ""}`}
         >

@@ -173,10 +173,14 @@ export default function Hero({ locale = "en", dict }) {
                   setArmed(true);
                   setIndex(i);
                 }}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === index ? "w-10 bg-gold-400" : "w-5 bg-white/30 hover:bg-white/50"
-                }`}
-              />
+                className="group -my-3 flex h-7 items-center px-1"
+              >
+                <span
+                  className={`block h-1 rounded-full transition-all duration-500 ${
+                    i === index ? "w-10 bg-gold-400" : "w-5 bg-white/30 group-hover:bg-white/50"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>

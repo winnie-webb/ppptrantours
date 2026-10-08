@@ -81,7 +81,7 @@ export default function Footer({ locale = "en", dict }) {
                 <li key={c.type}>
                   <Link
                     href={path(`/category/${c.type}`)}
-                    className="transition hover:text-crimson-300"
+                    className="inline-block py-1.5 transition hover:text-crimson-300"
                   >
                     {cats[c.type]?.title ?? c.title}
                   </Link>
@@ -105,17 +105,17 @@ export default function Footer({ locale = "en", dict }) {
             </h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               <li>
-                <Link href={path("/transfers")} className="transition hover:text-crimson-300">
+                <Link href={path("/transfers")} className="inline-block py-1.5 transition hover:text-crimson-300">
                   {t.transfers ?? "Airport transfers"}
                 </Link>
               </li>
               <li>
-                <Link href={path("/about-us")} className="transition hover:text-crimson-300">
+                <Link href={path("/about-us")} className="inline-block py-1.5 transition hover:text-crimson-300">
                   {t.about ?? "About PPP"}
                 </Link>
               </li>
               <li>
-                <Link href={path("/contact-us")} className="transition hover:text-crimson-300">
+                <Link href={path("/contact-us")} className="inline-block py-1.5 transition hover:text-crimson-300">
                   {t.contact ?? "Contact & FAQ"}
                 </Link>
               </li>
@@ -179,10 +179,10 @@ export default function Footer({ locale = "en", dict }) {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href={path("/terms")} className="transition hover:text-crimson-300">
+            <Link href={path("/terms")} className="inline-block py-1.5 transition hover:text-crimson-300">
               {t.terms ?? "Booking terms"}
             </Link>
-            <Link href={path("/privacy")} className="transition hover:text-crimson-300">
+            <Link href={path("/privacy")} className="inline-block py-1.5 transition hover:text-crimson-300">
               {t.privacy ?? "Privacy"}
             </Link>
             <p className="text-white/70">

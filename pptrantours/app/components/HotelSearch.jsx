@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import {
   FaSearch,
   FaTimes,
@@ -36,6 +37,21 @@ function unlistedWhatsAppHref(t) {
   return `${site.contact.whatsappHref}?text=${encodeURIComponent(text)}`;
 }
 
+const PHONE_QUERY = "(max-width: 639px)";
+
+/** True below Tailwind's `sm`, where the picker is a full-screen sheet. */
+function useIsPhone() {
+  return useSyncExternalStore(
+    (notify) => {
+      const mq = window.matchMedia(PHONE_QUERY);
+      mq.addEventListener("change", notify);
+      return () => mq.removeEventListener("change", notify);
+    },
+    () => window.matchMedia(PHONE_QUERY).matches,
+    () => false
+  );
+}
+
 export default function HotelSearch({
   dict,
   variant = "field",
@@ -52,6 +68,8 @@ export default function HotelSearch({
 
   const inputRef = useRef(null);
   const rootRef = useRef(null);
+  const sheetRef = useRef(null);
+  const isPhone = useIsPhone();
   const listboxId = `${id}-listbox`;
 
   const remembered = ready && Boolean(place) && choiceCount === 0;
@@ -84,6 +102,7 @@ export default function HotelSearch({
     window.addEventListener("popstate", onPopState);
 
     const onClickAway = (e) => {
+      if (isPhone) return;
       if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false);
     };
     document.addEventListener("mousedown", onClickAway);
@@ -94,7 +113,31 @@ export default function HotelSearch({
       window.removeEventListener("popstate", onPopState);
       document.removeEventListener("mousedown", onClickAway);
     };
-  }, [open]);
+  }, [open, isPhone]);
+
+  /*
+   * iOS does not shrink the layout viewport when the keyboard opens, so a
+   * `fixed inset-0` sheet keeps its full height and the keyboard sits on top
+   * of the bottom half of the list and the WhatsApp row. Track the visual
+   * viewport instead and size the sheet to what is actually visible.
+   */
+  useEffect(() => {
+    if (!open || !isPhone) return;
+    const vv = window.visualViewport;
+    const sheet = sheetRef.current;
+    if (!vv || !sheet) return;
+    const fit = () => {
+      sheet.style.height = `${vv.height}px`;
+      sheet.style.transform = `translateY(${vv.offsetTop}px)`;
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+    };
+  }, [open, isPhone]);
 
   const q = query.trim();
 
@@ -133,53 +176,14 @@ export default function HotelSearch({
 
   const label = ready && place ? place.name : t.placeholder ?? "Search your hotel or resort";
 
-  return (
-    <div ref={rootRef} className="relative">
-      {place && !open ? (
-        <SelectedCard
-          place={place}
-          remembered={remembered}
-          onChange={() => setOpen(true)}
-          t={t}
-          id={id}
-        />
-      ) : (
-        <button
-          type="button"
-          id={id}
-          onClick={() => setOpen(true)}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          aria-describedby={describedBy}
-          className={
-            variant === "compact"
-              ? "inline-flex items-center gap-2 rounded-full border border-ink/12 bg-white px-3.5 py-1.5 text-xs font-semibold text-ink/75 shadow-sm transition hover:border-crimson-300 hover:text-crimson-700"
-              : `flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition hover:border-crimson-300 hover:bg-crimson-50/40 ${
-                  error ? "border-red-400" : "border-ink/15"
-                }`
-          }
-        >
-          <FaMapMarkerAlt
-            className={`shrink-0 text-sm ${variant === "compact" ? "text-ink/40" : "text-ink/30"}`}
-          />
-          <span className={variant === "compact" ? "" : "flex-1 text-sm text-ink/70"}>
-            {t.chooseYourHotel ?? "Choose your hotel to see your price"}
-          </span>
-          {variant !== "compact" && (
-            <span className="text-xs font-semibold text-crimson-700">
-              {t.choose ?? "Choose"}
-            </span>
-          )}
-        </button>
-      )}
-
-      {open && (
+  const sheet = (
         <>
-          <div
+      <div
             className="fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm sm:hidden"
             aria-hidden="true"
           />
           <div
+            ref={sheetRef}
             role="dialog"
             aria-modal="true"
             aria-label={t.title ?? "Where are you staying?"}
@@ -342,7 +346,49 @@ export default function HotelSearch({
             </div>
           </div>
         </>
+  );
+
+  return (
+    <div ref={rootRef} className="relative">
+      {place && !open ? (
+        <SelectedCard
+          place={place}
+          remembered={remembered}
+          onChange={() => setOpen(true)}
+          t={t}
+          id={id}
+        />
+      ) : (
+        <button
+          type="button"
+          id={id}
+          onClick={() => setOpen(true)}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-describedby={describedBy}
+          className={
+            variant === "compact"
+              ? "inline-flex items-center gap-2 rounded-full border border-ink/12 bg-white px-3.5 py-1.5 text-xs font-semibold text-ink/75 shadow-sm transition hover:border-crimson-300 hover:text-crimson-700"
+              : `flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition hover:border-crimson-300 hover:bg-crimson-50/40 ${
+                  error ? "border-red-400" : "border-ink/15"
+                }`
+          }
+        >
+          <FaMapMarkerAlt
+            className={`shrink-0 text-sm ${variant === "compact" ? "text-ink/40" : "text-ink/30"}`}
+          />
+          <span className={variant === "compact" ? "" : "flex-1 text-sm text-ink/70"}>
+            {t.chooseYourHotel ?? "Choose your hotel to see your price"}
+          </span>
+          {variant !== "compact" && (
+            <span className="text-xs font-semibold text-crimson-700">
+              {t.choose ?? "Choose"}
+            </span>
+          )}
+        </button>
       )}
+
+      {open && (isPhone ? createPortal(sheet, document.body) : sheet)}
     </div>
   );
 }

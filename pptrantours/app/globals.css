@@ -125,6 +125,27 @@
    * booking form wrenched the layout sideways on the first tap. It stays 16px
    * at every width so the form reads the same on every device.
    */
+  /*
+   * iOS Safari renders date/time inputs as a native control with its own
+   * intrinsic width and centred text: it ignores `w-full` inside a grid cell
+   * (pushing the form wider than the screen) and collapses to ~20px tall when
+   * empty. Strip the native chrome so it behaves like every other `.field`.
+   */
+  input[type="date"].field,
+  input[type="time"].field {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    text-align: left;
+  }
+  input[type="date"].field::-webkit-date-and-time-value,
+  input[type="time"].field::-webkit-date-and-time-value {
+    min-height: 1.5em;
+    text-align: left;
+  }
+
   .field {
     @apply min-h-[48px] w-full rounded-xl border border-ink/25 bg-white px-4 py-3 text-base text-ink
            placeholder:text-ink/60 transition

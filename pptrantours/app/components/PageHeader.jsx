@@ -36,11 +36,11 @@ export default function PageHeader({
       <div className="shell relative">
         {breadcrumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-white/70">
+            <ol className="flex flex-wrap items-center gap-x-2 text-[0.8rem] text-white/70">
               <li>
                 <Link
                   href={localePath(locale, "/")}
-                  className="transition hover:text-white"
+                  className="inline-block py-2 transition hover:text-white"
                 >
                   {homeLabel}
                 </Link>
@@ -49,7 +49,7 @@ export default function PageHeader({
                 <li key={c.label} className="flex items-center gap-2">
                   <FaChevronRight className="text-[0.5rem] opacity-50" />
                   {c.href ? (
-                    <Link href={c.href} className="transition hover:text-white">
+                    <Link href={c.href} className="inline-block py-2 transition hover:text-white">
                       {c.label}
                     </Link>
                   ) : (
