@@ -222,11 +222,13 @@ export default function TourGrid({
         resort — this is a reminder and a way to change it, not the ask.
       */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-ink/[0.07] bg-white px-4 py-3 shadow-card">
-        <span className="text-sm text-ink/70">
-          {place
-            ? `${t.pricesFor ?? "Prices for"} ${place.name}`
-            : t.chooseHotelPrompt ?? "Choose your hotel to see your price"}
-        </span>
+        {/* With no hotel chosen the button itself says "Choose your hotel…",
+            so a label saying the same thing is dropped. */}
+        {place && (
+          <span className="text-sm text-ink/70">
+            {`${t.pricesFor ?? "Prices for"} ${place.name}`}
+          </span>
+        )}
         <HotelSearch variant="compact" dict={dict} id="tour-grid-hotel" />
       </div>
 
