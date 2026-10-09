@@ -10,9 +10,9 @@ import Image from "next/image";
  */
 export default function Logo({ light = false, className = "" }) {
   return (
-    <span className={`flex items-center gap-3 ${className}`}>
+    <span className={`flex items-center gap-2.5 sm:gap-3 ${className}`}>
       <span
-        className={`grid shrink-0 place-items-center rounded-xl bg-white p-1.5 transition-shadow ${
+        className={`grid shrink-0 place-items-center rounded-xl bg-white p-1 transition-shadow sm:p-1.5 ${
           light ? "shadow-md" : "shadow-sm ring-1 ring-ink/[0.06]"
         }`}
       >
@@ -43,7 +43,7 @@ export default function Logo({ light = false, className = "" }) {
           PPP Tran Tours
         </span>
         <span
-          className={`mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.12em] transition-colors ${
+          className={`mt-1 block whitespace-nowrap text-[0.58rem] font-semibold uppercase tracking-[0.1em] sm:text-[0.62rem] sm:tracking-[0.12em] transition-colors ${
             light ? "text-white/60" : "text-crimson-600"
           }`}
         >

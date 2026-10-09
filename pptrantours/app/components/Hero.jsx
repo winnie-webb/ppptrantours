@@ -60,7 +60,7 @@ export default function Hero({ locale = "en", dict }) {
       {/* Legibility scrims */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20"
+        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/45 sm:via-ink/55 sm:to-ink/20"
       />
       <div
         aria-hidden
@@ -134,7 +134,7 @@ export default function Hero({ locale = "en", dict }) {
           </p>
 
           <div
-            className="mt-7 flex animate-fade-up flex-wrap items-center gap-3 lg:mt-9"
+            className="mt-7 hidden animate-fade-up flex-wrap items-center gap-3 sm:flex lg:mt-9"
             style={{ animationDelay: "240ms" }}
           >
             <Link href={localePath(locale, "/tours")} className="btn-gold group">
@@ -159,7 +159,7 @@ export default function Hero({ locale = "en", dict }) {
 
           {/* Slide indicators */}
           <div
-            className="mt-8 flex animate-fade-up gap-2 lg:mt-12"
+            className="mt-8 hidden animate-fade-up gap-2 sm:flex lg:mt-12"
             style={{ animationDelay: "320ms" }}
           >
             {SLIDES.map((s, i) => (
@@ -195,7 +195,7 @@ export default function Hero({ locale = "en", dict }) {
           the airport yet.
         */}
         <div
-          className="mt-8 grid max-w-3xl animate-fade-up gap-4 sm:grid-cols-2 lg:mt-10"
+          className="mt-6 grid max-w-3xl animate-fade-up gap-4 sm:mt-8 sm:grid-cols-2 lg:mt-10"
           style={{ animationDelay: "380ms" }}
         >
           <div className="rounded-2xl bg-white/95 p-5 shadow-lift backdrop-blur">

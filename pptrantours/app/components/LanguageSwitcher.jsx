@@ -45,7 +45,7 @@ export default function LanguageSwitcher({ locale, light = false }) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={`Language: ${current.name}`}
-        className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition ${
+        className={`flex items-center gap-1.5 rounded-full px-2 py-2 text-sm sm:px-3 font-medium transition ${
           light
             ? "text-white/90 hover:bg-white/10 hover:text-white"
             : "text-ink/75 hover:bg-ink/5 hover:text-ink"
