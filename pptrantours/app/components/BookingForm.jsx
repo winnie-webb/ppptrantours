@@ -916,20 +916,28 @@ export default function BookingForm({
           Honeypot. Positioned off-screen rather than display:none, because some
           form-fillers skip hidden fields but not absolutely-positioned ones.
           aria-hidden and tabIndex -1 keep it away from screen readers and the
-          tab order, so no real guest can reach it. autoComplete off stops a
-          browser helpfully filling it in and locking someone out.
+          tab order, so no real guest can reach it.
+
+          The DOM name, id and label are deliberately meaningless. They used to
+          say "company", and Chrome/Brave autofill ignores autoComplete="off"
+          for fields it recognises — it filled the trap with the guest's saved
+          company name and every such booking was rejected as a bot
+          (2026-10-22). The payload key stays `company`; only what the
+          browser's autofill heuristics can see has changed.
         */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden"
         >
-          <label htmlFor="company">Company</label>
+          <label htmlFor="ppp-hp-x7">Leave this empty</label>
           <input
-            id="company"
-            name="company"
+            id="ppp-hp-x7"
+            name="ppp_hp_x7"
             type="text"
             tabIndex={-1}
-            autoComplete="off"
+            autoComplete="nope"
+            data-1p-ignore
+            data-lpignore="true"
             value={honeypot}
             onChange={(e) => setHoneypot(e.target.value)}
           />
