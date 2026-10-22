@@ -207,7 +207,7 @@
     "departureTime": "Departure flight time",
     "flightNumber": "Arrival flight number",
     "departureFlightNumber": "Departure flight number",
-    "flightNote": "We track it and meet you inside arrivals. We'll confirm your hotel pickup time once we have it.",
+    "flightNote": "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and find your driver with the PPP sign at Column E or F.",
     "pickupFromFlightNote": "We work out your pickup time from this flight — no need to tell us one.",
     "returnDate": "Departure date",
     "returnFlight": "Departure flight number",
@@ -350,7 +350,7 @@
     "popularDescription": "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album.",
     "transfersEyebrow": "Airport transfers",
     "transfersTitle": "From Sangster to your front door.",
-    "transfersDescription": "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting inside arrivals.",
+    "transfersDescription": "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting at the curb with a PPP sign.",
     "allRates": "All rates",
     "combosEyebrow": "Two in one day",
     "combosTitle": "Combo packages, no rushing.",
@@ -500,21 +500,21 @@
   },
   "transfersPage": {
     "metaTitle": "Montego Bay Airport Transfers",
-    "metaDescription": "Private airport transfers from Montego Bay Sangster International (MBJ) to every major resort, with published fares. Flight tracked, met inside arrivals.",
+    "metaDescription": "Private airport transfers from Montego Bay Sangster International (MBJ) to every major resort, with published fares. Flight tracked, met at the curb outside arrivals.",
     "eyebrow": "Airport transfers",
     "title": "Sangster International to your front door.",
     "description": "Published fares to every resort we serve. Pick your hotel below and book it on this page."
   },
   "transferPage": {
     "metaTitle": "{fare} Airport Transfer to {resort}",
-    "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met inside arrivals.",
+    "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met at the curb outside arrivals.",
     "h1": "Private airport transfer to {resort}",
-    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person. Your driver meets you inside arrivals with a name board and takes you straight there.",
+    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there.",
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
     "whatYouGet": "What the fare covers",
-    "inc1": "Met inside the arrivals hall with a name board",
+    "inc1": "Met at the curb outside arrivals, Column E or F, by a driver with a PPP sign",
     "inc2": "Flight tracked — delays cost you nothing",
     "inc3": "Private, air-conditioned vehicle, your group only",
     "inc4": "Licensed, insured driver who handles the luggage",
@@ -523,7 +523,7 @@
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
     "toursDescription": "Prices below are for your resort specifically — the transport, worked out for your group.",
-    "introTotal": "From Sangster International (MBJ) to {resort}. Your driver meets you inside arrivals with a name board and takes you straight there. Your total is worked out in the form below."
+    "introTotal": "From Sangster International (MBJ) to {resort}. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there. Your total is worked out in the form below."
   },
   "destinationsPage": {
     "metaTitle": "Destinations",
@@ -665,7 +665,7 @@
     {
       "key": "delay",
       "q": "What happens if my flight is delayed?",
-      "a": "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Your driver will be inside the arrivals hall with a name board whenever you actually land, at no extra charge."
+      "a": "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E or F — holding a sign with the PPP logo, at no extra charge."
     },
     {
       "key": "shared",
@@ -706,5 +706,11 @@
     "balance": "To your driver on the day",
     "whatsapp": "Message us on WhatsApp",
     "home": "Back to home"
+  },
+  "airportMeet": {
+    "title": "Meeting your driver at Sangster International (MBJ)",
+    "step1": "After customs, exit the terminal through the glass doors beside the taxi stand and turn left.",
+    "step2": "Walk to the curb and look for your driver holding a company sign with the PPP logo at Column E or F.",
+    "help": "Can't spot us? Message us on WhatsApp and we'll come to you."
   }
 }

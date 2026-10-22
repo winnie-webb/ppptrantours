@@ -61,7 +61,7 @@ export async function generateMetadata({ params }) {
         ?.replace("{resort}", place.name)
         .replace("{fare}", fare)
         .replace("{roundTrip}", money(minimumFare(place.transfer.roundTrip))) ??
-      `Private airport transfer from Montego Bay Sangster International (MBJ) to ${place.name}. ${fare} one way for up to ${MIN_BILLED_PAX} passengers, ${money(minimumFare(place.transfer.roundTrip))} round trip. Flight tracked, met inside arrivals.`,
+      `Private airport transfer from Montego Bay Sangster International (MBJ) to ${place.name}. ${fare} one way for up to ${MIN_BILLED_PAX} passengers, ${money(minimumFare(place.transfer.roundTrip))} round trip. Flight tracked, met at the curb outside arrivals.`,
     alternates: {
       canonical: localePath(locale, `/transfer/${placeKey}`),
       languages: languageAlternates(`/transfer/${placeKey}`),
@@ -112,7 +112,7 @@ export default async function TransferPage({ params }) {
       place,
       abs(`/transfer/${place.key}`),
       site.url,
-      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWayFare} USD one way for up to ${MIN_BILLED_PAX} passengers, ${roundTripFare} USD round trip. Flight tracked, met inside arrivals.`
+      `${t.transferTo ?? "Private airport transfer to"} ${place.name} from Sangster International Airport (MBJ). ${oneWayFare} USD one way for up to ${MIN_BILLED_PAX} passengers, ${roundTripFare} USD round trip. Flight tracked, met at the curb outside arrivals.`
     ),
     breadcrumbSchema([
       { name: dict.nav?.home ?? "Home", url: abs("/") },
@@ -123,7 +123,7 @@ export default async function TransferPage({ params }) {
   ];
 
   const included = [
-    { Icon: FaPlane, text: t.inc1 ?? "Met inside the arrivals hall with a name board" },
+    { Icon: FaPlane, text: t.inc1 ?? "Met at the curb outside arrivals, Column E or F, by a driver with a PPP sign" },
     { Icon: FaClock, text: t.inc2 ?? "Flight tracked — delays cost you nothing" },
     { Icon: FaCar, text: t.inc3 ?? "Private, air-conditioned vehicle, your group only" },
     { Icon: FaUserTie, text: t.inc4 ?? "Licensed, insured driver who handles the luggage" },
@@ -201,7 +201,7 @@ export default async function TransferPage({ params }) {
           */}
           <p className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-white/65">
             {t.introTotal?.replace("{resort}", place.name) ??
-              `From Sangster International (MBJ) to ${place.name}. Your driver meets you inside arrivals with a name board and takes you straight there. Your total is worked out in the form below.`}
+              `From Sangster International (MBJ) to ${place.name}. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there. Your total is worked out in the form below.`}
           </p>
 
           {/*

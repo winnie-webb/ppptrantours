@@ -11,6 +11,7 @@
  * reasons: Outlook, image-blocking, no external fonts.
  */
 import { html, raw, dash } from "../html.js";
+import { airportMeeting } from "../../../app/data/site.js";
 
 const INK = "#150a0d";
 const CRIMSON = "#a80424";
@@ -55,6 +56,11 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
   const firstName = (booking.name ?? "").trim().split(/\s+/)[0] || "there";
   const date = dash(booking.date);
   const tourTitle = dash(booking.tourTitle);
+
+  // Arrival legs get the meeting point. A departure-only booking is picked up
+  // at the hotel, so the airport directions would only confuse.
+  const meetsAtAirport =
+    isTransfer && !isEnquiry && (direction === "to-hotel" || direction === "both");
 
   const total =
     booking.transportTotal != null ? money(booking.transportTotal) : "to be confirmed";
@@ -138,6 +144,27 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
             </td>
           </tr>
 
+          ${meetsAtAirport ? html`
+          <!-- Meeting point -->
+          <tr>
+            <td style="padding:16px 24px 8px 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="border:2px solid ${GOLD};border-radius:12px;">
+                <tr>
+                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${INK};">
+                    <div style="font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:bold;padding-bottom:8px;">
+                      ${airportMeeting.title}
+                    </div>
+                    <div>1. ${airportMeeting.steps[0]}</div>
+                    <div style="padding-top:6px;">2. ${airportMeeting.steps[1]}</div>
+                    <div style="padding-top:10px;font-size:12px;opacity:0.6;">${airportMeeting.help}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          ` : ""}
+
           <!-- Next steps -->
           <tr>
             <td style="padding:8px 24px 8px 24px;">
@@ -177,7 +204,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                 Reply to this email and it reaches us directly.
               </div>
               <div style="opacity:0.35;padding-top:8px;">
-                Sent automatically by ppptrantoursjamaica.com. Keep this for your records — quoting your reference gets you the fastest answer.
+                Sent automatically by PPP Tran Tours. Keep this for your records — quoting your reference gets you the fastest answer.
               </div>
             </td>
           </tr>

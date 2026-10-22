@@ -83,7 +83,7 @@ export default async function Home({ params }) {
             title={t.transfersTitle ?? "From Sangster to your front door."}
             description={
               t.transfersDescription ??
-              "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting inside arrivals."
+              "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting at the curb with a PPP sign."
             }
             href={localePath(locale, "/transfers")}
             linkLabel={dict.common?.bookTransferNow ?? "Book a Transfer Now"}

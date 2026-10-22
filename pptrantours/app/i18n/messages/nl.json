@@ -212,7 +212,7 @@
     "pickupTime": "Ophaaltijd",
     "landingTime": "Landingstijd",
     "flightNumber": "Vluchtnummer aankomst",
-    "flightNote": "We volgen de vlucht en passen ons zonder meerkosten aan bij vertraging.",
+    "flightNote": "We volgen uw vlucht en passen ons aan bij vertraging. Ga na de douane door de glazen deuren naast de taxistandplaats, sla linksaf en zoek uw chauffeur met het PPP-bord bij pilaar E of F.",
     "returnDate": "Terugreisdatum",
     "returnFlight": "Terugvlucht",
     "name": "Volledige naam",
@@ -352,7 +352,7 @@
     "popularDescription": "Dunn's River, het Blue Hole, Rick's Cafe bij zonsondergang — de dagen die in het fotoalbum belanden.",
     "transfersEyebrow": "Luchthaventransfers",
     "transfersTitle": "Van Sangster tot aan uw deur.",
-    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één tarief per persoon, vlucht gevolgd, chauffeur wacht in de aankomsthal.",
+    "transfersDescription": "Kies uw hotel en zie het exacte tarief — één tarief per persoon, vlucht gevolgd, chauffeur wacht langs de stoeprand met een PPP-bord.",
     "allRates": "Alle tarieven",
     "combosEyebrow": "Twee op één dag",
     "combosTitle": "Combipakketten, zonder haast.",
@@ -497,12 +497,12 @@
   },
   "transfersPage": {
     "metaTitle": "Luchthaventransfers Montego Bay",
-    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar elk groot Jamaicaans resort. Gepubliceerde tarieven per persoon, vlucht gevolgd, ontvangst in de aankomsthal.",
+    "metaDescription": "Privétransfers vanaf Sangster International (MBJ) naar elk groot Jamaicaans resort. Gepubliceerde tarieven per persoon, vlucht gevolgd, ontvangst langs de stoeprand buiten de aankomst.",
     "eyebrow": "Luchthaventransfers",
     "title": "Van Sangster International tot aan uw deur.",
     "description": "Vaste, gepubliceerde tarieven naar elk resort dat we bedienen. Kies hieronder uw hotel en zie het tarief voordat u ons ook maar één gegeven geeft.",
-    "p1Title": "Ontvangst in de aankomsthal",
-    "p1Body": "Uw chauffeur staat in de hal met een naambord, niet ergens op een parkeerplaats.",
+    "p1Title": "Ontvangst direct buiten de aankomst",
+    "p1Body": "Uw chauffeur wacht langs de stoeprand bij pilaar E of F met een PPP-bord, op een paar stappen van de terminaldeuren.",
     "p2Title": "Vlucht gevolgd",
     "p2Body": "Landt u later, dan weten wij het eerder dan u — en wachten kost niets.",
     "p3Title": "Altijd privé",
@@ -521,15 +521,15 @@
   },
   "transferPage": {
     "metaTitle": "Luchthaventransfer naar {resort} voor {fare}",
-    "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst in de aankomsthal.",
+    "metaDescription": "Privétransfer vanaf Sangster International in Montego Bay (MBJ) naar {resort}. {fare} enkele reis voor maximaal 4 passagiers, {roundTrip} retour. Vlucht gevolgd, ontvangst langs de stoeprand buiten de aankomst.",
     "h1": "Privé-luchthaventransfer naar {resort}",
-    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon. Uw chauffeur wacht u op in de aankomsthal met een naambord en brengt u er rechtstreeks heen.",
+    "intro": "Van Sangster International (MBJ) naar {resort} — {perPerson} per persoon. Uw chauffeur wacht u op langs de stoeprand buiten de aankomst (pilaar E of F) met een PPP-bord en brengt u er rechtstreeks heen.",
     "transferTo": "Luchthaventransfer naar",
     "oneWay": "Enkele reis",
     "roundTrip": "Retour",
     "perExtra": "per extra",
     "whatYouGet": "Wat het tarief dekt",
-    "inc1": "Ontvangst in de aankomsthal met een naambord",
+    "inc1": "Ontvangst langs de stoeprand buiten de aankomst, pilaar E of F, door een chauffeur met een PPP-bord",
     "inc2": "Vlucht gevolgd — vertraging kost u niets",
     "inc3": "Privé, geklimatiseerd voertuig, alleen uw groep",
     "inc4": "Vergunde, verzekerde chauffeur die de bagage aanpakt",
@@ -685,7 +685,7 @@
     {
       "key": "delay",
       "q": "Wat gebeurt er als mijn vlucht vertraging heeft?",
-      "a": "Voor u niets. We volgen uw vluchtnummer en passen het ophalen zelf aan. Uw chauffeur staat met een naambord in de aankomsthal op het moment dat u werkelijk landt, zonder meerkosten."
+      "a": "Voor u niets. We volgen uw vluchtnummer en passen het ophalen zelf aan. Op het moment dat u werkelijk landt, wacht uw chauffeur langs de stoeprand buiten de aankomst — pilaar E of F — met een bord met het PPP-logo, zonder meerkosten."
     },
     {
       "key": "shared",
@@ -973,5 +973,11 @@
     "balance": "Aan uw chauffeur op de dag zelf",
     "whatsapp": "Stuur ons een WhatsApp",
     "home": "Terug naar home"
+  },
+  "airportMeet": {
+    "title": "Uw chauffeur vinden op Sangster International (MBJ)",
+    "step1": "Verlaat na de douane de terminal via de glazen deuren naast de taxistandplaats en sla linksaf.",
+    "step2": "Loop naar de stoeprand en zoek bij pilaar E of F naar uw chauffeur met een bedrijfsbord met het PPP-logo.",
+    "help": "Ziet u ons niet? Stuur ons een bericht via WhatsApp en we komen naar u toe."
   }
 }

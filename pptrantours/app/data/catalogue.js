@@ -813,7 +813,7 @@ export const TRANSFERS = [
     region: "montego-bay",
     duration: "Door to door",
     image: "/at/at-1.webp",
-    desc: "Fifteen to forty minutes from the terminal to almost every Montego Bay resort. Your driver is inside the arrivals hall with a name board before you clear customs, and the vehicle is yours alone.",
+    desc: "Fifteen to forty minutes from the terminal to almost every Montego Bay resort. Exit through the glass doors beside the taxi stand, turn left, and your driver is waiting at the curb at Column E or F with a PPP sign. The vehicle is yours alone.",
     places: [
       "toby-resort", "royal-decameron-cornwall", "s-hotel", "deja-resort",
       "club-montego-bay", "altamont", "hotel-39", "caribic-house",

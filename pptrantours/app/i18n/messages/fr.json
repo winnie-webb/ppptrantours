@@ -212,7 +212,7 @@
     "pickupTime": "Heure de prise en charge",
     "landingTime": "Heure d'atterrissage",
     "flightNumber": "Numéro du vol d'arrivée",
-    "flightNote": "Nous le suivons et ajustons en cas de retard, sans frais supplémentaires.",
+    "flightNote": "Nous suivons votre vol et nous adaptons aux retards. Après la douane, sortez par les portes vitrées à côté de la station de taxis, tournez à gauche et repérez votre chauffeur avec la pancarte PPP au pilier E ou F.",
     "returnDate": "Date de retour",
     "returnFlight": "Vol de retour",
     "name": "Nom complet",
@@ -352,7 +352,7 @@
     "popularDescription": "Dunn's River, le Blue Hole, Rick's Cafe au coucher du soleil — les journées qui finissent dans l'album photo.",
     "transfersEyebrow": "Transferts aéroport",
     "transfersTitle": "De Sangster jusqu'à votre porte.",
-    "transfersDescription": "Choisissez votre hôtel et voyez le tarif exact — un tarif par personne, vol suivi, chauffeur qui attend dans le hall d'arrivée.",
+    "transfersDescription": "Choisissez votre hôtel et voyez le tarif exact — un tarif par personne, vol suivi, chauffeur qui attend au bord du trottoir avec une pancarte PPP.",
     "allRates": "Tous les tarifs",
     "combosEyebrow": "Deux en une journée",
     "combosTitle": "Forfaits combinés, sans se presser.",
@@ -497,12 +497,12 @@
   },
   "transfersPage": {
     "metaTitle": "Transferts depuis l'aéroport de Montego Bay",
-    "metaDescription": "Transferts privés depuis Sangster International (MBJ) vers tous les grands complexes hôteliers de Jamaïque. Tarifs publiés par personne, vol suivi, accueil dans le hall d'arrivée.",
+    "metaDescription": "Transferts privés depuis Sangster International (MBJ) vers tous les grands complexes hôteliers de Jamaïque. Tarifs publiés par personne, vol suivi, accueil au bord du trottoir à la sortie des arrivées.",
     "eyebrow": "Transferts aéroport",
     "title": "De Sangster International jusqu'à votre porte.",
     "description": "Tarifs fixes et publiés vers tous les complexes que nous desservons. Choisissez votre hôtel ci-dessous et voyez le prix avant de nous donner le moindre détail.",
-    "p1Title": "Accueil dans le hall d'arrivée",
-    "p1Body": "Votre chauffeur est dans le hall avec une pancarte à votre nom, pas sur un parking quelque part.",
+    "p1Title": "Accueil juste à la sortie des arrivées",
+    "p1Body": "Votre chauffeur attend au bord du trottoir, au pilier E ou F, avec une pancarte PPP — à quelques pas des portes du terminal.",
     "p2Title": "Vol suivi",
     "p2Body": "Si vous atterrissez en retard, nous le savons avant vous, et l'attente n'est pas facturée.",
     "p3Title": "Privé, toujours",
@@ -521,15 +521,15 @@
   },
   "transferPage": {
     "metaTitle": "Transfert aéroport vers {resort} à {fare}",
-    "metaDescription": "Transfert privé depuis l'aéroport Sangster International de Montego Bay (MBJ) vers {resort}. {fare} l'aller simple jusqu'à 4 passagers, {roundTrip} l'aller-retour. Vol suivi, accueil dans le hall d'arrivée.",
+    "metaDescription": "Transfert privé depuis l'aéroport Sangster International de Montego Bay (MBJ) vers {resort}. {fare} l'aller simple jusqu'à 4 passagers, {roundTrip} l'aller-retour. Vol suivi, accueil au bord du trottoir à la sortie des arrivées.",
     "h1": "Transfert aéroport privé vers {resort}",
-    "intro": "De Sangster International (MBJ) à {resort} — {perPerson} par personne. Votre chauffeur vous attend dans le hall d'arrivée avec une pancarte à votre nom et vous y conduit directement.",
+    "intro": "De Sangster International (MBJ) à {resort} — {perPerson} par personne. Votre chauffeur vous attend au bord du trottoir à la sortie des arrivées (pilier E ou F) avec une pancarte PPP et vous y conduit directement.",
     "transferTo": "Transfert aéroport vers",
     "oneWay": "Aller simple",
     "roundTrip": "Aller-retour",
     "perExtra": "par suppl.",
     "whatYouGet": "Ce que couvre le tarif",
-    "inc1": "Accueil dans le hall d'arrivée avec une pancarte",
+    "inc1": "Accueil au bord du trottoir à la sortie des arrivées, pilier E ou F, par un chauffeur avec une pancarte PPP",
     "inc2": "Vol suivi — les retards ne vous coûtent rien",
     "inc3": "Véhicule privé climatisé, votre groupe uniquement",
     "inc4": "Chauffeur agréé et assuré qui s'occupe des bagages",
@@ -685,7 +685,7 @@
     {
       "key": "delay",
       "q": "Que se passe-t-il si mon vol est retardé ?",
-      "a": "Rien, de votre côté. Nous suivons votre numéro de vol et ajustons nous-mêmes la prise en charge. Votre chauffeur sera dans le hall d'arrivée avec une pancarte à votre nom au moment où vous atterrirez réellement, sans frais supplémentaires."
+      "a": "Rien, de votre côté. Nous suivons votre numéro de vol et ajustons nous-mêmes la prise en charge. Au moment où vous atterrirez réellement, votre chauffeur vous attendra au bord du trottoir à la sortie des arrivées — pilier E ou F — avec une pancarte au logo PPP, sans frais supplémentaires."
     },
     {
       "key": "shared",
@@ -973,5 +973,11 @@
     "balance": "À votre chauffeur le jour même",
     "whatsapp": "Nous écrire sur WhatsApp",
     "home": "Retour à l'accueil"
+  },
+  "airportMeet": {
+    "title": "Retrouver votre chauffeur à Sangster International (MBJ)",
+    "step1": "Après la douane, sortez du terminal par les portes vitrées à côté de la station de taxis et tournez à gauche.",
+    "step2": "Avancez jusqu'au bord du trottoir et cherchez votre chauffeur tenant une pancarte de l'entreprise au logo PPP, au pilier E ou F.",
+    "help": "Vous ne nous voyez pas ? Écrivez-nous sur WhatsApp et nous venons vers vous."
   }
 }

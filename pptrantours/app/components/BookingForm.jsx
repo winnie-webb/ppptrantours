@@ -732,7 +732,7 @@ export default function BookingForm({
                   ? t.pickupFromFlightNote ??
                     "We work out your pickup time from this flight — no need to tell us one."
                   : t.flightNote ??
-                    "We track it and meet you inside arrivals. We'll confirm your hotel pickup time once we have it."}
+                    "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and find your driver with the PPP sign at Column E or F."}
               </p>
             </div>
 

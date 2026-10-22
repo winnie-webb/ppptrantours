@@ -212,7 +212,7 @@
     "pickupTime": "Hora de recolha",
     "landingTime": "Hora de aterragem",
     "flightNumber": "Número do voo de chegada",
-    "flightNote": "Acompanhamos o voo e ajustamos em caso de atraso, sem custo adicional.",
+    "flightNote": "Acompanhamos o seu voo e ajustamos em caso de atraso. Depois da alfândega, saia pelas portas de vidro ao lado da praça de táxis, vire à esquerda e procure o seu motorista com a placa PPP na coluna E ou F.",
     "returnDate": "Data de regresso",
     "returnFlight": "Voo de regresso",
     "name": "Nome completo",
@@ -352,7 +352,7 @@
     "popularDescription": "Dunn's River, o Blue Hole, o Rick's Cafe ao pôr do sol — os dias que acabam no álbum de fotografias.",
     "transfersEyebrow": "Transfers do aeroporto",
     "transfersTitle": "De Sangster até à sua porta.",
-    "transfersDescription": "Escolha o seu hotel e veja a tarifa exata — uma tarifa por pessoa, voo monitorado, motorista à espera no desembarque.",
+    "transfersDescription": "Escolha o seu hotel e veja a tarifa exata — uma tarifa por pessoa, voo monitorado, motorista à espera no passeio com uma placa PPP.",
     "allRates": "Todas as tarifas",
     "combosEyebrow": "Dois num dia",
     "combosTitle": "Pacotes combinados, sem pressas.",
@@ -497,12 +497,12 @@
   },
   "transfersPage": {
     "metaTitle": "Transfers do aeroporto de Montego Bay",
-    "metaDescription": "Transfers privativos do Sangster International (MBJ) para todos os grandes resorts da Jamaica. Tarifas publicadas por pessoa, voo monitorado, recepção no desembarque.",
+    "metaDescription": "Transfers privativos do Sangster International (MBJ) para todos os grandes resorts da Jamaica. Tarifas publicadas por pessoa, voo monitorado, recepção no passeio à saída das chegadas.",
     "eyebrow": "Transfers do aeroporto",
     "title": "Do Sangster International até à sua porta.",
     "description": "Tarifas fixas e publicadas para todos os resorts que servimos. Escolha o seu hotel abaixo e veja a tarifa antes de nos dar um único dado.",
-    "p1Title": "Recebemo-lo dentro das chegadas",
-    "p1Body": "O seu motorista está na sala com uma placa com o seu nome, não num parque de estacionamento qualquer.",
+    "p1Title": "Recebemo-lo logo à saída das chegadas",
+    "p1Body": "O seu motorista espera no passeio, na coluna E ou F, com uma placa PPP — a poucos passos das portas do terminal.",
     "p2Title": "Voo acompanhado",
     "p2Body": "Se aterrar atrasado, sabemos antes de si, e a espera não se paga.",
     "p3Title": "Privado, sempre",
@@ -521,15 +521,15 @@
   },
   "transferPage": {
     "metaTitle": "Transfer do aeroporto para {resort} por {fare}",
-    "metaDescription": "Transfer privado do aeroporto Sangster International de Montego Bay (MBJ) para {resort}. {fare} só ida até 4 passageiros, {roundTrip} ida e volta. Voo acompanhado, acolhimento dentro das chegadas.",
+    "metaDescription": "Transfer privado do aeroporto Sangster International de Montego Bay (MBJ) para {resort}. {fare} só ida até 4 passageiros, {roundTrip} ida e volta. Voo acompanhado, acolhimento no passeio à saída das chegadas.",
     "h1": "Transfer privado do aeroporto para {resort}",
-    "intro": "Do Sangster International (MBJ) até {resort} — {perPerson} por pessoa. O seu motorista o aguarda no desembarque com uma placa com o seu nome e o leva direto até lá.",
+    "intro": "Do Sangster International (MBJ) até {resort} — {perPerson} por pessoa. O seu motorista o aguarda no passeio à saída das chegadas (coluna E ou F) com uma placa PPP e o leva direto até lá.",
     "transferTo": "Transfer do aeroporto para",
     "oneWay": "Só ida",
     "roundTrip": "Ida e volta",
     "perExtra": "por extra",
     "whatYouGet": "O que a tarifa cobre",
-    "inc1": "Acolhimento dentro da sala de chegadas com placa",
+    "inc1": "Acolhimento no passeio à saída das chegadas, coluna E ou F, por um motorista com placa PPP",
     "inc2": "Voo acompanhado — os atrasos não lhe custam nada",
     "inc3": "Veículo privado e climatizado, só o seu grupo",
     "inc4": "Motorista licenciado e com seguro que trata da bagagem",
@@ -685,7 +685,7 @@
     {
       "key": "delay",
       "q": "O que acontece se o meu voo se atrasar?",
-      "a": "Nada, da sua parte. Acompanhamos o número do voo e ajustamos a recolha nós próprios. O seu motorista estará dentro da sala de chegadas com uma placa com o seu nome quando aterrar de facto, sem custo adicional."
+      "a": "Nada, da sua parte. Acompanhamos o número do voo e ajustamos a recolha nós próprios. Quando aterrar de facto, o seu motorista estará à sua espera no passeio à saída das chegadas — coluna E ou F — com uma placa com o logótipo PPP, sem custo adicional."
     },
     {
       "key": "shared",
@@ -973,5 +973,11 @@
     "balance": "Ao seu motorista no próprio dia",
     "whatsapp": "Fale connosco no WhatsApp",
     "home": "Voltar ao início"
+  },
+  "airportMeet": {
+    "title": "Encontrar o seu motorista no Sangster International (MBJ)",
+    "step1": "Depois da alfândega, saia do terminal pelas portas de vidro ao lado da praça de táxis e vire à esquerda.",
+    "step2": "Siga até ao passeio e procure o seu motorista com uma placa da empresa com o logótipo PPP na coluna E ou F.",
+    "help": "Não nos vê? Envie-nos uma mensagem pelo WhatsApp e vamos ter consigo."
   }
 }

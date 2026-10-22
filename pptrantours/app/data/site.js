@@ -361,7 +361,7 @@ export const faqs = [
   {
     key: "delay",
     q: "What happens if my flight is delayed?",
-    a: "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Your driver will be inside the arrivals hall with a name board whenever you actually land, at no extra charge.",
+    a: "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E or F — holding a sign with the PPP logo, at no extra charge.",
   },
   {
     key: "shared",
@@ -384,3 +384,24 @@ export const faqs = [
     a: "As early as you can. Airport transfers are easiest to guarantee when we have your flight details at least 48 hours ahead.",
   },
 ];
+
+/**
+ * Where an arriving guest meets their driver at Sangster International (MBJ),
+ * in the owner's own words (2026-10-22). The guest-facing booking page and the
+ * confirmation email both show it for any transfer with an arrival leg. The
+ * translated versions live under `airportMeet` in each messages file; this is
+ * the English source and the email's copy.
+ *
+ * The site used to promise a driver "inside the arrivals hall with a name
+ * board". That is not where PPP meets guests — anyone following it would wait
+ * indoors while their driver stood at the curb. Keep every mention of the
+ * meeting point consistent with this.
+ */
+export const airportMeeting = {
+  title: "Meeting your driver at Sangster International (MBJ)",
+  steps: [
+    "After customs, exit the terminal through the glass doors beside the taxi stand and turn left.",
+    "Walk to the curb and look for your driver holding a company sign with the PPP logo at Column E or F.",
+  ],
+  help: "Can't spot us? Message us on WhatsApp and we'll come to you.",
+};

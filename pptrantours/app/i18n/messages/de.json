@@ -212,7 +212,7 @@
     "pickupTime": "Abholzeit",
     "landingTime": "Landezeit",
     "flightNumber": "Flugnummer bei Ankunft",
-    "flightNote": "Wir verfolgen ihn und passen uns bei Verspätung ohne Aufpreis an.",
+    "flightNote": "Wir verfolgen Ihren Flug und passen uns bei Verspätung an. Gehen Sie nach dem Zoll durch die Glastüren neben dem Taxistand, biegen Sie links ab und suchen Sie Ihren Fahrer mit dem PPP-Schild an Säule E oder F.",
     "returnDate": "Rückreisedatum",
     "returnFlight": "Rückflug",
     "name": "Vollständiger Name",
@@ -352,7 +352,7 @@
     "popularDescription": "Dunn's River, das Blue Hole, Rick's Cafe bei Sonnenuntergang — die Tage, die im Fotoalbum landen.",
     "transfersEyebrow": "Flughafentransfers",
     "transfersTitle": "Von Sangster bis vor Ihre Tür.",
-    "transfersDescription": "Wählen Sie Ihr Hotel und sehen Sie den genauen Preis – ein Preis pro Person, Flug überwacht, Fahrer wartet in der Ankunftshalle.",
+    "transfersDescription": "Wählen Sie Ihr Hotel und sehen Sie den genauen Preis – ein Preis pro Person, Flug überwacht, Fahrer wartet mit PPP-Schild am Bordstein.",
     "allRates": "Alle Preise",
     "combosEyebrow": "Zwei an einem Tag",
     "combosTitle": "Kombi-Pakete, ganz ohne Hetze.",
@@ -497,12 +497,12 @@
   },
   "transfersPage": {
     "metaTitle": "Flughafentransfers Montego Bay",
-    "metaDescription": "Private Flughafentransfers vom Sangster International (MBJ) zu jedem großen jamaikanischen Resort. Veröffentlichte Preise pro Person, Flug überwacht, Empfang in der Ankunftshalle.",
+    "metaDescription": "Private Flughafentransfers vom Sangster International (MBJ) zu jedem großen jamaikanischen Resort. Veröffentlichte Preise pro Person, Flug überwacht, Empfang am Bordstein vor der Ankunft.",
     "eyebrow": "Flughafentransfers",
     "title": "Vom Sangster International bis vor Ihre Tür.",
     "description": "Feste, veröffentlichte Preise für jedes Resort, das wir anfahren. Wählen Sie unten Ihr Hotel und sehen Sie den Preis, bevor Sie uns eine einzige Angabe machen.",
-    "p1Title": "Empfang in der Ankunftshalle",
-    "p1Body": "Ihr Fahrer steht mit einem Namensschild in der Halle, nicht irgendwo auf einem Parkplatz.",
+    "p1Title": "Empfang direkt vor der Ankunft",
+    "p1Body": "Ihr Fahrer wartet am Bordstein an Säule E oder F mit einem PPP-Schild – nur wenige Schritte von den Terminaltüren.",
     "p2Title": "Flug wird verfolgt",
     "p2Body": "Wenn Sie später landen, wissen wir es vor Ihnen — und Wartezeit kostet nichts.",
     "p3Title": "Immer privat",
@@ -521,15 +521,15 @@
   },
   "transferPage": {
     "metaTitle": "Flughafentransfer zum {resort} für {fare}",
-    "metaDescription": "Privater Flughafentransfer vom Sangster International in Montego Bay (MBJ) zum {resort}. {fare} für die einfache Fahrt mit bis zu 4 Fahrgästen, {roundTrip} hin und zurück. Flug verfolgt, Empfang in der Ankunftshalle.",
+    "metaDescription": "Privater Flughafentransfer vom Sangster International in Montego Bay (MBJ) zum {resort}. {fare} für die einfache Fahrt mit bis zu 4 Fahrgästen, {roundTrip} hin und zurück. Flug verfolgt, Empfang am Bordstein vor der Ankunft.",
     "h1": "Privater Flughafentransfer zum {resort}",
-    "intro": "Vom Sangster International (MBJ) nach {resort} – {perPerson} pro Person. Ihr Fahrer erwartet Sie mit Namensschild in der Ankunftshalle und bringt Sie direkt hin.",
+    "intro": "Vom Sangster International (MBJ) nach {resort} – {perPerson} pro Person. Ihr Fahrer erwartet Sie am Bordstein vor der Ankunft (Säule E oder F) mit einem PPP-Schild und bringt Sie direkt hin.",
     "transferTo": "Flughafentransfer zum",
     "oneWay": "Einfache Fahrt",
     "roundTrip": "Hin und zurück",
     "perExtra": "je weitere Person",
     "whatYouGet": "Was der Preis abdeckt",
-    "inc1": "Empfang mit Namensschild in der Ankunftshalle",
+    "inc1": "Empfang am Bordstein vor der Ankunft, Säule E oder F, Fahrer mit PPP-Schild",
     "inc2": "Flug wird verfolgt — Verspätungen kosten Sie nichts",
     "inc3": "Privates, klimatisiertes Fahrzeug, nur Ihre Gruppe",
     "inc4": "Lizenzierter, versicherter Fahrer, der sich um das Gepäck kümmert",
@@ -685,7 +685,7 @@
     {
       "key": "delay",
       "q": "Was passiert, wenn mein Flug Verspätung hat?",
-      "a": "Für Sie nichts. Wir verfolgen Ihre Flugnummer und passen die Abholung selbst an. Ihr Fahrer steht mit einem Namensschild in der Ankunftshalle, wann immer Sie tatsächlich landen — ohne Aufpreis."
+      "a": "Für Sie nichts. Wir verfolgen Ihre Flugnummer und passen die Abholung selbst an. Wann immer Sie tatsächlich landen, wartet Ihr Fahrer am Bordstein vor der Ankunft – Säule E oder F – mit einem Schild mit dem PPP-Logo, ohne Aufpreis."
     },
     {
       "key": "shared",
@@ -973,5 +973,11 @@
     "balance": "An Ihren Fahrer am Tag",
     "whatsapp": "Auf WhatsApp schreiben",
     "home": "Zurück zur Startseite"
+  },
+  "airportMeet": {
+    "title": "Treffpunkt mit Ihrem Fahrer am Sangster International (MBJ)",
+    "step1": "Verlassen Sie das Terminal nach dem Zoll durch die Glastüren neben dem Taxistand und biegen Sie links ab.",
+    "step2": "Gehen Sie zum Bordstein und halten Sie an Säule E oder F Ausschau nach Ihrem Fahrer mit einem Firmenschild mit dem PPP-Logo.",
+    "help": "Sie sehen uns nicht? Schreiben Sie uns auf WhatsApp, und wir kommen zu Ihnen."
   }
 }

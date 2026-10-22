@@ -6,7 +6,7 @@ import {
   FaTimesCircle,
   FaHourglassHalf,
 } from "react-icons/fa";
-import { site } from "@/app/data/site";
+import { site, airportMeeting } from "@/app/data/site";
 import { fromCents, money, describeDirection } from "@/app/products/pricing";
 import { getBooking } from "@/lib/payments/store";
 import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
@@ -237,6 +237,24 @@ export default async function BookingResultPage({ params, searchParams }) {
               </SummaryRow>
             )}
           </dl>
+        )}
+
+        {/* Where to meet the driver, for any transfer with an arrival leg.
+            The most important practical detail a landing guest needs, so it
+            sits right under the summary rather than behind a link. */}
+        {isTransfer && (direction === "to-hotel" || direction === "both") && (
+          <div className="mt-4 rounded-xl border border-crimson-700/20 bg-white px-5 py-4 text-left text-sm">
+            <h2 className="font-display text-base font-semibold text-ink">
+              {dict.airportMeet?.title ?? airportMeeting.title}
+            </h2>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-ink/80">
+              <li>{dict.airportMeet?.step1 ?? airportMeeting.steps[0]}</li>
+              <li>{dict.airportMeet?.step2 ?? airportMeeting.steps[1]}</li>
+            </ol>
+            <p className="mt-3 text-xs text-ink/60">
+              {dict.airportMeet?.help ?? airportMeeting.help}
+            </p>
+          </div>
         )}
 
         {authorised && paid && payment.paidCents > 0 && (
