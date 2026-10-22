@@ -138,7 +138,7 @@ const SOUTH = "south-coast-hotels";
 
 export const PLACES = [
   // ── Montego Bay ──────────────────────────────────────────────────────────
-  { key: "toby-resort", name: "Toby Resort", area: "montego-bay", zone: MOBAY, transfer: t(0.25, 0.5), popularity: 3, kind: "hotel", active: true },
+  { key: "toby-resort", name: "Toby Resort", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), popularity: 3, kind: "hotel", active: true },
   { key: "royal-decameron-cornwall", name: "Royal Decameron Cornwall Beach", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), aliases: ["Decameron"], popularity: 4, kind: "hotel", active: true },
   { key: "s-hotel", name: "S Hotel Jamaica", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), popularity: 5, kind: "hotel", active: true },
   { key: "deja-resort", name: "Deja Resort", area: "montego-bay", zone: MOBAY, transfer: t(5, 10), popularity: 3, kind: "hotel", active: true },
