@@ -7,7 +7,7 @@ import TourRail from "@/app/components/TourRail";
 import PromiseSection from "@/app/components/PromiseSection";
 import DestinationsGrid from "@/app/components/DestinationsGrid";
 import Testimonials from "@/app/components/Testimonials";
-import GallerySection from "@/app/components/GallerySection";
+import PhotoReel from "@/app/components/PhotoReel";
 import FaqAccordion from "@/app/components/FaqAccordion";
 import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
@@ -126,6 +126,9 @@ export default async function Home({ params }) {
         </div>
       </div>
 
+      {/* Guests in PPP gear — the visual break between product and reading. */}
+      <PhotoReel dict={dict} />
+
       {/* The owner's own transparency pitch */}
       <TransparencyBand locale={locale} dict={dict} />
 
@@ -137,7 +140,8 @@ export default async function Home({ params }) {
       <StatsBar dict={dict} />
       <Testimonials dict={dict} />
 
-      <GallerySection dict={client} />
+      {/* No gallery here: the reel and the promise collage already carry the
+          photography, and the gallery repeated both. It lives on About. */}
       <DestinationsGrid locale={locale} dict={dict} />
 
       <div className="shell">

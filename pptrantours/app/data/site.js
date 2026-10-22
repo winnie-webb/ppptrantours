@@ -289,6 +289,28 @@ export const gallery = [
   },
 ];
 
+/**
+ * Homepage photo reel — guests in PPP tees and caps, the vans, and Mr. Pugh.
+ * Two rows that drift in opposite directions; all PPP's own photography
+ * (supplied 2026-10-22). Tiles are cropped square, so only pick photos whose
+ * subject survives a centred square crop. Every photo here appears nowhere
+ * else on the site — don't repeat the collage or gallery shots in the reel.
+ */
+export const brandReel = [
+  [
+    { src: "/ppp/horseback-trio-ppp.jpg", alt: "Three guests in PPP Tran Tours shirts riding horses through the sea" },
+    { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
+    { src: "/ppp/guests-van-resort.jpg", alt: "A family beside a PPP Tran Tours van outside a resort" },
+    { src: "/ppp/waterfall-ppp-sign.jpg", alt: "A guest under a waterfall holding a yellow PPP Tran Tours sign" },
+  ],
+  [
+    { src: "/ppp/ppp-cap-horse.jpg", alt: "A guest in a PPP Tran Tours cap and shirt beside a horse on the beach" },
+    { src: "/ppp/guests-van-beach.jpg", alt: "Four guests posing beside a PPP Tran Tours van" },
+    { src: "/ppp/tee-horseback-closeup.jpg", alt: "A guest in a PPP Tran Tours shirt riding a horse by the sea" },
+    { src: "/ppp/guests-ricks-cafe.jpg", alt: "Two guests under the Rick's Cafe sign in Negril" },
+  ],
+];
+
 /** Verbatim Tripadvisor reviews. */
 export const testimonials = [
   {

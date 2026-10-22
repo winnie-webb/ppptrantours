@@ -37,6 +37,19 @@ than Wayback's re-encodes.
 years, so consent was presumably obtained at the time — worth confirming with
 Mr. Pugh, as with `public/team/`.
 
+### Supplied 2026-10-22 (PPP's own Instagram photography)
+
+Ten photos of guests in PPP tees and caps, the vans, and Mr. Pugh, supplied
+directly by the client. Mostly 1080×1080; `waterfall-ppp-sign.jpg` was cropped
+out of a letterboxed 1080×1920 story. Each is used in exactly one place:
+`horseback-ppp-tee` and `donovan-rafting-guests` in the `PromiseSection`
+collage, the other eight in the homepage `PhotoReel`.
+
+`horseback-trio-ppp`, `horseback-ppp-tee`, `tee-horseback-closeup`,
+`tee-portrait-beach`, `ppp-cap-horse`, `waterfall-ppp-sign`,
+`donovan-rafting-guests`, `guests-van-beach`, `guests-van-resort`,
+`guests-ricks-cafe`.
+
 Deliberately **not** recovered, though present in the same media library: photos
 and logos belonging to third parties — `CHUKKA-River-Tubing-Safari-4.jpg`
 (Chukka Caribbean's marketing photo, and the largest file in the library at

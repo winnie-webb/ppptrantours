@@ -66,24 +66,19 @@ export default function PromiseSection({ locale = "en", dict }) {
         {/* Image collage */}
         <div className="relative grid grid-cols-2 gap-4">
           <div className="space-y-4 pt-10">
-            {/*
-              Anchored right: the source is a 1200x382 banner whose left half is
-              a flat gradient the old theme used for overlaid text. The guest
-              sits in the right quarter, which is all a 3:4 crop keeps.
-            */}
             <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <Image
-                src="/ppp/guest-ppp-branded.jpg"
-                alt="A guest in a PPP Tran Tours cap and shirt at a waterfall"
+                src="/ppp/horseback-ppp-tee.jpg"
+                alt="A guest in a PPP Tran Tours shirt on horseback in the sea"
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
-                className="object-cover object-right"
+                className="object-cover object-[45%_center]"
               />
             </figure>
             <figure className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src="/ppp/river-tubing.jpg"
-                alt="Guests river tubing under a stone bridge"
+                src="/ppp/donovan-rafting-guests.jpg"
+                alt={`${site.owner.name} in his PPP uniform with three rafting guests by the river`}
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
                 className="object-cover"

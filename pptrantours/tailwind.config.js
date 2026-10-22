@@ -73,11 +73,17 @@ module.exports = {
           "0%": { transform: "scale(1)" },
           "100%": { transform: "scale(1.12)" },
         },
+        // The track holds the photo set twice, so sliding by half loops seamlessly.
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "fade-up": "fade-up .7s cubic-bezier(.22,1,.36,1) both",
         "fade-in": "fade-in .9s ease both",
         "slow-zoom": "slow-zoom 22s ease-out both",
+        marquee: "marquee 60s linear infinite",
       },
     },
   },
