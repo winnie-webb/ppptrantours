@@ -168,7 +168,20 @@ export function tourSchema(tour, url, baseUrl, title, description) {
     "@type": "Product",
     name: title ?? tour.title,
     description,
-    image: tour.image ? `${baseUrl}${tour.image}` : undefined,
+    // Licensed photos carry their credit here — machine-readable, not shown
+    // on the page (the client's call, 2026-10-22). See public/CREDITS.md.
+    image: !tour.image
+      ? undefined
+      : tour.imageCredit
+        ? {
+            "@type": "ImageObject",
+            contentUrl: `${baseUrl}${tour.image}`,
+            creditText: tour.imageCredit.author,
+            creator: { "@type": "Person", name: tour.imageCredit.author },
+            license: tour.imageCredit.url,
+            acquireLicensePage: tour.imageCredit.url,
+          }
+        : `${baseUrl}${tour.image}`,
     url,
     category: "Tours & Excursions",
     brand: { "@id": `${baseUrl}/${ORG_ID}` },

@@ -132,7 +132,8 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/abc/abc-6.webp",
+    image: "/tours/blue-hole.jpg",
+    imageCredit: { author: "Thank You (23 Millions+) views", licence: "CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Blue_Hole_~_Ocho_Rios.jpg" },
     desc: "A chain of turquoise limestone pools hidden up the White River valley, with rope swings, cliff jumps and ledges to climb behind the falls. It is the wilder, less polished cousin of Dunn's River, and the one guests come back talking about.",
     highlights: [
       "Jump, swing or climb down — your choice",
@@ -157,7 +158,8 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/mpt/mpt-11.webp",
+    image: "/tours/dunns-river-falls.jpg",
+    imageCredit: { author: "Thank You (23 Millions+) views", licence: "CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Climbing_Dunn%27s_River_Falls.jpg" },
     desc: "Six hundred feet of terraced waterfall running straight into the Caribbean, and the one climb everybody knows Jamaica for. Link hands with the chain and walk up it, or take the stairs alongside and meet them at the top.",
     highlights: [
       "Climb the falls hand-in-hand with the chain",
@@ -182,7 +184,7 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/ppp/mystic-mountain.jpg",
+    image: "/tours/mystic-mountain.jpg",
     desc: "A chairlift through the rainforest canopy to a ridge above Ocho Rios harbour, then a bobsled run back down through the trees. Pick one activity or bundle two or three — the park prices them together and the savings are real.",
     highlights: [
       "Sky Explorer chairlift over the canopy",
@@ -224,7 +226,7 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-19.webp",
+    image: "/tours/dolphin-cove-ocho-rios.jpg",
     desc: "A natural cove where the dolphin programmes run from a shallow beach rather than a concrete tank. Admission alone covers kayaks, the jungle trail, the waterslide, the pool, the beach and a Jamaican lunch; the swims are booked on top.",
     highlights: [
       "Kayaks, jungle trail, waterslide and beach included",
@@ -266,7 +268,7 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/ppp/nine-mile-small.jpg",
+    image: "/tours/bob-marley-nine-mile.jpg",
     desc: "The village Bob Marley was born in, high in the St. Ann hills, where he is buried in the mausoleum beside the house he grew up in. Rasta guides walk you through it, and the drive up through the interior is half the trip.",
     highlights: [
       "The house Bob Marley was born in",
@@ -302,7 +304,7 @@ const QUOTED = [
     kind: "excursion",
     region: "montego-bay",
     duration: "Half day",
-    image: "/mpt/mpt-7.webp",
+    image: "/tours/dolphin-cove-montego-bay.jpg",
     desc: "The same dolphin programmes as Ocho Rios, twenty minutes from most Montego Bay hotels instead of two hours. The cheapest way to get a dolphin swim into a half day and still have the afternoon at the beach.",
     highlights: [
       "Twenty minutes from most MoBay resorts",
@@ -340,7 +342,8 @@ const QUOTED = [
     kind: "excursion",
     region: "montego-bay",
     duration: "Half day",
-    image: "/mpt/mpt-3.webp",
+    image: "/tours/rose-hall-great-house.jpg",
+    imageCredit: { author: "Don Ramey Logan", licence: "CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:Rose_Hall_Jamaica_Photo_Don_Ramey_Logan.jpg" },
     desc: "The most famous great house in Jamaica, and the story of Annie Palmer, the White Witch said to have murdered three husbands in it. Take it by daylight with the gardens, or come back after dark for the candlelit haunted tour.",
     highlights: [
       "Georgian great house, restored and furnished",
@@ -378,7 +381,7 @@ const QUOTED = [
     region: "montego-bay",
     popular: true,
     duration: "Half day",
-    image: "/mpt/mpt-2.webp",
+    image: "/tours/montego-bay-highlights.jpg",
     desc: "A run through the city — the Hip Strip, the craft market, Sam Sharpe Square — finishing at Doctor's Cave, the calm white-sand beach whose spring water made Montego Bay a resort town in the first place.",
     highlights: [
       "Hip Strip, craft market and Sam Sharpe Square",
@@ -402,7 +405,7 @@ const QUOTED = [
     kind: "excursion",
     region: "montego-bay",
     duration: "Half day",
-    image: "/abc/abc-12.webp",
+    image: "/tours/sand-and-saddle.jpg",
     desc: "Ride the trail down to the water, then swim the horses bareback out into the sea with you still on them. No experience needed — the grooms lead every horse and the water is chest-deep.",
     highlights: [
       "Trail ride down to the beach",
@@ -427,7 +430,7 @@ const QUOTED = [
     kind: "excursion",
     region: "falmouth",
     duration: "Half day",
-    image: "/abc/abc-16.webp",
+    image: "/tours/river-rapids-tubing.jpg",
     desc: "Drift the Great River on an inner tube through easy rapids and long quiet stretches, under old stone bridges and overhanging bamboo. Guides float alongside the whole way and steer you off the rocks.",
     highlights: [
       "Gentle rapids, no experience needed",
@@ -452,7 +455,7 @@ const QUOTED = [
     region: "falmouth",
     popular: true,
     duration: "Half day",
-    image: "/ctp/ctp-22.webp",
+    image: "/tours/martha-brae-rafting.jpg",
     desc: "An hour and a half poled down the Martha Brae on a thirty-foot bamboo raft, two to a bench, with a raft captain who has worked this river for years and will tell you about every bend of it.",
     highlights: [
       "Ninety minutes on the water",
@@ -476,7 +479,7 @@ const QUOTED = [
     kind: "excursion",
     region: "falmouth",
     duration: "Evening",
-    image: "/abc/abc-18.webp",
+    image: "/tours/luminous-lagoon.jpg",
     desc: "One of a handful of bioluminescent bays left in the world. After dark the boat runs out into the lagoon and everything that moves through the water glows — the wake, the oars, and you, if you get in.",
     highlights: [
       "After-dark boat run into the lagoon",
@@ -505,7 +508,7 @@ const QUOTED = [
     region: "negril",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-25.webp",
+    image: "/tours/negril-seven-mile-beach.jpg",
     desc: "Seven miles of white sand and calm, shallow, absurdly clear water, lined with beach bars that will happily feed you all afternoon. No gate and no ticket — just tell your driver what time you want collecting.",
     highlights: [
       "No entry fee, no ticket, no queue",
@@ -529,7 +532,7 @@ const QUOTED = [
     region: "negril",
     popular: true,
     duration: "Full day",
-    image: "/ppp/ricks-cafe.jpg",
+    image: "/tours/ricks-cafe.jpg",
     desc: "The cliff bar at the end of the island, where local divers throw themselves off the thirty-five-foot ledge and the sun goes down directly in front of you. Jump yourself if you have the nerve, or take a rum punch and watch.",
     highlights: [
       "Cliff divers from 35 feet",
@@ -555,7 +558,8 @@ const QUOTED = [
     region: "south-coast",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-8.webp",
+    image: "/tours/ys-falls.jpg",
+    imageCredit: { author: "Ufos8mycow00", licence: "CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:Y.S._Falls.jpg" },
     desc: "Seven tiers of cold spring water dropping through a private estate on the South Coast, with natural pools, rope swings and a jitney ride out to the falls through the cattle pasture. Greener, quieter and far less crowded than the north-coast falls.",
     highlights: [
       "Seven tiers, natural pools at each",
@@ -589,7 +593,7 @@ const QUOTED = [
     kind: "excursion",
     region: "south-coast",
     duration: "Full day",
-    image: "/ctp/ctp-6.webp",
+    image: "/tours/black-river-safari.jpg",
     desc: "A boat up Jamaica's widest river through red mangrove tunnels, looking for the American crocodiles that live in it. The captains know them by name and get you closer than you will expect.",
     highlights: [
       "Wild American crocodiles, up close",
@@ -612,7 +616,7 @@ const QUOTED = [
     kind: "excursion",
     region: "south-coast",
     duration: "Full day",
-    image: "/ctp/ctp-5.webp",
+    image: "/tours/appleton-estate.jpg",
     desc: "Two hundred and seventy years of rum-making in the Nassau Valley, from the cane field and the copper pot stills through to the barrel warehouse. The tour ends in the tasting room, which is the point.",
     highlights: [
       "Working distillery, not a museum",
@@ -637,7 +641,8 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-4.webp",
+    image: "/tours/combo-blue-hole-dunns-river.jpg",
+    imageCredit: { author: "Thank You (23 Millions+) views", licence: "CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Blue_Hole,_Ocho_Rios_2019.jpg" },
     desc: "Both of St. Ann's great waterfalls in one day. They are twenty minutes apart, so the only thing a second stop really costs is a little more driving and waiting — which is exactly what the combo price covers.",
     highlights: [
       "Two headline waterfalls, one day",
@@ -656,7 +661,8 @@ const QUOTED = [
     region: "south-coast",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-9.webp",
+    image: "/tours/combo-ys-falls-black-river.jpg",
+    imageCredit: { author: "ingostrutz", licence: "CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:Black_River_%E2%80%93_Boot_mit_Safari-G%C3%A4sten_auf_dem_Black_River_(1998).jpg" },
     desc: "The classic South Coast day and PPP's best seller. The crocodile safari in the morning, lunch on the way, then the falls in the afternoon — both in St. Elizabeth, half an hour apart.",
     highlights: [
       "PPP's top-selling combination",
@@ -686,7 +692,8 @@ const QUOTED = [
     region: "south-coast",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-2.webp",
+    image: "/tours/combo-appleton-ys-falls.jpg",
+    imageCredit: { author: "Acampbell3000", licence: "CC BY 3.0", url: "https://commons.wikimedia.org/wiki/File:Appleton_Estate_Jamaica_November_2012.jpg" },
     desc: "Rum in the morning, cold spring water in the afternoon. Appleton and YS Falls are both in St. Elizabeth and sit naturally in the same day, which is why this one sells as well as it does.",
     highlights: [
       "Working distillery and a tasting",
@@ -705,7 +712,7 @@ const QUOTED = [
     region: "negril",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-23.webp",
+    image: "/tours/combo-negril-beach-ricks-cafe.jpg",
     desc: "The whole of Negril in one day, and neither stop has a gate fee. Afternoon on Seven Mile Beach, then ten minutes down the coast to the West End cliffs in time for the divers and the sunset.",
     highlights: [
       "No entry fee at either stop",
@@ -724,7 +731,7 @@ const QUOTED = [
     region: "montego-bay",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-21.webp",
+    image: "/tours/combo-sand-saddle-river-rapids.jpg",
     desc: "Swim the horses in the morning, float the river in the afternoon. Both are short, both are wet, and doing them together makes a full day out of two half days.",
     highlights: [
       "Bareback sea swim on horseback",
@@ -745,7 +752,7 @@ const QUOTED = [
     kind: "combo",
     region: "falmouth",
     duration: "Full day",
-    image: "/abc/abc-9.webp",
+    image: "/tours/combo-martha-brae-doctors-cave.jpg",
     desc: "Ninety minutes poled down the Martha Brae, then back along the coast to Doctor's Cave for the afternoon. A gentle day with no climbing and no queuing in it.",
     highlights: [
       "Bamboo raft down the Martha Brae",
@@ -764,7 +771,8 @@ const QUOTED = [
     region: "ocho-rios",
     popular: true,
     duration: "Full day",
-    image: "/ctp/ctp-19.webp",
+    image: "/tours/combo-dunns-river-mystic-mountain.jpg",
+    imageCredit: { author: "Thank You (23 Millions+) views", licence: "CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Dunn%27s_River_Falls.jpg" },
     desc: "They are next door to each other in Ocho Rios, which makes them one of the easiest pairs on the island to run together. Climb the falls, then take the chairlift up and bobsled back down.",
     highlights: [
       "The two stops are minutes apart",

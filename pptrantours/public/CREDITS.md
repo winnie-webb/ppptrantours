@@ -89,6 +89,45 @@ CC BY and CC BY-SA require visible attribution wherever the image is published.
 Either credit these on the page, or replace them with owned photography — the
 latter is the intent.
 
+## `public/tours/` — tour and combo photos
+
+Replaced the 300×300 thumbnails on 2026-10-22. Each product has its own photo
+(`<product id>.jpg`, 1600px on the long side); none is reused elsewhere.
+
+Credits are **not shown on the page** (the client's decision). Licensed photos
+carry an `imageCredit` in `app/data/catalogue.js`, which the tour page emits in
+its schema.org `ImageObject` only. ⚠️ CC BY / BY-SA ask for attribution
+"reasonable to the medium" — a hidden credit may not satisfy that. If that
+matters, either show the credit or swap the rows marked *credit required* for
+Unsplash/Pexels photos.
+
+| File | Source | Author | Licence | Credit required |
+| --- | --- | --- | --- | --- |
+| blue-hole.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Blue_Hole_~_Ocho_Rios.jpg) | Thank You (23 Millions+) views | CC BY 2.0 | **yes** |
+| dunns-river-falls.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Climbing_Dunn%27s_River_Falls.jpg) | Thank You (23 Millions+) views | CC BY 2.0 | **yes** |
+| mystic-mountain.jpg | [Unsplash](https://unsplash.com/photos/uxh_FRlmORg) | Kenrick Baksh | Unsplash License | no |
+| dolphin-cove-ocho-rios.jpg | [Pexels](https://www.pexels.com/photo/28770247/) | Emilio Sánchez Hernández | Pexels License | no |
+| bob-marley-nine-mile.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bob_Marley%27s_Mausoleum.JPG) | Enrospr | Public domain | no |
+| dolphin-cove-montego-bay.jpg | [Pexels](https://www.pexels.com/photo/39972152/) | TonyNojmanSK | Pexels License | no |
+| rose-hall-great-house.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Rose_Hall_Jamaica_Photo_Don_Ramey_Logan.jpg) | Don Ramey Logan | CC BY-SA 3.0 | **yes** |
+| montego-bay-highlights.jpg | [Unsplash](https://unsplash.com/photos/7LbIUXkMA8I) | Brighton Pereira | Unsplash License | no |
+| sand-and-saddle.jpg | [Pexels](https://www.pexels.com/photo/5503462/) | Leonardo Rossatti | Pexels License | no |
+| river-rapids-tubing.jpg | [Pexels](https://www.pexels.com/photo/33986446/) | Man Fong Wong | Pexels License | no |
+| martha-brae-rafting.jpg | [Pexels](https://www.pexels.com/photo/38921246/) | Chris G Brown | Pexels License | no |
+| luminous-lagoon.jpg | [Pexels](https://www.pexels.com/photo/26794599/) | Chasing Lyu | Pexels License | no |
+| negril-seven-mile-beach.jpg | [Unsplash](https://unsplash.com/photos/CDTL4Wtyi8w) | Tom Podmore | Unsplash License | no |
+| ricks-cafe.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Rick%27s_Cafe,_Negril,_Jamaica_(Unsplash).jpg) | Simson Petrol simson_petrol | CC0 | no |
+| ys-falls.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Y.S._Falls.jpg) | Ufos8mycow00 | CC BY-SA 3.0 | **yes** |
+| black-river-safari.jpg | [Unsplash](https://unsplash.com/photos/jIk3I_e16uw) | Yves Alarie | Unsplash License | no |
+| appleton-estate.jpg | [Pexels](https://www.pexels.com/photo/5720872/) | Piotr Grzankowski | Pexels License | no |
+| combo-blue-hole-dunns-river.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Blue_Hole,_Ocho_Rios_2019.jpg) | Thank You (23 Millions+) views | CC BY 2.0 | **yes** |
+| combo-ys-falls-black-river.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Black_River_%E2%80%93_Boot_mit_Safari-G%C3%A4sten_auf_dem_Black_River_(1998).jpg) | ingostrutz | CC BY-SA 3.0 | **yes** |
+| combo-appleton-ys-falls.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Appleton_Estate_Jamaica_November_2012.jpg) | Acampbell3000 | CC BY 3.0 | **yes** |
+| combo-negril-beach-ricks-cafe.jpg | [Pexels](https://www.pexels.com/photo/19565413/) | Ranteen Dixon | Pexels License | no |
+| combo-sand-saddle-river-rapids.jpg | [Unsplash](https://unsplash.com/photos/-Vd3bSiHTys) | Kyle Mackie | Unsplash License | no |
+| combo-martha-brae-doctors-cave.jpg | [Unsplash](https://unsplash.com/photos/OL4j0kejZPk) | Jeffrey Valenzuela | Unsplash License | no |
+| combo-dunns-river-mystic-mountain.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Dunn%27s_River_Falls.jpg) | Thank You (23 Millions+) views | CC BY 2.0 | **yes** |
+
 ## `public/at/at-*.webp` — airport transfers
 
 Re-cut from the same Wikimedia scenery above, one per destination region. These
