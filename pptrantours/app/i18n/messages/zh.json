@@ -11,7 +11,8 @@
       "奥乔里奥斯一日游",
       "法尔茅斯邮轮岸上游",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "蒙特哥贝机场接送与牙买加私人包车游"
   },
   "common": {
     "reviews": "条评价",
@@ -477,7 +478,8 @@
     "alsoLike": "您可能还会喜欢",
     "moreTours": "更多行程",
     "perPersonCol": "每人",
-    "estimatedMark": "参考价"
+    "estimatedMark": "参考价",
+    "metaTitle": "{tour}：酒店接送私人游览"
   },
   "toursPage": {
     "metaTitle": "牙买加有什么好玩的",
@@ -979,5 +981,11 @@
     "step1": "出海关后，从出租车站旁的玻璃门走出航站楼，然后向左转。",
     "step2": "走到路边，在E或F柱旁寻找举着带有PPP标志公司牌子的司机。",
     "help": "找不到我们？请通过WhatsApp联系我们，我们会过来找您。"
+  },
+  "host": {
+    "eyebrow": "您的接待人",
+    "role": "2010 年起担任老板兼司机 · 牙买加旅游局持牌",
+    "body": "他至今几乎每天亲自驾车，我们在 Tripadvisor 上的 {count} 条评价中大多都提到了他的名字。",
+    "meet": "认识 Pugh 先生"
   }
 }

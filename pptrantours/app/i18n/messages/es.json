@@ -11,7 +11,8 @@
       "excursiones Ocho Ríos",
       "excursiones crucero Falmouth",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "Traslados al aeropuerto de Montego Bay y tours privados en Jamaica"
   },
   "common": {
     "reviews": "opiniones",
@@ -477,7 +478,8 @@
     "alsoLike": "También te puede gustar",
     "moreTours": "Más tours",
     "perPersonCol": "Por persona",
-    "estimatedMark": "orientativo"
+    "estimatedMark": "orientativo",
+    "metaTitle": "{tour}: excursión privada desde su hotel"
   },
   "toursPage": {
     "metaTitle": "Qué hacer en Jamaica",
@@ -979,5 +981,11 @@
     "step1": "Después de la aduana, salga de la terminal por las puertas de cristal junto a la parada de taxis y gire a la izquierda.",
     "step2": "Camine hasta la acera y busque a su conductor con un cartel de la empresa con el logotipo de PPP en la columna E o F.",
     "help": "¿No nos ve? Escríbanos por WhatsApp e iremos a buscarle."
+  },
+  "host": {
+    "eyebrow": "Su anfitrión",
+    "role": "Propietario y conductor desde 2010 · Licencia de la Jamaica Tourist Board",
+    "body": "Todavía conduce casi todos los días, y la mayoría de nuestras {count} reseñas en Tripadvisor lo mencionan por su nombre.",
+    "meet": "Conozca al Sr. Pugh"
   }
 }

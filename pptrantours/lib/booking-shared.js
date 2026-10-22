@@ -48,6 +48,32 @@ export async function makeServerReference() {
 const money = (n) => `US$${Number(n ?? 0).toFixed(2)}`;
 
 /**
+ * After-the-trip thank-you, opened from /admin on Mr. Pugh's phone and sent to
+ * the GUEST — the reverse direction of buildWhatsAppMessage below. Null when
+ * there is no number to send it to.
+ *
+ * No discount or freebie for the review: Google removes reviews that were
+ * paid for in any form.
+ */
+export function buildReviewRequestWhatsApp(booking) {
+  const digits = String(booking.phone ?? "").replace(/\D/g, "");
+  if (!digits) return null;
+
+  const firstName = String(booking.name ?? "").trim().split(/\s+/)[0];
+  const text = [
+    `Hi${firstName ? ` ${firstName}` : ""}, thank you for travelling with PPP Tran Tours! We hope you had a wonderful time in Jamaica.`,
+    ``,
+    `If you have a minute, a quick Google review would mean a lot to us:`,
+    site.reviewLinks.google,
+    ``,
+    `Safe travels, and we hope to see you again.`,
+    `— Donovan, PPP Tran Tours`,
+  ].join("\n");
+
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
+
+/**
  * Pre-filled WhatsApp message.
  *
  * Transport and gate fees are listed on separate lines on purpose. Mr. Pugh

@@ -18,7 +18,8 @@
  */
 import { html, raw, dash } from "../html.js";
 
-const INK = "#150a0d";
+const TEXT = "#3a2e31";
+const MUTED = "#8a7d80";
 const CRIMSON = "#a80424";
 const SAND = "#fbf7f4";
 
@@ -28,8 +29,8 @@ function row(label, value, { mono = false } = {}) {
     : "font-family:Arial,Helvetica,sans-serif;";
   return html`
     <tr>
-      <td width="34%" style="padding:9px 0;border-top:1px solid #f4efeb;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:${INK};opacity:0.5;vertical-align:top;">${label}</td>
-      <td style="padding:9px 0;border-top:1px solid #f4efeb;${raw(family)}font-size:13px;color:${INK};vertical-align:top;word-break:break-all;">${value}</td>
+      <td width="34%" style="padding:9px 0;border-top:1px solid #f4efeb;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:${MUTED};vertical-align:top;">${label}</td>
+      <td style="padding:9px 0;border-top:1px solid #f4efeb;${raw(family)}font-size:13px;color:${TEXT};vertical-align:top;word-break:break-all;">${value}</td>
     </tr>
   `;
 }
@@ -65,8 +66,8 @@ export function paymentAlert({
                style="width:100%;max-width:560px;background-color:#ffffff;border-radius:16px;overflow:hidden;">
 
           <tr>
-            <td style="background-color:${INK};padding:22px 24px;">
-              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;opacity:0.5;">
+            <td style="background-color:${CRIMSON};padding:22px 24px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;opacity:0.75;">
                 PPP Tran Tours &middot; payment started
               </div>
               <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:#ffffff;padding-top:8px;">
@@ -82,7 +83,7 @@ export function paymentAlert({
 
           <tr>
             <td style="padding:20px 24px 4px 24px;">
-              <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:21px;color:${INK};opacity:0.75;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:21px;color:${TEXT};">
                 A guest opened the card checkout. <strong>This is not a confirmed payment.</strong>
                 If no booking shows as paid and the guest says they were charged,
                 search the order id below in the ${dash(provider)} dashboard.
@@ -107,8 +108,8 @@ export function paymentAlert({
           </tr>
 
           <tr>
-            <td align="center" style="background-color:${INK};padding:18px 24px;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:18px;color:#ffffff;">
-              <div style="opacity:0.35;">
+            <td align="center" style="background-color:${SAND};border-top:1px solid #f0e8e2;padding:18px 24px;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:18px;color:${MUTED};">
+              <div>
                 Sent when card checkout is opened. One of these with no matching
                 paid booking is the only sign of a capture that failed mid-flight.
               </div>

@@ -11,7 +11,8 @@
       "escursioni Ocho Rios",
       "escursioni crociera Falmouth",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "Transfer aeroporto Montego Bay e tour privati in Giamaica"
   },
   "common": {
     "reviews": "recensioni",
@@ -477,7 +478,8 @@
     "alsoLike": "Potrebbe interessarti anche",
     "moreTours": "Altri tour",
     "perPersonCol": "A persona",
-    "estimatedMark": "indicativo"
+    "estimatedMark": "indicativo",
+    "metaTitle": "{tour}: escursione privata dal tuo hotel"
   },
   "toursPage": {
     "metaTitle": "Cosa fare in Giamaica",
@@ -979,5 +981,11 @@
     "step1": "Dopo la dogana, esci dal terminal dalle porte a vetri accanto alla fermata dei taxi e gira a sinistra.",
     "step2": "Vai fino al marciapiede e cerca il tuo autista con un cartello aziendale con il logo PPP alla colonna E o F.",
     "help": "Non ci vedi? Scrivici su WhatsApp e veniamo noi da te."
+  },
+  "host": {
+    "eyebrow": "Il tuo host",
+    "role": "Titolare e autista dal 2010 · Licenza del Jamaica Tourist Board",
+    "body": "Guida ancora quasi ogni giorno, e la maggior parte delle nostre {count} recensioni su Tripadvisor lo cita per nome.",
+    "meet": "Conosci Mr. Pugh"
   }
 }

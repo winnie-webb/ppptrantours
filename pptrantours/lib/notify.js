@@ -18,6 +18,8 @@ import { sendEmail, isTransportConfigured, notifyRecipient } from "@/lib/email/t
 import { bookingAlert } from "@/lib/email/templates/booking-alert";
 import { paymentAlert } from "@/lib/email/templates/payment-alert";
 import { bookingConfirmation } from "@/lib/email/templates/booking-confirmation";
+import { reviewRequest } from "@/lib/email/templates/review-request";
+import { site } from "@/app/data/site";
 
 export function isNotifyConfigured() {
   return isTransportConfigured();
@@ -76,5 +78,26 @@ export async function sendPaymentAlert(details) {
     subject,
     html,
     // No reply-to: nobody replies to a diagnostic, and the guest did not send it.
+  });
+}
+
+/**
+ * The after-the-trip thank-you with the Google review link. Sent by hand from
+ * /admin, never automatically: Mr. Pugh decides when a guest is asked.
+ * Replies come back to the business inbox like any other guest mail.
+ *
+ * @returns {Promise<{sent: boolean, reason?: string}>}
+ */
+export async function sendReviewRequest(booking) {
+  if (!booking.email) return { sent: false, reason: "no-recipient" };
+  const { subject, html } = reviewRequest(booking, {
+    googleReviewUrl: site.reviewLinks.google,
+    tripadvisorUrl: site.social.tripadvisor,
+  });
+  return sendEmail({
+    to: booking.email,
+    subject,
+    html,
+    replyTo: site.contact.email,
   });
 }

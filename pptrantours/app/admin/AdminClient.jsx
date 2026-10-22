@@ -14,9 +14,11 @@ import {
   FaEnvelope,
   FaMoneyBillWave,
   FaTimes,
+  FaStar,
 } from "react-icons/fa";
 import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
 import { describeDirection } from "@/app/products/pricing";
+import { buildReviewRequestWhatsApp } from "@/lib/booking-shared";
 
 /**
  * `direction` is the current three-way field; older bookings only carry the
@@ -626,6 +628,10 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
           </div>
         )}
 
+        {st === "completed" && (
+          <ReviewRequest booking={b} call={call} onSent={onChanged} />
+        )}
+
         {rowError && <ErrorLine>{rowError}</ErrorLine>}
 
         {payOpen && (
@@ -758,6 +764,71 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
         </div>
       )}
     </li>
+  );
+}
+
+/**
+ * Ask a guest for a Google review once the trip is done.
+ *
+ * WhatsApp is the main button because that is where Mr. Pugh already talks to
+ * guests — it opens a ready-written message on his phone and he presses send.
+ * Email is the fallback for guests without a WhatsApp number on file.
+ */
+function ReviewRequest({ booking: b, call, onSent }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const whatsapp = buildReviewRequestWhatsApp(b);
+
+  const email = async () => {
+    setBusy(true);
+    setError("");
+    try {
+      await call(`/api/admin/bookings/${b.reference}/review`, { method: "POST" });
+      await onSent();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="mt-3 rounded-xl border border-gold-300 bg-gold-200/40 p-3">
+      <p className="flex items-center gap-1.5 text-xs font-semibold text-ink/70">
+        <FaStar className="text-gold-500" />
+        Ask for a Google review
+        {b.reviewRequest?.at && (
+          <span className="font-normal text-ink/45">
+            · emailed {when(b.reviewRequest.at)}
+          </span>
+        )}
+      </p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {whatsapp && (
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 rounded-full bg-crimson-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-crimson-700"
+          >
+            <FaWhatsapp className="text-[0.7rem]" />
+            Send on WhatsApp
+          </a>
+        )}
+        {b.email && (
+          <button
+            type="button"
+            onClick={email}
+            disabled={busy}
+            className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink/70 shadow-card transition hover:text-crimson-700 disabled:opacity-50"
+          >
+            <FaEnvelope className="text-[0.65rem]" />
+            {busy ? "Sending…" : b.reviewRequest?.at ? "Email again" : "Send by email"}
+          </button>
+        )}
+      </div>
+      {error && <ErrorLine>{error}</ErrorLine>}
+    </div>
   );
 }
 

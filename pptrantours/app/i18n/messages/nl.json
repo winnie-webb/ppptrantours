@@ -11,7 +11,8 @@
       "excursies Ocho Rios",
       "cruise-excursies Falmouth",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "Luchthaventransfers Montego Bay & privétours op Jamaica"
   },
   "common": {
     "reviews": "beoordelingen",
@@ -477,7 +478,8 @@
     "alsoLike": "Misschien ook iets voor u",
     "moreTours": "Meer tours",
     "perPersonCol": "Per persoon",
-    "estimatedMark": "indicatief"
+    "estimatedMark": "indicatief",
+    "metaTitle": "{tour}: privé-excursie vanaf je hotel"
   },
   "toursPage": {
     "metaTitle": "Wat te doen op Jamaica",
@@ -979,5 +981,11 @@
     "step1": "Verlaat na de douane de terminal via de glazen deuren naast de taxistandplaats en sla linksaf.",
     "step2": "Loop naar de stoeprand en zoek bij pilaar E of F naar uw chauffeur met een bedrijfsbord met het PPP-logo.",
     "help": "Ziet u ons niet? Stuur ons een bericht via WhatsApp en we komen naar u toe."
+  },
+  "host": {
+    "eyebrow": "Je gastheer",
+    "role": "Eigenaar & chauffeur sinds 2010 · Vergunning van de Jamaica Tourist Board",
+    "body": "Hij rijdt nog bijna elke dag zelf, en de meeste van onze {count} Tripadvisor-reviews noemen hem bij naam.",
+    "meet": "Maak kennis met Mr. Pugh"
   }
 }

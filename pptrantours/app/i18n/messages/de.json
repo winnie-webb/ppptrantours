@@ -11,7 +11,8 @@
       "Ausflüge Ocho Rios",
       "Kreuzfahrtausflüge Falmouth",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "Flughafentransfers Montego Bay & private Jamaika-Touren"
   },
   "common": {
     "reviews": "Bewertungen",
@@ -477,7 +478,8 @@
     "alsoLike": "Das könnte Ihnen auch gefallen",
     "moreTours": "Weitere Touren",
     "perPersonCol": "Pro Person",
-    "estimatedMark": "Richtwert"
+    "estimatedMark": "Richtwert",
+    "metaTitle": "{tour}: Private Tour ab Ihrem Hotel"
   },
   "toursPage": {
     "metaTitle": "Was man auf Jamaika unternehmen kann",
@@ -979,5 +981,11 @@
     "step1": "Verlassen Sie das Terminal nach dem Zoll durch die Glastüren neben dem Taxistand und biegen Sie links ab.",
     "step2": "Gehen Sie zum Bordstein und halten Sie an Säule E oder F Ausschau nach Ihrem Fahrer mit einem Firmenschild mit dem PPP-Logo.",
     "help": "Sie sehen uns nicht? Schreiben Sie uns auf WhatsApp, und wir kommen zu Ihnen."
+  },
+  "host": {
+    "eyebrow": "Ihr Gastgeber",
+    "role": "Inhaber & Fahrer seit 2010 · Lizenziert vom Jamaica Tourist Board",
+    "body": "Er fährt noch fast jeden Tag selbst, und die meisten unserer {count} Tripadvisor-Bewertungen nennen ihn beim Namen.",
+    "meet": "Mr. Pugh kennenlernen"
   }
 }

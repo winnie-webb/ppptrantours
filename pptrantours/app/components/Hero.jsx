@@ -137,20 +137,16 @@ export default function Hero({ locale = "en", dict }) {
             className="mt-7 hidden animate-fade-up flex-wrap items-center gap-3 sm:flex lg:mt-9"
             style={{ animationDelay: "240ms" }}
           >
-            <Link href={localePath(locale, "/tours")} className="btn-gold group">
-              {dict?.common?.bookTourNow ?? "Book a Tour Now"}
-              <FaArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link href={localePath(locale, "/transfers")} className="btn-ghost-light">
-              {dict?.common?.bookTransferNow ?? "Book a Transfer Now"}
-            </Link>
-            {/* Third CTA, desktop only. On a phone WhatsApp is already the
-                floating button, and two choices here beat three. */}
+            {/* "Book a Tour Now" / "Book a Transfer Now" used to sit here
+                too, repeating the two task cards directly below word for
+                word (removed 2026-10-22). The cards carry both actions now.
+                WhatsApp stays, desktop only: on a phone it is already the
+                floating button. */}
             <a
               href={site.contact.whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="btn hidden text-white/80 hover:text-white sm:inline-flex"
+              className="btn !px-0 text-white/80 hover:text-white"
             >
               <FaWhatsapp className="text-lg text-whatsapp" />
               {site.contact.phone}
@@ -195,10 +191,10 @@ export default function Hero({ locale = "en", dict }) {
           the airport yet.
         */}
         <div
-          className="mt-6 grid max-w-3xl animate-fade-up gap-4 sm:mt-8 sm:grid-cols-2 lg:mt-10"
+          className="mt-6 grid max-w-3xl animate-fade-up gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4 lg:mt-10"
           style={{ animationDelay: "380ms" }}
         >
-          <div className="rounded-2xl bg-white/95 p-5 shadow-lift backdrop-blur">
+          <div className="rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur sm:p-5">
             <div className="flex items-center gap-2.5 text-sm font-semibold text-ink/70">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
                 <FaPlane className="text-xs" />
@@ -217,18 +213,21 @@ export default function Hero({ locale = "en", dict }) {
             </Link>
           </div>
 
-          <div className="flex flex-col rounded-2xl bg-white/95 p-5 shadow-lift backdrop-blur">
-            <div className="flex items-center gap-2.5 text-sm font-semibold text-ink/70">
+          {/* On a phone this card collapses to a single row: icon, label and
+              the button side by side, with the blurb hidden. Stacked full
+              size under the transfer card it was a second screen of hero. */}
+          <div className="flex items-center gap-3 rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur sm:flex-col sm:items-stretch sm:gap-0 sm:p-5">
+            <div className="flex flex-1 items-center gap-2.5 text-sm font-semibold text-ink/70 sm:flex-none">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
                 <FaMapMarkedAlt className="text-xs" />
               </span>
               {t.toursCard ?? "Tours"}
             </div>
-            <p className="mt-3.5 flex-1 text-sm leading-relaxed text-ink/60">
+            <p className="mt-3.5 hidden flex-1 text-sm leading-relaxed text-ink/60 sm:block">
               {t.toursCardBody ??
                 "Waterfalls, beaches, rafting and reggae — private, from your hotel."}
             </p>
-            <Link href={localePath(locale, "/tours")} className="btn-ghost mt-3.5 w-full !py-2.5 text-sm">
+            <Link href={localePath(locale, "/tours")} className="btn-ghost shrink-0 !py-2.5 text-sm sm:mt-3.5 sm:w-full">
               {dict?.common?.bookTourNow ?? "Book a Tour Now"}
               <FaArrowRight className="text-xs" />
             </Link>

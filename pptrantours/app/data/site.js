@@ -72,6 +72,14 @@ export const site = {
     tripadvisor:
       "https://www.tripadvisor.com/Attraction_Review-g147311-d2343969-Reviews-PPP_Tran_Tours_Jamaica-Montego_Bay_Saint_James_Parish_Jamaica.html",
   },
+  /*
+   * "Leave a review" form for the Google Business Profile (supplied
+   * 2026-10-22). Sent to guests after the trip — the admin panel's review
+   * request — never before it: Google discourages asking ahead of the service.
+   */
+  reviewLinks: {
+    google: "https://g.page/r/Cez1mmUHMeeyEBM/review",
+  },
   rating: { score: "5.0", count: 680, source: "Tripadvisor" },
 };
 

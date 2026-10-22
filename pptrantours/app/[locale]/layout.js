@@ -45,7 +45,8 @@ export async function generateMetadata({ params }) {
   return {
     metadataBase: new URL(BASE),
     title: {
-      default: `${site.longName} — ${meta.tagline}`,
+      // Search terms first: the brand name alone is not what guests type.
+      default: `${meta.homeTitle ?? meta.tagline} | ${site.name}`,
       template: `%s | ${site.name}`,
     },
     description: meta.description,

@@ -19,6 +19,7 @@ import StickyBookBar from "@/app/components/StickyBookBar";
 import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
 import JsonLd from "@/app/components/JsonLd";
+import HostCard from "@/app/components/HostCard";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { breadcrumbSchema, tourSchema } from "@/app/data/schema";
@@ -36,7 +37,10 @@ export async function generateMetadata({ params }) {
 
   const dict = await getDictionary(locale);
   const copy = dict.tours?.[id] ?? {};
-  const title = copy.title ?? tour.title;
+  const name = copy.title ?? tour.title;
+  // "Dunn's River Falls Private Excursion from Your Hotel" ranks for what
+  // guests search; the bare attraction name competes with the attraction itself.
+  const title = dict.tourPage?.metaTitle?.replace("{tour}", name) ?? name;
   const desc = copy.desc ?? tour.desc;
 
   return {
@@ -230,7 +234,7 @@ export default async function TourPage({ params }) {
           <figure className="order-1 relative aspect-[16/10] overflow-hidden rounded-2xl bg-ink/5 shadow-card lg:col-start-1 lg:row-start-1">
             <Image
               src={tour.image}
-              alt={tour.title}
+              alt={`${tour.title}${tour.subtitle ? `, ${tour.subtitle}` : ""} — private tour in Jamaica`}
               fill
               sizes="(max-width: 1024px) 100vw, 62vw"
               className="object-cover"
@@ -307,6 +311,8 @@ export default async function TourPage({ params }) {
                 {base.entry.note}
               </p>
             )}
+
+            <HostCard locale={locale} dict={dict} className="mt-10" />
           </div>
 
           {/* Booking rail — second on a phone, sticky right column at lg */}

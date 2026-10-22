@@ -13,17 +13,24 @@
 import { html, raw, dash } from "../html.js";
 import { airportMeeting } from "../../../app/data/site.js";
 
-const INK = "#150a0d";
+/*
+ * No black blocks: Mr. Pugh found the near-black masthead and footer heavy.
+ * Crimson carries the brand, gold is an accent rule, and body text is a warm
+ * charcoal rather than ink.
+ */
+const TEXT = "#3a2e31";
+const MUTED = "#8a7d80";
 const CRIMSON = "#a80424";
 const GOLD = "#f1d72d";
 const SAND = "#fbf7f4";
+const CREAM = "#fff9e0";
 
 function row(label, value, { first = false } = {}) {
   const border = first ? "" : "border-top:1px solid #f4efeb;";
   return html`
     <tr>
-      <td width="38%" style="padding:10px 0;color:${INK};opacity:0.5;${raw(border)}vertical-align:top;">${label}</td>
-      <td style="padding:10px 0;color:${INK};${raw(border)}vertical-align:top;">${value}</td>
+      <td width="38%" style="padding:10px 0;color:${MUTED};${raw(border)}vertical-align:top;">${label}</td>
+      <td style="padding:10px 0;color:${TEXT};${raw(border)}vertical-align:top;">${value}</td>
     </tr>
   `;
 }
@@ -33,9 +40,9 @@ function money(cents) {
 }
 
 function directionLabel(direction) {
-  if (direction === "to-airport") return "Departure";
-  if (direction === "to-hotel") return "Arrival";
-  return "Round trip";
+  if (direction === "to-airport") return "Departure · hotel → airport";
+  if (direction === "to-hotel") return "Arrival · airport → hotel";
+  return "Round trip · both ways";
 }
 
 /**
@@ -68,14 +75,20 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
   const headline = isEnquiry
     ? "We've got your message"
     : quoted
-      ? "You're booked"
+      ? "Booking confirmed"
       : "Request received";
 
   const nextSteps = isEnquiry
     ? "We'll reply by email or WhatsApp, usually within the hour during dispatch hours."
     : quoted
-      ? "Your driver and exact pickup time follow separately, usually within the hour during dispatch hours. Nothing else for you to do."
-      : "We haven't published a rate for this route yet — we'll come back with a firm price, same day, and you can confirm from there.";
+      ? isTransfer
+        ? "We'll send your driver's name and pickup time shortly, usually within the hour. We track your flight, so if it's early or late your driver adjusts — no extra charge."
+        : "We'll send your pickup time and driver details shortly, usually within the hour. Nothing else for you to do."
+      : "We'll send you a firm price for this route the same day. Your booking is confirmed once you accept it.";
+
+  const totalLabel = isTransfer
+    ? "Total · private transfer"
+    : "Total · attraction entry paid at the gate";
 
   const body = html`
 <div style="margin:0;padding:0;background-color:${SAND};">
@@ -92,11 +105,11 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
 
           <!-- Masthead -->
           <tr>
-            <td align="center" style="background-color:${INK};padding:28px 24px;">
-              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;letter-spacing:2px;color:${GOLD};">
-                PPP <span style="color:#ffffff;">TRAN TOURS</span>
+            <td align="center" style="background-color:#ffffff;padding:28px 24px 24px 24px;border-bottom:4px solid ${GOLD};">
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;letter-spacing:2px;color:${CRIMSON};">
+                PPP <span style="color:${TEXT};">TRAN TOURS</span>
               </div>
-              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;opacity:0.55;padding-top:8px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:${MUTED};padding-top:8px;">
                 Private &middot; Personalized &middot; Professional
               </div>
             </td>
@@ -109,7 +122,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                 ${headline}, ${dash(firstName)}.
               </div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#ffffff;opacity:0.8;padding-top:4px;">
-                Reference ${dash(booking.reference)}
+                Booking reference ${dash(booking.reference)}
               </div>
             </td>
           </tr>
@@ -119,9 +132,9 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
             <td style="padding:24px 24px 8px 24px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
                      style="font-family:Arial,Helvetica,sans-serif;font-size:14px;">
-                ${row(html`${isTransfer ? "Transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
-                ${isTransfer && direction ? row("Direction", directionLabel(direction)) : ""}
-                ${row("Hotel / villa / pier", dash(booking.placeLabel))}
+                ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
+                ${isTransfer && direction ? row("Trip", directionLabel(direction)) : ""}
+                ${row(isTransfer ? "Hotel" : "Pickup from", dash(booking.placeLabel))}
                 ${row("Date", date)}
               </table>
             </td>
@@ -131,12 +144,12 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
           <tr>
             <td style="padding:16px 24px 8px 24px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                     style="background-color:${INK};border-radius:12px;">
+                     style="background-color:${CREAM};border:1px solid #f3e6a8;border-radius:12px;">
                 <tr>
-                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#ffffff;opacity:0.6;">
-                    Total &mdash; transport only
+                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:${MUTED};">
+                    ${totalLabel}
                   </td>
-                  <td align="right" style="padding:16px 20px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:${GOLD};">
+                  <td align="right" style="padding:16px 20px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:${CRIMSON};">
                     ${total}
                   </td>
                 </tr>
@@ -151,13 +164,13 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
                      style="border:2px solid ${GOLD};border-radius:12px;">
                 <tr>
-                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${INK};">
+                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${TEXT};">
                     <div style="font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:bold;padding-bottom:8px;">
                       ${airportMeeting.title}
                     </div>
                     <div>1. ${airportMeeting.steps[0]}</div>
                     <div style="padding-top:6px;">2. ${airportMeeting.steps[1]}</div>
-                    <div style="padding-top:10px;font-size:12px;opacity:0.6;">${airportMeeting.help}</div>
+                    <div style="padding-top:10px;font-size:12px;color:${MUTED};">${airportMeeting.help}</div>
                   </td>
                 </tr>
               </table>
@@ -168,7 +181,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
           <!-- Next steps -->
           <tr>
             <td style="padding:8px 24px 8px 24px;">
-              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${INK};">
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${TEXT};">
                 ${nextSteps}
               </p>
             </td>
@@ -188,7 +201,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                 <tr><td style="height:10px;line-height:10px;">&nbsp;</td></tr>
                 <tr>
                   <td align="center" style="border-radius:999px;border:1px solid #e2dcd6;">
-                    <a href="${raw(whatsappUrl)}" style="display:block;padding:13px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:${INK};text-decoration:none;">
+                    <a href="${raw(whatsappUrl)}" style="display:block;padding:13px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:${TEXT};text-decoration:none;">
                       Message us on WhatsApp
                     </a>
                   </td>
@@ -199,12 +212,13 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
 
           <!-- Footer -->
           <tr>
-            <td align="center" style="background-color:${INK};padding:22px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:20px;color:#ffffff;">
-              <div style="opacity:0.6;">
-                Reply to this email and it reaches us directly.
+            <td align="center" style="background-color:${SAND};border-top:1px solid #f0e8e2;padding:22px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:20px;color:${MUTED};">
+              <div style="color:${TEXT};">
+                Questions? Just reply to this email — it comes straight to us.
               </div>
-              <div style="opacity:0.35;padding-top:8px;">
+              <div style="padding-top:8px;">
                 Sent automatically by PPP Tran Tours. Keep this for your records — quoting your reference gets you the fastest answer.
+                <br>PPP Tran Tours &middot; Montego Bay, Jamaica &middot; ppptrantoursjamaica.com
               </div>
             </td>
           </tr>

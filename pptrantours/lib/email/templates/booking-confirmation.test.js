@@ -50,7 +50,7 @@ describe("bookingConfirmation — content", () => {
   const out = bookingConfirmation(FULL, LINKS);
 
   test("subject carries the outcome and reference", () => {
-    assert.equal(out.subject, "You're booked — PPP-K3F9QX");
+    assert.equal(out.subject, "Booking confirmed — PPP-K3F9QX");
   });
 
   test("renders the server's total", () => {

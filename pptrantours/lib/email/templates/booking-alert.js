@@ -8,8 +8,8 @@
  * Table-based layout with inline styles on purpose: Outlook has no flexbox or
  * grid, and several clients strip `<style>` blocks. Fraunces and Plus Jakarta
  * Sans cannot load in email, so Georgia and Arial stand in for the display and
- * body faces. Brand colours are #150a0d ink, #a80424 crimson, #f1d72d gold,
- * #fbf7f4 sand.
+ * body faces. Brand colours are #a80424 crimson, #f1d72d gold,
+ * #fbf7f4 sand, with warm charcoal text — no black blocks (Mr. Pugh's call).
  *
  * The masthead is HTML text rather than an image, so it needs no hosted asset
  * and survives image-blocking. Once the domain points at Vercel this can become
@@ -18,7 +18,9 @@
  */
 import { html, raw, dash } from "../html.js";
 
-const INK = "#150a0d";
+const TEXT = "#3a2e31";
+const MUTED = "#8a7d80";
+const CREAM = "#fff9e0";
 const CRIMSON = "#a80424";
 const GOLD = "#f1d72d";
 const SAND = "#fbf7f4";
@@ -28,8 +30,8 @@ function row(label, value, { first = false } = {}) {
   const border = first ? "" : "border-top:1px solid #f4efeb;";
   return html`
     <tr>
-      <td width="38%" style="padding:10px 0;color:${INK};opacity:0.5;${raw(border)}vertical-align:top;">${label}</td>
-      <td style="padding:10px 0;color:${INK};${raw(border)}vertical-align:top;">${value}</td>
+      <td width="38%" style="padding:10px 0;color:${MUTED};${raw(border)}vertical-align:top;">${label}</td>
+      <td style="padding:10px 0;color:${TEXT};${raw(border)}vertical-align:top;">${value}</td>
     </tr>
   `;
 }
@@ -98,11 +100,11 @@ export function bookingAlert(booking) {
 
           <!-- Masthead -->
           <tr>
-            <td align="center" style="background-color:${INK};padding:28px 24px;">
-              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;letter-spacing:2px;color:${GOLD};">
-                PPP <span style="color:#ffffff;">TRAN TOURS</span>
+            <td align="center" style="background-color:#ffffff;padding:28px 24px 24px 24px;border-bottom:4px solid ${GOLD};">
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;letter-spacing:2px;color:${CRIMSON};">
+                PPP <span style="color:${TEXT};">TRAN TOURS</span>
               </div>
-              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;opacity:0.55;padding-top:8px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:${MUTED};padding-top:8px;">
                 Private &middot; Personalized &middot; Professional
               </div>
             </td>
@@ -127,12 +129,12 @@ export function bookingAlert(booking) {
           <!-- Guest -->
           <tr>
             <td style="padding:28px 24px 8px 24px;">
-              <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:${INK};">
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:${TEXT};">
                 ${name}
               </div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;padding-top:6px;">
                 <a href="mailto:${dash(booking.email)}" style="color:${CRIMSON};text-decoration:none;">${dash(booking.email)}</a>
-                <span style="color:${INK};opacity:0.3;">&nbsp;&middot;&nbsp;</span>
+                <span style="color:${MUTED};">&nbsp;&middot;&nbsp;</span>
                 <a href="tel:${dash(booking.phone)}" style="color:${CRIMSON};text-decoration:none;">${dash(booking.phone)}</a>
               </div>
             </td>
@@ -146,9 +148,8 @@ export function bookingAlert(booking) {
                 <tr>
                   <td colspan="2" style="border-top:1px solid #ece5e0;height:1px;line-height:1px;">&nbsp;</td>
                 </tr>
-                ${row(html`Tour`, html`<strong>${tourTitle}</strong>`, { first: true })}
-                ${row("Pickup / drop-off", dash(booking.placeLabel))}
-                ${isTransfer && direction ? row("Direction", directionLabel(direction)) : ""}
+                ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
+                                ${isTransfer && direction ? row("Direction", directionLabel(direction)) : ""}
                 ${row(
                   isTransfer && direction === "to-airport" ? "Departure date" : "Date",
                   html`${date} &nbsp;<span style="opacity:0.55;">${dash(booking.time)}</span>`
@@ -163,8 +164,8 @@ export function bookingAlert(booking) {
                       html`${dash(booking.returnDate)} &nbsp;<span style="opacity:0.55;">${dash(booking.returnFlight)}</span>`
                     )
                   : ""}
-                ${row("Hotel / villa / pier", dash(booking.placeLabel))}
-                ${row("Travellers", travellers)}
+                ${row("Hotel / pickup", dash(booking.placeLabel))}
+                ${row("Passengers", travellers)}
               </table>
             </td>
           </tr>
@@ -173,12 +174,12 @@ export function bookingAlert(booking) {
           <tr>
             <td style="padding:16px 24px 8px 24px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                     style="background-color:${INK};border-radius:12px;">
+                     style="background-color:${CREAM};border:1px solid #f3e6a8;border-radius:12px;">
                 <tr>
-                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#ffffff;opacity:0.6;">
-                    Estimated total &mdash; transport only
+                  <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:${MUTED};">
+                    Total &mdash; transport only
                   </td>
-                  <td align="right" style="padding:16px 20px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:${GOLD};">
+                  <td align="right" style="padding:16px 20px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:${CRIMSON};">
                     ${total}
                   </td>
                 </tr>
@@ -194,10 +195,10 @@ export function bookingAlert(booking) {
                      style="background-color:${SAND};border-left:3px solid ${CRIMSON};border-radius:0 8px 8px 0;">
                 <tr>
                   <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;">
-                    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:${INK};opacity:0.45;padding-bottom:6px;">
+                    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:${MUTED};padding-bottom:6px;">
                       Guest notes
                     </div>
-                    <div style="font-size:14px;line-height:22px;color:${INK};">${dash(booking.notes)}</div>
+                    <div style="font-size:14px;line-height:22px;color:${TEXT};">${dash(booking.notes)}</div>
                   </td>
                 </tr>
               </table>
@@ -206,11 +207,11 @@ export function bookingAlert(booking) {
 
           <!-- Footer -->
           <tr>
-            <td align="center" style="background-color:${INK};padding:22px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:20px;color:#ffffff;">
-              <div style="opacity:0.6;">
+            <td align="center" style="background-color:${SAND};border-top:1px solid #f0e8e2;padding:22px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:20px;color:${MUTED};">
+              <div style="color:${TEXT};">
                 Reply to this email to answer ${name} directly.
               </div>
-              <div style="opacity:0.35;padding-top:8px;">
+              <div style="padding-top:8px;">
                 Sent automatically by ppptrantoursjamaica.com when a booking form is submitted.
               </div>
             </td>

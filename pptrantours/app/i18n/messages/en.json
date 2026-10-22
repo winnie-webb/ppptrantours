@@ -1,7 +1,7 @@
 {
   "meta": {
     "tagline": "Private. Personalized. Professional.",
-    "description": "Private airport transfers, island tours and cruise-pier excursions across Jamaica — one transport price per booking, with a four-person minimum and nothing added on top.",
+    "description": "Private Montego Bay (MBJ) airport transfers and Jamaica excursions with hotel pickup — Dunn's River Falls, Blue Hole, Rick's Cafe and more. Licensed since 2010.",
     "keywords": [
       "Jamaica airport transfer",
       "Montego Bay private tours",
@@ -11,7 +11,8 @@
       "Ocho Rios excursions",
       "Falmouth cruise excursions",
       "PPP Tran Tours"
-    ]
+    ],
+    "homeTitle": "Montego Bay Airport Transfers & Private Jamaica Tours"
   },
   "common": {
     "bookTourNow": "Book a Tour Now",
@@ -483,7 +484,8 @@
     "noEntry": "Nothing. There is no gate fee on this one.",
     "optional": "optional",
     "alsoLike": "You might also like",
-    "moreTours": "More tours"
+    "moreTours": "More tours",
+    "metaTitle": "{tour} Private Excursion from Your Hotel"
   },
   "toursPage": {
     "metaTitle": "Things to do in Jamaica",
@@ -712,5 +714,11 @@
     "step1": "After customs, exit the terminal through the glass doors beside the taxi stand and turn left.",
     "step2": "Walk to the curb and look for your driver holding a company sign with the PPP logo at Column E or F.",
     "help": "Can't spot us? Message us on WhatsApp and we'll come to you."
+  },
+  "host": {
+    "eyebrow": "Your host",
+    "role": "Owner & driver since 2010 · Licensed by the Jamaica Tourist Board",
+    "body": "He still drives most days, and most of our {count} Tripadvisor reviews mention him by name.",
+    "meet": "Meet Mr. Pugh"
   }
 }
