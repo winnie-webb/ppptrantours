@@ -149,7 +149,7 @@ export function bookingAlert(booking) {
                   <td colspan="2" style="border-top:1px solid #ece5e0;height:1px;line-height:1px;">&nbsp;</td>
                 </tr>
                 ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
-                                ${isTransfer && direction ? row("Direction", directionLabel(direction)) : ""}
+                                ${isTransfer && direction ? row("Transfer type", directionLabel(direction)) : ""}
                 ${row(
                   isTransfer && direction === "to-airport" ? "Departure date" : "Date",
                   html`${date} &nbsp;<span style="opacity:0.55;">${dash(booking.time)}</span>`

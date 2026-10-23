@@ -268,7 +268,8 @@
     "sectionPrice": "Ihr Preis",
     "sectionDetails": "Ihre Angaben",
     "sectionPay": "Ihre Zahlungsweise",
-    "browseTransfers": "Alle Transferpreise ansehen"
+    "browseTransfers": "Alle Transferpreise ansehen",
+    "direction": "Transferart"
   },
   "fare": {
     "from": "Ab Sangster International (MBJ)",
@@ -287,7 +288,8 @@
     "book": "Diesen Transfer buchen",
     "ask": "Eine Frage stellen",
     "perPerson": "/ Person",
-    "totalFor": "insgesamt für {n}"
+    "totalFor": "insgesamt für {n}",
+    "direction": "Transferart"
   },
   "hero": {
     "tagline": "Privat. Persönlich. Professionell.",

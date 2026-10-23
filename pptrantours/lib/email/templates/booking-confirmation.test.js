@@ -58,6 +58,7 @@ describe("bookingConfirmation — content", () => {
   });
 
   test("carries the direction for a transfer", () => {
+    assert.ok(out.html.includes(">Transfer type<"));
     assert.ok(out.html.includes("Departure"));
   });
 
@@ -104,12 +105,12 @@ describe("bookingConfirmation — enquiry and quote-request", () => {
     assert.ok(out.html.includes("Request received"));
   });
 
-  test("a tour booking shows no Direction row", () => {
+  test("a tour booking shows no Transfer type row", () => {
     const out = bookingConfirmation(
       { ...FULL, kind: "tour", direction: undefined },
       LINKS
     );
-    assert.ok(!out.html.includes(">Direction<"));
+    assert.ok(!out.html.includes(">Transfer type<"));
   });
 });
 

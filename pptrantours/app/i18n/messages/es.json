@@ -268,7 +268,8 @@
     "sectionPrice": "Su precio",
     "sectionDetails": "Sus datos",
     "sectionPay": "Cómo pagará",
-    "browseTransfers": "Ver todas las tarifas de traslado"
+    "browseTransfers": "Ver todas las tarifas de traslado",
+    "direction": "Tipo de traslado"
   },
   "fare": {
     "from": "Desde Sangster International (MBJ)",
@@ -287,7 +288,8 @@
     "book": "Reservar este traslado",
     "ask": "Hacer una pregunta",
     "perPerson": "/ persona",
-    "totalFor": "en total para {n}"
+    "totalFor": "en total para {n}",
+    "direction": "Tipo de traslado"
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profesional.",

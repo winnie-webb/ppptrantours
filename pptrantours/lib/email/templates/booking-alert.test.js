@@ -110,6 +110,7 @@ describe("bookingAlert — transfer direction", () => {
       kind: "transfer",
       direction: "to-airport",
     });
+    assert.ok(out.html.includes(">Transfer type<"));
     assert.ok(out.html.includes("Departure"));
     assert.ok(!out.html.includes("Round trip"));
   });
@@ -140,9 +141,9 @@ describe("bookingAlert — transfer direction", () => {
     assert.ok(roundTrip.html.includes("Round trip"));
   });
 
-  test("a tour booking (no direction) shows no Direction row", () => {
+  test("a tour booking (no direction) shows no Transfer type row", () => {
     const out = bookingAlert(FULL);
-    assert.ok(!out.html.includes(">Direction<"));
+    assert.ok(!out.html.includes(">Transfer type<"));
   });
 });
 

@@ -213,7 +213,7 @@ export default async function BookingResultPage({ params, searchParams }) {
               {booking.tourTitle}
             </SummaryRow>
             {directionLabel && (
-              <SummaryRow label={tb.direction ?? "Direction"}>{directionLabel}</SummaryRow>
+              <SummaryRow label={tb.direction ?? "Transfer type"}>{directionLabel}</SummaryRow>
             )}
             {booking.placeLabel && (
               <SummaryRow label={tb.stayingAt ?? "Hotel"}>{booking.placeLabel}</SummaryRow>

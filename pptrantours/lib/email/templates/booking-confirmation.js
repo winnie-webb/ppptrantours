@@ -133,7 +133,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
                      style="font-family:Arial,Helvetica,sans-serif;font-size:14px;">
                 ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
-                ${isTransfer && direction ? row("Trip", directionLabel(direction)) : ""}
+                ${isTransfer && direction ? row("Transfer type", directionLabel(direction)) : ""}
                 ${row(isTransfer ? "Hotel" : "Pickup from", dash(booking.placeLabel))}
                 ${row("Date", date)}
               </table>

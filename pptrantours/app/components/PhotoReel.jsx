@@ -25,7 +25,7 @@ export default function PhotoReel({ dict }) {
 
       <div className="shell relative mb-10 text-center lg:mb-14">
         <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight text-white sm:text-[2.5rem]">
-          {t.title ?? "Our guests wear the brand."}
+          {t.title ?? "Ride with us once, and you're family."}
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[1.02rem] leading-relaxed text-white/75">
           {t.description ??

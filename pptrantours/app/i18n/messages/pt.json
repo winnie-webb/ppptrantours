@@ -268,7 +268,8 @@
     "sectionPrice": "O seu preço",
     "sectionDetails": "Os seus dados",
     "sectionPay": "Como vai pagar",
-    "browseTransfers": "Ver todas as tarifas de transfer"
+    "browseTransfers": "Ver todas as tarifas de transfer",
+    "direction": "Tipo de transfer"
   },
   "fare": {
     "from": "De Sangster International (MBJ)",
@@ -287,7 +288,8 @@
     "book": "Reservar este transfer",
     "ask": "Fazer uma pergunta",
     "perPerson": "/ pessoa",
-    "totalFor": "no total para {n}"
+    "totalFor": "no total para {n}",
+    "direction": "Tipo de transfer"
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profissional.",
