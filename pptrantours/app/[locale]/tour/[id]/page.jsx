@@ -340,7 +340,6 @@ export default async function TourPage({ params }) {
         <section className="bg-sand py-16 lg:py-20">
           <div className="shell">
             <SectionHeading
-              eyebrow={t.alsoLike ?? "You might also like"}
               title={
                 dict.categories?.[base.region]?.title ?? t.moreTours ?? "More tours"
               }

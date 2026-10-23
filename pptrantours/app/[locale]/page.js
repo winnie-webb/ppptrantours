@@ -1,11 +1,9 @@
 import Link from "next/link";
-import { FaArrowRight, FaPlane } from "react-icons/fa";
+import { FaArrowRight, FaPlane, FaCheck } from "react-icons/fa";
 import Hero from "@/app/components/Hero";
 import StatsBar from "@/app/components/StatsBar";
-import CategoryChips from "@/app/components/CategoryChips";
 import TourRail from "@/app/components/TourRail";
 import PromiseSection from "@/app/components/PromiseSection";
-import DestinationsGrid from "@/app/components/DestinationsGrid";
 import Testimonials from "@/app/components/Testimonials";
 import PhotoReel from "@/app/components/PhotoReel";
 import FaqAccordion from "@/app/components/FaqAccordion";
@@ -13,12 +11,10 @@ import CtaBand from "@/app/components/CtaBand";
 import SloganBand from "@/app/components/SloganBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import TourCard from "@/app/components/TourCard";
-import TransferBooking from "@/app/components/TransferBooking";
 import { filterProductByCategory, sortByPrice } from "@/app/products/product";
 import { localePath, LOCALES } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { clientDict } from "@/app/i18n/client";
-import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 
 export function generateStaticParams() {
   return LOCALES.map((l) => ({ locale: l.code }));
@@ -41,25 +37,25 @@ export default async function Home({ params }) {
   return (
     <>
       {/*
-        Running order, changed 2026-09-20.
+        Running order, changed 2026-10-23.
 
-        The product used to be the fourth thing on the page: a 672px hero, a
-        stats band and a full-width "where are you staying?" question stood
-        ahead of it, putting the first bookable card about 1,200px down — two
-        and a half screens on the iPhone most guests browse on. Nothing has been
-        cut except that question band; the gallery, promise, testimonials, FAQ
-        and destination tiles all still run below, where they do their work for
-        someone who is reading rather than buying.
+        The page ran to about 19 phone screens, and the proof (the rating, the
+        reviews) did not start until screen ten, after most phone visitors
+        have gone. The stats now sit directly under the hero and three reviews
+        follow the first rail of tours, so someone deciding is shown why to
+        trust PPP while they are still deciding.
 
-        PlacePrompt is gone rather than moved. It asked for a resort before
-        showing anything worth choosing; the hotel search now lives on the
-        tour list and inside the booking form — which is where the answer
-        actually changes a price.
+        The full transfer booking form is no longer embedded here: it repeated
+        the one on /transfers and asked for a resort before the guest had
+        chosen to book anything. TransferBand sends them there instead. The
+        category tiles and destination tiles went the same way: they are
+        navigation, and /tours and /destinations carry them in full.
       */}
       <Hero locale={locale} dict={dict} />
 
+      <StatsBar dict={dict} />
+
       <TourRail
-        eyebrow={t.popularEyebrow ?? "Guest favourites"}
         title={t.popularTitle ?? "The tours people book twice."}
         description={
           t.popularDescription ??
@@ -72,38 +68,13 @@ export default async function Home({ params }) {
         dict={client}
       />
 
-      {/* Browse the rest, straight under the rail it continues. */}
-      <CategoryChips locale={locale} dict={dict} />
+      <Testimonials dict={dict} limit={3} />
 
-      {/* Airport transfer booking */}
-      <section className="bg-sand py-16 lg:py-24">
+      <TransferBand locale={locale} dict={dict} />
+
+      <div className="pb-16 lg:pb-24">
         <div className="shell">
           <SectionHeading
-            eyebrow={t.transfersEyebrow ?? "Airport transfers"}
-            title={t.transfersTitle ?? "From Sangster to your front door."}
-            description={
-              t.transfersDescription ??
-              "Pick your resort and see the exact fare — one flat price for up to four people, flight tracked, driver waiting at the curb with a PPP sign."
-            }
-            href={localePath(locale, "/transfers")}
-            linkLabel={dict.common?.bookTransferNow ?? "Book a Transfer Now"}
-          />
-          <TransferBooking
-            locale={locale}
-            dict={client}
-            titlePrefix={dict.transferPage?.transferTo ?? "Airport transfer to"}
-            paymentsEnabled={paymentsConfigured("USD")}
-            paypal={paypalPublicConfig("USD")}
-          />
-        </div>
-      </section>
-
-      {/* Combos — white, so it reads as its own section rather than running
-          into the sand block the fare calculator now sits directly above. */}
-      <div className="py-16 lg:py-24">
-        <div className="shell">
-          <SectionHeading
-            eyebrow={t.combosEyebrow ?? "Two in one day"}
             title={t.combosTitle ?? "Combo packages, no rushing."}
             description={
               t.combosDescription ??
@@ -132,27 +103,12 @@ export default async function Home({ params }) {
       {/* The owner's own transparency pitch */}
       <TransparencyBand locale={locale} dict={dict} />
 
-      {/* Brand promise reads better after the product than ahead of it. */}
       <PromiseSection locale={locale} dict={dict} />
-
-      {/* The stats support the reviews, so they sit together — both bg-sand,
-          so the pair reads as one block rather than two. */}
-      <StatsBar dict={dict} />
-      <Testimonials dict={dict} />
-
-      {/* No gallery here: the reel and the promise collage already carry the
-          photography, and the gallery repeated both. It lives on About. */}
-      <DestinationsGrid locale={locale} dict={dict} />
-
-      <div className="shell">
-        <div className="hairline" />
-      </div>
 
       <section className="shell py-16 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div>
             <SectionHeading
-              eyebrow={t.faqEyebrow ?? "Good to know"}
               title={t.faqTitle ?? "Questions we get asked most."}
               description={
                 t.faqDescription ??
@@ -174,6 +130,54 @@ export default async function Home({ params }) {
 }
 
 /**
+ * Airport transfers, as a pitch rather than a form.
+ *
+ * The three points answer what an arriving guest actually worries about:
+ * will they be there, where do I find them, how do I pay. The meeting point
+ * is the corrected one (outside, Column E or F; see 4645b51). The price waits
+ * for /transfers, where choosing the resort produces it.
+ */
+function TransferBand({ locale, dict }) {
+  const t = dict.home ?? {};
+  const points = [
+    t.transferPointFlight ?? "Flight tracked, so a delay never leaves you waiting.",
+    t.transferPointMeet ??
+      "Your driver meets you at the curb outside arrivals, Column E or F, with a PPP sign.",
+    t.transferPointCash ?? "Pay the driver in cash, in US dollars.",
+  ];
+
+  return (
+    <section className="shell py-16 lg:py-24">
+      <div className="rounded-3xl bg-sand px-6 py-10 sm:px-10 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:px-14 lg:py-14">
+        <div>
+          <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-[2.5rem]">
+            {t.transfersTitle ?? "From Sangster to your front door."}
+          </h2>
+          <p className="mt-3.5 text-[1.05rem] leading-relaxed text-ink/60">
+            {t.transfersDescription ??
+              "Private transfers from Montego Bay airport to every major resort. Choose yours on the next page and see the exact fare."}
+          </p>
+          <Link href={localePath(locale, "/transfers")} className="btn-primary mt-7">
+            <FaPlane className="text-xs" />
+            {dict.common?.bookTransferNow ?? "Book a Transfer Now"}
+          </Link>
+        </div>
+        <ul className="mt-8 space-y-4 lg:mt-0">
+          {points.map((point) => (
+            <li key={point} className="flex gap-3 text-[1.02rem] leading-relaxed text-ink/80">
+              <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-crimson-600 text-white">
+                <FaCheck className="text-[0.6rem]" />
+              </span>
+              {point}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/**
  * Mr. Pugh's own words on how PPP prices things (supplied 2026-09-03), kept as
  * close to verbatim as the layout allows. This is the company's central claim —
  * that the transport price is the whole of what PPP charges — so it sits on the
@@ -185,8 +189,7 @@ function TransparencyBand({ locale, dict }) {
   return (
     <section className="shell py-16 lg:py-24">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="eyebrow">{t.eyebrow ?? "No hidden fees"}</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-[2.5rem]">
+        <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-[2.5rem]">
           {t.title ?? "We keep it real. Always transparent."}
         </h2>
         <p className="mt-6 text-[1.08rem] leading-relaxed text-ink/70">

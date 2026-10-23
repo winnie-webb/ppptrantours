@@ -3,10 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaStar, FaWhatsapp, FaArrowRight, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
+import { FaStar, FaWhatsapp, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
 import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
-import HotelSearch from "./HotelSearch";
 
 const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
 
@@ -78,9 +77,6 @@ export default function Hero({ locale = "en", dict }) {
               </span>
               {site.rating.score} · {site.rating.count} {dict?.common?.reviews ?? "reviews"}
             </span>
-            <span className="hidden text-xs font-medium uppercase tracking-[0.18em] text-white/70 sm:inline">
-              {t.tagline ?? site.tagline}
-            </span>
           </div>
 
           <h1
@@ -133,20 +129,31 @@ export default function Hero({ locale = "en", dict }) {
             .
           </p>
 
+          {/*
+            The two booking routes, as plain buttons. They used to be task
+            cards with a hotel search in the transfer one (removed
+            2026-10-23): choosing a resort is the first step on /transfers
+            anyway, and asking for it here put a form in the hero before the
+            guest had decided anything. WhatsApp stays, desktop only: on a
+            phone it is already the floating button.
+          */}
           <div
-            className="mt-7 hidden animate-fade-up flex-wrap items-center gap-3 sm:flex lg:mt-9"
+            className="mt-7 flex animate-fade-up flex-wrap items-center gap-3 lg:mt-9"
             style={{ animationDelay: "240ms" }}
           >
-            {/* "Book a Tour Now" / "Book a Transfer Now" used to sit here
-                too, repeating the two task cards directly below word for
-                word (removed 2026-10-22). The cards carry both actions now.
-                WhatsApp stays, desktop only: on a phone it is already the
-                floating button. */}
+            <Link href={localePath(locale, "/transfers")} className="btn-primary">
+              <FaPlane className="text-xs" />
+              {dict?.common?.bookTransferNow ?? "Book a Transfer Now"}
+            </Link>
+            <Link href={localePath(locale, "/tours")} className="btn-ghost-light">
+              <FaMapMarkedAlt className="text-xs" />
+              {dict?.common?.bookTourNow ?? "Book a Tour Now"}
+            </Link>
             <a
               href={site.contact.whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="btn !px-0 text-white/80 hover:text-white"
+              className="btn hidden !px-2 text-white/80 hover:text-white sm:inline-flex"
             >
               <FaWhatsapp className="text-lg text-whatsapp" />
               {site.contact.phone}
@@ -178,59 +185,6 @@ export default function Hero({ locale = "en", dict }) {
                 />
               </button>
             ))}
-          </div>
-        </div>
-
-        {/*
-          Two task cards, under the original hero copy rather than replacing
-          it. Card 1 answers the time-critical question (an arriving guest's
-          transfer) with the same `HotelSearch` the rest of the site uses;
-          picking a hotel here writes to `PlaceProvider` exactly as it does
-          everywhere else, so "Book a Transfer Now" opens /transfers already knowing
-          it. Card 2 is the plain alternative for a guest not thinking about
-          the airport yet.
-        */}
-        <div
-          className="mt-6 grid max-w-3xl animate-fade-up gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4 lg:mt-10"
-          style={{ animationDelay: "380ms" }}
-        >
-          <div className="rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur sm:p-5">
-            <div className="flex items-center gap-2.5 text-sm font-semibold text-ink/70">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
-                <FaPlane className="text-xs" />
-              </span>
-              {t.transferCard ?? "Airport transfer"}
-            </div>
-            <div className="mt-3.5">
-              <HotelSearch variant="field" id="hero-hotel" dict={dict} />
-            </div>
-            <Link
-              href={localePath(locale, "/transfers")}
-              className="btn-primary mt-3.5 w-full !py-2.5 text-sm"
-            >
-              {dict?.common?.bookTransferNow ?? "Book a Transfer Now"}
-              <FaArrowRight className="text-xs" />
-            </Link>
-          </div>
-
-          {/* On a phone this card collapses to a single row: icon, label and
-              the button side by side, with the blurb hidden. Stacked full
-              size under the transfer card it was a second screen of hero. */}
-          <div className="flex items-center gap-3 rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur sm:flex-col sm:items-stretch sm:gap-0 sm:p-5">
-            <div className="flex flex-1 items-center gap-2.5 text-sm font-semibold text-ink/70 sm:flex-none">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-crimson-50 text-crimson-600">
-                <FaMapMarkedAlt className="text-xs" />
-              </span>
-              {t.toursCard ?? "Tours"}
-            </div>
-            <p className="mt-3.5 hidden flex-1 text-sm leading-relaxed text-ink/60 sm:block">
-              {t.toursCardBody ??
-                "Waterfalls, beaches, rafting and reggae — private, from your hotel."}
-            </p>
-            <Link href={localePath(locale, "/tours")} className="btn-ghost shrink-0 !py-2.5 text-sm sm:mt-3.5 sm:w-full">
-              {dict?.common?.bookTourNow ?? "Book a Tour Now"}
-              <FaArrowRight className="text-xs" />
-            </Link>
           </div>
         </div>
       </div>

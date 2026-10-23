@@ -301,7 +301,6 @@ export default async function TransferPage({ params }) {
         <section className="bg-sand py-16 lg:py-20">
           <div className="shell">
             <SectionHeading
-              eyebrow={t.toursEyebrow ?? "While you're here"}
               title={
                 t.toursTitle?.replace("{resort}", place.name) ??
                 `Tours we run from ${place.name}`

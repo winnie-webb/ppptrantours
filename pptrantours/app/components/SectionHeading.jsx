@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
+/*
+ * No eyebrow line above the title (removed 2026-10-23). A small uppercase
+ * label sitting over every h2 gave each section two competing headings, and
+ * the smaller one came first; the title now carries the section on its own.
+ */
 export default function SectionHeading({
-  eyebrow,
   title,
   description,
   href,
@@ -21,9 +25,8 @@ export default function SectionHeading({
       }`}
     >
       <div className={centered ? "" : "max-w-2xl"}>
-        {eyebrow && <p className={light ? "eyebrow-light" : "eyebrow"}>{eyebrow}</p>}
         <h2
-          className={`mt-2.5 font-display text-3xl font-semibold leading-tight sm:text-[2.5rem] ${
+          className={`font-display text-3xl font-semibold leading-tight sm:text-[2.5rem] ${
             light ? "text-white" : "text-ink"
           }`}
         >

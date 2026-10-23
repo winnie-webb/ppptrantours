@@ -31,7 +31,6 @@ export default function CategoryChips({ locale = "en", dict }) {
   return (
     <section className="shell py-16 lg:py-24">
       <SectionHeading
-        eyebrow={t.eyebrow ?? "Things to do in Jamaica"}
         title={t.title ?? "Where do you want to spend the day?"}
         description={
           t.description ??

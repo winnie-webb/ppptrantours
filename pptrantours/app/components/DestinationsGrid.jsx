@@ -15,7 +15,6 @@ export default function DestinationsGrid({ heading = true, locale = "en", dict }
     <section className="shell py-16 lg:py-24">
       {heading && (
         <SectionHeading
-          eyebrow={t.eyebrow ?? "Where we go"}
           title={t.title ?? "Every parish worth the drive."}
           description={
             t.description ??

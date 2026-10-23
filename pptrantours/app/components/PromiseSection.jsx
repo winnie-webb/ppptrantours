@@ -24,7 +24,6 @@ export default function PromiseSection({ locale = "en", dict }) {
         <div>
           <SectionHeading
             light
-            eyebrow={t.eyebrow ?? "What PPP stands for"}
             title={t.title ?? "Three promises, in the name itself."}
             description={
               t.description ??

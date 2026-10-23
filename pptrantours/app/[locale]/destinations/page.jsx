@@ -60,7 +60,6 @@ export default async function DestinationsPage({ params }) {
       </div>
 
       <TourRail
-        eyebrow={t.startEyebrow ?? "Start here"}
         title={t.startTitle ?? "The tours we'd book first."}
         description={
           t.startDescription ??

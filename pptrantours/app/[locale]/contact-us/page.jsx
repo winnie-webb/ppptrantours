@@ -126,7 +126,6 @@ export default async function ContactPage({ params }) {
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
           <div>
             <SectionHeading
-              eyebrow={t.sendEyebrow ?? "Send a message"}
               title={t.sendTitle ?? "Plan your day with us."}
               description={
                 t.sendDescription ??
@@ -200,7 +199,6 @@ export default async function ContactPage({ params }) {
         <div className="shell">
           <SectionHeading
             align="center"
-            eyebrow={t.faqEyebrow ?? "FAQ"}
             title={t.faqTitle ?? "Everything else, answered."}
           />
           <div className="mx-auto max-w-3xl">

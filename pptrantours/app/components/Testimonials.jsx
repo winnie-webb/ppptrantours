@@ -26,7 +26,6 @@ export default function Testimonials({ dict, limit }) {
       <div className="shell">
         <SectionHeading
           align="center"
-          eyebrow={t.eyebrow ?? "Guest reviews"}
           title={title}
           description={t.description ?? "Most of them mention Mr. Pugh by name."}
         />

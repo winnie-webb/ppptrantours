@@ -39,7 +39,6 @@ export default function FleetSection({ dict }) {
       <div className="shell">
         <SectionHeading
           align="center"
-          eyebrow={t.eyebrow ?? "Our fleet"}
           title={t.title ?? "Sized to your group, not the other way round."}
           description={
             t.description ??

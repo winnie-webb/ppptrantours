@@ -66,7 +66,6 @@ export default function GallerySection({ items = gallery, heading = true, dict }
       <div className="shell">
         {heading && (
           <SectionHeading
-            eyebrow={tg.eyebrow ?? "The gallery"}
             title={tg.title ?? "Real days out, real guests."}
             description={
               tg.description ??

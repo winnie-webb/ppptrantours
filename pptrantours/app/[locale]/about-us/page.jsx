@@ -63,7 +63,6 @@ export default async function AboutPage({ params }) {
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
           <div>
             <SectionHeading
-              eyebrow={t.historyEyebrow ?? "Our history"}
               title={t.historyTitle ?? "Built on repeat guests, not advertising."}
             />
             <div className="space-y-5 text-[1.05rem] leading-relaxed text-ink/70">
@@ -146,7 +145,6 @@ export default async function AboutPage({ params }) {
       <section className="shell py-16 lg:py-24">
         <SectionHeading
           align="center"
-          eyebrow={t.whyEyebrow ?? "Why choose PPP"}
           title={t.whyTitle ?? "The standard hasn't moved in fifteen years."}
           description={
             t.whyDescription ??

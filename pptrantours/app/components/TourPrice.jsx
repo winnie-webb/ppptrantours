@@ -56,7 +56,7 @@ export default function TourPrice({ tour, dict, align = "left" }) {
   return (
     <div className={wrap}>
       <span className="block text-xs font-medium uppercase tracking-wider text-ink/70">
-        {band ? t.fromYourResort ?? "From your resort" : t.from ?? "From"}
+        {band ? t.yourResortRate ?? "Your resort's rate" : t.from ?? "From"}
       </span>
       <span className="font-display text-2xl font-semibold text-crimson-700">
         {money(rate)}

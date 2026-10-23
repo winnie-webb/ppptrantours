@@ -7,7 +7,6 @@ import SectionHeading from "./SectionHeading";
 
 /** Horizontally scrolling shelf of tours, with arrow controls on desktop. */
 export default function TourRail({
-  eyebrow,
   title,
   description,
   href,
@@ -55,7 +54,6 @@ export default function TourRail({
       <div className="flex items-end justify-between gap-6">
         <div className="flex-1">
           <SectionHeading
-            eyebrow={eyebrow}
             title={title}
             description={description}
             href={href}

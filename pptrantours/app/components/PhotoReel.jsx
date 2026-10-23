@@ -24,10 +24,7 @@ export default function PhotoReel({ dict }) {
       />
 
       <div className="shell relative mb-10 text-center lg:mb-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-400">
-          {t.eyebrow ?? "The PPP family"}
-        </p>
-        <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold leading-tight text-white sm:text-[2.6rem]">
+        <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight text-white sm:text-[2.5rem]">
           {t.title ?? "Our guests wear the brand."}
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[1.02rem] leading-relaxed text-white/75">
