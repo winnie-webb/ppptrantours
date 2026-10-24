@@ -572,8 +572,8 @@ export default function BookingForm({
           read before there is a figure to doubt, and it doubles as the promise
           that nothing needs adding up by hand.
         */}
-        <p className="flex items-center gap-2 text-sm text-ink/60">
-          <FaCalculator className="shrink-0 text-xs text-ink/40" aria-hidden="true" />
+        <p className="flex items-center gap-2 text-sm font-bold text-ink">
+          <FaCalculator className="shrink-0 text-xs text-crimson-600" aria-hidden="true" />
           {t.autoNote ?? "Your price is calculated automatically."}
         </p>
 

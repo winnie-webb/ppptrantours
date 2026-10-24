@@ -166,8 +166,8 @@ export default function TransferBooking({
           be a large yellow banner under the hotel box; the owner wanted less
           on screen.
         */
-        <p className="flex items-center justify-center gap-2 text-sm text-ink/60">
-          <FaSyncAlt className="text-xs text-ink/40" />
+        <p className="flex items-center justify-center gap-2 text-sm font-bold text-ink">
+          <FaSyncAlt className="text-xs text-crimson-600" />
           {t.chooseFirst ?? "Your price is calculated automatically."}
         </p>
       ) : (
