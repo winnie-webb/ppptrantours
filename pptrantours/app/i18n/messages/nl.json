@@ -275,11 +275,9 @@
     "toHotelOption": "Enkele reis – aankomst",
     "toAirportOption": "Enkele reis – vertrek",
     "roundTripOption": "Retour",
-    "toHotelHint": "Luchthaven → je hotel",
-    "toAirportHint": "Je hotel → luchthaven",
-    "roundTripHint": "Aankomst en vertrek",
     "errPickDirection": "Kies je type transfer.",
-    "pickDirectionHint": "Kies hierboven je type transfer en je prijs verschijnt hier."
+    "pickDirectionHint": "Kies hierboven je type transfer en je prijs verschijnt hier.",
+    "chooseDirection": "Kies type transfer"
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
@@ -305,9 +303,7 @@
     "toHotelOption": "Enkele reis – aankomst",
     "toAirportOption": "Enkele reis – vertrek",
     "roundTripOption": "Retour",
-    "toHotelHint": "Luchthaven → je hotel",
-    "toAirportHint": "Je hotel → luchthaven",
-    "roundTripHint": "Aankomst en vertrek"
+    "chooseDirection": "Kies type transfer"
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
@@ -1012,6 +1008,7 @@
     "meet": "Maak kennis met Mr. Pugh"
   },
   "hotelSearch": {
-    "typeHotel": "Typ de naam van je hotel…"
+    "typeHotel": "Typ de naam van je hotel…",
+    "startTyping": "Begin met typen om je hotel te vinden."
   }
 }

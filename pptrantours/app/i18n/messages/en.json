@@ -133,7 +133,8 @@
     "notListed": "Can't find your hotel? Book via WhatsApp",
     "unlistedMessage": "Hi PPP Tran Tours, my hotel isn't on your website's list. Could you let me know if you serve it and what the transfer price would be?",
     "resultsAnnounced": "results",
-    "typeHotel": "Type your hotel name…"
+    "typeHotel": "Type your hotel name…",
+    "startTyping": "Start typing to find your hotel."
   },
   "search": {
     "label": "Search",
@@ -259,12 +260,10 @@
     "sectionDetails": "Your details",
     "sectionPay": "How you'll pay",
     "browseTransfers": "See all transfer rates",
-    "autoNote": "Relax — your total is calculated automatically as you fill this in. Nothing to work out yourself.",
-    "toHotelHint": "Airport → your hotel",
-    "toAirportHint": "Your hotel → airport",
-    "roundTripHint": "Arrival and departure",
+    "autoNote": "Your price is calculated automatically.",
     "errPickDirection": "Please choose your transfer type.",
-    "pickDirectionHint": "Choose your transfer type above and your price appears here."
+    "pickDirectionHint": "Choose your transfer type above and your price appears here.",
+    "chooseDirection": "Choose transfer type"
   },
   "fare": {
     "from": "From Sangster International (MBJ)",
@@ -282,13 +281,11 @@
     "autoPriced": "Calculated automatically for you",
     "total": "Total",
     "askUs": "Ask us",
-    "chooseFirst": "Your price is calculated automatically — just pick your hotel and transfer type.",
+    "chooseFirst": "Your price is calculated automatically.",
     "continueWith": "Continue with booking · {amount}",
     "continue": "Continue with booking",
     "another": "Book another transfer",
-    "toHotelHint": "Airport → your hotel",
-    "toAirportHint": "Your hotel → airport",
-    "roundTripHint": "Arrival and departure"
+    "chooseDirection": "Choose transfer type"
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",

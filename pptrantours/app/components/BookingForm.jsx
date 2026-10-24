@@ -572,14 +572,9 @@ export default function BookingForm({
           read before there is a figure to doubt, and it doubles as the promise
           that nothing needs adding up by hand.
         */}
-        <p className="flex items-start gap-3 rounded-xl border border-gold-300 border-l-4 bg-gold-200/30 p-4 text-base font-semibold leading-relaxed text-ink">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-300 text-ink" aria-hidden="true">
-            <FaCalculator className="text-base" />
-          </span>
-          <span>
-            {t.autoNote ??
-              "Relax — your total is calculated automatically as you fill this in. Nothing to work out yourself."}
-          </span>
+        <p className="flex items-center gap-2 text-sm text-ink/60">
+          <FaCalculator className="shrink-0 text-xs text-ink/40" aria-hidden="true" />
+          {t.autoNote ?? "Your price is calculated automatically."}
         </p>
 
         <Section title={t.sectionTrip ?? "Your trip"}>

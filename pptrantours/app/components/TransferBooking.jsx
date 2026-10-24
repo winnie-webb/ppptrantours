@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { FaCalculator, FaPlane, FaSyncAlt } from "react-icons/fa";
+import { FaPlane, FaSyncAlt } from "react-icons/fa";
 import { quoteTransfer, money } from "@/app/products/pricing";
 import HotelSearch from "./HotelSearch";
 import DirectionPicker from "./DirectionPicker";
@@ -138,23 +138,6 @@ export default function TransferBooking({
       <div>
         <span className="label">{t.destination ?? "Where are you staying?"}</span>
         <HotelSearch variant="field" id="transfer-hotel" dict={dict} />
-        {/*
-          Said loudly, right where the guest is looking, before there is a
-          number: the owner found guests hunting for a "calculate" step that
-          does not exist. Once a hotel is picked the price box below takes over.
-        */}
-        {!priced && (
-          <p className="mt-3 flex items-center gap-3 rounded-xl border border-gold-300 border-l-4 bg-gold-200/30 px-4 py-3 text-base font-semibold leading-snug text-ink">
-            <span
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-300 text-ink"
-              aria-hidden="true"
-            >
-              <FaCalculator className="text-base" />
-            </span>
-            {t.chooseFirst ??
-              "Your price is calculated automatically — just pick your hotel and transfer type."}
-          </p>
-        )}
       </div>
 
       <DirectionPicker value={direction} onChange={setDirection} t={t} />
@@ -176,7 +159,18 @@ export default function TransferBooking({
         {t.childrenFree ?? "Children under 5 ride free — they don't add to your total."}
       </p>
 
-      {!priced ? null : (
+      {!priced ? (
+        /*
+          One quiet line in the exact spot the price will appear, so the guest
+          learns where to look and that nothing needs working out. It used to
+          be a large yellow banner under the hotel box; the owner wanted less
+          on screen.
+        */
+        <p className="flex items-center justify-center gap-2 text-sm text-ink/60">
+          <FaSyncAlt className="text-xs text-ink/40" />
+          {t.chooseFirst ?? "Your price is calculated automatically."}
+        </p>
+      ) : (
         <div className="rounded-xl bg-ink px-5 py-4 text-white">
           {/*
             The explicit "this updates by itself" cue the owner asked for: not

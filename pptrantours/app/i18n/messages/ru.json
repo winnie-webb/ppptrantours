@@ -275,11 +275,9 @@
     "toHotelOption": "В одну сторону — прилёт",
     "toAirportOption": "В одну сторону — вылет",
     "roundTripOption": "Туда и обратно",
-    "toHotelHint": "Аэропорт → ваш отель",
-    "toAirportHint": "Ваш отель → аэропорт",
-    "roundTripHint": "Прилёт и вылет",
     "errPickDirection": "Выберите тип трансфера.",
-    "pickDirectionHint": "Выберите тип трансфера выше, и здесь появится цена."
+    "pickDirectionHint": "Выберите тип трансфера выше, и здесь появится цена.",
+    "chooseDirection": "Выберите тип трансфера"
   },
   "fare": {
     "from": "Из аэропорта Сангстер (MBJ)",
@@ -305,9 +303,7 @@
     "toHotelOption": "В одну сторону — прилёт",
     "toAirportOption": "В одну сторону — вылет",
     "roundTripOption": "Туда и обратно",
-    "toHotelHint": "Аэропорт → ваш отель",
-    "toAirportHint": "Ваш отель → аэропорт",
-    "roundTripHint": "Прилёт и вылет"
+    "chooseDirection": "Выберите тип трансфера"
   },
   "hero": {
     "tagline": "Индивидуально. Персонально. Профессионально.",
@@ -1012,6 +1008,7 @@
     "meet": "Познакомьтесь с мистером Пью"
   },
   "hotelSearch": {
-    "typeHotel": "Введите название отеля…"
+    "typeHotel": "Введите название отеля…",
+    "startTyping": "Начните вводить название отеля."
   }
 }

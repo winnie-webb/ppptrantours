@@ -10,7 +10,7 @@ import {
   FaWhatsapp,
   FaArrowLeft,
 } from "react-icons/fa";
-import { searchHotels, popularHotels, suggestClosest } from "@/app/data/hotel-search";
+import { searchHotels, suggestClosest } from "@/app/data/hotel-search";
 import { site } from "@/app/data/site";
 import { usePlace } from "./PlaceProvider";
 
@@ -107,10 +107,13 @@ export default function HotelSearch({
       if (e.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+
+    // Only the phone sheet takes over the page; a laptop dropdown must not
+    // freeze scrolling or add a history entry just because the box has focus.
+    if (isPhone) document.body.style.overflow = "hidden";
 
     // Android's back gesture closes the sheet instead of leaving the page.
-    window.history.pushState({ hotelSearchOpen: true }, "");
+    if (isPhone) window.history.pushState({ hotelSearchOpen: true }, "");
     const onPopState = () => setOpen(false);
     window.addEventListener("popstate", onPopState);
 
@@ -155,7 +158,6 @@ export default function HotelSearch({
   const q = query.trim();
 
   const results = useMemo(() => (q ? searchHotels(q, { limit: 8 }) : []), [q]);
-  const popular = useMemo(() => (q ? [] : popularHotels(8)), [q]);
 
   const suggestions = useMemo(() => {
     if (!q || results.length > 0) return [];
@@ -163,7 +165,12 @@ export default function HotelSearch({
     return suggestClosest(q, 3);
   }, [q, results]);
 
-  const rows = q ? results : popular;
+  /*
+   * Nothing until the guest types. A starter list of eight "popular" hotels
+   * read as the whole list — guests assumed PPP only serves eight places —
+   * so suggestions only ever answer what was actually typed.
+   */
+  const rows = q ? results : [];
 
   const select = (key) => {
     choose(key);
@@ -236,7 +243,7 @@ export default function HotelSearch({
                     setActiveIndex(0);
                   }}
                   onKeyDown={onInputKeyDown}
-                  placeholder={t.search ?? "Search your hotel or resort…"}
+                  placeholder={t.typeHotel ?? "Type your hotel name…"}
                   className="field pl-10 pr-9 text-base"
                 />
                 {query && (
@@ -274,6 +281,12 @@ export default function HotelSearch({
             </div>
 
             <div className="flex-1 overflow-y-auto px-2 py-2 sm:px-2">
+              {!q && (
+                <p className="px-4 py-8 text-center text-sm text-ink/55">
+                  {t.startTyping ?? "Start typing to find your hotel."}
+                </p>
+              )}
+
               {q && results.length === 0 && (
                 <div className="px-4 pb-2 pt-6 text-center">
                   <p className="text-sm text-ink/70">
@@ -344,6 +357,7 @@ export default function HotelSearch({
 
             </div>
 
+            {q && (
             <div className="border-t border-ink/[0.07] p-2">
               <a
                 href={unlistedWhatsAppHref(t)}
@@ -361,6 +375,7 @@ export default function HotelSearch({
                 {t.notListed ?? "Can't find your hotel? Book via WhatsApp"}
               </a>
             </div>
+            )}
           </div>
         </>
   );
@@ -391,7 +406,9 @@ export default function HotelSearch({
             aria-expanded={open}
             aria-controls={listboxId}
             aria-autocomplete="list"
-            aria-activedescendant={open && typeInPlace ? `${listboxId}-option-${activeIndex}` : undefined}
+            aria-activedescendant={
+              open && typeInPlace && q ? `${listboxId}-option-${activeIndex}` : undefined
+            }
             aria-describedby={describedBy}
             readOnly={isPhone}
             autoComplete="off"
@@ -440,7 +457,8 @@ export default function HotelSearch({
         </button>
       )}
 
-      {open && (isPhone ? createPortal(sheet, document.body) : sheet)}
+      {/* Typing in place on a laptop: no panel at all until there is a query. */}
+      {open && (!typeInPlace || q) && (isPhone ? createPortal(sheet, document.body) : sheet)}
     </div>
   );
 }

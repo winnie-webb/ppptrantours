@@ -275,11 +275,9 @@
     "toHotelOption": "单程接机",
     "toAirportOption": "单程送机",
     "roundTripOption": "往返",
-    "toHotelHint": "机场 → 您的酒店",
-    "toAirportHint": "您的酒店 → 机场",
-    "roundTripHint": "接机和送机",
     "errPickDirection": "请选择接送类型。",
-    "pickDirectionHint": "请在上方选择接送类型，价格将显示在这里。"
+    "pickDirectionHint": "请在上方选择接送类型，价格将显示在这里。",
+    "chooseDirection": "选择接送类型"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
@@ -305,9 +303,7 @@
     "toHotelOption": "单程接机",
     "toAirportOption": "单程送机",
     "roundTripOption": "往返",
-    "toHotelHint": "机场 → 您的酒店",
-    "toAirportHint": "您的酒店 → 机场",
-    "roundTripHint": "接机和送机"
+    "chooseDirection": "选择接送类型"
   },
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",
@@ -1012,6 +1008,7 @@
     "meet": "认识 Pugh 先生"
   },
   "hotelSearch": {
-    "typeHotel": "输入您的酒店名称…"
+    "typeHotel": "输入您的酒店名称…",
+    "startTyping": "输入以查找您的酒店"
   }
 }

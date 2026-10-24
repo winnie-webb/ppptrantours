@@ -275,11 +275,9 @@
     "toHotelOption": "Solo ida – llegada",
     "toAirportOption": "Solo ida – salida",
     "roundTripOption": "Ida y vuelta",
-    "toHotelHint": "Aeropuerto → tu hotel",
-    "toAirportHint": "Tu hotel → aeropuerto",
-    "roundTripHint": "Llegada y salida",
     "errPickDirection": "Elige tu tipo de traslado.",
-    "pickDirectionHint": "Elige arriba tu tipo de traslado y aquí aparecerá tu precio."
+    "pickDirectionHint": "Elige arriba tu tipo de traslado y aquí aparecerá tu precio.",
+    "chooseDirection": "Elige el tipo de traslado"
   },
   "fare": {
     "from": "Desde Sangster International (MBJ)",
@@ -305,9 +303,7 @@
     "toHotelOption": "Solo ida – llegada",
     "toAirportOption": "Solo ida – salida",
     "roundTripOption": "Ida y vuelta",
-    "toHotelHint": "Aeropuerto → tu hotel",
-    "toAirportHint": "Tu hotel → aeropuerto",
-    "roundTripHint": "Llegada y salida"
+    "chooseDirection": "Elige el tipo de traslado"
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profesional.",
@@ -1012,6 +1008,7 @@
     "meet": "Conozca al Sr. Pugh"
   },
   "hotelSearch": {
-    "typeHotel": "Escribe el nombre de tu hotel…"
+    "typeHotel": "Escribe el nombre de tu hotel…",
+    "startTyping": "Empieza a escribir para encontrar tu hotel."
   }
 }
