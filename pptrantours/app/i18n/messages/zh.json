@@ -269,11 +269,21 @@
     "sectionDetails": "您的信息",
     "sectionPay": "付款方式",
     "browseTransfers": "查看所有接送价格",
-    "direction": "接送类型"
+    "direction": "接送类型",
+    "toHotel": "单程接机",
+    "toAirport": "单程送机",
+    "toHotelOption": "单程接机",
+    "toAirportOption": "单程送机",
+    "roundTripOption": "往返",
+    "toHotelHint": "机场 → 您的酒店",
+    "toAirportHint": "您的酒店 → 机场",
+    "roundTripHint": "接机和送机",
+    "errPickDirection": "请选择接送类型。",
+    "pickDirectionHint": "请在上方选择接送类型，价格将显示在这里。"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
-    "destination": "我们送您到哪家酒店？",
+    "destination": "您住在哪里？",
     "choose": "选择您的酒店或度假村…",
     "tripType": "行程类型",
     "roundTrip": "往返",
@@ -289,7 +299,15 @@
     "ask": "提个问题",
     "perPerson": "／人",
     "totalFor": "{n} 人合计",
-    "direction": "接送类型"
+    "direction": "接送类型",
+    "toHotel": "单程接机",
+    "toAirport": "单程送机",
+    "toHotelOption": "单程接机",
+    "toAirportOption": "单程送机",
+    "roundTripOption": "往返",
+    "toHotelHint": "机场 → 您的酒店",
+    "toAirportHint": "您的酒店 → 机场",
+    "roundTripHint": "接机和送机"
   },
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",
@@ -992,5 +1010,8 @@
     "role": "2010 年起担任老板兼司机 · 牙买加旅游局持牌",
     "body": "他至今几乎每天亲自驾车，我们在 Tripadvisor 上的 {count} 条评价中大多都提到了他的名字。",
     "meet": "认识 Pugh 先生"
+  },
+  "hotelSearch": {
+    "typeHotel": "输入您的酒店名称…"
   }
 }

@@ -95,8 +95,8 @@ describe("quoteTransfer", () => {
 
 describe("describeDirection", () => {
   test("maps every direction to a distinct, human label", () => {
-    assert.equal(describeDirection("to-hotel"), "Arrival");
-    assert.equal(describeDirection("to-airport"), "Departure");
+    assert.equal(describeDirection("to-hotel"), "One-way arrival");
+    assert.equal(describeDirection("to-airport"), "One-way departure");
     assert.equal(describeDirection("both"), "Round trip");
   });
 

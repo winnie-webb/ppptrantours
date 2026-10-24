@@ -104,8 +104,8 @@ export function priceTransfer(placeKey, direction, pax) {
  * called.
  */
 export function describeDirection(direction) {
-  if (direction === "to-airport") return "Departure";
-  if (direction === "to-hotel") return "Arrival";
+  if (direction === "to-airport") return "One-way departure";
+  if (direction === "to-hotel") return "One-way arrival";
   return "Round trip";
 }
 

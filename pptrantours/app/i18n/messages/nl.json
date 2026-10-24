@@ -196,7 +196,7 @@
     "choose": "Kiezen",
     "change": "Wijzigen",
     "tripType": "Soort rit",
-    "roundTrip": "Heen en terug",
+    "roundTrip": "Retour",
     "oneWay": "Enkele reis",
     "transferTo": "Naar",
     "adults": "Volwassenen",
@@ -269,11 +269,21 @@
     "sectionDetails": "Uw gegevens",
     "sectionPay": "Hoe u betaalt",
     "browseTransfers": "Alle transfertarieven bekijken",
-    "direction": "Soort transfer"
+    "direction": "Soort transfer",
+    "toHotel": "Enkele reis – aankomst",
+    "toAirport": "Enkele reis – vertrek",
+    "toHotelOption": "Enkele reis – aankomst",
+    "toAirportOption": "Enkele reis – vertrek",
+    "roundTripOption": "Retour",
+    "toHotelHint": "Luchthaven → je hotel",
+    "toAirportHint": "Je hotel → luchthaven",
+    "roundTripHint": "Aankomst en vertrek",
+    "errPickDirection": "Kies je type transfer.",
+    "pickDirectionHint": "Kies hierboven je type transfer en je prijs verschijnt hier."
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
-    "destination": "Naar welk hotel brengen we u?",
+    "destination": "Waar logeert u?",
     "choose": "Kies uw hotel of resort…",
     "tripType": "Soort rit",
     "roundTrip": "Retour",
@@ -289,7 +299,15 @@
     "ask": "Een vraag stellen",
     "perPerson": "/ persoon",
     "totalFor": "totaal voor {n}",
-    "direction": "Soort transfer"
+    "direction": "Soort transfer",
+    "toHotel": "Enkele reis – aankomst",
+    "toAirport": "Enkele reis – vertrek",
+    "toHotelOption": "Enkele reis – aankomst",
+    "toAirportOption": "Enkele reis – vertrek",
+    "roundTripOption": "Retour",
+    "toHotelHint": "Luchthaven → je hotel",
+    "toAirportHint": "Je hotel → luchthaven",
+    "roundTripHint": "Aankomst en vertrek"
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",
@@ -992,5 +1010,8 @@
     "role": "Eigenaar & chauffeur sinds 2010 · Vergunning van de Jamaica Tourist Board",
     "body": "Hij rijdt nog bijna elke dag zelf, en de meeste van onze {count} Tripadvisor-reviews noemen hem bij naam.",
     "meet": "Maak kennis met Mr. Pugh"
+  },
+  "hotelSearch": {
+    "typeHotel": "Typ de naam van je hotel…"
   }
 }

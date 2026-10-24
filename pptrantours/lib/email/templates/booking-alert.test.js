@@ -104,20 +104,20 @@ describe("bookingAlert — content", () => {
 });
 
 describe("bookingAlert — transfer direction", () => {
-  test("a departure-only transfer is labelled Departure, not Round trip", () => {
+  test("a departure-only transfer is labelled One-way departure, not Round trip", () => {
     const out = bookingAlert({
       ...FULL,
       kind: "transfer",
       direction: "to-airport",
     });
     assert.ok(out.html.includes(">Transfer type<"));
-    assert.ok(out.html.includes("Departure"));
+    assert.ok(out.html.includes("One-way departure"));
     assert.ok(!out.html.includes("Round trip"));
   });
 
-  test("an arrival is labelled Arrival", () => {
+  test("an arrival is labelled One-way arrival", () => {
     const out = bookingAlert({ ...FULL, kind: "transfer", direction: "to-hotel" });
-    assert.ok(out.html.includes("Arrival"));
+    assert.ok(out.html.includes("One-way arrival"));
   });
 
   test("a round trip shows the return leg", () => {
@@ -135,7 +135,7 @@ describe("bookingAlert — transfer direction", () => {
 
   test("a legacy tripType-only booking still gets a direction label", () => {
     const oneWay = bookingAlert({ ...FULL, kind: "transfer", tripType: "one-way", direction: undefined });
-    assert.ok(oneWay.html.includes("Arrival"));
+    assert.ok(oneWay.html.includes("One-way arrival"));
 
     const roundTrip = bookingAlert({ ...FULL, kind: "transfer", tripType: "round-trip", direction: undefined });
     assert.ok(roundTrip.html.includes("Round trip"));

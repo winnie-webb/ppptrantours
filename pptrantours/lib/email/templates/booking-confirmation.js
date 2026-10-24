@@ -40,9 +40,9 @@ function money(cents) {
 }
 
 function directionLabel(direction) {
-  if (direction === "to-airport") return "Departure · hotel → airport";
-  if (direction === "to-hotel") return "Arrival · airport → hotel";
-  return "Round trip · both ways";
+  if (direction === "to-airport") return "One-way departure · hotel → airport";
+  if (direction === "to-hotel") return "One-way arrival · airport → hotel";
+  return "Round trip · arrival and departure";
 }
 
 /**

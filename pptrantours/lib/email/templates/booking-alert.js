@@ -47,8 +47,8 @@ function money(cents) {
  * template is also loaded directly by `node --test`, which does not.
  */
 function directionLabel(direction) {
-  if (direction === "to-airport") return "Departure";
-  if (direction === "to-hotel") return "Arrival";
+  if (direction === "to-airport") return "One-way departure";
+  if (direction === "to-hotel") return "One-way arrival";
   return "Round trip";
 }
 

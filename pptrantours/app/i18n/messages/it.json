@@ -269,11 +269,21 @@
     "sectionDetails": "I tuoi dati",
     "sectionPay": "Come paghi",
     "browseTransfers": "Vedi tutte le tariffe dei transfer",
-    "direction": "Tipo di trasferimento"
+    "direction": "Tipo di trasferimento",
+    "toHotel": "Solo andata – arrivo",
+    "toAirport": "Solo andata – partenza",
+    "toHotelOption": "Solo andata – arrivo",
+    "toAirportOption": "Solo andata – partenza",
+    "roundTripOption": "Andata e ritorno",
+    "toHotelHint": "Aeroporto → il tuo hotel",
+    "toAirportHint": "Il tuo hotel → aeroporto",
+    "roundTripHint": "Arrivo e partenza",
+    "errPickDirection": "Scegli il tipo di transfer.",
+    "pickDirectionHint": "Scegli sopra il tipo di transfer e qui comparirà il prezzo."
   },
   "fare": {
     "from": "Da Sangster International (MBJ)",
-    "destination": "In quale hotel ti portiamo?",
+    "destination": "Dove alloggi?",
     "choose": "Scegli il tuo hotel o resort…",
     "tripType": "Tipo di viaggio",
     "roundTrip": "Andata e ritorno",
@@ -289,7 +299,15 @@
     "ask": "Fai una domanda",
     "perPerson": "/ persona",
     "totalFor": "in tutto per {n}",
-    "direction": "Tipo di trasferimento"
+    "direction": "Tipo di trasferimento",
+    "toHotel": "Solo andata – arrivo",
+    "toAirport": "Solo andata – partenza",
+    "toHotelOption": "Solo andata – arrivo",
+    "toAirportOption": "Solo andata – partenza",
+    "roundTripOption": "Andata e ritorno",
+    "toHotelHint": "Aeroporto → il tuo hotel",
+    "toAirportHint": "Il tuo hotel → aeroporto",
+    "roundTripHint": "Arrivo e partenza"
   },
   "hero": {
     "tagline": "Privato. Personalizzato. Professionale.",
@@ -992,5 +1010,8 @@
     "role": "Titolare e autista dal 2010 · Licenza del Jamaica Tourist Board",
     "body": "Guida ancora quasi ogni giorno, e la maggior parte delle nostre {count} recensioni su Tripadvisor lo cita per nome.",
     "meet": "Conosci Mr. Pugh"
+  },
+  "hotelSearch": {
+    "typeHotel": "Scrivi il nome del tuo hotel…"
   }
 }

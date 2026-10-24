@@ -67,25 +67,38 @@ export default function HotelSearch({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const inputRef = useRef(null);
+  const triggerRef = useRef(null);
   const rootRef = useRef(null);
   const sheetRef = useRef(null);
   const isPhone = useIsPhone();
   const listboxId = `${id}-listbox`;
 
+  /*
+   * On a laptop the field variant is itself the search box: the guest types
+   * straight into it and the matches drop down underneath, so the panel's own
+   * search row is hidden there. Phones keep the full-screen sheet with its
+   * own input, because that is what keeps the list clear of the keyboard.
+   */
+  const typeInPlace = variant === "field" && !isPhone;
+
   const remembered = ready && Boolean(place) && choiceCount === 0;
 
   useEffect(() => {
-    if (!open) return;
-    /*
-     * The sheet stays mounted so it can animate, so there is no unmount to
-     * clear its state for us — reopening it must not show the last search.
-     */
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setQuery("");
+    if (!open) {
+      /*
+       * Cleared on close, not on open: opening can now be the guest's first
+       * keystroke, and that letter has to survive.
+       */
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setQuery("");
+      return;
+    }
     setActiveIndex(0);
-    const raf = window.requestAnimationFrame(() => inputRef.current?.focus());
+    const raf = window.requestAnimationFrame(() =>
+      (typeInPlace ? triggerRef : inputRef).current?.focus()
+    );
     return () => window.cancelAnimationFrame(raf);
-  }, [open]);
+  }, [open, typeInPlace]);
 
   useEffect(() => {
     if (!open) return;
@@ -189,7 +202,11 @@ export default function HotelSearch({
             aria-label={t.title ?? "Where are you staying?"}
             className="fixed inset-0 z-[60] flex flex-col bg-white sm:absolute sm:inset-auto sm:left-0 sm:right-0 sm:top-full sm:z-40 sm:mt-2 sm:max-h-[60vh] sm:animate-fade-up sm:flex-col sm:rounded-2xl sm:border sm:border-ink/[0.07] sm:shadow-lift"
           >
-            <div className="flex items-center gap-2 border-b border-ink/[0.07] px-4 py-3 sm:px-4 sm:py-3">
+            <div
+              className={`flex items-center gap-2 border-b border-ink/[0.07] px-4 py-3 sm:px-4 sm:py-3 ${
+                typeInPlace ? "hidden" : ""
+              }`}
+            >
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -202,7 +219,7 @@ export default function HotelSearch({
                 <FaSearch className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-ink/35" />
                 <input
                   ref={inputRef}
-                  type="search"
+                  type="text"
                   role="combobox"
                   aria-expanded="true"
                   aria-controls={listboxId}
@@ -358,6 +375,41 @@ export default function HotelSearch({
           t={t}
           id={id}
         />
+      ) : variant === "field" ? (
+        /*
+         * A real text box, because that is what a guest expects to type a
+         * hotel name into. On a phone it is read-only and simply opens the
+         * full-screen search, so the keyboard comes up once, in the sheet.
+         */
+        <div className="relative">
+          <FaSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink/35" />
+          <input
+            ref={triggerRef}
+            id={id}
+            type="text"
+            role="combobox"
+            aria-expanded={open}
+            aria-controls={listboxId}
+            aria-autocomplete="list"
+            aria-activedescendant={open && typeInPlace ? `${listboxId}-option-${activeIndex}` : undefined}
+            aria-describedby={describedBy}
+            readOnly={isPhone}
+            autoComplete="off"
+            autoCapitalize="words"
+            enterKeyHint="search"
+            value={open && typeInPlace ? query : ""}
+            onFocus={() => setOpen(true)}
+            onClick={() => setOpen(true)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setActiveIndex(0);
+              setOpen(true);
+            }}
+            onKeyDown={typeInPlace ? onInputKeyDown : undefined}
+            placeholder={t.typeHotel ?? "Type your hotel name…"}
+            className={`field cursor-text pl-11 text-base ${error ? "border-red-400" : ""}`}
+          />
+        </div>
       ) : (
         <button
           type="button"
@@ -401,7 +453,8 @@ function SelectedCard({ place, remembered, onChange, t, id }) {
           <FaCheck className="text-[0.6rem]" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-base font-bold text-ink">{place.name}</p>
+          {/* Wraps rather than truncates: on a phone "Riu Palace Ja…" is not a confirmation. */}
+          <p className="break-words font-display text-base font-bold leading-snug text-ink">{place.name}</p>
           {place.locality && <p className="truncate text-xs text-ink/60">{place.locality}</p>}
           {remembered && (
             <p className="mt-1 text-xs font-medium text-ink/50">

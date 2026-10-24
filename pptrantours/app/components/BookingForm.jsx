@@ -35,6 +35,7 @@ import { createBooking, startPayment } from "@/lib/bookings";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
+import DirectionPicker from "./DirectionPicker";
 import PayPalCheckout from "./PayPalCheckout";
 import { useBookingDraft, clearBookingDraft } from "./booking/useBookingDraft";
 
@@ -207,8 +208,12 @@ export default function BookingForm({
   const handoff = useMemo(() => parseHandoff(search), [search]);
 
   const [directionChoice, setDirectionChoice] = useState(null);
-  const direction =
-    controlledDirection ?? directionChoice ?? handoff.direction ?? "both";
+  /*
+   * No default: the guest picks the transfer type themselves (owner's call,
+   * 2026-10-24). A preselected round trip read as a decision already made for
+   * them, and quietly priced the wrong trip for anyone who didn't notice it.
+   */
+  const direction = controlledDirection ?? directionChoice ?? handoff.direction ?? null;
 
   const [adultChoice, setAdults] = useState(null);
   const adults = adultChoice ?? handoff.pax ?? initialAdults ?? 2;
@@ -300,6 +305,8 @@ export default function BookingForm({
 
   const quote = useMemo(() => {
     if (isTransfer) {
+      // Unpriced until a type is picked — one-way and round trip differ.
+      if (!direction) return { pax: adults, transport: null, total: null };
       return quoteTransfer(transferPlace.key, { direction, adults, children });
     }
     return quoteExcursion(tour, { zoneKey: zone, adults, children });
@@ -327,6 +334,10 @@ export default function BookingForm({
   const validate = useCallback(() => {
     const errs = {};
     const req = t.errRequired ?? "Please fill this in.";
+
+    // First, because it is the first thing on the form and errors focus in order.
+    if (isTransfer && !direction)
+      errs.direction = t.errPickDirection ?? "Please choose your transfer type.";
 
     if (!form.date) errs.date = req;
     else if (form.date < todayISO())
@@ -356,6 +367,7 @@ export default function BookingForm({
 
     if (needsPlace)
       errs.place = t.errPickPlace ?? "Please choose where you are staying.";
+
 
     return errs;
   }, [form, isTransfer, direction, needsArrivalFlight, needsPlace, t]);
@@ -605,23 +617,12 @@ export default function BookingForm({
             </div>
           ) : (
             <div>
-              <label htmlFor="transfer-type" className="label">
-                {t.direction ?? "Transfer type"}
-              </label>
-              <select
-                id="transfer-type"
+              <DirectionPicker
                 value={direction}
-                onChange={(e) => setDirectionChoice(e.target.value)}
-                className="field"
-              >
-                <option value="to-hotel">
-                  {t.toHotelOption ?? "Pick up (Airport to Hotel/Resort)"}
-                </option>
-                <option value="to-airport">
-                  {t.toAirportOption ?? "Drop off (Hotel/Resort to Airport)"}
-                </option>
-                <option value="both">{t.roundTripOption ?? "Pickup & Drop off (Round Trip)"}</option>
-              </select>
+                onChange={setDirectionChoice}
+                t={t}
+                error={showError("direction")}
+              />
               <p className="mt-1.5 text-xs text-ink/70">
                 {t.transferTo ?? "To"}{" "}
                 <span className="font-semibold text-ink/70">
@@ -812,6 +813,7 @@ export default function BookingForm({
           quote={quote}
           isTransfer={isTransfer}
           direction={direction}
+          needsDirection={isTransfer && !direction}
           needsPlace={needsPlace}
           unpriced={unpriced}
           dict={dict}
@@ -999,6 +1001,8 @@ export default function BookingForm({
               <FaSpinner className="animate-spin" />
               {t.sending ?? "Sending…"}
             </>
+          ) : isTransfer && !direction ? (
+            t.continue ?? "Continue with booking"
           ) : unpriced || needsPlace || quote.total == null ? (
             /*
              * Still a request, and still says so. There is no published rate
@@ -1076,13 +1080,15 @@ function Section({ title, children }) {
  * is worth explaining: on the server render localStorage has not been read, so
  * "no resort yet" is also the state every guest starts in.
  */
-function Price({ quote, isTransfer, direction, needsPlace, unpriced, dict }) {
+function Price({ quote, isTransfer, direction, needsDirection, needsPlace, unpriced, dict }) {
   const t = dict?.booking ?? {};
 
   if (!quote.transport) {
     return (
       <div className="rounded-xl bg-gold-200/40 px-5 py-4 text-sm leading-relaxed text-ink/70">
-        {unpriced
+        {needsDirection
+          ? t.pickDirectionHint ?? "Choose your transfer type above and your price appears here."
+          : unpriced
           ? t.unpricedHint ??
             "We haven't published a set rate from your resort for this one. Send the request through and we'll come back with a firm price — same day, no markup."
           : t.pickResortHint ??

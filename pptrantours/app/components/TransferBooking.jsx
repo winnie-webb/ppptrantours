@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { FaPlane, FaSyncAlt } from "react-icons/fa";
+import { FaCalculator, FaPlane, FaSyncAlt } from "react-icons/fa";
 import { quoteTransfer, money } from "@/app/products/pricing";
 import HotelSearch from "./HotelSearch";
+import DirectionPicker from "./DirectionPicker";
 import BookingForm, { Stepper } from "./BookingForm";
 import { usePlace } from "./PlaceProvider";
 
@@ -42,14 +43,17 @@ export default function TransferBooking({
   const { place, ready } = usePlace();
 
   const [stage, setStage] = useState(1);
-  const [direction, setDirection] = useState("both");
+  // No default: the guest chooses the transfer type (owner's call, 2026-10-24).
+  const [direction, setDirection] = useState(null);
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [booked, setBooked] = useState(false);
   const [formKey, setFormKey] = useState(0);
   const formRef = useRef(null);
 
-  const quote = place ? quoteTransfer(place.key, { direction, adults, children }) : null;
+  const quote =
+    place && direction ? quoteTransfer(place.key, { direction, adults, children }) : null;
+  const priced = ready && Boolean(place) && Boolean(direction);
 
   const asTour = place
     ? {
@@ -120,7 +124,7 @@ export default function TransferBooking({
     );
   }
 
-  const canContinue = Boolean(place && quote?.total != null);
+  const canContinue = Boolean(priced && quote?.total != null);
 
   return (
     <div className="card space-y-6 p-6 sm:p-8">
@@ -132,27 +136,28 @@ export default function TransferBooking({
       </div>
 
       <div>
-        <span className="label">{t.destination ?? "Which resort are we taking you to?"}</span>
+        <span className="label">{t.destination ?? "Where are you staying?"}</span>
         <HotelSearch variant="field" id="transfer-hotel" dict={dict} />
+        {/*
+          Said loudly, right where the guest is looking, before there is a
+          number: the owner found guests hunting for a "calculate" step that
+          does not exist. Once a hotel is picked the price box below takes over.
+        */}
+        {!priced && (
+          <p className="mt-3 flex items-center gap-3 rounded-xl border border-gold-300 border-l-4 bg-gold-200/30 px-4 py-3 text-base font-semibold leading-snug text-ink">
+            <span
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-300 text-ink"
+              aria-hidden="true"
+            >
+              <FaCalculator className="text-base" />
+            </span>
+            {t.chooseFirst ??
+              "Your price is calculated automatically — just pick your hotel and transfer type."}
+          </p>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="transfer-type" className="label">
-          {t.direction ?? "Transfer type"}
-        </label>
-        <select
-          id="transfer-type"
-          value={direction}
-          onChange={(e) => setDirection(e.target.value)}
-          className="field"
-        >
-          <option value="to-hotel">{t.toHotelOption ?? "Pick up (Airport to Hotel/Resort)"}</option>
-          <option value="to-airport">
-            {t.toAirportOption ?? "Drop off (Hotel/Resort to Airport)"}
-          </option>
-          <option value="both">{t.roundTripOption ?? "Pickup & Drop off (Round Trip)"}</option>
-        </select>
-      </div>
+      <DirectionPicker value={direction} onChange={setDirection} t={t} />
 
       <div className="grid grid-cols-2 gap-4">
         <Stepper label={t.adults ?? "Adults"} value={adults} min={1} onChange={setAdults} />
@@ -171,13 +176,7 @@ export default function TransferBooking({
         {t.childrenFree ?? "Children under 5 ride free — they don't add to your total."}
       </p>
 
-      {!ready || !place ? (
-        <p className="flex items-start gap-2.5 rounded-xl bg-sand px-4 py-3 text-sm leading-relaxed text-ink/70">
-          <FaSyncAlt className="mt-0.5 shrink-0 text-xs text-ink/35" />
-          {t.chooseFirst ??
-            "Choose your hotel and we'll calculate your price for you — no maths, nothing to work out."}
-        </p>
-      ) : (
+      {!priced ? null : (
         <div className="rounded-xl bg-ink px-5 py-4 text-white">
           {/*
             The explicit "this updates by itself" cue the owner asked for: not
@@ -185,13 +184,18 @@ export default function TransferBooking({
             does, so nothing here reads as needing a button pressed to price
             it.
           */}
-          <p className="flex items-center gap-1.5 text-[0.7rem] font-medium uppercase tracking-wide text-white/50">
-            <FaSyncAlt className="text-[0.6rem]" />
+          <p className="flex items-center gap-2 text-sm font-semibold text-gold-300">
+            <FaSyncAlt className="text-xs" />
             {t.autoPriced ?? "Calculated automatically for you"}
           </p>
           <div className="mt-1.5 flex items-baseline justify-between gap-4">
             <span className="text-sm font-semibold">{t.total ?? "Total"}</span>
-            <span className="shrink-0 font-display text-3xl font-semibold text-gold-400">
+            {/* Keyed on the figure so every recalculation visibly lands. */}
+            <span
+              key={quote?.total ?? "ask"}
+              aria-live="polite"
+              className="shrink-0 animate-fade-up font-display text-3xl font-semibold text-gold-400"
+            >
               {quote?.total != null ? money(quote.total) : t.askUs ?? "Ask us"}
             </span>
           </div>
@@ -205,12 +209,8 @@ export default function TransferBooking({
         disabled={!canContinue}
         className="btn-primary w-full disabled:opacity-40"
       >
-        {canContinue
-          ? (t.continueWith ?? "Continue with booking · {amount}").replace(
-              "{amount}",
-              money(quote.total)
-            )
-          : t.continue ?? "Continue with booking"}
+        {/* The price is shown once, in the box above — not repeated here. */}
+        {t.continue ?? "Continue with booking"}
       </button>
     </div>
   );

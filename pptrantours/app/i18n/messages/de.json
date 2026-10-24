@@ -196,7 +196,7 @@
     "choose": "Wählen",
     "change": "Ändern",
     "tripType": "Fahrtart",
-    "roundTrip": "Hin und zurück",
+    "roundTrip": "Hin- und Rückfahrt",
     "oneWay": "Einfache Fahrt",
     "transferTo": "Nach",
     "adults": "Erwachsene",
@@ -269,14 +269,24 @@
     "sectionDetails": "Ihre Angaben",
     "sectionPay": "Ihre Zahlungsweise",
     "browseTransfers": "Alle Transferpreise ansehen",
-    "direction": "Transferart"
+    "direction": "Transferart",
+    "toHotel": "Einfache Fahrt – Ankunft",
+    "toAirport": "Einfache Fahrt – Abreise",
+    "toHotelOption": "Einfache Fahrt – Ankunft",
+    "toAirportOption": "Einfache Fahrt – Abreise",
+    "roundTripOption": "Hin- und Rückfahrt",
+    "toHotelHint": "Flughafen → Ihr Hotel",
+    "toAirportHint": "Ihr Hotel → Flughafen",
+    "roundTripHint": "Ankunft und Abreise",
+    "errPickDirection": "Bitte wählen Sie Ihre Transferart.",
+    "pickDirectionHint": "Wählen Sie oben Ihre Transferart, dann erscheint hier Ihr Preis."
   },
   "fare": {
     "from": "Ab Sangster International (MBJ)",
-    "destination": "Zu welchem Hotel bringen wir Sie?",
+    "destination": "Wo wohnen Sie?",
     "choose": "Hotel oder Resort wählen…",
     "tripType": "Fahrtart",
-    "roundTrip": "Hin und zurück",
+    "roundTrip": "Hin- und Rückfahrt",
     "oneWay": "Einfache Fahrt",
     "passengers": "Fahrgäste",
     "fewer": "Weniger Fahrgäste",
@@ -289,7 +299,15 @@
     "ask": "Eine Frage stellen",
     "perPerson": "/ Person",
     "totalFor": "insgesamt für {n}",
-    "direction": "Transferart"
+    "direction": "Transferart",
+    "toHotel": "Einfache Fahrt – Ankunft",
+    "toAirport": "Einfache Fahrt – Abreise",
+    "toHotelOption": "Einfache Fahrt – Ankunft",
+    "toAirportOption": "Einfache Fahrt – Abreise",
+    "roundTripOption": "Hin- und Rückfahrt",
+    "toHotelHint": "Flughafen → Ihr Hotel",
+    "toAirportHint": "Ihr Hotel → Flughafen",
+    "roundTripHint": "Ankunft und Abreise"
   },
   "hero": {
     "tagline": "Privat. Persönlich. Professionell.",
@@ -992,5 +1010,8 @@
     "role": "Inhaber & Fahrer seit 2010 · Lizenziert vom Jamaica Tourist Board",
     "body": "Er fährt noch fast jeden Tag selbst, und die meisten unserer {count} Tripadvisor-Bewertungen nennen ihn beim Namen.",
     "meet": "Mr. Pugh kennenlernen"
+  },
+  "hotelSearch": {
+    "typeHotel": "Hotelnamen eingeben…"
   }
 }

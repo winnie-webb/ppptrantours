@@ -269,11 +269,21 @@
     "sectionDetails": "Vos coordonnées",
     "sectionPay": "Votre paiement",
     "browseTransfers": "Voir tous les tarifs de transfert",
-    "direction": "Type de transfert"
+    "direction": "Type de transfert",
+    "toHotel": "Aller simple – arrivée",
+    "toAirport": "Aller simple – départ",
+    "toHotelOption": "Aller simple – arrivée",
+    "toAirportOption": "Aller simple – départ",
+    "roundTripOption": "Aller-retour",
+    "toHotelHint": "Aéroport → votre hôtel",
+    "toAirportHint": "Votre hôtel → aéroport",
+    "roundTripHint": "Arrivée et départ",
+    "errPickDirection": "Veuillez choisir votre type de transfert.",
+    "pickDirectionHint": "Choisissez votre type de transfert ci-dessus et votre prix s'affiche ici."
   },
   "fare": {
     "from": "Depuis Sangster International (MBJ)",
-    "destination": "Vers quel hôtel vous emmenons-nous ?",
+    "destination": "Où logez-vous ?",
     "choose": "Choisissez votre hôtel ou complexe…",
     "tripType": "Type de trajet",
     "roundTrip": "Aller-retour",
@@ -289,7 +299,15 @@
     "ask": "Poser une question",
     "perPerson": "/ personne",
     "totalFor": "au total pour {n}",
-    "direction": "Type de transfert"
+    "direction": "Type de transfert",
+    "toHotel": "Aller simple – arrivée",
+    "toAirport": "Aller simple – départ",
+    "toHotelOption": "Aller simple – arrivée",
+    "toAirportOption": "Aller simple – départ",
+    "roundTripOption": "Aller-retour",
+    "toHotelHint": "Aéroport → votre hôtel",
+    "toAirportHint": "Votre hôtel → aéroport",
+    "roundTripHint": "Arrivée et départ"
   },
   "hero": {
     "tagline": "Privé. Personnalisé. Professionnel.",
@@ -992,5 +1010,8 @@
     "role": "Propriétaire et chauffeur depuis 2010 · Agréé par le Jamaica Tourist Board",
     "body": "Il conduit encore presque tous les jours, et la plupart de nos {count} avis Tripadvisor le citent par son nom.",
     "meet": "Découvrir M. Pugh"
+  },
+  "hotelSearch": {
+    "typeHotel": "Tapez le nom de votre hôtel…"
   }
 }
