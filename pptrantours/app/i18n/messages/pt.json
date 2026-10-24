@@ -277,7 +277,8 @@
     "roundTripOption": "Ida e volta",
     "errPickDirection": "Escolha o tipo de transfer.",
     "pickDirectionHint": "Escolha acima o tipo de transfer e o seu preço aparece aqui.",
-    "chooseDirection": "Escolha o tipo de transfer"
+    "chooseDirection": "Escolha o tipo de transfer",
+    "selectDirectionNote": "Basta escolher o tipo de transfer — o preço é calculado automaticamente."
   },
   "fare": {
     "from": "De Sangster International (MBJ)",
@@ -303,7 +304,8 @@
     "toHotelOption": "Só ida – chegada",
     "toAirportOption": "Só ida – partida",
     "roundTripOption": "Ida e volta",
-    "chooseDirection": "Escolha o tipo de transfer"
+    "chooseDirection": "Escolha o tipo de transfer",
+    "chooseFirst": "Basta escolher o hotel e o tipo de transfer — o preço é calculado automaticamente."
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profissional.",

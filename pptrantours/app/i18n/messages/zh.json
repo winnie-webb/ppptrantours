@@ -277,7 +277,8 @@
     "roundTripOption": "往返",
     "errPickDirection": "请选择接送类型。",
     "pickDirectionHint": "请在上方选择接送类型，价格将显示在这里。",
-    "chooseDirection": "选择接送类型"
+    "chooseDirection": "选择接送类型",
+    "selectDirectionNote": "只需选择接送类型，价格将自动计算。"
   },
   "fare": {
     "from": "从桑斯特国际机场（MBJ）出发",
@@ -303,7 +304,8 @@
     "toHotelOption": "单程接机",
     "toAirportOption": "单程送机",
     "roundTripOption": "往返",
-    "chooseDirection": "选择接送类型"
+    "chooseDirection": "选择接送类型",
+    "chooseFirst": "只需选择酒店和接送类型，价格将自动计算。"
   },
   "hero": {
     "tagline": "私人专属 · 量身定制 · 专业可靠",

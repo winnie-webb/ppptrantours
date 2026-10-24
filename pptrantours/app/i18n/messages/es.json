@@ -277,7 +277,8 @@
     "roundTripOption": "Ida y vuelta",
     "errPickDirection": "Elige tu tipo de traslado.",
     "pickDirectionHint": "Elige arriba tu tipo de traslado y aquí aparecerá tu precio.",
-    "chooseDirection": "Elige el tipo de traslado"
+    "chooseDirection": "Elige el tipo de traslado",
+    "selectDirectionNote": "Solo elige el tipo de traslado: tu precio se calcula automáticamente."
   },
   "fare": {
     "from": "Desde Sangster International (MBJ)",
@@ -303,7 +304,8 @@
     "toHotelOption": "Solo ida – llegada",
     "toAirportOption": "Solo ida – salida",
     "roundTripOption": "Ida y vuelta",
-    "chooseDirection": "Elige el tipo de traslado"
+    "chooseDirection": "Elige el tipo de traslado",
+    "chooseFirst": "Solo elige tu hotel y el tipo de traslado: tu precio se calcula automáticamente."
   },
   "hero": {
     "tagline": "Privado. Personalizado. Profesional.",

@@ -574,7 +574,10 @@ export default function BookingForm({
         */}
         <p className="flex items-center gap-2 text-sm font-bold text-ink">
           <FaCalculator className="shrink-0 text-xs text-crimson-600" aria-hidden="true" />
-          {t.autoNote ?? "Your price is calculated automatically."}
+          {isTransfer && !direction
+            ? t.selectDirectionNote ??
+              "Just select your transfer type — your price is calculated automatically."
+            : t.autoNote ?? "Your price is calculated automatically."}
         </p>
 
         <Section title={t.sectionTrip ?? "Your trip"}>

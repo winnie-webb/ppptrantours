@@ -263,7 +263,8 @@
     "autoNote": "Your price is calculated automatically.",
     "errPickDirection": "Please choose your transfer type.",
     "pickDirectionHint": "Choose your transfer type above and your price appears here.",
-    "chooseDirection": "Choose transfer type"
+    "chooseDirection": "Choose transfer type",
+    "selectDirectionNote": "Just select your transfer type — your price is calculated automatically."
   },
   "fare": {
     "from": "From Sangster International (MBJ)",
@@ -281,7 +282,7 @@
     "autoPriced": "Calculated automatically for you",
     "total": "Total",
     "askUs": "Ask us",
-    "chooseFirst": "Your price is calculated automatically.",
+    "chooseFirst": "Just select your hotel and transfer type — your price is calculated automatically.",
     "continueWith": "Continue with booking · {amount}",
     "continue": "Continue with booking",
     "another": "Book another transfer",

@@ -277,7 +277,8 @@
     "roundTripOption": "Retour",
     "errPickDirection": "Kies je type transfer.",
     "pickDirectionHint": "Kies hierboven je type transfer en je prijs verschijnt hier.",
-    "chooseDirection": "Kies type transfer"
+    "chooseDirection": "Kies type transfer",
+    "selectDirectionNote": "Kies gewoon je type transfer — je prijs wordt automatisch berekend."
   },
   "fare": {
     "from": "Vanaf Sangster International (MBJ)",
@@ -303,7 +304,8 @@
     "toHotelOption": "Enkele reis – aankomst",
     "toAirportOption": "Enkele reis – vertrek",
     "roundTripOption": "Retour",
-    "chooseDirection": "Kies type transfer"
+    "chooseDirection": "Kies type transfer",
+    "chooseFirst": "Kies gewoon je hotel en type transfer — je prijs wordt automatisch berekend."
   },
   "hero": {
     "tagline": "Privé. Persoonlijk. Professioneel.",

@@ -277,7 +277,8 @@
     "roundTripOption": "往復",
     "errPickDirection": "送迎タイプを選択してください。",
     "pickDirectionHint": "上で送迎タイプを選ぶと、ここに料金が表示されます。",
-    "chooseDirection": "送迎タイプを選択"
+    "chooseDirection": "送迎タイプを選択",
+    "selectDirectionNote": "送迎タイプを選ぶだけで、料金は自動で計算されます。"
   },
   "fare": {
     "from": "サングスター国際空港（MBJ）発",
@@ -303,7 +304,8 @@
     "toHotelOption": "片道（到着）",
     "toAirportOption": "片道（出発）",
     "roundTripOption": "往復",
-    "chooseDirection": "送迎タイプを選択"
+    "chooseDirection": "送迎タイプを選択",
+    "chooseFirst": "ホテルと送迎タイプを選ぶだけで、料金は自動で計算されます。"
   },
   "hero": {
     "tagline": "プライベート。パーソナル。プロフェッショナル。",
