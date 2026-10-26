@@ -113,8 +113,9 @@ These are deliberate and need replacing before launch:
 - **Logo.** `components/Logo.jsx` and `app/icon.svg` redraw the three-P mark in
   markup, in the brand crimson and gold. Swap in the real artwork when a clean
   vector is available.
-- **Social links.** Facebook and Instagram in `app/data/site.js` point at the
-  bare domains — no PPP accounts were found. The Tripadvisor link is real.
+- **Social links.** Facebook, Instagram, TikTok and Tripadvisor in
+  `app/data/site.js` are PPP's real profiles (supplied 2026-10-26); the
+  LinkedIn link is Mr. Pugh's personal profile (`site.owner.linkedin`).
 - **Payments.** No processor is wired. The booking form takes a request and
   confirms availability first; it never charges.
 - **Stats.** "1,000+ guests" and "30+ countries" in `app/data/site.js` are

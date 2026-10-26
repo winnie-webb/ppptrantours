@@ -31,6 +31,9 @@ export const site = {
     // Title as he signs it himself (from his email signature block).
     role: "Owner & Managing Director",
     bio: "A Jamaican educated in the melting pot of New York City, Donovan built PPP for travellers who crave homegrown Jamaican experiences and want to taste the richness of our passionate culture. He still drives most days.",
+    // His personal profile, not a company page — so it is the founder's
+    // `sameAs` in schema.js, never the organization's.
+    linkedin: "https://www.linkedin.com/in/donovan-pugh-8b1593170/",
   },
   contact: {
     phone: "+1 (876) 397-6277",
@@ -61,14 +64,9 @@ export const site = {
   },
   hours: "Dispatch answers 7 days a week, 6:00am – 10:00pm. Flights are met at any hour.",
   social: {
-    /*
-     * Facebook and Instagram are bare domains because no PPP account was ever
-     * found. They are NOT rendered while they look like this — Footer filters
-     * anything that is just a platform root, so the icons simply do not appear.
-     * Drop a real profile URL in and the icon shows up on its own.
-     */
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/ppptrantoursjamaica",
+    instagram: "https://www.instagram.com/ppptrantoursjamaica/",
+    tiktok: "https://www.tiktok.com/@ppp.transfer.tour",
     tripadvisor:
       "https://www.tripadvisor.com/Attraction_Review-g147311-d2343969-Reviews-PPP_Tran_Tours_Jamaica-Montego_Bay_Saint_James_Parish_Jamaica.html",
   },

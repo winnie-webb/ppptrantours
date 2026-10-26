@@ -2,6 +2,8 @@ import Link from "next/link";
 import {
   FaFacebookF,
   FaInstagram,
+  FaTiktok,
+  FaLinkedinIn,
   FaTripadvisor,
   FaWhatsapp,
   FaPhoneAlt,
@@ -16,10 +18,9 @@ import Logo from "./Logo";
 /**
  * A URL that is just a platform's front door is a placeholder, not a profile.
  *
- * site.js carries facebook.com and instagram.com because no PPP accounts were
- * found, and an icon that drops a guest on Facebook's homepage reads as an
- * abandoned business. Filtering here rather than deleting the entries means the
- * icon reappears by itself the moment a real profile URL is filled in.
+ * An icon that drops a guest on Facebook's homepage reads as an abandoned
+ * business, so any entry in site.js left as a bare domain is hidden rather
+ * than rendered.
  */
 const isPlaceholder = (href) =>
   !href || /^https?:\/\/(www\.)?[^/]+\/?$/.test(href);
@@ -28,6 +29,8 @@ const socials = [
   { href: site.social.tripadvisor, label: "Tripadvisor", Icon: FaTripadvisor },
   { href: site.social.facebook, label: "Facebook", Icon: FaFacebookF },
   { href: site.social.instagram, label: "Instagram", Icon: FaInstagram },
+  { href: site.social.tiktok, label: "TikTok", Icon: FaTiktok },
+  { href: site.owner.linkedin, label: `${site.owner.name} on LinkedIn`, Icon: FaLinkedinIn },
 ].filter((s) => !isPlaceholder(s.href));
 
 export default function Footer({ locale = "en", dict }) {

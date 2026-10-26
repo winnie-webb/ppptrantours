@@ -41,12 +41,14 @@ function postalAddress() {
  * transfers and excursions, and narrower types are read more confidently.
  */
 export function organizationSchema(baseUrl) {
-  // The Facebook and Instagram entries in site.js are bare domains — no PPP
-  // account was ever found. Publishing those as `sameAs` would assert that
-  // facebook.com itself is this company.
-  const sameAs = [site.social.tripadvisor].filter(
-    (u) => u && !/^https?:\/\/(www\.)?(facebook|instagram)\.com\/?$/.test(u)
-  );
+  // A bare platform domain would assert that facebook.com itself is this
+  // company, so only real profile URLs are published.
+  const sameAs = [
+    site.social.tripadvisor,
+    site.social.facebook,
+    site.social.instagram,
+    site.social.tiktok,
+  ].filter((u) => u && !/^https?:\/\/(www\.)?[^/]+\/?$/.test(u));
 
   return {
     "@context": "https://schema.org",
@@ -71,6 +73,7 @@ export function organizationSchema(baseUrl) {
       "@type": "Person",
       name: site.owner.name,
       jobTitle: site.owner.role,
+      sameAs: [site.owner.linkedin].filter(Boolean),
     },
     // From site.hours: seven days, 06:00-22:00. Flights are met at any hour,
     // but that is an exception granted per booking rather than published
