@@ -966,7 +966,7 @@ export default function BookingForm({
                   key: "cash",
                   icon: null,
                   label: t.payCash ?? "Pay cash (USD) on arrival",
-                  hint: t.payCashHint ?? "US dollars only. Nothing to pay now.",
+                  hint: t.payCashHint ?? "Nothing to pay now.",
                 },
                 {
                   key: "card",
