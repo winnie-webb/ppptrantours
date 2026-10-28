@@ -60,7 +60,7 @@ export const bookingTerms = [
       "The booking form asks how you would like to pay, and both answers are equally fine with us.",
       "You can pay cash on arrival, in United States dollars only. This is how most of our guests pay and it is always available.",
       "Or you can pay when you book, by card, through PayPal's own secure checkout — no PayPal account is needed. Your card details are entered on their page and never reach this website. Paying online is never required, and choosing it changes nothing about the booking itself.",
-      "We do not add a processing fee at checkout. The price you are shown is the price you are charged.",
+      "Paying online costs a little more than cash, because it includes the card processor's fee, rounded up to a whole dollar. The card price is shown on the form before you pay, and it is exactly what you are charged.",
     ],
   },
   {

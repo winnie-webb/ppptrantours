@@ -11,6 +11,7 @@ import {
   sweepAbandoned,
 } from "@/lib/payments/store";
 import { sendPaymentAlert } from "@/lib/notify";
+import { cardPriceCents } from "@/app/products/pricing";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -61,10 +62,12 @@ export async function POST(request) {
    * A zero here means the booking is a quote request or carries an indicative
    * figure, and neither may be charged.
    */
-  const amountCents = booking.payment?.payableCents ?? 0;
-  if (!amountCents) {
+  const payableCents = booking.payment?.payableCents ?? 0;
+  if (!payableCents) {
     return bad("That booking has no fixed price to pay yet.", 422);
   }
+  // What is owed is the cash price; what PayPal is asked for covers its fee.
+  const amountCents = cardPriceCents(payableCents);
 
   const currency = booking.payment?.currency ?? "USD";
   const providerName = chooseProvider(currency);

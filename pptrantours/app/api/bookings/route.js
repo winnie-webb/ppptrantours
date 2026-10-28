@@ -8,6 +8,7 @@ import {
   quoteExcursion,
   quoteTransfer,
   payable,
+  cardPriceCents,
   fromCents,
   MAX_PARTY,
 } from "@/app/products/pricing";
@@ -357,8 +358,8 @@ export async function POST(request) {
                 Boolean(priorPay.payableCents) && providerReady,
               reason: null,
               currency: "USD",
-              amountCents: priorPay.payableCents ?? 0,
-              amount: fromCents(priorPay.payableCents ?? 0),
+              amountCents: cardPriceCents(priorPay.payableCents ?? 0),
+              amount: fromCents(cardPriceCents(priorPay.payableCents ?? 0)),
             },
           });
         }
@@ -437,8 +438,10 @@ export async function POST(request) {
           : "payments-off"
         : pay.reason,
       currency: "USD",
-      amountCents: pay.collectible ? pay.payableCents : 0,
-      amount: pay.collectible ? fromCents(pay.payableCents) : 0,
+      // The card price, for the "Pay $X by card" labels. What is stored as owed
+      // above stays the cash price; /api/payments/start converts it again.
+      amountCents: pay.collectible ? cardPriceCents(pay.payableCents) : 0,
+      amount: pay.collectible ? fromCents(cardPriceCents(pay.payableCents)) : 0,
     },
   });
 }

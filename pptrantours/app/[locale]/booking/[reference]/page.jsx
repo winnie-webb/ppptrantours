@@ -7,7 +7,7 @@ import {
   FaHourglassHalf,
 } from "react-icons/fa";
 import { site, airportMeeting } from "@/app/data/site";
-import { fromCents, money, describeDirection } from "@/app/products/pricing";
+import { fromCents, money, describeDirection, cardPriceCents } from "@/app/products/pricing";
 import { getBooking } from "@/lib/payments/store";
 import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 import { buildWhatsAppMessage } from "@/lib/booking-shared";
@@ -280,7 +280,10 @@ export default async function BookingResultPage({ params, searchParams }) {
         {collectible && (
           <BookingPaymentSection
             reference={booking.reference}
-            paymentOptions={{ amountCents: payableCents, amount: payableCents / 100 }}
+            paymentOptions={{
+              amountCents: cardPriceCents(payableCents),
+              amount: cardPriceCents(payableCents) / 100,
+            }}
             paypal={paypalPublicConfig("USD")}
             intent={payment.intent}
             dict={client}

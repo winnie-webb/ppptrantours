@@ -9,6 +9,9 @@ import {
   billedPax,
   money,
   MIN_BILLED_PAX,
+  cardPriceCents,
+  CARD_FEE_RATE,
+  CARD_FEE_FIXED_CENTS,
 } from "./pricing.js";
 
 // A real place with a known, asymmetric one-way/round-trip rate, so a test
@@ -118,5 +121,26 @@ describe("money", () => {
 
   test("keeps two decimals for a fraction", () => {
     assert.equal(money(17.5), "$17.50");
+  });
+});
+
+describe("cardPriceCents", () => {
+  test("the first live payment: $120 cash is $128 by card", () => {
+    assert.equal(cardPriceCents(12000), 12800);
+  });
+
+  test("is a whole dollar, and PayPal's fee never eats into the cash price", () => {
+    for (let dollars = 1; dollars <= 2000; dollars++) {
+      const cash = dollars * 100;
+      const card = cardPriceCents(cash);
+      assert.equal(card % 100, 0, `$${dollars} gave a fractional card price`);
+      const fee = card * CARD_FEE_RATE + CARD_FEE_FIXED_CENTS;
+      assert.ok(card - fee >= cash, `$${dollars} by card nets less than cash`);
+      assert.ok(card - fee < cash + 100, `$${dollars} by card overcharges by a dollar or more`);
+    }
+  });
+
+  test("charges nothing for nothing", () => {
+    assert.equal(cardPriceCents(0), 0);
   });
 });

@@ -29,6 +29,9 @@ import {
   money,
   MAX_PARTY,
   describeDirection,
+  cardPriceCents,
+  toCents,
+  fromCents,
 } from "@/app/products/pricing";
 import { getPlace } from "@/app/data/places";
 import { createBooking, startPayment } from "@/lib/bookings";
@@ -418,6 +421,13 @@ export default function BookingForm({
    * restores their choice instead of silently forgetting it.
    */
   const payIntent = canOfferCard ? payMethod : "cash";
+
+  // The fixed online price: the cash total plus PayPal's fee, rounded up to a
+  // whole dollar. The server charges the same figure from the same function.
+  const cardTotal =
+    canOfferCard && quote.transport?.total != null
+      ? fromCents(cardPriceCents(toCents(quote.transport.total)))
+      : null;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -962,7 +972,13 @@ export default function BookingForm({
                   key: "card",
                   icon: <FaPaypal className="shrink-0 text-xl text-[#003087]" aria-hidden="true" />,
                   label: t.payCardPaypal ?? "Pay now by card or PayPal",
-                  hint: t.payCardHint ?? "Secured by PayPal — no account needed",
+                  hint:
+                    cardTotal != null
+                      ? (t.payCardPriceHint ?? "{amount}, including the card fee · secured by PayPal").replace(
+                          "{amount}",
+                          money(cardTotal)
+                        )
+                      : t.payCardHint ?? "Secured by PayPal — no account needed",
                 },
               ].map((opt) => (
                 <button
@@ -1014,7 +1030,7 @@ export default function BookingForm({
               <FaCreditCard className="text-base" />
               {(t.submitAndPay ?? "Book and pay now · {amount}").replace(
                 "{amount}",
-                money(quote.total)
+                money(cardTotal)
               )}
             </>
           ) : (

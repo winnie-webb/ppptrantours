@@ -219,6 +219,33 @@ export function payable(quote) {
   return { collectible: true, reason: null, payableCents };
 }
 
+/**
+ * PayPal's fee for a Jamaican merchant account: 5.40% + US$0.30 on every
+ * payment received, domestic and international alike (paypal.com/jm merchant
+ * fees, checked 2026-10-28). The first live payment lost $6.78 of $120 to it.
+ */
+export const CARD_FEE_RATE = 0.054;
+export const CARD_FEE_FIXED_CENTS = 30;
+
+/**
+ * The fixed price charged when paying online, for a cash price in cents.
+ *
+ * Grossed up so that what is left after PayPal's fee is at least the cash
+ * price, then rounded up to the next whole dollar: $120 cash is $128 by card,
+ * and PayPal's $7.21 leaves $120.79. The same cash price always gives the same
+ * card price, so it can be shown before the guest commits.
+ *
+ * `payableCents` stays the cash price everywhere it is stored. That is what is
+ * owed, what the admin's "owing" and cash records measure against, and a card
+ * payment of the higher figure simply settles it in full. Only the amount sent
+ * to PayPal, and the amount shown beside it, is this one.
+ */
+export function cardPriceCents(cashCents) {
+  if (!Number.isFinite(cashCents) || cashCents <= 0) return 0;
+  const gross = (cashCents + CARD_FEE_FIXED_CENTS) / (1 - CARD_FEE_RATE);
+  return Math.ceil(gross / 100) * 100;
+}
+
 /* ── Shop-window figures ───────────────────────────────────────────────────── */
 
 /**
