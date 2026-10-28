@@ -143,7 +143,7 @@ function TransferBand({ locale, dict }) {
     t.transferPointFlight ?? "Flight tracked, so a delay never leaves you waiting.",
     t.transferPointMeet ??
       "Your driver meets you at the curb outside arrivals, Column E or F, with a PPP sign.",
-    t.transferPointCash ?? "Pay the driver in cash, in US dollars.",
+    t.transferPointCash ?? "Pay cash (USD) on arrival.",
   ];
 
   return (

@@ -37,7 +37,7 @@ export default function BookingPaymentSection({ reference, paymentOptions, paypa
       setPaying(false);
       setPayError(
         t.payStartFailed ??
-          "We couldn't open the payment page. Your booking is safe — you can pay your driver on the day, or message us."
+          "We couldn't open the payment page. Your booking is safe — you can pay cash (USD) on arrival, or message us."
       );
     }
   };
@@ -60,7 +60,7 @@ export default function BookingPaymentSection({ reference, paymentOptions, paypa
       </p>
       <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
         {t.payOptional ??
-          "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
+          "Paying now is optional and changes nothing about your booking. You can always pay cash (USD) on arrival instead."}
       </p>
       <p className="mt-3 font-display text-2xl font-semibold text-ink">{money(paymentOptions.amount)}</p>
 
