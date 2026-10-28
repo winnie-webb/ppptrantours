@@ -149,7 +149,7 @@ export default async function BookingResultPage({ params, searchParams }) {
     heading = t.failedTitle ?? "That payment didn't go through";
     bodyText =
       t.failedBody ??
-      "Your card was not charged and your booking still stands. You can try again, or simply settle with your driver on the day.";
+      "Your card was not charged and your booking still stands. You can try again, or simply pay cash (USD) on arrival.";
   } else if (paymentUnconfirmed && (hasPaymentContext || !authorised)) {
     // Either an explicit failed check-in from a payment redirect, or a
     // visit that never authorised at all — a bad link, a wrong or missing

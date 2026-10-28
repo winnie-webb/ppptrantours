@@ -66,7 +66,7 @@ export function organizationSchema(baseUrl) {
     foundingDate: String(site.founded),
     address: postalAddress(),
     areaServed: { "@type": "Country", name: "Jamaica" },
-    currenciesAccepted: "USD, JMD",
+    currenciesAccepted: "USD",
     priceRange: "$$",
     sameAs,
     founder: {

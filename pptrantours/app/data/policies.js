@@ -58,7 +58,7 @@ export const bookingTerms = [
     heading: "Paying",
     body: [
       "The booking form asks how you would like to pay, and both answers are equally fine with us.",
-      "You can settle with your driver on the day, in cash, in United States or Jamaican dollars. This is how most of our guests pay and it is always available.",
+      "You can pay cash on arrival, in United States dollars only. This is how most of our guests pay and it is always available.",
       "Or you can pay when you book, by card, through PayPal's own secure checkout — no PayPal account is needed. Your card details are entered on their page and never reach this website. Paying online is never required, and choosing it changes nothing about the booking itself.",
       "We do not add a processing fee at checkout. The price you are shown is the price you are charged.",
     ],

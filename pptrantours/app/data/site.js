@@ -379,7 +379,7 @@ export const faqs = [
   {
     key: "payment",
     q: "How and when do I pay?",
-    a: "The booking form asks you, and both answers are fine with us: settle with your driver on the day in cash, US or Jamaican dollars, or pay the transport by card when you book, through PayPal's secure checkout — no PayPal account needed. Paying online is optional and changes nothing about your booking; pick cash and nothing is charged at all. Either way, attraction entry fees are paid at the gate and are never part of what we collect.",
+    a: "The booking form asks you, and both answers are fine with us: pay cash on arrival, in US dollars only, or pay the transport by card when you book, through PayPal's secure checkout — no PayPal account needed. Paying online is optional and changes nothing about your booking; pick cash and nothing is charged at all. Either way, attraction entry fees are paid at the gate and are never part of what we collect.",
   },
   {
     key: "confirm",

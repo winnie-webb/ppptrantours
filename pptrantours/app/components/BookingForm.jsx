@@ -955,8 +955,8 @@ export default function BookingForm({
                 {
                   key: "cash",
                   icon: null,
-                  label: t.payCash ?? "Pay the driver on the day",
-                  hint: t.payCashHint ?? "Cash, US or Jamaican dollars",
+                  label: t.payCash ?? "Pay cash (USD) on arrival",
+                  hint: t.payCashHint ?? "US dollars only. Nothing to pay now.",
                 },
                 {
                   key: "card",
@@ -1196,7 +1196,7 @@ function Success({
       setPaying(false);
       setPayError(
         t.payStartFailed ??
-          "We couldn't open the payment page. Your booking is safe — you can pay your driver on the day, or message us."
+          "We couldn't open the payment page. Your booking is safe — you can pay cash (USD) on arrival, or message us."
       );
     }
   };
@@ -1264,7 +1264,7 @@ function Success({
       {payMethod === "card" && !canPay && (
         <p className="mx-auto mt-6 max-w-sm rounded-xl bg-gold-200/40 px-4 py-3 text-xs leading-relaxed text-ink/70">
           {t.payUnavailable ??
-            "Card payment isn't available for this booking right now. Nothing was charged and your booking stands - settle with your driver on the day, or message us to pay another way."}
+            "Card payment isn't available for this booking right now. Nothing was charged and your booking stands - pay cash (USD) on arrival, or message us to pay another way."}
         </p>
       )}
 
@@ -1298,12 +1298,12 @@ function Success({
               <p className="mt-1.5 text-xs leading-relaxed text-ink/60">
                 {useButtons
                   ? t.payOptional ??
-                    "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."
+                    "Paying now is optional and changes nothing about your booking. You can always pay cash (USD) on arrival instead."
                   : payMethod === "card"
                     ? t.payDidntOpenBody ??
-                      "Your booking is confirmed either way — nothing was charged. Try again below, or just settle with your driver on the day."
+                      "Your booking is confirmed either way — nothing was charged. Try again below, or just pay cash (USD) on arrival."
                     : t.payOptional ??
-                      "Paying now is optional and changes nothing about your booking. You can always settle with your driver, in cash."}
+                      "Paying now is optional and changes nothing about your booking. You can always pay cash (USD) on arrival instead."}
               </p>
 
               <p className="mt-3 font-display text-2xl font-semibold text-ink">
