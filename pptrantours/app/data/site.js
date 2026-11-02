@@ -453,19 +453,34 @@ export const gallery = [
  * the About gallery, at the owner's request (2026-10-30).
  */
 export const brandReel = [
+  // Guests of every background alternate along both rows (2026-11-02), so
+  // the strip reads as one PPP family. Tiles are square crops: a photo under
+  // ~400px on its short side, or a wide banner with people across its whole
+  // width, goes soft or loses its subject here (it can still go in the About
+  // gallery, which shows photos uncropped).
   [
     { src: "/ppp/horseback-trio-ppp.jpg", alt: "Three guests in PPP Tran Tours shirts riding horses through the sea" },
-    { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
     { src: "/ppp/guests-van-resort.jpg", alt: "A family beside a PPP Tran Tours van outside a resort" },
+    { src: "/ppp/donovan-guests-ppp-tees.jpg", alt: "Donovan Pugh with two guests in PPP Tran Tours caps and shirts above a turquoise river pool" },
+    { src: "/ppp/guests-cruise-port-group.jpg", alt: "A large group of cruise guests giving thumbs up outside the cruise port" },
+    { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
+    { src: "/ppp/guests-dunns-river.jpg", alt: "A chain of guests holding hands as they climb the cascades at Dunn's River Falls" },
+    // The three drivers stand in the left two-thirds; pin the crop there.
+    { src: "/ppp/ppp-drivers-vans.jpg", alt: "Three PPP Tran Tours drivers in yellow uniform shirts beside PPP-branded vans", focus: "0% center" },
+    { src: "/ppp/guests-bridal-party.jpg", alt: "A bride and four bridesmaids in matching tops on a wooden footbridge" },
     { src: "/ppp/waterfall-ppp-sign.jpg", alt: "A guest under a waterfall holding a yellow PPP Tran Tours sign" },
-    // banner-ys-falls came out (2026-11-02): the couple fills only a corner of
-    // a 3:1 banner, so the square crop blew them up soft and blurry.
+    { src: "/ppp/guests-airport-arrival.jpg", alt: "A couple with their luggage beside a PPP Tran Tours van and their uniformed driver at Sangster International Airport" },
   ],
   [
-    { src: "/ppp/ppp-cap-horse.jpg", alt: "A guest in a PPP Tran Tours cap and shirt beside a horse on the beach" },
     { src: "/ppp/guests-van-beach.jpg", alt: "Four guests posing beside a PPP Tran Tours van" },
-    { src: "/ppp/tee-horseback-closeup.jpg", alt: "A guest in a PPP Tran Tours shirt riding a horse by the sea" },
+    { src: "/ppp/ppp-cap-horse.jpg", alt: "A guest in a PPP Tran Tours cap and shirt beside a horse on the beach" },
     { src: "/ppp/guests-ricks-cafe.jpg", alt: "Two guests under the Rick's Cafe sign in Negril" },
+    { src: "/ppp/guests-juici-patties.jpg", alt: "A group of guests, one holding a baby, eating patties outside Juici Patties" },
+    { src: "/ppp/guests-bamboo-bridge.jpg", alt: "A couple standing on a bamboo footbridge in the rainforest" },
+    { src: "/ppp/guests-beach-duo.jpg", alt: "Two guests in sunglasses posing at the water's edge as a wave rolls in" },
+    { src: "/ppp/guests-missionary-group.jpg", alt: "A mission group in matching teal shirts with their PPP driver in a yellow PPP shirt" },
+    { src: "/ppp/guests-beach-mother-daughter.jpg", alt: "A mother and her young daughter sitting together in clear, shallow turquoise water" },
+    { src: "/ppp/tee-horseback-closeup.jpg", alt: "A guest in a PPP Tran Tours shirt riding a horse by the sea" },
   ],
 ];
 

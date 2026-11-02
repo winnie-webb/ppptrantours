@@ -52,7 +52,9 @@ collage, the other eight in the homepage `PhotoReel`.
 
 ### Supplied 2026-11-02 (PPP's own guest photography)
 
-Seven guest photos supplied directly by the client for the About gallery,
+Guest photos supplied directly by the client for the About gallery (all of
+them) and the homepage `PhotoReel` (all but `guests-zipline` and
+`guests-river-ppp-tees`, too small or too wide for its square tiles),
 re-saved at up to 1080px (EXIF stripped): `donovan-guests-ppp-tees`,
 `guests-juici-patties`, `guests-cruise-port-group`, `guests-beach-duo`,
 `guests-dunns-river`, `guests-bridal-party`, `guests-bamboo-bridge`, plus

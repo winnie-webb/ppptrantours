@@ -16,7 +16,21 @@ export default function PromiseSection({ locale = "en", dict }) {
   const reasons = [
     {
       key: "standard",
-      badge: <FaStar className="text-lg" />,
+      // Five stars for "5-star", three over two so they fit the same box as
+      // the P badges below (owner, 2026-11-02).
+      badge: (
+        <span role="img" aria-label="5 stars" className="flex flex-col items-center gap-0.5">
+          <span className="flex gap-0.5">
+            <FaStar className="text-[0.72rem]" />
+            <FaStar className="text-[0.72rem]" />
+            <FaStar className="text-[0.72rem]" />
+          </span>
+          <span className="flex gap-0.5">
+            <FaStar className="text-[0.72rem]" />
+            <FaStar className="text-[0.72rem]" />
+          </span>
+        </span>
+      ),
       title: t.standard?.title ?? whyChoose.standard.title,
       body: t.standard?.body ?? whyChoose.standard.body,
     },
