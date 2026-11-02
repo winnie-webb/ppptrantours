@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { brandReel, site } from "../data/site";
+import { brandReel } from "../data/site";
 
 /**
  * Two rows of guest photos drifting in opposite directions — people in PPP
@@ -25,11 +25,11 @@ export default function PhotoReel({ dict }) {
 
       <div className="shell relative mb-10 text-center lg:mb-14">
         <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight text-white sm:text-[2.5rem]">
-          {t.title ?? "Ride with us once, and you're family."}
+          {t.title ?? "PPP FAMILY EMBRACING THE BRAND"}
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[1.02rem] leading-relaxed text-white/75">
           {t.description ??
-            `Horseback in the sea, under the falls, outside Rick's Café — real days out with ${site.owner.short} and the PPP crew.`}
+            "Real customers, vibing and family building with PPP since 2010."}
         </p>
       </div>
 

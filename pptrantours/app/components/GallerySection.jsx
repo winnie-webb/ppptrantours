@@ -68,7 +68,7 @@ export default function GallerySection({ items = gallery, heading = true, dict }
       <div className="shell">
         {heading && (
           <SectionHeading
-            title={tg.title ?? "PPP Family Embracing the Brand"}
+            title={tg.title ?? "PPP FAMILY EMBRACING THE BRAND"}
             description={
               tg.description ??
               "Real customers, vibing and family building with PPP since 2010."
