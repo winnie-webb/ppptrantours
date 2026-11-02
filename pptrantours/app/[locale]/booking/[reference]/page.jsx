@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,6 +13,7 @@ import { fromCents, money, describeDirection, cardPriceCents } from "@/app/produ
 import { getBooking } from "@/lib/payments/store";
 import { paymentsConfigured, paypalPublicConfig } from "@/lib/payments";
 import { buildWhatsAppMessage } from "@/lib/booking-shared";
+import { formatDateTime, transferLegs } from "@/lib/booking-times";
 import { localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { clientDict } from "@/app/i18n/client";
@@ -111,6 +113,7 @@ export default async function BookingResultPage({ params, searchParams }) {
       ? tb[direction === "both" ? "roundTrip" : direction === "to-airport" ? "toAirport" : "toHotel"] ??
         describeDirection(direction)
       : null;
+  const legs = isTransfer ? transferLegs(booking) : { arrival: null, departure: null };
 
   const whatsapp = authorised
     ? buildWhatsAppMessage(booking)
@@ -129,7 +132,7 @@ export default async function BookingResultPage({ params, searchParams }) {
     heading = t.paidTitle ?? "Payment received. Thank you.";
     bodyText =
       t.paidBody ??
-      "Your booking is confirmed. Your driver and the exact pickup time follow shortly, by WhatsApp or email.";
+      "Your booking is confirmed. If there is anything else you need to know, we'll send it by WhatsApp or email.";
   } else if (pending) {
     Icon = FaHourglassHalf;
     tone = "text-gold-500";
@@ -174,8 +177,14 @@ export default async function BookingResultPage({ params, searchParams }) {
     bodyText = isEnquiry
       ? tb.doneEnquiryBody ?? "We'll reply by email or WhatsApp, usually within the hour."
       : quoted
-        ? tb.doneBody ??
-          "Your driver and exact pickup time follow by WhatsApp or email shortly."
+        ? isTransfer && direction === "to-airport"
+          ? tb.doneBodyDeparture ??
+            "Keep it — quoting it gets you an answer fastest. We set your hotel pickup from your flight time, so you reach the airport a full two hours before departure."
+          : isTransfer
+          ? tb.doneBodyTransfer ??
+            "Keep it — quoting it gets you an answer fastest. We track your flight, so if it's early or late your driver adjusts — no extra charge."
+          : tb.doneBody ??
+            "Keep it — quoting it gets you an answer fastest. We'll confirm your pickup time by WhatsApp or email shortly."
         : tb.doneQuoteBody ??
           "We'll come back with a firm price, same day, and you can confirm from there.";
   }
@@ -219,20 +228,29 @@ export default async function BookingResultPage({ params, searchParams }) {
             {booking.placeLabel && (
               <SummaryRow label={tb.stayingAt ?? "Hotel"}>{booking.placeLabel}</SummaryRow>
             )}
-            {booking.date && (
+            {!isTransfer && booking.date && (
               <SummaryRow label={tb.tourDate ?? "Date"}>
-                {booking.date}
-                {booking.time ? ` · ${booking.time}` : ""}
+                {formatDateTime(booking.date, booking.time)}
               </SummaryRow>
             )}
-            {isTransfer && (booking.airline || booking.flightNumber) && (
-              <SummaryRow label={tb.flight ?? "Flight"}>
-                {[booking.airline, booking.flightNumber].filter(Boolean).join(" · ")}
-              </SummaryRow>
-            )}
-            {direction === "both" && booking.returnDate && (
-              <SummaryRow label={tb.returnDate ?? "Departure date"}>{booking.returnDate}</SummaryRow>
-            )}
+            {/* Each flight leg on its own rows: when, then which flight. */}
+            {[
+              [legs.arrival, tb.arrivalFlight ?? "Arrival flight", tb.landingTime ?? "Arrival flight time"],
+              [legs.departure, tb.departureFlight ?? "Departure flight", tb.departureTime ?? "Departure flight time"],
+            ]
+              .filter(([leg]) => leg)
+              .map(([leg, flightLabel, timeLabel]) => (
+                <Fragment key={flightLabel}>
+                  <SummaryRow label={timeLabel}>
+                    {formatDateTime(leg.date, leg.time) || "—"}
+                  </SummaryRow>
+                  {(leg.flight || booking.airline) && (
+                    <SummaryRow label={flightLabel}>
+                      {[booking.airline, leg.flight].filter(Boolean).join(" · ")}
+                    </SummaryRow>
+                  )}
+                </Fragment>
+              ))}
             <SummaryRow label={tb.sectionParty ?? "Who's coming"}>
               {booking.adults}
               {booking.children > 0 ? ` + ${booking.children}` : ""}

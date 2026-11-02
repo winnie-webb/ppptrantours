@@ -19,6 +19,7 @@ import {
 import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
 import { describeDirection } from "@/app/products/pricing";
 import { buildReviewRequestWhatsApp } from "@/lib/booking-shared";
+import { formatDateTime, formatTime12, transferLegs } from "@/lib/booking-times";
 
 /**
  * `direction` is the current three-way field; older bookings only carry the
@@ -520,6 +521,7 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
   };
 
   const owed = (b.payment?.payableCents ?? 0) - (b.payment?.paidCents ?? 0);
+  const legs = transferLegs(b);
 
   return (
     <li className="overflow-hidden rounded-2xl border border-ink/[0.07] bg-white shadow-card">
@@ -574,13 +576,34 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
             )}
           </Field>
           <Field label="When">
-            <span className="text-ink/80">{b.date || "—"}</span>
-            {b.time && <span className="block text-xs text-ink/50">{b.time}</span>}
-            {b.flightNumber && (
-              <span className="block text-xs text-ink/50">
-                Flight {b.flightNumber}
-                {b.airline && ` · ${b.airline}`}
-              </span>
+            {b.kind === "transfer" ? (
+              /* Arrival and departure each on their own lines: the departure
+                 time is what Mr. Pugh sets the hotel pickup from. */
+              [
+                ["Arrival", legs.arrival],
+                ["Departure", legs.departure],
+              ]
+                .filter(([, leg]) => leg)
+                .map(([label, leg]) => (
+                  <span key={label} className="block">
+                    <span className="text-ink/80">
+                      {label}: {formatDateTime(leg.date, leg.time) || "—"}
+                    </span>
+                    {leg.flight && (
+                      <span className="block text-xs text-ink/50">
+                        Flight {leg.flight}
+                        {b.airline && ` · ${b.airline}`}
+                      </span>
+                    )}
+                  </span>
+                ))
+            ) : (
+              <>
+                <span className="text-ink/80">{b.date || "—"}</span>
+                {b.time && (
+                  <span className="block text-xs text-ink/50">{formatTime12(b.time)}</span>
+                )}
+              </>
             )}
           </Field>
           <Field label="Transport">
@@ -690,7 +713,7 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               {directionOf(b) && (
                 <p className="text-xs text-ink/45">
                   {describeDirection(directionOf(b))}
-                  {b.returnDate && ` · back ${b.returnDate}`}
+                  {b.returnDate && ` · back ${formatDateTime(b.returnDate, b.returnTime)}`}
                   {b.returnFlight && ` · ${b.returnFlight}`}
                 </p>
               )}

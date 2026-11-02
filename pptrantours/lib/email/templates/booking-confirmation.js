@@ -12,6 +12,7 @@
  */
 import { html, raw, dash } from "../html.js";
 import { airportMeeting, site } from "../../../app/data/site.js";
+import { formatDateTime, transferLegs } from "../../booking-times.js";
 
 /*
  * No black blocks: Mr. Pugh found the near-black masthead and footer heavy.
@@ -39,6 +40,16 @@ function money(cents) {
   return `US$${Number(cents).toFixed(2)}`;
 }
 
+/** One flight leg: when it lands or leaves (12-hour time), then which flight. */
+function legRows(label, leg, airline) {
+  if (!leg) return "";
+  const flight = [airline, leg.flight].filter(Boolean).join(" · ");
+  return html`
+    ${row(`${label} flight time`, dash(formatDateTime(leg.date, leg.time)))}
+    ${flight ? row(`${label} flight`, flight) : ""}
+  `;
+}
+
 function directionLabel(direction) {
   if (direction === "to-airport") return "One-way departure · hotel → airport";
   if (direction === "to-hotel") return "One-way arrival · airport → hotel";
@@ -63,6 +74,7 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
   const firstName = (booking.name ?? "").trim().split(/\s+/)[0] || "there";
   const date = dash(booking.date);
   const tourTitle = dash(booking.tourTitle);
+  const legs = transferLegs(booking);
 
   // Arrival legs get the meeting point. A departure-only booking is picked up
   // at the hotel, so the airport directions would only confuse.
@@ -78,12 +90,29 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
       ? "Booking confirmed"
       : "Request received";
 
+  /*
+   * No promise of a driver's name (owner, 2026-11-02): the driver is the one
+   * holding the PPP company sign, and an arrival pickup is simply whenever the
+   * guest clears customs. A departure pickup IS set by PPP, from the flight
+   * time, so that leg says how.
+   */
+  const transferSteps = [
+    legs.arrival
+      ? "We track your flight, so if it's early or late your driver adjusts — no extra charge."
+      : "",
+    legs.departure
+      ? "We set your hotel pickup from your departure flight time, so you reach the airport a full two hours before your flight."
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   const nextSteps = isEnquiry
     ? "We'll reply by email or WhatsApp, usually within the hour during dispatch hours."
     : quoted
       ? isTransfer
-        ? "We'll send your driver's name and pickup time shortly, usually within the hour. We track your flight, so if it's early or late your driver adjusts — no extra charge."
-        : "We'll send your pickup time and driver details shortly, usually within the hour. Nothing else for you to do."
+        ? transferSteps
+        : "We'll confirm your pickup time shortly, usually within the hour. Nothing else for you to do."
       : "We'll send you a firm price for this route the same day. Your booking is confirmed once you accept it.";
 
   const totalLabel = isTransfer
@@ -135,10 +164,9 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                 ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
                 ${isTransfer && direction ? row("Transfer type", directionLabel(direction)) : ""}
                 ${row(isTransfer ? "Hotel" : "Pickup from", dash(booking.placeLabel))}
-                ${row("Date", date)}
-                ${isTransfer && (booking.airline || booking.flightNumber)
-                  ? row("Flight", [booking.airline, booking.flightNumber].filter(Boolean).join(" · "))
-                  : ""}
+                ${isTransfer
+                  ? html`${legRows("Arrival", legs.arrival, booking.airline)}${legRows("Departure", legs.departure, booking.airline)}`
+                  : row("Date", dash(formatDateTime(booking.date, booking.time)))}
               </table>
             </td>
           </tr>

@@ -17,6 +17,7 @@
  * text fallback in the `alt`.
  */
 import { html, raw, dash } from "../html.js";
+import { formatTime12, transferLegs } from "../../booking-times.js";
 
 const TEXT = "#3a2e31";
 const MUTED = "#8a7d80";
@@ -53,6 +54,18 @@ function directionLabel(direction) {
 }
 
 /**
+ * One flight leg as two rows: when (date, then the 12-hour time) and which
+ * flight. The departure time is what the hotel pickup is set from.
+ */
+function legRows(label, leg) {
+  if (!leg) return "";
+  return html`
+    ${row(label, html`${dash(leg.date)} &nbsp;<span style="font-weight:bold;">${dash(formatTime12(leg.time))}</span>`)}
+    ${row(`${label} flight`, dash(leg.flight))}
+  `;
+}
+
+/**
  * @param {object} booking  the same shape the bookings route persists
  * @returns {{subject: string, html: string, replyTo: string, preheader: string}}
  */
@@ -82,6 +95,7 @@ export function bookingAlert(booking) {
   const name = dash(booking.name);
   const date = dash(booking.date);
   const tourTitle = dash(booking.tourTitle);
+  const legs = transferLegs(booking);
 
   const body = html`
 <div style="margin:0;padding:0;background-color:${SAND};">
@@ -150,21 +164,12 @@ export function bookingAlert(booking) {
                 </tr>
                 ${row(html`${isTransfer ? "Airport transfer" : "Tour"}`, html`<strong>${tourTitle}</strong>`, { first: true })}
                                 ${isTransfer && direction ? row("Transfer type", directionLabel(direction)) : ""}
-                ${row(
-                  isTransfer && direction === "to-airport" ? "Departure date" : "Date",
-                  html`${date} &nbsp;<span style="opacity:0.55;">${dash(booking.time)}</span>`
-                )}
-                ${isTransfer ? row("Airline", dash(booking.airline)) : ""}
-                ${row(
-                  isTransfer && direction === "to-airport" ? "Departure flight" : "Flight",
-                  dash(booking.flightNumber)
-                )}
-                ${isTransfer && direction === "both" && (booking.returnDate || booking.returnFlight)
-                  ? row(
-                      "Departure",
-                      html`${dash(booking.returnDate)} &nbsp;<span style="opacity:0.55;">${dash(booking.returnFlight)}</span>`
-                    )
-                  : ""}
+                ${isTransfer
+                  ? html`${legRows("Arrival", legs.arrival)}${legRows("Departure", legs.departure)}${row("Airline", dash(booking.airline))}`
+                  : row(
+                      "Date",
+                      html`${date} &nbsp;<span style="opacity:0.55;">${dash(formatTime12(booking.time))}</span>`
+                    )}
                 ${row("Hotel / pickup", dash(booking.placeLabel))}
                 ${row("Passengers", travellers)}
               </table>

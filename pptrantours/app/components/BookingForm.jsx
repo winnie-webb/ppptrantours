@@ -21,7 +21,7 @@ import {
   FaInfoCircle,
   FaCalculator,
   FaCreditCard,
-  FaPaypal,
+  FaPlane,
 } from "react-icons/fa";
 import {
   quoteExcursion,
@@ -39,6 +39,7 @@ import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
 import AirlineSearch from "./booking/AirlineSearch";
+import CardLogos from "./booking/CardLogos";
 import DirectionPicker from "./DirectionPicker";
 import PayPalCheckout from "./PayPalCheckout";
 import { useBookingDraft, clearBookingDraft } from "./booking/useBookingDraft";
@@ -229,6 +230,7 @@ export default function BookingForm({
     airline: "",
     flightNumber: "",
     returnDate: "",
+    returnTime: "",
     returnFlight: "",
     name: "",
     email: "",
@@ -323,6 +325,13 @@ export default function BookingForm({
   // ("to-airport"), where there is no one to meet at the airport end.
   const needsArrivalFlight = isTransfer && (direction === "to-hotel" || direction === "both");
 
+  // The departure leg's date AND time are required too (owner, 2026-11-02):
+  // PPP sets the hotel pickup from the departure flight time, so the guest
+  // reaches the airport a full two hours before it, and sends that pickup
+  // with the confirmation. For "to-airport" they are the first date/time
+  // fields; for "both" they are `returnDate`/`returnTime`.
+  const needsDepartureTime = isTransfer && (direction === "to-airport" || direction === "both");
+
   const pax = adults + children;
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -370,12 +379,22 @@ export default function BookingForm({
     if (needsArrivalFlight && !form.flightNumber.trim())
       errs.flightNumber = t.errFlightNumber ?? "Please add your arrival flight number.";
 
+    const errDepartureTime =
+      t.errDepartureTime ?? "Please add your departure flight time.";
+    if (needsDepartureTime && direction === "to-airport" && !form.time)
+      errs.time = errDepartureTime;
+    if (needsDepartureTime && direction === "both") {
+      if (!form.returnDate)
+        errs.returnDate = t.errDepartureDate ?? "Please add your departure date.";
+      if (!form.returnTime) errs.returnTime = errDepartureTime;
+    }
+
     if (needsPlace)
       errs.place = t.errPickPlace ?? "Please choose where you are staying.";
 
 
     return errs;
-  }, [form, isTransfer, direction, needsArrivalFlight, needsPlace, t]);
+  }, [form, isTransfer, direction, needsArrivalFlight, needsDepartureTime, needsPlace, t]);
 
   // Derived, not stored: the errors are a pure function of the form's values,
   // so there is nothing to keep in sync and no effect to run.
@@ -557,6 +576,7 @@ export default function BookingForm({
         paypal={paypal}
         quoted={!unpriced && !needsPlace}
         isTransfer={isTransfer}
+        direction={direction}
       />
     );
   }
@@ -702,14 +722,21 @@ export default function BookingForm({
                   ? t.departureTime ?? "Departure flight time"
                   : t.landingTime ?? "Arrival flight time"
                 : t.pickupTime ?? "Pickup time"}
+              {isTransfer && direction === "to-airport" && <Req />}
             </label>
             <input
               id="time"
               type="time"
+              required={isTransfer && direction === "to-airport"}
+              aria-required={isTransfer && direction === "to-airport" ? "true" : undefined}
+              aria-invalid={showError("time") ? "true" : undefined}
+              aria-describedby={showError("time") ? "time-err" : undefined}
               value={form.time}
               onChange={set("time")}
-              className="field"
+              onBlur={blur("time")}
+              className={`field ${showError("time") ? "border-red-400" : ""}`}
             />
+            <FieldError id="time-err">{showError("time")}</FieldError>
           </div>
         </div>
 
@@ -753,36 +780,66 @@ export default function BookingForm({
               <p className="mt-1.5 text-xs text-ink/70">
                 {direction === "to-airport"
                   ? t.pickupFromFlightNote ??
-                    "We work out your pickup time from this flight — no need to tell us one."
+                    "We set your hotel pickup from your flight time, so you reach the airport a full two hours before departure."
                   : t.flightNote ??
                     "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and look for your driver holding the PPP company sign at Column E."}
               </p>
             </div>
 
             {direction === "both" && (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="returnDate" className="label">
-                    {t.returnDate ?? "Departure date"}
-                  </label>
-                  <input
-                    id="returnDate"
-                    ref={returnDateRef}
-                    type="date"
-                    aria-invalid={showError("returnDate") ? "true" : undefined}
-                    aria-describedby={
-                      showError("returnDate") ? "returnDate-err" : undefined
-                    }
-                    value={form.returnDate}
-                    onChange={set("returnDate")}
-                    onBlur={blur("returnDate")}
-                    className={`field ${
-                      showError("returnDate") ? "border-red-400" : ""
-                    }`}
-                  />
-                  <FieldError id="returnDate-err">
-                    {showError("returnDate")}
-                  </FieldError>
+              <div className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="returnDate" className="label">
+                      {t.returnDate ?? "Departure date"}
+                      <Req />
+                    </label>
+                    <input
+                      id="returnDate"
+                      ref={returnDateRef}
+                      type="date"
+                      required
+                      aria-required="true"
+                      aria-invalid={showError("returnDate") ? "true" : undefined}
+                      aria-describedby={
+                        showError("returnDate") ? "returnDate-err" : undefined
+                      }
+                      value={form.returnDate}
+                      onChange={set("returnDate")}
+                      onBlur={blur("returnDate")}
+                      className={`field ${
+                        showError("returnDate") ? "border-red-400" : ""
+                      }`}
+                    />
+                    <FieldError id="returnDate-err">
+                      {showError("returnDate")}
+                    </FieldError>
+                  </div>
+                  <div>
+                    <label htmlFor="returnTime" className="label">
+                      {t.departureTime ?? "Departure flight time"}
+                      <Req />
+                    </label>
+                    <input
+                      id="returnTime"
+                      type="time"
+                      required
+                      aria-required="true"
+                      aria-invalid={showError("returnTime") ? "true" : undefined}
+                      aria-describedby={
+                        showError("returnTime") ? "returnTime-err" : undefined
+                      }
+                      value={form.returnTime}
+                      onChange={set("returnTime")}
+                      onBlur={blur("returnTime")}
+                      className={`field ${
+                        showError("returnTime") ? "border-red-400" : ""
+                      }`}
+                    />
+                    <FieldError id="returnTime-err">
+                      {showError("returnTime")}
+                    </FieldError>
+                  </div>
                 </div>
                 <div>
                   <label htmlFor="returnFlight" className="label">
@@ -798,7 +855,7 @@ export default function BookingForm({
                   />
                   <p className="mt-1.5 text-xs text-ink/70">
                     {t.pickupFromFlightNote ??
-                      "Optional — we work out your pickup time from your hotel either way."}
+                      "We set your hotel pickup from your flight time, so you reach the airport a full two hours before departure."}
                   </p>
                 </div>
               </div>
@@ -984,8 +1041,9 @@ export default function BookingForm({
                 },
                 {
                   key: "card",
-                  icon: <FaPaypal className="shrink-0 text-xl text-[#003087]" aria-hidden="true" />,
-                  label: t.payCardPaypal ?? "Pay now by card or PayPal",
+                  // Processed through PayPal's checkout (named in the hint).
+                  icon: <CardLogos />,
+                  label: t.payWithCard ?? "Pay with card",
                   hint:
                     cardTotal != null
                       ? (t.payCardPriceHint ?? "{amount}, including the card fee · secured by PayPal").replace(
@@ -1017,6 +1075,13 @@ export default function BookingForm({
               ))}
             </div>
           </div>
+        )}
+
+        {isTransfer && (
+          <p className="flex items-center gap-2 text-xs font-medium text-ink/70">
+            <FaPlane className="shrink-0 text-[0.7rem] text-crimson-600" aria-hidden="true" />
+            {t.flightsTracked ?? "All flights are tracked for delays or early arrival."}
+          </p>
         )}
 
         <button
@@ -1180,6 +1245,7 @@ function Success({
   quoted,
   paypal,
   isTransfer,
+  direction,
 }) {
   const t = dict?.booking ?? {};
   const [paying, setPaying] = useState(false);
@@ -1272,8 +1338,14 @@ function Success({
           {t.doneRef ?? "Your reference is"}{" "}
           <span className="font-semibold text-ink">{result.reference}</span>.{" "}
           {quoted
-            ? t.doneBody ??
-              "Keep it — quoting it gets you an answer fastest. Your driver and exact pickup time follow by WhatsApp or email shortly."
+            ? isTransfer && direction === "to-airport"
+              ? t.doneBodyDeparture ??
+                "Keep it — quoting it gets you an answer fastest. We set your hotel pickup from your flight time, so you reach the airport a full two hours before departure."
+              : isTransfer
+              ? t.doneBodyTransfer ??
+                "Keep it — quoting it gets you an answer fastest. We track your flight, so if it's early or late your driver adjusts — no extra charge."
+              : t.doneBody ??
+                "Keep it — quoting it gets you an answer fastest. We'll confirm your pickup time by WhatsApp or email shortly."
             : t.doneQuoteBody ??
               "Keep it — quoting it gets you an answer fastest. We'll come back with a firm price, same day, and you can confirm from there."}
         </p>

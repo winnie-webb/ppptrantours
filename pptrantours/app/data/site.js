@@ -30,7 +30,8 @@ export const site = {
     short: "Mr. Pugh",
     // Title as he signs it himself (from his email signature block).
     role: "Owner & Managing Director",
-    bio: "A Jamaican educated in the melting pot of New York City, Donovan built PPP for travellers who crave homegrown Jamaican experiences and want to taste the richness of our passionate culture. He still drives most days.",
+    // His own words (2026-11-02), lightly polished.
+    bio: "Educated in the melting pot of New York City, Mr. Pugh was exposed to cultural diversity at an early age. It inspired PPP's mission from the very beginning: to keep it real with our customers by making sure they have down-to-earth, homegrown Jamaican experiences. PPP: always private, with a personalized and professional touch.",
     // His personal profile, not a company page — so it is the founder's
     // `sameAs` in schema.js, never the organization's.
     linkedin: "https://www.linkedin.com/in/donovan-pugh-8b1593170/",
@@ -215,6 +216,15 @@ export const destinations = [
  * their subject in a uniform grid.
  */
 export const gallery = [
+  /*
+   * Order is deliberate (2026-11-02): guests of every background alternate
+   * all the way through, so the gallery reads as one PPP family rather than
+   * runs of look-alike groups. The first three are the featured row; below
+   * them the masonry fills each column top to bottom in list order (columns
+   * are balanced by height), so alternating the list keeps every column
+   * mixed, with a scenery shot about every third tile. Keep that rhythm when
+   * adding photos.
+   */
   {
     src: "/ppp/guests-van-beach.jpg",
     w: 1328,
@@ -224,12 +234,12 @@ export const gallery = [
     alt: "Four guests posing beside a PPP Tran Tours van",
   },
   {
-    src: "/ppp/guests-ricks-cafe.jpg",
+    src: "/ppp/donovan-guests-ppp-tees.jpg",
     w: 1080,
     h: 1080,
-    place: "Rick's Cafe, Negril",
-    caption: "Under the famous sign, before the sunset.",
-    alt: "Two guests under the Rick's Cafe sign in Negril",
+    place: "Waterfall swim",
+    caption: "Mr. Pugh with guests in their PPP tees.",
+    alt: "Donovan Pugh with two guests in PPP Tran Tours caps and shirts above a turquoise river pool",
   },
   {
     src: "/ppp/guests-van-resort.jpg",
@@ -240,12 +250,164 @@ export const gallery = [
     alt: "A family beside a PPP Tran Tours van outside a resort",
   },
   {
+    src: "/ppp/guests-juici-patties.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Patty stop",
+    caption: "First Jamaican patty, still hot.",
+    alt: "A group of guests, one holding a baby, eating patties outside Juici Patties",
+  },
+  {
+    src: "/ppp/guests-ricks-cafe.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Rick's Cafe, Negril",
+    caption: "Under the famous sign, before the sunset.",
+    alt: "Two guests under the Rick's Cafe sign in Negril",
+  },
+  {
+    src: "/ppp/banner-craft-market.jpg",
+    w: 1200,
+    h: 400,
+    place: "Craft market",
+    caption: "Wood carvings, straight from the carver.",
+    alt: "A smiling craft market vendor holding a woven bag, surrounded by carved wooden faces and figures",
+  },
+  {
+    src: "/ppp/donovan-airport-van.jpg",
+    w: 1001,
+    h: 550,
+    place: "Sangster International",
+    caption: "Meeting guests at arrivals, luggage handled.",
+    alt: "Donovan Pugh in uniform with four guests beside a PPP Tran Tours van at Sangster International Airport",
+  },
+  {
+    src: "/ppp/guests-cruise-port-group.jpg",
+    w: 960,
+    h: 960,
+    place: "Cruise port pickup",
+    caption: "Straight off the ship, thumbs up all round.",
+    alt: "A large group of cruise guests giving thumbs up outside the cruise port, their ship behind them",
+  },
+  {
+    src: "/ppp/banner-fisherman-mobay.jpg",
+    w: 1200,
+    h: 400,
+    place: "Montego Bay",
+    caption: "The morning catch, still dripping.",
+    alt: "A fisherman on the shore at Montego Bay holding up two strings of red snapper, cruise ship behind him",
+  },
+  {
+    src: "/ppp/ppp-drivers-vans.jpg",
+    w: 1350,
+    h: 900,
+    place: "The PPP team",
+    caption: "Uniformed, on time, sign in hand.",
+    alt: "Three PPP Tran Tours drivers in yellow uniform shirts beside three PPP-branded vans, one holding the PPP pickup sign",
+  },
+  {
+    src: "/ppp/guests-zipline.jpg",
+    w: 523,
+    h: 260,
+    place: "Zipline",
+    caption: "Arms up, flying through the canopy.",
+    alt: "A smiling guest in a pink top and helmet flying along a zipline through the forest",
+  },
+  {
+    src: "/ppp/guests-beach-duo.jpg",
+    w: 1070,
+    h: 1338,
+    place: "Beach day",
+    caption: "Sun, sea and nowhere to be.",
+    alt: "Two guests in sunglasses posing at the water's edge as a wave rolls in",
+  },
+  {
+    src: "/ppp/guests-dunns-river.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Dunn's River Falls, Ocho Rios",
+    caption: "Hand in hand up the falls.",
+    alt: "A chain of guests holding hands as they climb the cascades at Dunn's River Falls",
+  },
+  {
+    src: "/ppp/ricks-cafe.jpg",
+    w: 674,
+    h: 446,
+    place: "Negril, Westmoreland",
+    caption: "Rick's Cafe — cliff divers and rum punch.",
+    alt: "Crowds gathered on the limestone cliffs at Rick's Cafe in Negril",
+  },
+  {
+    src: "/ppp/guests-river-ppp-tees.jpg",
+    w: 830,
+    h: 315,
+    place: "River pool",
+    caption: "PPP tees, cool water, good company.",
+    alt: "Five guests, three in PPP Tran Tours shirts and caps, sitting together in a river pool holding the PPP sign",
+  },
+  {
+    src: "/ppp/guests-bridal-party.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Bridal party",
+    caption: "The bride and her crew, island-style.",
+    alt: "A bride and four bridesmaids in matching tops on a wooden footbridge in a tropical garden",
+  },
+  {
+    src: "/ppp/banner-waterfall-guests.jpg",
+    w: 1200,
+    h: 400,
+    place: "Waterfall stop",
+    caption: "Guests in PPP tees, cooling off mid-tour.",
+    alt: "Three guests in PPP Tran Tours shirts and caps sitting on rocks beside a waterfall",
+  },
+  {
+    src: "/ppp/guests-airport-arrival.jpg",
+    w: 1350,
+    h: 758,
+    place: "Sangster International",
+    caption: "Landed, luggage in, driver waiting.",
+    alt: "A smiling couple with their luggage beside a PPP Tran Tours van and their uniformed driver outside Sangster International Airport",
+  },
+  {
+    src: "/ppp/banner-jerk-pit.jpg",
+    w: 1200,
+    h: 400,
+    place: "Roadside jerk pit",
+    caption: "Pimento wood, slow smoke, no rushing.",
+    alt: "A cook in a yellow shirt turning jerk pork over a smoking open grill at a roadside jerk pit",
+  },
+  {
+    src: "/ppp/guests-missionary-group.jpg",
+    w: 960,
+    h: 420,
+    place: "Mission group",
+    caption: "A whole team, moved together.",
+    alt: "A large mission group in matching teal shirts with their PPP driver in a yellow PPP shirt beside a PPP-branded bus",
+  },
+  {
     src: "/team/donovan-group-waist.jpg",
     w: 1100,
     h: 560,
     place: "Montego Bay",
     caption: "Donovan Pugh, owner and driver since 2010.",
     alt: "Donovan Pugh, owner of PPP Tran Tours, standing with guests outside a resort in Montego Bay",
+  },
+  {
+    src: "/ppp/guests-bamboo-bridge.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Rainforest walk",
+    caption: "A bamboo bridge deep in the green.",
+    alt: "A couple standing on a bamboo footbridge surrounded by bamboo and rainforest",
+  },
+  {
+    src: "/ppp/guests-beach-mother-daughter.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Beach day",
+    caption: "Clear water, little feet, no hurry.",
+    alt: "A mother and her young daughter sitting together in clear, shallow turquoise water",
   },
   {
     src: "/ppp/mystic-mountain.jpg",
@@ -272,54 +434,6 @@ export const gallery = [
     alt: "Three guests floating on yellow tubes down a green river beneath a moss-covered stone arch bridge",
   },
   {
-    src: "/ppp/donovan-airport-van.jpg",
-    w: 1001,
-    h: 550,
-    place: "Sangster International",
-    caption: "Meeting guests at arrivals, luggage handled.",
-    alt: "Donovan Pugh in uniform with four guests beside a PPP Tran Tours van at Sangster International Airport",
-  },
-  {
-    src: "/ppp/banner-waterfall-guests.jpg",
-    w: 1200,
-    h: 400,
-    place: "Waterfall stop",
-    caption: "Guests in PPP tees, cooling off mid-tour.",
-    alt: "Three guests in PPP Tran Tours shirts and caps sitting on rocks beside a waterfall",
-  },
-  {
-    src: "/ppp/banner-craft-market.jpg",
-    w: 1200,
-    h: 400,
-    place: "Craft market",
-    caption: "Wood carvings, straight from the carver.",
-    alt: "A smiling craft market vendor holding a woven bag, surrounded by carved wooden faces and figures",
-  },
-  {
-    src: "/ppp/banner-fisherman-mobay.jpg",
-    w: 1200,
-    h: 400,
-    place: "Montego Bay",
-    caption: "The morning catch, still dripping.",
-    alt: "A fisherman on the shore at Montego Bay holding up two strings of red snapper, cruise ship behind him",
-  },
-  {
-    src: "/ppp/ricks-cafe.jpg",
-    w: 674,
-    h: 446,
-    place: "Negril, Westmoreland",
-    caption: "Rick's Cafe — cliff divers and rum punch.",
-    alt: "Crowds gathered on the limestone cliffs at Rick's Cafe in Negril",
-  },
-  {
-    src: "/ppp/banner-jerk-pit.jpg",
-    w: 1200,
-    h: 400,
-    place: "Roadside jerk pit",
-    caption: "Pimento wood, slow smoke, no rushing.",
-    alt: "A cook in a yellow shirt turning jerk pork over a smoking open grill at a roadside jerk pit",
-  },
-  {
     src: "/ppp/banner-sunset.jpg",
     w: 1200,
     h: 400,
@@ -344,9 +458,8 @@ export const brandReel = [
     { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
     { src: "/ppp/guests-van-resort.jpg", alt: "A family beside a PPP Tran Tours van outside a resort" },
     { src: "/ppp/waterfall-ppp-sign.jpg", alt: "A guest under a waterfall holding a yellow PPP Tran Tours sign" },
-    // A 3:1 banner with the couple in its left third; `focus` points the
-    // square crop at them instead of the falls.
-    { src: "/ppp/banner-ys-falls.jpg", alt: "A couple in PPP Tran Tours caps and shirts in front of YS Falls", focus: "8% center" },
+    // banner-ys-falls came out (2026-11-02): the couple fills only a corner of
+    // a 3:1 banner, so the square crop blew them up soft and blurry.
   ],
   [
     { src: "/ppp/ppp-cap-horse.jpg", alt: "A guest in a PPP Tran Tours cap and shirt beside a horse on the beach" },
@@ -431,7 +544,7 @@ export const faqs = [
   {
     key: "confirm",
     q: "How do I know my booking went through?",
-    a: "You get a booking reference the moment you submit, and on a route we publish a rate for, the booking is confirmed there and then — you are not waiting for us to accept it. Keep the reference; quoting it on any follow-up gets you an answer fastest. Your driver and exact pickup time follow separately, usually within the hour during dispatch hours.",
+    a: "You get a booking reference the moment you submit, and on a route we publish a rate for, the booking is confirmed there and then — you are not waiting for us to accept it. Keep the reference; quoting it on any follow-up gets you an answer fastest. At the airport, your driver is the one holding the PPP company sign; for a departure, we set your hotel pickup from your flight time so you reach the airport a full two hours before it.",
   },
   {
     key: "delay",

@@ -126,11 +126,28 @@ describe("bookingAlert — transfer direction", () => {
       kind: "transfer",
       direction: "both",
       returnDate: "2026-10-11",
+      returnTime: "16:05",
       returnFlight: "AA1654",
     });
     assert.ok(out.html.includes("Round trip"));
     assert.ok(out.html.includes("2026-10-11"));
     assert.ok(out.html.includes("AA1654"));
+    // Both legs, each with its own 12-hour time.
+    assert.ok(out.html.includes(">Arrival<"));
+    assert.ok(out.html.includes("2:30 p.m."));
+    assert.ok(out.html.includes(">Departure<"));
+    assert.ok(out.html.includes("4:05 p.m."));
+  });
+
+  test("a departure-only transfer labels its flight as the departure", () => {
+    const out = bookingAlert({ ...FULL, kind: "transfer", direction: "to-airport" });
+    assert.ok(out.html.includes(">Departure flight<"));
+    assert.ok(!out.html.includes(">Arrival<"));
+  });
+
+  test("times are never shown in 24-hour form", () => {
+    const out = bookingAlert({ ...FULL, kind: "transfer", direction: "to-hotel" });
+    assert.ok(!out.html.includes("14:30"));
   });
 
   test("a legacy tripType-only booking still gets a direction label", () => {

@@ -5,6 +5,7 @@
  */
 import { site } from "@/app/data/site";
 import { describeDirection } from "@/app/products/pricing";
+import { formatDateTime, transferLegs } from "./booking-times";
 
 // No I, O, 0 or 1 — these get read down a phone line.
 const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -47,6 +48,15 @@ export async function makeServerReference() {
 
 const money = (n) => `US$${Number(n ?? 0).toFixed(2)}`;
 
+/** "Arrival: 2026-10-04 at 2:30 p.m." and "Arrival flight: AA1653", for one leg. */
+function legLines(label, leg) {
+  if (!leg) return [];
+  return [
+    `${label}: ${formatDateTime(leg.date, leg.time) || "—"}`,
+    leg.flight ? `${label} flight: ${leg.flight}` : null,
+  ];
+}
+
 /**
  * After-the-trip thank-you, opened from /admin on Mr. Pugh's phone and sent to
  * the GUEST — the reverse direction of buildWhatsAppMessage below. Null when
@@ -82,6 +92,7 @@ export function buildReviewRequestWhatsApp(booking) {
  */
 export function buildWhatsAppMessage(booking) {
   const isTransfer = booking.kind === "transfer";
+  const legs = transferLegs(booking);
 
   const travellers =
     `${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
@@ -100,12 +111,15 @@ export function buildWhatsAppMessage(booking) {
     isTransfer && (booking.direction || booking.tripType)
       ? `Trip: ${describeDirection(booking.direction ?? (booking.tripType === "one-way" ? "to-hotel" : "both"))}`
       : null,
-    `Date: ${booking.date}${booking.time ? ` at ${booking.time}` : ""}`,
-    booking.returnDate ? `Return: ${booking.returnDate}` : null,
+    // A transfer lists each flight leg on its own lines, times in 12-hour form.
+    ...(isTransfer
+      ? [
+          ...legLines("Arrival", legs.arrival),
+          ...legLines("Departure", legs.departure),
+          booking.airline ? `Airline: ${booking.airline}` : null,
+        ]
+      : [`Date: ${formatDateTime(booking.date, booking.time)}`]),
     `Travellers: ${travellers}`,
-    booking.airline ? `Airline: ${booking.airline}` : null,
-    booking.flightNumber ? `Flight: ${booking.flightNumber}` : null,
-    booking.returnFlight ? `Return flight: ${booking.returnFlight}` : null,
     ``,
     booking.transportTotal != null
       ? `Transport (PPP): ${money(booking.transportTotal)}`

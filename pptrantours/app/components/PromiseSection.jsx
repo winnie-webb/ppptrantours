@@ -7,13 +7,11 @@ import { localePath } from "@/app/i18n/config";
 /**
  * "Why choose PPP — the service is in the name." The owner's reasons, in his
  * order (2026-10-30): the service standard, then the three P's the company is
- * named for. It also carries the slogan, which used to close every
- * page as a band above the footer.
+ * named for.
  */
 export default function PromiseSection({ locale = "en", dict }) {
   const t = dict?.promise ?? {};
   const words = t.words ?? {};
-  const slogan = dict?.slogan ?? {};
 
   const reasons = [
     {
@@ -136,14 +134,9 @@ export default function PromiseSection({ locale = "en", dict }) {
         </div>
       </div>
 
-      {/* The slogan closes the section, big and bold (owner, 2026-10-30). */}
-      <p className="shell relative mt-16 text-center font-display text-[2rem] font-semibold leading-[1.1] text-white sm:text-5xl lg:mt-24 lg:text-[4rem]">
-        {slogan.line ?? "Approach Jamaica"}{" "}
-        <span className="text-gold-400">{slogan.emphasis ?? "with Confidence"}</span>
-        <span aria-hidden className="ml-2 align-middle text-3xl sm:text-4xl lg:text-5xl">
-          🇯🇲
-        </span>
-      </p>
+      {/* The slogan used to close this section (owner, 2026-10-30). It now
+          has its own band directly under the hero (2026-11-02), so it is not
+          repeated here. */}
     </section>
   );
 }

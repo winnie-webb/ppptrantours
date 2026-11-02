@@ -126,7 +126,7 @@ export default async function AboutPage({ params }) {
             </p>
             <p className="mt-5 text-[1.05rem] leading-relaxed text-white/70">
               {t.ownerNote?.replace("{count}", String(site.rating.count)) ??
-                `Being a private-services-only company allows us to pay close attention to what our customers want. It is also why, across ${site.rating.count} Tripadvisor reviews, most people mention Mr. Pugh by name.`}
+                `Providing private services only allows PPP to pay close attention to detail, so we can deliver exactly what our customers want — which is why, across ${site.rating.count} Tripadvisor reviews, most people praise PPP for being precise and mention Donovan ("Mr. Pugh") by name.`}
             </p>
 
             <Link

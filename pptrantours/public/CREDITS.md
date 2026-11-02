@@ -50,6 +50,23 @@ collage, the other eight in the homepage `PhotoReel`.
 `donovan-rafting-guests`, `guests-van-beach`, `guests-van-resort`,
 `guests-ricks-cafe`.
 
+### Supplied 2026-11-02 (PPP's own guest photography)
+
+Seven guest photos supplied directly by the client for the About gallery,
+re-saved at up to 1080px (EXIF stripped): `donovan-guests-ppp-tees`,
+`guests-juici-patties`, `guests-cruise-port-group`, `guests-beach-duo`,
+`guests-dunns-river`, `guests-bridal-party`, `guests-bamboo-bridge`, plus
+`ppp-drivers-vans` (the drivers in uniform with three branded vans),
+`guests-zipline` (523×260, small), `guests-missionary-group` (keeps its
+"Missionaries" caption) and `guests-river-ppp-tees` (an old banner; its
+corner box with the outdated info@ email was painted out with the rock behind
+it), `guests-airport-arrival` and `guests-beach-mother-daughter`. All show
+identifiable guests; as above, worth confirming consent with
+Mr. Pugh.
+`banner-ys-falls` left the homepage `PhotoReel` the same day: its square crop
+of the 1200×400 banner blew the couple up soft and blurry. It stays in the
+About gallery, which shows it uncropped.
+
 Deliberately **not** recovered, though present in the same media library: photos
 and logos belonging to third parties — `CHUKKA-River-Tubing-Safari-4.jpg`
 (Chukka Caribbean's marketing photo, and the largest file in the library at

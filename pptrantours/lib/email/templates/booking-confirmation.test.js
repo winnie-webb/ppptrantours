@@ -84,6 +84,51 @@ describe("bookingConfirmation — content", () => {
   });
 });
 
+describe("bookingConfirmation — flight legs and next steps", () => {
+  const roundTrip = bookingConfirmation(
+    {
+      ...FULL,
+      direction: "both",
+      time: "14:30",
+      flightNumber: "AA1653",
+      returnDate: "2026-10-11",
+      returnTime: "16:05",
+      returnFlight: "AA1654",
+    },
+    LINKS
+  );
+
+  test("a round trip shows arrival and departure, each in 12-hour time", () => {
+    assert.ok(roundTrip.html.includes("Arrival flight time"));
+    assert.ok(roundTrip.html.includes("2026-10-04 at 2:30 p.m."));
+    assert.ok(roundTrip.html.includes("Departure flight time"));
+    assert.ok(roundTrip.html.includes("2026-10-11 at 4:05 p.m."));
+    assert.ok(roundTrip.html.includes("AA1654"));
+    assert.ok(!roundTrip.html.includes("16:05"));
+  });
+
+  test("never promises a driver's name", () => {
+    assert.ok(!/driver(&#39;|')s name/.test(roundTrip.html));
+    assert.ok(!/driver details/.test(roundTrip.html));
+  });
+
+  test("keeps the flight-tracking promise for an arrival", () => {
+    assert.ok(roundTrip.html.includes("We track your flight"));
+  });
+
+  test("a departure explains how the hotel pickup is set", () => {
+    const out = bookingConfirmation({ ...FULL, time: "09:15" }, LINKS);
+    assert.ok(out.html.includes("Departure flight time"));
+    assert.ok(out.html.includes("9:15 a.m."));
+    assert.ok(out.html.includes("two hours before your flight"));
+    assert.ok(!out.html.includes("We track your flight"));
+  });
+
+  test("speaks as we, never I", () => {
+    assert.ok(!/\bI(&#39;|')?(ll|m|ve)?\b/.test(roundTrip.html.replace(/<[^>]+>/g, " ")));
+  });
+});
+
 describe("bookingConfirmation — enquiry and quote-request", () => {
   test("an enquiry gets its own headline and subject", () => {
     const out = bookingConfirmation(

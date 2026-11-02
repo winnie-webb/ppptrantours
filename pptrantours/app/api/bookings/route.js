@@ -202,6 +202,26 @@ export async function POST(request) {
     }
   }
 
+  /*
+   * A transfer with a departure leg must say when that flight leaves: PPP
+   * sets the hotel pickup from it (two hours at the airport, plus the drive
+   * and a buffer for traffic). Mirrors `validate()` in BookingForm.jsx.
+   */
+  if (isTransfer && !isEnquiry) {
+    const departure =
+      direction === "to-airport"
+        ? { date, time: str(body.time, 20) }
+        : direction === "both"
+          ? { date: str(body.returnDate, 30), time: str(body.returnTime, 20) }
+          : null;
+    if (departure && (!departure.date || !departure.time)) {
+      return NextResponse.json(
+        { error: "Please add your departure flight date and time." },
+        { status: 422 }
+      );
+    }
+  }
+
   const reference = await makeServerReference();
 
   /*
@@ -234,6 +254,7 @@ export async function POST(request) {
     date,
     time: str(body.time, 20),
     returnDate: str(body.returnDate, 30),
+    returnTime: str(body.returnTime, 20),
     returnFlight: str(body.returnFlight, MAX.flight),
     airline: str(body.airline, MAX.airline),
     flightNumber: str(body.flightNumber, MAX.flight),

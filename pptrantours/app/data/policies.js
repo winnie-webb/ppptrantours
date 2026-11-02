@@ -39,7 +39,7 @@ export const bookingTerms = [
     heading: "When your booking is confirmed",
     body: [
       "Sending the form on this site makes a booking. Where we publish a set rate for your route, that booking is confirmed straight away and you will get a reference beginning PPP- to quote back to us. You do not need to wait for us to accept it.",
-      "Your driver and the exact pickup time follow separately, by WhatsApp or email, usually within the hour during dispatch hours.",
+      "At the airport, your driver is the one holding the PPP company sign. For a departure or a tour, we confirm your hotel pickup time by WhatsApp or email, usually within the hour during dispatch hours; a departure pickup is set so you reach the airport a full two hours before your flight.",
       "Where we do not publish a set rate, the form asks for a price instead of taking a booking, and it says so. Nothing is agreed until we have come back with a firm figure and you have confirmed it.",
     ],
   },

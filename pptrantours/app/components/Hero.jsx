@@ -2,30 +2,46 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { FaStar, FaWhatsapp, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaWhatsapp, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
 import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
 
-const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
+/*
+ * The owner's PPP artwork (logo, cruise ship on the horizon, plane), built by
+ * tmp/make_heroes.py, in the text-free "-bg" renders: he dropped the baked-in
+ * "AIRPORT TRANSFERS & TOURS" line (2026-11-02), and the h1 now says it as
+ * real text. Sunset and moonlight are the two he named; day stays out.
+ */
+const SLIDES = [
+  { src: "/brand/hero/hero-ppp-sunset-bg.jpg", alt: "PPP Tran Tours logo over a Jamaican sunset sea, with a cruise ship on the horizon and a plane overhead" },
+  { src: "/brand/hero/hero-ppp-moon-bg.jpg", alt: "PPP Tran Tours logo over a moonlit Jamaican sea, with a cruise ship on the horizon and a plane overhead" },
+];
 
 export default function Hero({ locale = "en", dict }) {
   const t = dict?.hero ?? {};
+  const slogan = dict?.slogan ?? {};
   const [index, setIndex] = useState(0);
 
   /*
-   * All three slides used to be in the DOM from the first paint. They are
-   * absolutely positioned inside the viewport, so Next's lazy loading does not
-   * help — the browser sees three in-viewport images and fetches all of them,
-   * two of which nobody will look at for seven seconds. The first slide is the
-   * LCP image; the other two mount once it has had the network to itself.
+   * The second slide mounts only after the first has had the network to
+   * itself for a moment: both are absolutely positioned in the viewport, so
+   * lazy loading would not hold it back, and the first is the LCP image.
    */
   const [armed, setArmed] = useState(false);
+
+  // Slides whose image has finished loading. The rotation skips one that
+  // hasn't, rather than fading to bare ink on a slow connection.
+  const loaded = useRef(new Set());
 
   useEffect(() => {
     const arm = setTimeout(() => setArmed(true), 2500);
     const rotate = setInterval(
-      () => setIndex((i) => (i + 1) % SLIDES.length),
+      () =>
+        setIndex((i) => {
+          const next = (i + 1) % SLIDES.length;
+          return loaded.current.has(next) ? next : i;
+        }),
       7000
     );
     return () => {
@@ -35,62 +51,78 @@ export default function Hero({ locale = "en", dict }) {
   }, []);
 
   return (
-    <section className="relative -mt-[4.5rem] flex min-h-[36rem] items-end overflow-hidden bg-ink sm:min-h-[44rem] lg:-mt-20 lg:min-h-[52rem]">
-      {/* Crossfading backdrop */}
-      {(armed ? SLIDES : SLIDES.slice(0, 1)).map((src, i) => (
-        <div
-          key={src}
-          aria-hidden
-          className={`absolute inset-0 transition-opacity duration-[1600ms] ease-out ${
-            i === index ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Image
-            src={src}
-            alt=""
-            fill
-            priority={i === 0}
-            sizes="100vw"
-            className={`object-cover ${i === index ? "animate-slow-zoom" : ""}`}
-          />
-        </div>
-      ))}
-
-      {/* Legibility scrims */}
+    <>
+    <section className="relative -mt-[4.5rem] overflow-hidden bg-ink pt-[4.5rem] lg:-mt-20 lg:pt-20">
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/45 sm:via-ink/55 sm:to-ink/20"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/25 to-transparent"
+        className="pointer-events-none absolute -right-32 top-10 hidden h-[32rem] w-[32rem] rounded-full bg-crimson-600/15 blur-3xl lg:block"
       />
 
-      <div className="shell relative w-full pb-10 pt-28 sm:pb-16 lg:pb-24 lg:pt-40">
-        <div className="max-w-3xl">
-          <div className="flex animate-fade-up items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
-              <span className="flex text-gold-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <FaStar key={i} className="text-[0.65rem]" />
-                ))}
-              </span>
-              {site.rating.score} · {site.rating.count} {dict?.common?.reviews ?? "reviews"}
-            </span>
-          </div>
-
-          <h1
-            className="mt-5 animate-fade-up font-display text-[2.25rem] font-semibold leading-[1.05] text-white sm:mt-6 sm:text-6xl sm:leading-[1.03] lg:text-[4.75rem]"
-            style={{ animationDelay: "80ms" }}
+      {/*
+        Split (2026-11-02): the words on the left, the artwork on the right,
+        uncropped at 16:9 and never covered, so the logo, the ship on the sea
+        line and the plane all stay in view. On phones the artwork runs full
+        width on top and fades into the ink the text sits on.
+      */}
+      <div className="relative lg:shell lg:grid lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-12 lg:pb-16 lg:pt-10 xl:gap-16">
+      <div className="relative aspect-video w-full lg:order-2 lg:overflow-hidden lg:rounded-2xl lg:shadow-lift lg:ring-1 lg:ring-white/10">
+        {(armed ? SLIDES : SLIDES.slice(0, 1)).map((slide, i) => (
+          <div
+            key={slide.src}
+            className={`absolute inset-0 transition-opacity duration-[1600ms] ease-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden={i === index ? undefined : true}
           >
-            {/* Search terms first, small, so the page's one h1 says what PPP
-                does; the slogan below stays the headline guests see. */}
-            <span className="mb-3 block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-white/80 sm:text-sm">
-              {t.h1Keywords ?? "Montego Bay Airport Transfers & Private Jamaica Tours"}
-            </span>
-            {t.h1a ?? "Approach Jamaica"}
-            <br />
-            <span className="text-gold-400">{t.h1b ?? "with confidence…"}</span>
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority={i === 0}
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              onLoad={() => loaded.current.add(i)}
+              className="object-cover"
+            />
+          </div>
+        ))}
+
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-ink to-transparent lg:hidden"
+        />
+
+        {/* Slide indicators, in the corner the artwork leaves empty. */}
+        <div className="absolute bottom-2 right-3 hidden gap-1.5 sm:flex">
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.src}
+              type="button"
+              aria-label={`Show image ${i + 1}`}
+              onClick={() => {
+                // Tapping ahead of the 2.5s arm would otherwise select a
+                // slide that has not been mounted yet, showing bare ink.
+                setArmed(true);
+                setIndex(i);
+              }}
+              className="group flex h-6 items-center px-0.5"
+            >
+              <span
+                className={`block h-1 rounded-full shadow transition-all duration-500 ${
+                  i === index ? "w-8 bg-gold-400" : "w-4 bg-white/50 group-hover:bg-white/80"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="shell relative pb-10 pt-5 sm:pb-12 lg:order-1 lg:px-0 lg:py-0">
+        <div className="max-w-2xl">
+          {/* The page's one h1, keyword-led for search (owner, 2026-11-02),
+              worded the way guests search: Montego Bay airport transfers,
+              private Jamaica tours. */}
+          <h1 className="animate-fade-up font-display text-[1.65rem] font-semibold leading-[1.12] text-white sm:text-4xl lg:text-[2.4rem] xl:text-[2.85rem]">
+            {t.h1Keywords ?? "Montego Bay Airport Transfers & Private Jamaica Tours"}
           </h1>
 
           {/*
@@ -115,8 +147,8 @@ export default function Hero({ locale = "en", dict }) {
             and he cut it to keep this paragraph custom-fit. Don't reinstate it.
           */}
           <p
-            className="mt-5 max-w-xl animate-fade-up text-[0.98rem] leading-relaxed text-white/75 sm:mt-6 sm:text-lg"
-            style={{ animationDelay: "160ms" }}
+            className="mt-5 animate-fade-up text-[0.98rem] leading-relaxed text-white/75 sm:text-lg lg:text-base xl:text-[1.05rem]"
+            style={{ animationDelay: "80ms" }}
           >
             <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">
               {t.p1 ?? "Private"}
@@ -143,7 +175,7 @@ export default function Hero({ locale = "en", dict }) {
             phone it is already the floating button.
           */}
           <div
-            className="mt-7 flex animate-fade-up flex-wrap items-center gap-3 lg:mt-9"
+            className="mt-7 flex animate-fade-up flex-wrap items-center gap-3"
             style={{ animationDelay: "240ms" }}
           >
             <Link href={localePath(locale, "/transfers")} className="btn-primary">
@@ -164,35 +196,23 @@ export default function Hero({ locale = "en", dict }) {
               {site.contact.phone}
             </a>
           </div>
-
-          {/* Slide indicators */}
-          <div
-            className="mt-8 hidden animate-fade-up gap-2 sm:flex lg:mt-12"
-            style={{ animationDelay: "320ms" }}
-          >
-            {SLIDES.map((s, i) => (
-              <button
-                key={s}
-                type="button"
-                aria-label={`Show image ${i + 1}`}
-                onClick={() => {
-                  // Tapping ahead of the 2.5s arm would otherwise select a
-                  // slide that has not been mounted yet, showing bare ink.
-                  setArmed(true);
-                  setIndex(i);
-                }}
-                className="group -my-3 flex h-7 items-center px-1"
-              >
-                <span
-                  className={`block h-1 rounded-full transition-all duration-500 ${
-                    i === index ? "w-10 bg-gold-400" : "w-5 bg-white/30 group-hover:bg-white/50"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
         </div>
       </div>
+      </div>
     </section>
+
+    {/* The slogan as its own band under the hero (owner, 2026-11-02). */}
+    <section aria-label={slogan.full ?? "Approach Jamaica with confidence."} className="relative overflow-hidden border-y-4 border-gold-400 bg-crimson-700">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-grain opacity-[0.06]"
+      />
+      <p className="shell relative py-6 text-center font-display text-[1.75rem] font-semibold leading-tight text-white sm:py-8 sm:text-4xl lg:text-5xl">
+        {slogan.line ?? "Approach Jamaica"}{" "}
+        {/* No 🇯🇲: Windows has no flag emoji and draws it as the letters "JM". */}
+        <span className="text-gold-300">{slogan.emphasis ?? "with Confidence"}</span>
+      </p>
+    </section>
+    </>
   );
 }
