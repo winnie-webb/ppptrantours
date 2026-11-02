@@ -1,7 +1,6 @@
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
 import CtaBand from "@/app/components/CtaBand";
-import SloganBand from "@/app/components/SloganBand";
 import { TOURS } from "@/app/data/catalogue";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
@@ -56,7 +55,7 @@ export default async function ToursPage({ params }) {
 
       <PageHeader
         eyebrow={t.eyebrow ?? "The catalogue"}
-        title={t.title ?? "Things to do in Jamaica."}
+        title={t.title ?? "Private Jamaica tours & excursions."}
         description={
           t.description ??
           "Every tour we run, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it."
@@ -86,7 +85,6 @@ export default async function ToursPage({ params }) {
       </section>
 
       <CtaBand locale={locale} dict={dict} />
-      <SloganBand dict={dict} />
     </>
   );
 }

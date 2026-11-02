@@ -154,6 +154,7 @@ export function bookingAlert(booking) {
                   isTransfer && direction === "to-airport" ? "Departure date" : "Date",
                   html`${date} &nbsp;<span style="opacity:0.55;">${dash(booking.time)}</span>`
                 )}
+                ${isTransfer ? row("Airline", dash(booking.airline)) : ""}
                 ${row(
                   isTransfer && direction === "to-airport" ? "Departure flight" : "Flight",
                   dash(booking.flightNumber)

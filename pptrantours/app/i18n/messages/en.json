@@ -1,14 +1,22 @@
 {
   "meta": {
     "tagline": "Private. Personalized. Professional.",
-    "description": "Private Montego Bay (MBJ) airport transfers and Jamaica excursions with hotel pickup — Dunn's River Falls, Blue Hole, Rick's Cafe and more. Licensed since 2010.",
+    "description": "Private Montego Bay airport transfers (MBJ) and private Jamaica tours with hotel pickup: Dunn's River Falls, Blue Hole, Rick's Cafe and more. 5-star since 2010.",
     "keywords": [
-      "Jamaica airport transfer",
-      "Montego Bay private tours",
-      "Sangster airport transfer",
+      "Montego Bay airport transfers",
+      "MBJ airport transfer",
+      "Sangster International Airport transportation",
+      "private airport transfer Jamaica",
+      "Montego Bay airport shuttle",
+      "Negril airport transfer",
+      "Ocho Rios airport transfer",
+      "private Jamaica tours",
+      "Montego Bay tours and excursions",
       "things to do in Jamaica",
-      "Negril tours",
-      "Ocho Rios excursions",
+      "Dunn's River Falls tour",
+      "Blue Hole Ocho Rios tour",
+      "Rick's Cafe Negril tour",
+      "Jamaica shore excursions",
       "Falmouth cruise excursions",
       "PPP Tran Tours"
     ],
@@ -208,9 +216,12 @@
     "pickupTime": "Pickup time",
     "landingTime": "Arrival flight time",
     "departureTime": "Departure flight time",
+    "airline": "Airline",
+    "airlinePlaceholder": "Start typing your airline…",
+    "flight": "Flight",
     "flightNumber": "Arrival flight number",
     "departureFlightNumber": "Departure flight number",
-    "flightNote": "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and find your driver with the PPP sign at Column E or F.",
+    "flightNote": "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and look for your driver holding the PPP company sign at Column E.",
     "pickupFromFlightNote": "We work out your pickup time from this flight — no need to tell us one.",
     "returnDate": "Departure date",
     "returnFlight": "Departure flight number",
@@ -291,6 +302,7 @@
   },
   "hero": {
     "tagline": "Private. Personalized. Professional.",
+    "h1Keywords": "Montego Bay Airport Transfers & Private Jamaica Tours",
     "h1a": "Approach Jamaica",
     "h1b": "with confidence…",
     "p1": "Private",
@@ -326,49 +338,56 @@
     }
   },
   "promise": {
-    "eyebrow": "What PPP stands for",
-    "title": "Three promises, in the name itself.",
-    "description": "Since 2010 the standard has not moved: you get your own vehicle, a day built around what you actually want to see, and a licensed professional at the wheel.",
+    "eyebrow": "Why choose PPP",
+    "why": "Why choose PPP?",
+    "title": "The service is in the name.",
     "meet": "Meet Mr. Pugh",
+    "standard": {
+      "title": "5-star customer service",
+      "body": "A 5-star customer service standard, maintained for 15+ years."
+    },
     "words": {
       "Private": {
         "word": "Private",
-        "body": "Your group, your vehicle, your schedule. Nobody else on board and no fixed departure time to make."
+        "title": "Private service only, always",
+        "body": "We don't do shared vehicles. Strictly private: just you and the people you enjoy, so you'll never end up placed on a bus with someone who spoils your energy."
       },
       "Personalized": {
         "word": "Personalized",
-        "body": "Want two attractions in one day? A stop at a jerk pit on the way back? Combo days are no problem and reasonably priced."
+        "title": "Personalized service",
+        "body": "We don't dictate, we accommodate, giving you total flexibility to set your own pickup time and schedule. Moving at your own pace is what a vacation is all about, and PPP helps you step into it just right!"
       },
       "Professional": {
         "word": "Professional",
-        "body": "Trained, licensed, insured. Flights tracked, pickups on time, and one number that always answers."
+        "title": "Professional drivers",
+        "body": "Every PPP driver is handpicked by Mr. Pugh: patient, polite, punctual, very knowledgeable about Jamaica's history and culture, and licensed to operate islandwide."
       }
     }
   },
   "browse": {
     "eyebrow": "Things to do in Jamaica",
-    "title": "Where do you want to spend the day?",
-    "description": "Browse by parish, or by the kind of day you're after. Every price is the transport, worked out for your group.",
+    "title": "Things to do in Jamaica, parish by parish.",
+    "description": "Browse private Jamaica tours and excursions by parish — Montego Bay, Ocho Rios, Negril, Falmouth and the South Coast — or by the kind of day you're after. Every price is the transport, worked out for your group.",
     "seeEverything": "See everything",
     "option": "option",
     "options": "options"
   },
   "home": {
     "popularEyebrow": "Guest favourites",
-    "popularTitle": "The tours people book twice.",
-    "popularDescription": "Dunn's River, the Blue Hole, Rick's Cafe at sunset — the days that end up in the photo album.",
+    "popularTitle": "Most popular private Jamaica tours.",
+    "popularDescription": "Dunn's River Falls, the Blue Hole, Rick's Cafe in Negril at sunset — private excursions with pickup from your Montego Bay, Negril or Ocho Rios hotel.",
     "transfersEyebrow": "Airport transfers",
-    "transfersTitle": "From Sangster to your front door.",
-    "transfersDescription": "Private transfers from Montego Bay airport to every major resort. Choose yours on the next page and see the exact fare.",
+    "transfersTitle": "Montego Bay airport transfers, straight to your front door.",
+    "transfersDescription": "Private transfers from Sangster International Airport (MBJ) to every major resort in Montego Bay, Negril, Ocho Rios, Runaway Bay and Falmouth. Pick your hotel on the next page and see the exact fare.",
     "transferPointFlight": "Flight tracked, so a delay never leaves you waiting.",
-    "transferPointMeet": "Your driver meets you at the curb outside arrivals, Column E or F, with a PPP sign.",
+    "transferPointMeet": "Your driver meets you at the curb outside arrivals, Column E, with a PPP sign.",
     "transferPointCash": "Pay cash (USD) on arrival.",
     "allRates": "All rates",
     "combosEyebrow": "Two in one day",
-    "combosTitle": "Combo packages, no rushing.",
+    "combosTitle": "Jamaica combo tours: two attractions, one day.",
     "combosDescription": "Most of our combo tours are in the same region, no more than a 20–30 minute drive apart, so you can do both in one day and we only charge a little more for the transport and the waiting.",
     "faqEyebrow": "Good to know",
-    "faqTitle": "Questions we get asked most.",
+    "faqTitle": "Airport transfer and tour questions, answered.",
     "faqDescription": "Anything else, just message us — someone answers seven days a week.",
     "askUs": "Ask us something"
   },
@@ -388,7 +407,7 @@
   },
   "howItWorks": {
     "eyebrow": "How it works",
-    "title": "Three steps, no guessing.",
+    "title": "Book your Jamaica airport transfer in three steps.",
     "stepLabel": "Step {n}",
     "step1Title": "Choose your hotel",
     "step1Body": "Search it once — every price on the site becomes yours.",
@@ -421,7 +440,7 @@
   },
   "destinations": {
     "eyebrow": "Where we go",
-    "title": "Every parish worth the drive.",
+    "title": "Jamaica tours in every parish worth the drive.",
     "description": "We cover the whole island from our base in Montego Bay — pick a coast and we'll get you there and back the same day.",
     "browse": "Browse tours",
     "seeTours": "See tours"
@@ -438,8 +457,8 @@
   },
   "gallery": {
     "eyebrow": "The gallery",
-    "title": "Real days out, real guests.",
-    "description": "Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
+    "title": "PPP Family Embracing the Brand",
+    "description": "Real customers, vibing and family building with PPP since 2010."
   },
   "fleet": {
     "eyebrow": "Our fleet",
@@ -469,7 +488,7 @@
   },
   "cta": {
     "eyebrow": "Ready when you are",
-    "title": "Tell us your flight number. We'll handle the rest.",
+    "title": "Send us your flight info. We'll handle the rest.",
     "body": "Send us your dates and group size and we'll come back with a plan and a price — usually within the hour.",
     "send": "Send a message",
     "hours": "Dispatch answers 7 days a week, 6:00am – 10:00pm. Flights are met at any hour."
@@ -500,14 +519,14 @@
     "optional": "optional",
     "alsoLike": "You might also like",
     "moreTours": "More tours",
-    "metaTitle": "{tour} Private Excursion from Your Hotel"
+    "metaTitle": "{tour} — Private Jamaica Tour with Hotel Pickup"
   },
   "toursPage": {
-    "metaTitle": "Things to do in Jamaica",
-    "metaDescription": "Every tour PPP Tran Tours runs, by parish — Montego Bay, Ocho Rios, Falmouth, Negril and the South Coast. One transport price per booking, with a four-person minimum.",
+    "metaTitle": "Private Jamaica Tours & Excursions",
+    "metaDescription": "Private Jamaica tours with hotel pickup: Dunn's River Falls, Blue Hole, Rick's Cafe, YS Falls and combo days from Montego Bay, Ocho Rios, Negril and Falmouth.",
     "eyebrow": "The catalogue",
-    "title": "Things to do in Jamaica.",
-    "description": "Every tour we run, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it.",
+    "title": "Private Jamaica tours & excursions.",
+    "description": "Every private tour we run from Montego Bay, Negril, Ocho Rios and Falmouth hotels and cruise ports, with the transport price from your resort. That price is ours alone — attraction admission is paid at the gate and we never touch it.",
     "crumb": "Things to do",
     "tour": "tour",
     "toursWord": "tours"
@@ -516,22 +535,22 @@
     "eyebrow": "Browse"
   },
   "transfersPage": {
-    "metaTitle": "Montego Bay Airport Transfers",
-    "metaDescription": "Private airport transfers from Montego Bay Sangster International (MBJ) to every major resort, with published fares. Flight tracked, met at the curb outside arrivals.",
+    "metaTitle": "Montego Bay Airport Transfers (MBJ)",
+    "metaDescription": "Private Montego Bay airport transfers from Sangster International (MBJ) to Negril, Ocho Rios and every major resort. Published fares, flight tracked, never shared.",
     "eyebrow": "Airport transfers",
-    "title": "Sangster International to your front door.",
-    "description": "Published fares to every resort we serve. Pick your hotel below and book it on this page."
+    "title": "Montego Bay Airport Transfers: Sangster International (MBJ) to your front door.",
+    "description": "Private airport transfers from MBJ to resorts in Montego Bay, Negril, Ocho Rios, Runaway Bay and Falmouth. Published fares, never shared — pick your hotel below and book it on this page."
   },
   "transferPage": {
     "metaTitle": "{fare} Airport Transfer to {resort}",
     "metaDescription": "Private airport transfer from Montego Bay Sangster International (MBJ) to {resort}. {fare} one way for up to 4 passengers, {roundTrip} round trip. Flight tracked, met at the curb outside arrivals.",
-    "h1": "Private airport transfer to {resort}",
-    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there.",
+    "h1": "Private airport transfer from Montego Bay (MBJ) to {resort}",
+    "intro": "From Sangster International (MBJ) to {resort} — {perPerson} per person. Your driver meets you at the curb outside arrivals (Column E) with a PPP sign and takes you straight there.",
     "transferTo": "Airport transfer to",
     "oneWay": "One way",
     "roundTrip": "Round trip",
     "whatYouGet": "What the fare covers",
-    "inc1": "Met at the curb outside arrivals, Column E or F, by a driver with a PPP sign",
+    "inc1": "Met at the curb outside arrivals, Column E, by a driver with a PPP sign",
     "inc2": "Flight tracked — delays cost you nothing",
     "inc3": "Private, air-conditioned vehicle, your group only",
     "inc4": "Licensed, insured driver who handles the luggage",
@@ -540,7 +559,7 @@
     "toursEyebrow": "While you're here",
     "toursTitle": "Tours we run from {resort}",
     "toursDescription": "Prices below are for your resort specifically — the transport, worked out for your group.",
-    "introTotal": "From Sangster International (MBJ) to {resort}. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there. Your total is worked out in the form below."
+    "introTotal": "From Sangster International (MBJ) to {resort}. Your driver meets you at the curb outside arrivals (Column E) with a PPP sign and takes you straight there. Your total is worked out in the form below."
   },
   "destinationsPage": {
     "metaTitle": "Destinations",
@@ -554,8 +573,8 @@
     "startDescription": "If it's your first time on the island, these are the days that make the trip."
   },
   "aboutPage": {
-    "metaTitle": "About PPP",
-    "metaDescription": "PPP Tran Tours Jamaica — private, personalized, professional transport since 2010, run out of Montego Bay by owner Donovan Pugh.",
+    "metaTitle": "About PPP — Private Jamaica Transportation",
+    "metaDescription": "PPP Tran Tours Jamaica: private airport transfers and tours from Montego Bay since 2010. 5-star service, handpicked licensed drivers, owner Donovan Pugh.",
     "eyebrow": "About PPP",
     "title": "Private. Personalized. Professional.",
     "description": "Three words the company was named for, and the only three standards we've ever needed.",
@@ -598,7 +617,7 @@
     }
   },
   "contactPage": {
-    "metaTitle": "Contact & FAQ",
+    "metaTitle": "Contact Us — Book Transfers & Tours",
     "metaDescription": "Reach PPP Tran Tours Jamaica by phone, WhatsApp or email — or send us your dates and we'll build the day around them.",
     "eyebrow": "Get in touch",
     "title": "Tell us your dates. We'll do the rest.",
@@ -682,7 +701,7 @@
     {
       "key": "delay",
       "q": "What happens if my flight is delayed?",
-      "a": "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E or F — holding a sign with the PPP logo, at no extra charge."
+      "a": "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E — holding the PPP company sign, at no extra charge."
     },
     {
       "key": "shared",
@@ -727,8 +746,9 @@
   "airportMeet": {
     "title": "Meeting your driver at Sangster International (MBJ)",
     "step1": "After customs, exit the terminal through the glass doors beside the taxi stand and turn left.",
-    "step2": "Walk to the curb and look for your driver holding a company sign with the PPP logo at Column E or F.",
-    "help": "Can't spot us? Message us on WhatsApp and we'll come to you."
+    "step2": "Walk to the curb and look for your driver holding the PPP company sign at Column E.",
+    "help": "Can't spot us? Message us on WhatsApp and we'll come to you.",
+    "signCaption": "Look for this sign"
   },
   "host": {
     "eyebrow": "Your host",

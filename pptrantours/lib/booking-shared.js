@@ -103,6 +103,7 @@ export function buildWhatsAppMessage(booking) {
     `Date: ${booking.date}${booking.time ? ` at ${booking.time}` : ""}`,
     booking.returnDate ? `Return: ${booking.returnDate}` : null,
     `Travellers: ${travellers}`,
+    booking.airline ? `Airline: ${booking.airline}` : null,
     booking.flightNumber ? `Flight: ${booking.flightNumber}` : null,
     booking.returnFlight ? `Return flight: ${booking.returnFlight}` : null,
     ``,

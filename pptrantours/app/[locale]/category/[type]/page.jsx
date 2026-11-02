@@ -2,7 +2,6 @@ import { notFound, redirect } from "next/navigation";
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
 import CtaBand from "@/app/components/CtaBand";
-import SloganBand from "@/app/components/SloganBand";
 import ComboPitch from "@/app/components/ComboPitch";
 import {
   CATEGORIES,
@@ -98,7 +97,6 @@ export default async function CategoryPage({ params }) {
       </section>
 
       <CtaBand locale={locale} dict={dict} />
-      <SloganBand dict={dict} />
     </>
   );
 }

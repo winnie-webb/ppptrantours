@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   FaCheckCircle,
   FaExclamationTriangle,
@@ -224,6 +225,11 @@ export default async function BookingResultPage({ params, searchParams }) {
                 {booking.time ? ` · ${booking.time}` : ""}
               </SummaryRow>
             )}
+            {isTransfer && (booking.airline || booking.flightNumber) && (
+              <SummaryRow label={tb.flight ?? "Flight"}>
+                {[booking.airline, booking.flightNumber].filter(Boolean).join(" · ")}
+              </SummaryRow>
+            )}
             {direction === "both" && booking.returnDate && (
               <SummaryRow label={tb.returnDate ?? "Departure date"}>{booking.returnDate}</SummaryRow>
             )}
@@ -247,10 +253,26 @@ export default async function BookingResultPage({ params, searchParams }) {
             <h2 className="font-display text-base font-semibold text-ink">
               {dict.airportMeet?.title ?? airportMeeting.title}
             </h2>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-ink/80">
-              <li>{dict.airportMeet?.step1 ?? airportMeeting.steps[0]}</li>
-              <li>{dict.airportMeet?.step2 ?? airportMeeting.steps[1]}</li>
-            </ol>
+            <div className="mt-3 flex items-start gap-4">
+              <ol className="flex-1 list-decimal space-y-2 pl-5 leading-relaxed text-ink/80">
+                <li>{dict.airportMeet?.step1 ?? airportMeeting.steps[0]}</li>
+                <li>{dict.airportMeet?.step2 ?? airportMeeting.steps[1]}</li>
+              </ol>
+              {/* The sign itself, so a guest knows exactly what to look for. */}
+              <figure className="w-20 shrink-0 text-center sm:w-24">
+                <Image
+                  src="/brand/ppp-sign.png"
+                  alt="The yellow PPP Tran Tours company sign your driver holds"
+                  width={900}
+                  height={1215}
+                  sizes="96px"
+                  className="h-auto w-full drop-shadow-md"
+                />
+                <figcaption className="mt-1.5 text-[0.7rem] font-medium leading-tight text-ink/60">
+                  {dict.airportMeet?.signCaption ?? "Look for this sign"}
+                </figcaption>
+              </figure>
+            </div>
             <p className="mt-3 text-xs text-ink/60">
               {dict.airportMeet?.help ?? airportMeeting.help}
             </p>

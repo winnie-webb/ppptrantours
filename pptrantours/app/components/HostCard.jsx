@@ -25,8 +25,8 @@ export default function HostCard({ locale, dict, className = "" }) {
     >
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full ring-2 ring-gold-400 ring-offset-2">
         <Image
-          src="/team/donovan-portrait.jpg"
-          alt={`${site.owner.name}, owner of ${site.legalName}`}
+          src="/team/donovan-group-waist.jpg"
+          alt={`${site.owner.name}, owner of ${site.legalName}, with guests`}
           fill
           sizes="80px"
           className="object-cover object-top"

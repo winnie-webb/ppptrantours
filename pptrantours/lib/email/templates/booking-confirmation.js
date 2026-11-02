@@ -11,7 +11,7 @@
  * reasons: Outlook, image-blocking, no external fonts.
  */
 import { html, raw, dash } from "../html.js";
-import { airportMeeting } from "../../../app/data/site.js";
+import { airportMeeting, site } from "../../../app/data/site.js";
 
 /*
  * No black blocks: Mr. Pugh found the near-black masthead and footer heavy.
@@ -136,6 +136,9 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                 ${isTransfer && direction ? row("Transfer type", directionLabel(direction)) : ""}
                 ${row(isTransfer ? "Hotel" : "Pickup from", dash(booking.placeLabel))}
                 ${row("Date", date)}
+                ${isTransfer && (booking.airline || booking.flightNumber)
+                  ? row("Flight", [booking.airline, booking.flightNumber].filter(Boolean).join(" · "))
+                  : ""}
               </table>
             </td>
           </tr>
@@ -171,6 +174,10 @@ export function bookingConfirmation(booking, { bookingUrl, whatsappUrl }) {
                     <div>1. ${airportMeeting.steps[0]}</div>
                     <div style="padding-top:6px;">2. ${airportMeeting.steps[1]}</div>
                     <div style="padding-top:10px;font-size:12px;color:${MUTED};">${airportMeeting.help}</div>
+                  </td>
+                  <td width="110" align="center" valign="top" style="padding:16px 16px 16px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:${MUTED};">
+                    <img src="${raw(`${site.url}/brand/ppp-sign-email.png`)}" width="96" height="130" alt="PPP company sign" style="display:block;border:0;width:96px;height:auto;margin:0 auto 6px auto;">
+                    Look for this sign
                   </td>
                 </tr>
               </table>

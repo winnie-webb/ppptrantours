@@ -128,24 +128,42 @@ export const credentials = [
   },
 ];
 
-/** The three-P promise the company is named for. */
+/**
+ * The three-P promise the company is named for, in the owner's wording
+ * (2026-10-30). `title` is the line shown in "Why choose PPP"; `word` stays
+ * the bare P-word because the About page and the dictionaries key on it.
+ */
 export const promise = [
   {
     letter: "P",
     word: "Private",
-    body: "Your group, your vehicle, your schedule. Nobody else on board and no fixed departure time to make.",
+    title: "Private service only, always",
+    body: "We don't do shared vehicles. Strictly private: just you and the people you enjoy, so you'll never end up placed on a bus with someone who spoils your energy.",
   },
   {
     letter: "P",
     word: "Personalized",
-    body: "Want two attractions in one day? A stop at a jerk pit on the way back? Combo days are no problem and reasonably priced.",
+    title: "Personalized service",
+    body: "We don't dictate, we accommodate, giving you total flexibility to set your own pickup time and schedule. Moving at your own pace is what a vacation is all about, and PPP helps you step into it just right!",
   },
   {
     letter: "P",
     word: "Professional",
-    body: "Trained, licensed, insured. Flights tracked, pickups on time, and one number that always answers.",
+    title: "Professional drivers",
+    body: "Every PPP driver is handpicked by Mr. Pugh: patient, polite, punctual, very knowledgeable about Jamaica's history and culture, and licensed to operate islandwide.",
   },
 ];
+
+/**
+ * "Why choose PPP" on the homepage: the three P's, opened by the service
+ * standard.
+ */
+export const whyChoose = {
+  standard: {
+    title: "5-star customer service",
+    body: "A 5-star customer service standard, maintained for 15+ years.",
+  },
+};
 
 export const destinations = [
   {
@@ -198,6 +216,62 @@ export const destinations = [
  */
 export const gallery = [
   {
+    src: "/ppp/guests-van-beach.jpg",
+    w: 1328,
+    h: 747,
+    place: "Beach day",
+    caption: "Four friends, one PPP van, zero rush.",
+    alt: "Four guests posing beside a PPP Tran Tours van",
+  },
+  {
+    src: "/ppp/guests-ricks-cafe.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Rick's Cafe, Negril",
+    caption: "Under the famous sign, before the sunset.",
+    alt: "Two guests under the Rick's Cafe sign in Negril",
+  },
+  {
+    src: "/ppp/guests-van-resort.jpg",
+    w: 1080,
+    h: 1080,
+    place: "Resort pickup",
+    caption: "Picked up at the door, family-style.",
+    alt: "A family beside a PPP Tran Tours van outside a resort",
+  },
+  {
+    src: "/team/donovan-group-waist.jpg",
+    w: 1100,
+    h: 560,
+    place: "Montego Bay",
+    caption: "Donovan Pugh, owner and driver since 2010.",
+    alt: "Donovan Pugh, owner of PPP Tran Tours, standing with guests outside a resort in Montego Bay",
+  },
+  {
+    src: "/ppp/mystic-mountain.jpg",
+    w: 600,
+    h: 400,
+    place: "Ocho Rios, St. Ann",
+    caption: "Bobsledding down through the canopy.",
+    alt: "Two guests riding bobsleds down a rainforest track above Ocho Rios harbour with a cruise ship below",
+  },
+  {
+    src: "/ppp/banner-ys-falls.jpg",
+    w: 1200,
+    h: 400,
+    place: "YS Falls, St. Elizabeth",
+    caption: "Seven tiers of cold, clear water.",
+    alt: "A couple in PPP Tran Tours caps and shirts standing in front of the tiered cascades at YS Falls",
+  },
+  {
+    src: "/ppp/river-tubing.jpg",
+    w: 700,
+    h: 550,
+    place: "River tubing",
+    caption: "Drifting under the old stone bridge.",
+    alt: "Three guests floating on yellow tubes down a green river beneath a moss-covered stone arch bridge",
+  },
+  {
     src: "/ppp/donovan-airport-van.jpg",
     w: 1001,
     h: 550,
@@ -214,14 +288,6 @@ export const gallery = [
     alt: "Three guests in PPP Tran Tours shirts and caps sitting on rocks beside a waterfall",
   },
   {
-    src: "/team/donovan-portrait.jpg",
-    w: 780,
-    h: 1040,
-    place: "Montego Bay",
-    caption: "Donovan Pugh, owner and driver since 2010.",
-    alt: "Donovan Pugh, owner of PPP Tran Tours, standing with guests outside a resort in Montego Bay",
-  },
-  {
     src: "/ppp/banner-craft-market.jpg",
     w: 1200,
     h: 400,
@@ -230,36 +296,12 @@ export const gallery = [
     alt: "A smiling craft market vendor holding a woven bag, surrounded by carved wooden faces and figures",
   },
   {
-    src: "/ppp/river-tubing.jpg",
-    w: 700,
-    h: 550,
-    place: "River tubing",
-    caption: "Drifting under the old stone bridge.",
-    alt: "Three guests floating on yellow tubes down a green river beneath a moss-covered stone arch bridge",
-  },
-  {
     src: "/ppp/banner-fisherman-mobay.jpg",
     w: 1200,
     h: 400,
     place: "Montego Bay",
     caption: "The morning catch, still dripping.",
     alt: "A fisherman on the shore at Montego Bay holding up two strings of red snapper, cruise ship behind him",
-  },
-  {
-    src: "/ppp/banner-ys-falls.jpg",
-    w: 1200,
-    h: 400,
-    place: "YS Falls, St. Elizabeth",
-    caption: "Seven tiers of cold, clear water.",
-    alt: "A couple in PPP Tran Tours caps and shirts standing in front of the tiered cascades at YS Falls",
-  },
-  {
-    src: "/ppp/mystic-mountain.jpg",
-    w: 600,
-    h: 400,
-    place: "Ocho Rios, St. Ann",
-    caption: "Bobsledding down through the canopy.",
-    alt: "Two guests riding bobsleds down a rainforest track above Ocho Rios harbour with a cruise ship below",
   },
   {
     src: "/ppp/ricks-cafe.jpg",
@@ -291,8 +333,10 @@ export const gallery = [
  * Homepage photo reel — guests in PPP tees and caps, the vans, and Mr. Pugh.
  * Two rows that drift in opposite directions; all PPP's own photography
  * (supplied 2026-10-22). Tiles are cropped square, so only pick photos whose
- * subject survives a centred square crop. Every photo here appears nowhere
- * else on the site — don't repeat the collage or gallery shots in the reel.
+ * subject survives a centred square crop, or give it a `focus` (a CSS
+ * object-position) that keeps the subject in frame. Don't repeat the collage shots in
+ * the reel. Three guest photos (van-beach, van-resort, ricks-cafe) also lead
+ * the About gallery, at the owner's request (2026-10-30).
  */
 export const brandReel = [
   [
@@ -300,6 +344,9 @@ export const brandReel = [
     { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
     { src: "/ppp/guests-van-resort.jpg", alt: "A family beside a PPP Tran Tours van outside a resort" },
     { src: "/ppp/waterfall-ppp-sign.jpg", alt: "A guest under a waterfall holding a yellow PPP Tran Tours sign" },
+    // A 3:1 banner with the couple in its left third; `focus` points the
+    // square crop at them instead of the falls.
+    { src: "/ppp/banner-ys-falls.jpg", alt: "A couple in PPP Tran Tours caps and shirts in front of YS Falls", focus: "8% center" },
   ],
   [
     { src: "/ppp/ppp-cap-horse.jpg", alt: "A guest in a PPP Tran Tours cap and shirt beside a horse on the beach" },
@@ -389,7 +436,7 @@ export const faqs = [
   {
     key: "delay",
     q: "What happens if my flight is delayed?",
-    a: "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E or F — holding a sign with the PPP logo, at no extra charge.",
+    a: "Nothing, on your end. We track your flight number and adjust the pickup ourselves. Whenever you actually land, your driver will be waiting at the curb outside arrivals — Column E — holding the PPP company sign, at no extra charge.",
   },
   {
     key: "shared",
@@ -429,7 +476,7 @@ export const airportMeeting = {
   title: "Meeting your driver at Sangster International (MBJ)",
   steps: [
     "After customs, exit the terminal through the glass doors beside the taxi stand and turn left.",
-    "Walk to the curb and look for your driver holding a company sign with the PPP logo at Column E or F.",
+    "Walk to the curb and look for your driver holding the PPP company sign at Column E.",
   ],
   help: "Can't spot us? Message us on WhatsApp and we'll come to you.",
 };

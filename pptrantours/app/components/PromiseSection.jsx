@@ -1,14 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa";
-import { promise, site } from "../data/site";
+import { FaArrowRight, FaStar } from "react-icons/fa";
+import { promise, whyChoose, site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
-import SectionHeading from "./SectionHeading";
 
-/** The three P's the company is named for. */
+/**
+ * "Why choose PPP — the service is in the name." The owner's reasons, in his
+ * order (2026-10-30): the service standard, then the three P's the company is
+ * named for. It also carries the slogan, which used to close every
+ * page as a band above the footer.
+ */
 export default function PromiseSection({ locale = "en", dict }) {
   const t = dict?.promise ?? {};
   const words = t.words ?? {};
+  const slogan = dict?.slogan ?? {};
+
+  const reasons = [
+    {
+      key: "standard",
+      badge: <FaStar className="text-lg" />,
+      title: t.standard?.title ?? whyChoose.standard.title,
+      body: t.standard?.body ?? whyChoose.standard.body,
+    },
+    ...promise.map((p) => ({
+      key: p.word,
+      badge: p.letter,
+      title: words[p.word]?.title ?? p.title,
+      body: words[p.word]?.body ?? p.body,
+    })),
+  ];
+
   return (
     <section className="relative overflow-hidden bg-ink py-20 lg:py-28">
       <div
@@ -22,33 +43,26 @@ export default function PromiseSection({ locale = "en", dict }) {
 
       <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-20">
         <div>
-          <SectionHeading
-            light
-            title={t.title ?? "Three promises, in the name itself."}
-            description={
-              t.description ??
-              "Since 2010 the standard has not moved: you get your own vehicle, a day built around what you actually want to see, and a licensed professional at the wheel."
-            }
-          />
+          <h2 className="font-display text-3xl font-semibold leading-tight text-white sm:text-[2.5rem]">
+            {t.why ?? "Why choose PPP?"}
+            <span className="mt-1 block text-gold-400">
+              {t.title ?? "The service is in the name."}
+            </span>
+          </h2>
 
-          <ol className="mt-2 space-y-1">
-            {promise.map((p, i) => (
+          <ol className="mt-7 space-y-1">
+            {reasons.map((r) => (
               <li
-                key={p.word}
+                key={r.key}
                 className="group flex gap-5 rounded-2xl p-4 transition-colors hover:bg-white/[0.04]"
               >
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-gold-400/30 bg-crimson-600/25 font-display text-xl font-semibold text-gold-400">
-                  {p.letter}
+                  {r.badge}
                 </span>
                 <div>
-                  <h3 className="font-display text-xl font-semibold text-white">
-                    {words[p.word]?.word ?? p.word}
-                  </h3>
-                  <p className="mt-1.5 text-[0.95rem] leading-relaxed text-white/60">
-                    {words[p.word]?.body ?? p.body}
-                  </p>
+                  <h3 className="font-display text-xl font-semibold text-white">{r.title}</h3>
+                  <p className="mt-1.5 text-[0.95rem] leading-relaxed text-white/60">{r.body}</p>
                 </div>
-                <span className="sr-only">{i + 1}</span>
               </li>
             ))}
           </ol>
@@ -95,22 +109,18 @@ export default function PromiseSection({ locale = "en", dict }) {
                 className="object-cover object-[70%_center]"
               />
             </figure>
-            <figure className="group relative aspect-[3/4] overflow-hidden rounded-2xl">
+            {/* The resort group photo of Mr. Pugh appeared on too many pages
+                (owner, 2026-10-31); this tile uses a guest photo instead. The
+                subject is in the right quarter of a wide banner, hence
+                object-right (see public/CREDITS.md). */}
+            <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <Image
-                src="/team/donovan-portrait.jpg"
-                alt={`${site.owner.name}, owner of ${site.legalName}, with guests`}
+                src="/ppp/guest-ppp-branded.jpg"
+                alt="A guest in a PPP cap and shirt holding the yellow PPP Tran Tours sign beside a waterfall"
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
-                className="object-cover"
+                className="object-cover object-right"
               />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/50 to-transparent p-4 pt-10">
-                <span className="block text-sm font-semibold text-white">
-                  {site.owner.name}
-                </span>
-                <span className="block text-xs text-white/60">
-                  {site.owner.role}
-                </span>
-              </figcaption>
             </figure>
           </div>
 
@@ -125,6 +135,15 @@ export default function PromiseSection({ locale = "en", dict }) {
           </div>
         </div>
       </div>
+
+      {/* The slogan closes the section, big and bold (owner, 2026-10-30). */}
+      <p className="shell relative mt-16 text-center font-display text-[2rem] font-semibold leading-[1.1] text-white sm:text-5xl lg:mt-24 lg:text-[4rem]">
+        {slogan.line ?? "Approach Jamaica"}{" "}
+        <span className="text-gold-400">{slogan.emphasis ?? "with Confidence"}</span>
+        <span aria-hidden className="ml-2 align-middle text-3xl sm:text-4xl lg:text-5xl">
+          🇯🇲
+        </span>
+      </p>
     </section>
   );
 }

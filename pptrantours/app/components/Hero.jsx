@@ -83,6 +83,11 @@ export default function Hero({ locale = "en", dict }) {
             className="mt-5 animate-fade-up font-display text-[2.25rem] font-semibold leading-[1.05] text-white sm:mt-6 sm:text-6xl sm:leading-[1.03] lg:text-[4.75rem]"
             style={{ animationDelay: "80ms" }}
           >
+            {/* Search terms first, small, so the page's one h1 says what PPP
+                does; the slogan below stays the headline guests see. */}
+            <span className="mb-3 block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-white/80 sm:text-sm">
+              {t.h1Keywords ?? "Montego Bay Airport Transfers & Private Jamaica Tours"}
+            </span>
             {t.h1a ?? "Approach Jamaica"}
             <br />
             <span className="text-gold-400">{t.h1b ?? "with confidence…"}</span>

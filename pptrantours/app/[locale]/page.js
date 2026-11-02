@@ -8,7 +8,6 @@ import Testimonials from "@/app/components/Testimonials";
 import PhotoReel from "@/app/components/PhotoReel";
 import FaqAccordion from "@/app/components/FaqAccordion";
 import CtaBand from "@/app/components/CtaBand";
-import SloganBand from "@/app/components/SloganBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import TourCard from "@/app/components/TourCard";
 import { filterProductByCategory, sortByPrice } from "@/app/products/product";
@@ -124,7 +123,6 @@ export default async function Home({ params }) {
       </section>
 
       <CtaBand locale={locale} dict={dict} />
-      <SloganBand dict={dict} />
     </>
   );
 }
@@ -134,7 +132,7 @@ export default async function Home({ params }) {
  *
  * The three points answer what an arriving guest actually worries about:
  * will they be there, where do I find them, how do I pay. The meeting point
- * is the corrected one (outside, Column E or F; see 4645b51). The price waits
+ * is the corrected one (outside, Column E; see 4645b51). The price waits
  * for /transfers, where choosing the resort produces it.
  */
 function TransferBand({ locale, dict }) {
@@ -142,7 +140,7 @@ function TransferBand({ locale, dict }) {
   const points = [
     t.transferPointFlight ?? "Flight tracked, so a delay never leaves you waiting.",
     t.transferPointMeet ??
-      "Your driver meets you at the curb outside arrivals, Column E or F, with a PPP sign.",
+      "Your driver meets you at the curb outside arrivals, Column E, with a PPP sign.",
     t.transferPointCash ?? "Pay cash (USD) on arrival.",
   ];
 

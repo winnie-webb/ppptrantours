@@ -55,6 +55,7 @@ export default function PhotoReel({ dict }) {
                     fill
                     sizes="(max-width: 640px) 11rem, (max-width: 1024px) 15rem, 18rem"
                     className="object-cover transition-transform duration-700 hover:scale-[1.06]"
+                    style={photo.focus ? { objectPosition: photo.focus } : undefined}
                   />
                 </li>
               ))}

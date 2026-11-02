@@ -21,7 +21,7 @@ import { getPlace } from "@/app/data/places";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MAX = { name: 120, email: 200, phone: 40, place: 80, flight: 20, notes: 2000 };
+const MAX = { name: 120, email: 200, phone: 40, place: 80, airline: 60, flight: 20, notes: 2000 };
 
 function str(value, limit) {
   if (typeof value !== "string") return "";
@@ -235,6 +235,7 @@ export async function POST(request) {
     time: str(body.time, 20),
     returnDate: str(body.returnDate, 30),
     returnFlight: str(body.returnFlight, MAX.flight),
+    airline: str(body.airline, MAX.airline),
     flightNumber: str(body.flightNumber, MAX.flight),
     subject: str(body.subject, 120),
     name,

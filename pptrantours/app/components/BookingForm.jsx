@@ -38,6 +38,7 @@ import { createBooking, startPayment } from "@/lib/bookings";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
+import AirlineSearch from "./booking/AirlineSearch";
 import DirectionPicker from "./DirectionPicker";
 import PayPalCheckout from "./PayPalCheckout";
 import { useBookingDraft, clearBookingDraft } from "./booking/useBookingDraft";
@@ -225,6 +226,7 @@ export default function BookingForm({
   const [form, setForm] = useState({
     date: "",
     time: "",
+    airline: "",
     flightNumber: "",
     returnDate: "",
     returnFlight: "",
@@ -714,6 +716,18 @@ export default function BookingForm({
         {isTransfer && (
           <>
             <div>
+              <label htmlFor="airline" className="label">
+                {t.airline ?? "Airline"}
+              </label>
+              <AirlineSearch
+                id="airline"
+                value={form.airline}
+                onChange={(airline) => setForm((f) => ({ ...f, airline }))}
+                placeholder={t.airlinePlaceholder ?? "Start typing your airline…"}
+              />
+            </div>
+
+            <div>
               <label htmlFor="flightNumber" className="label">
                 {direction === "to-airport"
                   ? t.departureFlightNumber ?? "Departure flight number"
@@ -741,7 +755,7 @@ export default function BookingForm({
                   ? t.pickupFromFlightNote ??
                     "We work out your pickup time from this flight — no need to tell us one."
                   : t.flightNote ??
-                    "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and find your driver with the PPP sign at Column E or F."}
+                    "We track your flight and adjust for delays. After customs, exit through the glass doors beside the taxi stand, turn left, and look for your driver holding the PPP company sign at Column E."}
               </p>
             </div>
 

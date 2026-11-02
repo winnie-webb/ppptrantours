@@ -11,7 +11,6 @@ import SectionHeading from "@/app/components/SectionHeading";
 import ContactForm from "./ContactForm";
 import { site } from "@/app/data/site";
 import { faqSchema } from "@/app/data/schema";
-import SloganBand from "@/app/components/SloganBand";
 import CtaBand from "@/app/components/CtaBand";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
@@ -208,7 +207,6 @@ export default async function ContactPage({ params }) {
       </section>
 
       <CtaBand locale={locale} dict={dict} />
-      <SloganBand dict={dict} />
     </>
   );
 }

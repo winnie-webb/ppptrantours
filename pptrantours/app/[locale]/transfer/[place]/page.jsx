@@ -124,7 +124,7 @@ export default async function TransferPage({ params }) {
   ];
 
   const included = [
-    { Icon: FaPlane, text: t.inc1 ?? "Met at the curb outside arrivals, Column E or F, by a driver with a PPP sign" },
+    { Icon: FaPlane, text: t.inc1 ?? "Met at the curb outside arrivals, Column E, by a driver with a PPP sign" },
     { Icon: FaClock, text: t.inc2 ?? "Flight tracked — delays cost you nothing" },
     { Icon: FaCar, text: t.inc3 ?? "Private, air-conditioned vehicle, your group only" },
     { Icon: FaUserTie, text: t.inc4 ?? "Licensed, insured driver who handles the luggage" },
@@ -202,7 +202,7 @@ export default async function TransferPage({ params }) {
           */}
           <p className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-white/65">
             {t.introTotal?.replace("{resort}", place.name) ??
-              `From Sangster International (MBJ) to ${place.name}. Your driver meets you at the curb outside arrivals (Column E or F) with a PPP sign and takes you straight there. Your total is worked out in the form below.`}
+              `From Sangster International (MBJ) to ${place.name}. Your driver meets you at the curb outside arrivals (Column E) with a PPP sign and takes you straight there. Your total is worked out in the form below.`}
           </p>
 
           {/*

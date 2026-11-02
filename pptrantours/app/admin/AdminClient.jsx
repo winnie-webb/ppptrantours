@@ -579,6 +579,7 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
             {b.flightNumber && (
               <span className="block text-xs text-ink/50">
                 Flight {b.flightNumber}
+                {b.airline && ` · ${b.airline}`}
               </span>
             )}
           </Field>

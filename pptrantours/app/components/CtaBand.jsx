@@ -23,7 +23,7 @@ export default function CtaBand({ locale = "en", dict }) {
 
         <div className="relative mx-auto max-w-2xl">
           <h2 className="font-display text-3xl font-semibold leading-tight text-white sm:text-[2.5rem]">
-            {t.title ?? "Tell us your flight number. We'll handle the rest."}
+            {t.title ?? "Send us your flight info. We'll handle the rest."}
           </h2>
           <p className="mt-5 text-[1.05rem] leading-relaxed text-white/70">
             {t.body ??

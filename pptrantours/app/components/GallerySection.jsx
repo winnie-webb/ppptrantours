@@ -14,6 +14,8 @@ import SectionHeading from "./SectionHeading";
  * aspect tile would crop the subject straight out of half of them. Every photo
  * renders at its native ratio instead.
  */
+const FEATURED = 3;
+
 export default function GallerySection({ items = gallery, heading = true, dict }) {
   const tg = dict?.gallery ?? {};
   const [openIdx, setOpenIdx] = useState(null);
@@ -66,65 +68,32 @@ export default function GallerySection({ items = gallery, heading = true, dict }
       <div className="shell">
         {heading && (
           <SectionHeading
-            title={tg.title ?? "Real days out, real guests."}
+            title={tg.title ?? "PPP Family Embracing the Brand"}
             description={
               tg.description ??
-              "Every photo here was taken on our own tours — no stock islands, no borrowed vehicles. This is what the day actually looks like."
+              "Real customers, vibing and family building with PPP since 2010."
             }
           />
         )}
 
+        {/*
+          The first three photos are guests with PPP, set as a row of their
+          own: in the column masonry below, the "top" of the gallery is
+          whatever happens to land first in each column, not the first items.
+        */}
+        <ul className="mb-4 grid gap-4 sm:grid-cols-3">
+          {items.slice(0, FEATURED).map((item, i) => (
+            <li key={item.src}>
+              <Tile item={item} featured onOpen={() => setOpenIdx(i)} />
+            </li>
+          ))}
+        </ul>
+
         {/* Masonry. Columns keep each photo at its true shape; nothing is cropped. */}
         <ul className="gap-4 [column-fill:_balance] sm:columns-2 lg:columns-3">
-          {items.map((item, i) => (
+          {items.slice(FEATURED).map((item, i) => (
             <li key={item.src} className="mb-4 break-inside-avoid">
-              <button
-                type="button"
-                onClick={() => setOpenIdx(i)}
-                className="group relative block w-full overflow-hidden rounded-2xl bg-ink/5 shadow-card
-                           transition duration-300 hover:shadow-lift focus-visible:outline-none
-                           focus-visible:ring-2 focus-visible:ring-crimson-500 focus-visible:ring-offset-2"
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={item.w}
-                  height={item.h}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="h-auto w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-                />
-
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent
-                             opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
-                />
-
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 text-left opacity-0
-                             transition duration-300 group-hover:translate-y-0 group-hover:opacity-100
-                             group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
-                >
-                  <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">
-                    {item.place}
-                  </span>
-                  <span className="mt-1 block text-sm font-medium leading-snug text-white">
-                    {item.caption}
-                  </span>
-                </span>
-
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full
-                             bg-ink/60 text-white opacity-0 backdrop-blur transition-opacity duration-300
-                             group-hover:opacity-100 group-focus-visible:opacity-100"
-                >
-                  <FaExpand className="text-xs" />
-                </span>
-
-                <span className="sr-only">— view larger</span>
-              </button>
+              <Tile item={item} onOpen={() => setOpenIdx(i + FEATURED)} />
             </li>
           ))}
         </ul>
@@ -208,5 +177,56 @@ export default function GallerySection({ items = gallery, heading = true, dict }
         </div>
       )}
     </section>
+  );
+}
+
+function Tile({ item, featured = false, onOpen }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className={`group relative block w-full overflow-hidden rounded-2xl bg-ink/5 shadow-card ${featured ? "aspect-[4/3]" : ""}
+                 transition duration-300 hover:shadow-lift focus-visible:outline-none
+                 focus-visible:ring-2 focus-visible:ring-crimson-500 focus-visible:ring-offset-2`}
+    >
+      <Image
+        src={item.src}
+        alt={item.alt}
+        {...(featured ? { fill: true } : { width: item.w, height: item.h })}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className={`${featured ? "object-cover" : "h-auto w-full"} transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]`}
+      />
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent
+                   opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+      />
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 text-left opacity-0
+                   transition duration-300 group-hover:translate-y-0 group-hover:opacity-100
+                   group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+      >
+        <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">
+          {item.place}
+        </span>
+        <span className="mt-1 block text-sm font-medium leading-snug text-white">
+          {item.caption}
+        </span>
+      </span>
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full
+                   bg-ink/60 text-white opacity-0 backdrop-blur transition-opacity duration-300
+                   group-hover:opacity-100 group-focus-visible:opacity-100"
+      >
+        <FaExpand className="text-xs" />
+      </span>
+
+      <span className="sr-only">— view larger</span>
+    </button>
   );
 }

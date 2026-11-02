@@ -9,7 +9,6 @@ import Testimonials from "@/app/components/Testimonials";
 import CtaBand from "@/app/components/CtaBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import { site, credentials, promise } from "@/app/data/site";
-import SloganBand from "@/app/components/SloganBand";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { clientDict } from "@/app/i18n/client";
@@ -100,11 +99,11 @@ export default async function AboutPage({ params }) {
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
           <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-square">
             <Image
-              src="/team/donovan-pugh.jpg"
-              alt={`${site.owner.name}, owner of ${site.legalName}, with guests in Montego Bay`}
+              src="/ppp/donovan-rafting-guests.jpg"
+              alt={`${site.owner.name}, owner of ${site.legalName}, in his PPP uniform with rafting guests by the river`}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
             <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-5 pt-12 text-xs text-white/70">
               {t.ownerCaption ??
@@ -220,7 +219,6 @@ export default async function AboutPage({ params }) {
       <GallerySection dict={client} />
       <Testimonials dict={dict} />
       <CtaBand locale={locale} dict={dict} />
-      <SloganBand dict={dict} />
     </>
   );
 }
