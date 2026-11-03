@@ -1064,7 +1064,7 @@ export default function BookingForm({
                       : "border-ink/15 hover:border-ink/30"
                   }`}
                 >
-                  <span className="flex items-center gap-2 text-sm font-semibold text-ink">
+                  <span className="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink">
                     {opt.icon}
                     {opt.label}
                   </span>
