@@ -15,10 +15,17 @@ import {
   FaMoneyBillWave,
   FaTimes,
   FaStar,
+  FaCarSide,
+  FaPlus,
 } from "react-icons/fa";
 import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
 import { describeDirection } from "@/app/products/pricing";
-import { buildReviewRequestWhatsApp } from "@/lib/booking-shared";
+import {
+  buildReviewRequestWhatsApp,
+  buildDriverJobWhatsApp,
+  buildDriverIntroWhatsApp,
+} from "@/lib/booking-shared";
+import { canAssign, documentStatus, DRIVER_DOCUMENTS } from "@/lib/drivers";
 import { formatDateTime, formatTime12, transferLegs } from "@/lib/booking-times";
 
 /**
@@ -138,6 +145,9 @@ export default function AdminClient() {
   const [filter, setFilter] = useState("all");
   const [term, setTerm] = useState("");
   const [openRef, setOpenRef] = useState(null);
+  const [view, setView] = useState("bookings"); // bookings | drivers
+  const [drivers, setDrivers] = useState(null);
+  const [driversError, setDriversError] = useState("");
 
   /*
    * Every call needs a fresh ID token, and every call needs the same error
@@ -183,12 +193,26 @@ export default function AdminClient() {
     return data;
   }, []);
 
+  const loadDrivers = useCallback(async () => {
+    try {
+      const data = await call("/api/admin/drivers");
+      setDrivers(data.drivers ?? []);
+      setDriversError("");
+    } catch (err) {
+      setDriversError(err.message);
+    }
+  }, [call]);
+
   const load = useCallback(async () => {
     const auth = getFirebaseAuth();
     if (!auth?.currentUser) return;
 
     setStatus("loading");
     setError("");
+
+    // The roster loads beside the bookings, and on its own terms: a roster
+    // that fails to load must not hide the bookings, only the assign picker.
+    loadDrivers();
 
     try {
       const data = await call("/api/admin/bookings");
@@ -199,7 +223,7 @@ export default function AdminClient() {
       setError(err.message);
       setStatus("error");
     }
-  }, [call]);
+  }, [call, loadDrivers]);
 
   /*
    * One effect, and every state change happens inside the auth callback rather
@@ -350,6 +374,35 @@ export default function AdminClient() {
 
       {error && <ErrorLine>{error}</ErrorLine>}
 
+      <div className="mb-6 flex gap-1 rounded-full bg-ink/5 p-1 text-sm font-semibold" role="tablist">
+        {[
+          ["bookings", "Bookings"],
+          ["drivers", `Drivers${drivers ? ` (${drivers.filter((d) => d.active !== false).length})` : ""}`],
+        ].map(([key, label]) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={view === key}
+            onClick={() => setView(key)}
+            className={`flex-1 rounded-full px-4 py-2 transition ${
+              view === key ? "bg-white text-ink shadow-card" : "text-ink/55 hover:text-ink"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {view === "drivers" ? (
+        <DriversPanel
+          drivers={drivers}
+          error={driversError}
+          call={call}
+          onChanged={loadDrivers}
+        />
+      ) : (
+      <>
       {/*
         The two states that cost real money if they sit unread, computed by the
         list route and previously thrown away. Paid-but-unconfirmed is the
@@ -447,6 +500,8 @@ export default function AdminClient() {
               }
               call={call}
               onChanged={load}
+              drivers={drivers}
+              driversError={driversError}
             />
           ))}
         </ul>
@@ -457,6 +512,8 @@ export default function AdminClient() {
           Showing {shown.length} of the {bookings.length} most recent. Tap a
           booking to see the guest&apos;s notes, move it on, or record a payment.
         </p>
+      )}
+      </>
       )}
     </>
   );
@@ -471,11 +528,13 @@ export default function AdminClient() {
  * mattered most (is it paid? has it been confirmed?) were the ones off the
  * right-hand edge. They are the two badges at the top now.
  */
-function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
+function BookingRow({ booking: b, open, onToggle, call, onChanged, drivers, driversError }) {
   const [detail, setDetail] = useState(null);
   const [busy, setBusy] = useState("");
   const [rowError, setRowError] = useState("");
   const [payOpen, setPayOpen] = useState(false);
+  const [assignOpen, setAssignOpen] = useState(false);
+  const [assignWarnings, setAssignWarnings] = useState([]);
   const fetched = useRef(false);
 
   const st = b.status ?? "new";
@@ -503,14 +562,16 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
     setDetail(null);
   };
 
-  const move = async (next) => {
+  const move = async (next, driverId) => {
     setBusy(next);
     setRowError("");
     try {
-      await call(`/api/admin/bookings/${b.reference}`, {
+      const res = await call(`/api/admin/bookings/${b.reference}`, {
         method: "PATCH",
-        body: JSON.stringify({ status: next }),
+        body: JSON.stringify(driverId ? { status: next, driverId } : { status: next }),
       });
+      setAssignWarnings(res.warnings ?? []);
+      setAssignOpen(false);
       invalidate();
       await onChanged();
     } catch (err) {
@@ -519,6 +580,19 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
       setBusy("");
     }
   };
+
+  // "Assign a driver" opens the picker instead of moving the status on its
+  // own: the server will not accept "assigned" without a named driver.
+  const onMove = (next) => {
+    if (next === "assigned") {
+      setAssignOpen(!assignOpen);
+      return;
+    }
+    move(next);
+  };
+
+  const driverJob = b.driver ? buildDriverJobWhatsApp(b, b.driver) : null;
+  const driverIntro = st === "assigned" ? buildDriverIntroWhatsApp(b) : null;
 
   const owed = (b.payment?.payableCents ?? 0) - (b.payment?.paidCents ?? 0);
   const legs = transferLegs(b);
@@ -628,7 +702,8 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               <button
                 key={next}
                 type="button"
-                onClick={() => move(next)}
+                onClick={() => onMove(next)}
+                aria-expanded={next === "assigned" ? assignOpen : undefined}
                 disabled={Boolean(busy)}
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold transition disabled:opacity-50 ${
                   next === "cancelled"
@@ -650,6 +725,78 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
               </button>
             )}
           </div>
+        )}
+
+        {(st === "assigned" || (st === "completed" && b.driver)) && (
+          <div className="mt-3 rounded-xl bg-blue-50/70 p-3 text-sm">
+            <p className="flex flex-wrap items-center gap-x-2 text-ink/80">
+              <FaCarSide className="text-blue-700" aria-hidden="true" />
+              {b.driver ? (
+                <>
+                  <span className="font-semibold text-ink">{b.driver.name}</span>
+                  {(b.driver.vehicle || b.driver.plate) && (
+                    <span className="text-xs text-ink/55">
+                      {[b.driver.vehicle, b.driver.plate].filter(Boolean).join(" · ")}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="text-ink/60">No driver recorded on this booking.</span>
+              )}
+            </p>
+            {st === "assigned" && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {driverJob && (
+                  <a
+                    href={driverJob}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1.5 rounded-full bg-crimson-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-crimson-700"
+                  >
+                    <FaWhatsapp className="text-[0.7rem]" />
+                    Send job to {b.driver.name.split(/\s+/)[0]}
+                  </a>
+                )}
+                {driverIntro && (
+                  <a
+                    href={driverIntro}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink/70 shadow-card transition hover:text-crimson-700"
+                  >
+                    <FaWhatsapp className="text-[0.7rem] text-whatsapp" />
+                    Tell the guest who&apos;s coming
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setAssignOpen(!assignOpen)}
+                  aria-expanded={assignOpen}
+                  className="rounded-full bg-ink/5 px-3 py-1.5 text-xs font-semibold text-ink/70 transition hover:bg-ink/10"
+                >
+                  {b.driver ? "Change driver" : "Choose driver"}
+                </button>
+              </div>
+            )}
+            {assignWarnings.length > 0 && (
+              <ul className="mt-2 space-y-0.5 text-xs text-amber-800">
+                {assignWarnings.map((w) => (
+                  <li key={w}>⚠ {w}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+
+        {assignOpen && (
+          <AssignDriver
+            booking={b}
+            drivers={drivers}
+            error={driversError}
+            busy={busy === "assigned"}
+            onAssign={(driverId) => move("assigned", driverId)}
+            onCancel={() => setAssignOpen(false)}
+          />
         )}
 
         {st === "completed" && (
@@ -777,7 +924,9 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
                 <ul className="mt-2 space-y-1 text-xs text-ink/50">
                   {detail.booking.history.map((h, i) => (
                     <li key={`${h.at}-${i}`}>
-                      {STATUS_LABEL[h.status] ?? h.status} · {h.by} ·{" "}
+                      {STATUS_LABEL[h.status] ?? h.status}
+                      {h.driver && `: ${h.driver}`}
+                      {h.replaced && ` (was ${h.replaced})`} · {h.by} ·{" "}
                       {when(h.at)}
                     </li>
                   ))}
@@ -788,6 +937,327 @@ function BookingRow({ booking: b, open, onToggle, call, onChanged }) {
         </div>
       )}
     </li>
+  );
+}
+
+/**
+ * Pick the driver for one booking.
+ *
+ * Every active driver is listed, with the same verdict the server will reach
+ * (lib/drivers.js `canAssign`): a driver whose papers lapse before the job
+ * ends is shown but cannot be chosen, and seats or missing papers are shown
+ * as warnings the owner can overrule.
+ */
+function AssignDriver({ booking, drivers, error, busy, onAssign, onCancel }) {
+  const active = (drivers ?? []).filter((d) => d.active !== false);
+  const verdicts = active.map((d) => ({ d, v: canAssign(d, booking) }));
+  const firstOk = verdicts.find(({ v }) => v.ok)?.d.id ?? "";
+  const [choice, setChoice] = useState(
+    verdicts.some(({ d, v }) => d.id === booking.driver?.id && v.ok) ? booking.driver.id : firstOk
+  );
+  const picked = verdicts.find(({ d }) => d.id === choice);
+
+  return (
+    <div className="mt-3 space-y-3 rounded-xl border border-ink/10 bg-sand/60 p-3">
+      <p className="text-xs font-semibold text-ink/70">Who is driving this job?</p>
+
+      {error && <ErrorLine>{error}</ErrorLine>}
+
+      {!drivers && !error && (
+        <p className="flex items-center gap-2 text-xs text-ink/45">
+          <FaSpinner className="animate-spin" /> Loading drivers…
+        </p>
+      )}
+
+      {drivers && active.length === 0 && (
+        <p className="text-xs text-ink/60">
+          No drivers on the roster yet. Add them on the Drivers tab first.
+        </p>
+      )}
+
+      {active.length > 0 && (
+        <>
+          <ul className="space-y-1.5" role="radiogroup" aria-label="Driver">
+            {verdicts.map(({ d, v }) => (
+              <li key={d.id}>
+                <label
+                  className={`flex cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 text-sm ${
+                    v.ok ? "hover:bg-white" : "cursor-not-allowed opacity-55"
+                  } ${choice === d.id ? "bg-white shadow-card" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name={`driver-${booking.reference}`}
+                    value={d.id}
+                    checked={choice === d.id}
+                    disabled={!v.ok}
+                    onChange={() => setChoice(d.id)}
+                    className="mt-1 accent-crimson-600"
+                  />
+                  <span>
+                    <span className="font-semibold text-ink">{d.name}</span>
+                    <span className="ml-1.5 text-xs text-ink/50">
+                      {[d.vehicle, d.seats && `${d.seats} seats`].filter(Boolean).join(" · ")}
+                    </span>
+                    {!v.ok && <span className="block text-xs text-red-700">{v.reason}</span>}
+                    {v.ok && v.warnings.length > 0 && (
+                      <span className="block text-xs text-amber-800">{v.warnings.join(" ")}</span>
+                    )}
+                  </span>
+                </label>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => onAssign(choice)}
+              disabled={!picked?.v.ok || busy}
+              className="rounded-full bg-crimson-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-crimson-700 disabled:opacity-50"
+            >
+              {busy ? "Assigning…" : picked ? `Assign ${picked.d.name}` : "Assign"}
+            </button>
+            <button
+              type="button"
+              onClick={onCancel}
+              className="rounded-full bg-ink/5 px-3 py-1.5 text-xs font-semibold text-ink/60 hover:bg-ink/10"
+            >
+              Cancel
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+const EMPTY_DRIVER = {
+  name: "",
+  phone: "",
+  vehicle: "",
+  plate: "",
+  seats: "",
+  insuranceExpiry: "",
+  licenceExpiry: "",
+  notes: "",
+  active: true,
+};
+
+/**
+ * The roster: every driver PPP can send, their vehicle, and whether their
+ * papers are current. Drivers are never deleted, only marked unavailable,
+ * because past bookings name them.
+ */
+function DriversPanel({ drivers, error, call, onChanged }) {
+  const [editing, setEditing] = useState(null); // null | "new" | driver id
+
+  if (error) return <ErrorLine>{error}</ErrorLine>;
+  if (!drivers) {
+    return (
+      <p className="flex items-center gap-2 text-sm text-ink/50">
+        <FaSpinner className="animate-spin" /> Loading drivers…
+      </p>
+    );
+  }
+
+  const sorted = [...drivers].sort(
+    (a, b) => Number(b.active !== false) - Number(a.active !== false)
+  );
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="max-w-prose text-sm text-ink/60">
+          Every driver who can take a PPP job. A driver whose insurance or road
+          licence has lapsed by the day of a job can&apos;t be assigned to it.
+        </p>
+        {editing !== "new" && (
+          <button type="button" onClick={() => setEditing("new")} className="btn-primary">
+            <FaPlus className="text-xs" /> Add a driver
+          </button>
+        )}
+      </div>
+
+      {editing === "new" && (
+        <DriverForm
+          initial={EMPTY_DRIVER}
+          call={call}
+          onSaved={async () => {
+            setEditing(null);
+            await onChanged();
+          }}
+          onCancel={() => setEditing(null)}
+        />
+      )}
+
+      {drivers.length === 0 && editing !== "new" && (
+        <Notice>
+          No drivers yet. Add Mr. Pugh, Noel and every standby driver, with
+          their vehicle and the expiry dates of their insurance and road
+          licence.
+        </Notice>
+      )}
+
+      <ul className="space-y-3">
+        {sorted.map((d) => {
+          const docs = documentStatus(d);
+          return (
+            <li key={d.id} className="rounded-2xl border border-ink/[0.07] bg-white p-4 shadow-card">
+              {editing === d.id ? (
+                <DriverForm
+                  id={d.id}
+                  initial={{ ...EMPTY_DRIVER, ...d, seats: d.seats ?? "" }}
+                  call={call}
+                  onSaved={async () => {
+                    setEditing(null);
+                    await onChanged();
+                  }}
+                  onCancel={() => setEditing(null)}
+                />
+              ) : (
+                <>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold text-ink">{d.name}</span>
+                    {d.active === false ? (
+                      <Badge tone="bg-ink/5 text-ink/50">Not available</Badge>
+                    ) : !docs.ok ? (
+                      <Badge tone="bg-red-50 text-red-700">Papers expired</Badge>
+                    ) : docs.expiring.length || docs.missing.length ? (
+                      <Badge tone="bg-gold-200/60 text-ink/70">Check papers</Badge>
+                    ) : (
+                      <Badge tone="bg-green-100 text-green-800">Ready</Badge>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setEditing(d.id)}
+                      className="ml-auto text-xs font-semibold text-ink/50 hover:text-crimson-700"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div className="mt-2 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
+                    <Field label="WhatsApp">
+                      <span className="text-ink/80">{d.phone}</span>
+                    </Field>
+                    <Field label="Vehicle">
+                      <span className="text-ink/80">
+                        {[d.vehicle, d.plate].filter(Boolean).join(" · ") || "—"}
+                      </span>
+                      {d.seats && <span className="block text-xs text-ink/50">{d.seats} seats</span>}
+                    </Field>
+                    <Field label="Papers">
+                      {DRIVER_DOCUMENTS.map(({ key, label }) => (
+                        <span
+                          key={key}
+                          className={`block text-xs ${
+                            docs.expired.includes(label)
+                              ? "text-red-700"
+                              : docs.expiring.includes(label) || !d[key]
+                                ? "text-amber-800"
+                                : "text-ink/60"
+                          }`}
+                        >
+                          {label}: {d[key] ? `to ${d[key]}` : "not recorded"}
+                        </span>
+                      ))}
+                    </Field>
+                  </div>
+                  {d.notes && <p className="mt-2 text-xs text-ink/55">{d.notes}</p>}
+                </>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function DriverForm({ id, initial, call, onSaved, onCancel }) {
+  const [form, setForm] = useState(initial);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const set = (key) => (e) =>
+    setForm({ ...form, [key]: e.target.type === "checkbox" ? e.target.checked : e.target.value });
+  const fid = (key) => `driver-${id ?? "new"}-${key}`;
+
+  const save = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    setErr("");
+    try {
+      await call(id ? `/api/admin/drivers/${id}` : "/api/admin/drivers", {
+        method: id ? "PATCH" : "POST",
+        body: JSON.stringify(form),
+      });
+      await onSaved();
+    } catch (error) {
+      setErr(error.message);
+      setBusy(false);
+    }
+  };
+
+  const input = (key, label, props = {}) => (
+    <label htmlFor={fid(key)} className="block text-xs font-semibold text-ink/60">
+      {label}
+      <input
+        id={fid(key)}
+        value={form[key] ?? ""}
+        onChange={set(key)}
+        className="field mt-1"
+        {...props}
+      />
+    </label>
+  );
+
+  return (
+    <form onSubmit={save} className="space-y-3 rounded-2xl border border-ink/[0.07] bg-white p-4 shadow-card">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {input("name", "Name", { required: true, autoComplete: "off" })}
+        {input("phone", "WhatsApp number, with country code", {
+          required: true,
+          inputMode: "tel",
+          placeholder: "+1 876 …",
+          autoComplete: "off",
+        })}
+        {input("vehicle", "Vehicle", { placeholder: "e.g. White Toyota Hiace" })}
+        {input("plate", "Plate", { placeholder: "PP …" })}
+        {input("seats", "Guest seats", { type: "number", min: 1, max: 60, inputMode: "numeric" })}
+        <span aria-hidden="true" className="hidden sm:block" />
+        {input("insuranceExpiry", "Passenger insurance expires", { type: "date" })}
+        {input("licenceExpiry", "Road licence / JTB licence expires", { type: "date" })}
+      </div>
+      <label htmlFor={fid("notes")} className="block text-xs font-semibold text-ink/60">
+        Notes
+        <textarea
+          id={fid("notes")}
+          value={form.notes ?? ""}
+          onChange={set("notes")}
+          rows={2}
+          className="field mt-1"
+          placeholder="Areas covered, languages, days off…"
+        />
+      </label>
+      <label htmlFor={fid("active")} className="flex items-center gap-2 text-sm text-ink/70">
+        <input
+          id={fid("active")}
+          type="checkbox"
+          checked={form.active !== false}
+          onChange={set("active")}
+          className="accent-crimson-600"
+        />
+        Available for jobs
+      </label>
+      {err && <ErrorLine>{err}</ErrorLine>}
+      <div className="flex flex-wrap gap-2">
+        <button type="submit" disabled={busy} className="btn-primary disabled:opacity-60">
+          {busy ? "Saving…" : id ? "Save changes" : "Add driver"}
+        </button>
+        <button type="button" onClick={onCancel} className="btn-ghost">
+          Cancel
+        </button>
+      </div>
+    </form>
   );
 }
 

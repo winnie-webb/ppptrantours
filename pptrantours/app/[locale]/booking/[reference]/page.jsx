@@ -255,6 +255,19 @@ export default async function BookingResultPage({ params, searchParams }) {
               {booking.adults}
               {booking.children > 0 ? ` + ${booking.children}` : ""}
             </SummaryRow>
+            {/* Who is coming, once the office has named a driver. Name and
+                vehicle only: the guest keeps talking to PPP, not to the
+                driver's own phone. */}
+            {booking.status === "assigned" && booking.driver?.name && (
+              <SummaryRow label={t.driver ?? "Your driver"}>
+                {booking.driver.name}
+                {(booking.driver.vehicle || booking.driver.plate) && (
+                  <span className="block text-xs font-normal text-ink/60">
+                    {[booking.driver.vehicle, booking.driver.plate].filter(Boolean).join(" · ")}
+                  </span>
+                )}
+              </SummaryRow>
+            )}
             {quoted && (
               <SummaryRow label={tb.total ?? "Total"}>
                 <span className="font-semibold text-crimson-700">{money(booking.transportTotal)}</span>

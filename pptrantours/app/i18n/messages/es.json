@@ -993,7 +993,8 @@
     "amountPaid": "Pagado",
     "balance": "A su conductor el mismo día",
     "whatsapp": "Escríbanos por WhatsApp",
-    "home": "Volver al inicio"
+    "home": "Volver al inicio",
+    "driver": "Tu conductor"
   },
   "airportMeet": {
     "title": "Cómo encontrar a su conductor en Sangster International (MBJ)",

@@ -745,7 +745,8 @@
     "amountPaid": "Paid",
     "balance": "To your driver on the day",
     "whatsapp": "Message us on WhatsApp",
-    "home": "Back to home"
+    "home": "Back to home",
+    "driver": "Your driver"
   },
   "airportMeet": {
     "title": "Meeting your driver at Sangster International (MBJ)",

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getAdminDb } from "@/lib/firebase-admin";
 import { requireAdmin } from "@/lib/admin-auth";
 import { paymentsForBooking } from "@/lib/payments/store";
+import { canAssign, driverSnapshot } from "@/lib/drivers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,6 +33,7 @@ const TRANSITIONS = {
 };
 
 const REF = /^PPP-[A-Z2-9]{6}$/;
+const DRIVER_ID = /^[A-Za-z0-9]{10,40}$/;
 
 const bad = (error, status) => NextResponse.json({ error }, { status });
 
@@ -79,34 +81,71 @@ export async function PATCH(request, { params }) {
     return bad("Not a status we recognise.", 400);
   }
 
+  /*
+   * "Assigned" means a NAMED driver from the roster. It used to be a bare
+   * status, so the console said "Driver assigned" without recording who —
+   * fine while the owner drove every job, meaningless once standby drivers do.
+   * A driver is required to enter the state, and sending a different driver
+   * to a booking that is already assigned swaps them.
+   */
+  const driverId = body.driverId == null ? "" : String(body.driverId);
+  if (driverId && !DRIVER_ID.test(driverId)) return bad("Not a valid driver.", 400);
+  if (driverId && next !== "assigned") {
+    return bad("A driver can only be given with the assigned status.", 400);
+  }
+
   const db = getAdminDb();
   const { FieldValue } = await import("firebase-admin/firestore");
   const ref = db.collection("bookings").doc(id);
+  let assignedDriver = null;
+  let warnings = [];
 
   try {
     await db.runTransaction(async (tx) => {
       const snap = await tx.get(ref);
       if (!snap.exists) throw new Error("not-found");
 
-      const current = snap.data().status ?? "new";
-      if (current === next) return; // idempotent, not an error
-      if (!TRANSITIONS[current]?.includes(next)) {
+      const booking = snap.data();
+      const current = booking.status ?? "new";
+      const reassigning =
+        next === "assigned" && current === "assigned" && driverId &&
+        driverId !== booking.driver?.id;
+
+      if (current === next && !reassigning) return; // idempotent, not an error
+      if (!reassigning && !TRANSITIONS[current]?.includes(next)) {
         throw new Error(`illegal:${current}->${next}`);
       }
 
+      const entry = { status: next, by: auth.email, at: new Date().toISOString() };
+      const update = {};
+
+      if (next === "assigned") {
+        if (!driverId) throw new Error("need-driver");
+        const driverSnap = await tx.get(db.collection("drivers").doc(driverId));
+        const driver = driverSnap.exists ? driverSnap.data() : null;
+        // The same rule the console shows, enforced here so a stale tab
+        // cannot send a driver whose insurance lapsed since it loaded.
+        const check = canAssign(driver, booking);
+        if (!check.ok) throw new Error(`refused:${check.reason}`);
+        warnings = check.warnings;
+        assignedDriver = driverSnapshot(driverId, driver);
+        update.driver = assignedDriver;
+        entry.driver = assignedDriver.name;
+        if (reassigning) entry.replaced = booking.driver?.name ?? "";
+      }
+
       tx.update(ref, {
+        ...update,
         status: next,
         // Who did what, when. The only record of an operational decision.
-        history: FieldValue.arrayUnion({
-          status: next,
-          by: auth.email,
-          at: new Date().toISOString(),
-        }),
+        history: FieldValue.arrayUnion(entry),
       });
     });
   } catch (err) {
     const msg = String(err?.message ?? "");
     if (msg === "not-found") return bad("No such booking.", 404);
+    if (msg === "need-driver") return bad("Choose a driver to assign.", 422);
+    if (msg.startsWith("refused:")) return bad(msg.slice(8), 409);
     if (msg.startsWith("illegal:")) {
       return bad(`That move is not allowed (${msg.slice(8)}).`, 409);
     }
@@ -114,7 +153,7 @@ export async function PATCH(request, { params }) {
     return bad("Could not update that booking.", 500);
   }
 
-  return NextResponse.json({ ok: true, status: next });
+  return NextResponse.json({ ok: true, status: next, driver: assignedDriver, warnings });
 }
 
 /**

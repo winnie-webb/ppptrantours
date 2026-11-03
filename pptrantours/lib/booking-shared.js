@@ -83,6 +83,103 @@ export function buildReviewRequestWhatsApp(booking) {
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
 
+const travellersLine = (booking) =>
+  `${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
+  (booking.children
+    ? `, ${booking.children} child${booking.children === 1 ? "" : "ren"}`
+    : "");
+
+/**
+ * The job, sent from /admin to the DRIVER it was assigned to. Opened on the
+ * owner's or dispatcher's phone; they press send.
+ *
+ * Everything a driver needs and nothing they don't: no guest email, no
+ * payment history. What to collect is stated as a single figure, because a
+ * driver who has to work out the balance at the curb will get it wrong.
+ * Null when the driver has no number on file.
+ */
+export function buildDriverJobWhatsApp(booking, driver) {
+  const digits = String(driver?.phone ?? "").replace(/\D/g, "");
+  if (!digits) return null;
+
+  const isTransfer = booking.kind === "transfer";
+  const legs = transferLegs(booking);
+  const payable = Number(booking.payment?.payableCents ?? 0);
+  const paid = Number(booking.payment?.paidCents ?? 0);
+  const collectCents =
+    payable > 0
+      ? Math.max(0, payable - paid)
+      : booking.transportTotal != null
+        ? Math.round(Number(booking.transportTotal) * 100)
+        : null;
+  const firstName = String(driver.name ?? "").trim().split(/\s+/)[0];
+
+  const lines = [
+    `Hi${firstName ? ` ${firstName}` : ""}, PPP job ${booking.reference}:`,
+    ``,
+    `${isTransfer ? "Transfer" : "Tour"}: ${booking.tourTitle}`,
+    booking.placeLabel ? `${isTransfer ? "Hotel" : "Pickup from"}: ${booking.placeLabel}` : null,
+    isTransfer && (booking.direction || booking.tripType)
+      ? `Trip: ${describeDirection(booking.direction ?? (booking.tripType === "one-way" ? "to-hotel" : "both"))}`
+      : null,
+    ...(isTransfer
+      ? [
+          ...legLines("Arrival", legs.arrival),
+          ...legLines("Departure", legs.departure),
+          booking.airline ? `Airline: ${booking.airline}` : null,
+        ]
+      : [`Date: ${formatDateTime(booking.date, booking.time)}`]),
+    `Travellers: ${travellersLine(booking)}`,
+    ``,
+    `Guest: ${booking.name}`,
+    booking.phone ? `Guest phone: ${booking.phone}` : null,
+    booking.notes ? `Notes: ${booking.notes}` : null,
+    ``,
+    collectCents == null
+      ? `Payment: confirm with the office`
+      : collectCents === 0
+        ? `Payment: PAID online. Collect nothing.`
+        : `Collect on the day: ${money(collectCents / 100)} cash (USD)`,
+    isTransfer && legs.arrival
+      ? `Meet at the curb, Column E, holding the PPP sign.`
+      : null,
+    `Please reply OK to confirm. Thank you.`,
+  ].filter((l) => l !== null);
+
+  return `https://wa.me/${digits}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
+
+/**
+ * Who is coming, sent from /admin to the GUEST once a driver is assigned.
+ * The name and the vehicle are what a guest scans the curb for; the plate
+ * settles it. Null when the guest gave no number.
+ */
+export function buildDriverIntroWhatsApp(booking) {
+  const digits = String(booking.phone ?? "").replace(/\D/g, "");
+  const driver = booking.driver;
+  if (!digits || !driver?.name) return null;
+
+  const firstName = String(booking.name ?? "").trim().split(/\s+/)[0];
+  const vehicle = [driver.vehicle, driver.plate && `plate ${driver.plate}`]
+    .filter(Boolean)
+    .join(", ");
+  const arriving = booking.kind === "transfer" && transferLegs(booking).arrival;
+
+  const text = [
+    `Hi${firstName ? ` ${firstName}` : ""}, this is PPP Tran Tours about booking ${booking.reference}.`,
+    ``,
+    `Your driver will be ${driver.name}${vehicle ? ` (${vehicle})` : ""}.`,
+    arriving
+      ? `After customs, go out through the glass doors by the taxi stand, turn left, and look for ${driver.name} at the curb by Column E with the PPP sign.`
+      : null,
+    `Any questions, just reply here.`,
+  ]
+    .filter((l) => l !== null)
+    .join("\n");
+
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
+
 /**
  * Pre-filled WhatsApp message.
  *
@@ -94,11 +191,7 @@ export function buildWhatsAppMessage(booking) {
   const isTransfer = booking.kind === "transfer";
   const legs = transferLegs(booking);
 
-  const travellers =
-    `${booking.adults} adult${booking.adults === 1 ? "" : "s"}` +
-    (booking.children
-      ? `, ${booking.children} child${booking.children === 1 ? "" : "ren"}`
-      : "");
+  const travellers = travellersLine(booking);
 
   const lines = [
     `Hi PPP Tran Tours, I'd like to book:`,
