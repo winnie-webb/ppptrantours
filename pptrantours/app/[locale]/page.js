@@ -155,7 +155,7 @@ function TransferBand({ locale, dict }) {
       <div className="rounded-3xl bg-sand px-6 py-10 sm:px-10 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:px-14 lg:py-14">
         <div>
           <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-[2.5rem]">
-            {t.transfersTitle ?? "From Sangster to your front door."}
+            {t.transfersTitle ?? "Montego Bay airport transfers, straight to your resort or hotel."}
           </h2>
           <p className="mt-3.5 text-[1.05rem] leading-relaxed text-ink/60">
             {t.transfersDescription ??

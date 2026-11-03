@@ -53,7 +53,7 @@ export default async function TransfersPage({ params }) {
 
       <PageHeader
         eyebrow={t.eyebrow ?? "Airport transfers"}
-        title={t.title ?? "Montego Bay Airport Transfers: Sangster International (MBJ) to your front door."}
+        title={t.title ?? "Montego Bay Airport Transfers: Sangster International (MBJ) to your resort or hotel."}
         description={
           t.description ??
           `Published fares to every resort we serve, from ${money(cheapest)} for up to ${MIN_BILLED_PAX} passengers. Pick your hotel below and book it on this page.`
