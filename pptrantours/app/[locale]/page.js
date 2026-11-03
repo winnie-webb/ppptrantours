@@ -10,6 +10,7 @@ import FaqAccordion from "@/app/components/FaqAccordion";
 import CtaBand from "@/app/components/CtaBand";
 import SectionHeading from "@/app/components/SectionHeading";
 import TourCard from "@/app/components/TourCard";
+import CardLogos from "@/app/components/booking/CardLogos";
 import { filterProductByCategory, sortByPrice } from "@/app/products/product";
 import { localePath, LOCALES } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
@@ -141,8 +142,13 @@ function TransferBand({ locale, dict }) {
     t.transferPointFlight ?? "Flight tracked, so a delay never leaves you waiting.",
     t.transferPointMeet ??
       "Your driver meets you at the curb outside arrivals, Column E, with a PPP sign.",
+    // Card above cash, at the owner's request (2026-11-03).
+    {
+      text: t.transferPointCard ?? "Pay in advance with card.",
+      logos: true,
+    },
     t.transferPointCash ?? "Pay cash (USD) on arrival.",
-  ];
+  ].map((point) => (typeof point === "string" ? { text: point } : point));
 
   return (
     <section className="shell py-16 lg:py-24">
@@ -162,11 +168,14 @@ function TransferBand({ locale, dict }) {
         </div>
         <ul className="mt-8 space-y-4 lg:mt-0">
           {points.map((point) => (
-            <li key={point} className="flex gap-3 text-[1.02rem] leading-relaxed text-ink/80">
+            <li key={point.text} className="flex gap-3 text-[1.02rem] leading-relaxed text-ink/80">
               <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-crimson-600 text-white">
                 <FaCheck className="text-[0.6rem]" />
               </span>
-              {point}
+              <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+                {point.text}
+                {point.logos && <CardLogos />}
+              </span>
             </li>
           ))}
         </ul>

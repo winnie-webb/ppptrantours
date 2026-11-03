@@ -39,7 +39,7 @@ export default function FleetSection({ dict }) {
       <div className="shell">
         <SectionHeading
           align="center"
-          title={t.title ?? "Sized to your group, not the other way round."}
+          title={t.title ?? "Accommodations for all groups, big or small"}
           description={
             t.description ??
             "Every vehicle is air-conditioned, inspected and insured for passenger service. Larger coaches are available for weddings and groups of up to thirty."

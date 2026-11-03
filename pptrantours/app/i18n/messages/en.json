@@ -389,6 +389,7 @@
     "transfersDescription": "Private transfers from Sangster International Airport (MBJ) to every major resort in Montego Bay, Negril, Ocho Rios, Runaway Bay and Falmouth. Pick your hotel on the next page and see the exact fare.",
     "transferPointFlight": "Flight tracked, so a delay never leaves you waiting.",
     "transferPointMeet": "Your driver meets you at the curb outside arrivals, Column E, with a PPP sign.",
+    "transferPointCard": "Pay in advance with card.",
     "transferPointCash": "Pay cash (USD) on arrival.",
     "allRates": "All rates",
     "combosEyebrow": "Two in one day",
@@ -470,7 +471,7 @@
   },
   "fleet": {
     "eyebrow": "Our fleet",
-    "title": "Sized to your group, not the other way round.",
+    "title": "Accommodations for all groups, big or small",
     "description": "Every vehicle is air-conditioned, inspected and insured for passenger service. Larger coaches are available for weddings and groups of up to thirty.",
     "caption": "Mr. Pugh meeting arrivals at Sangster International, Montego Bay.",
     "vehicles": {
