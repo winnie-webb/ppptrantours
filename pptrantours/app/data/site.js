@@ -482,21 +482,21 @@ export const brandReel = [
 export const testimonials = [
   {
     quote:
-      "Fantastic day with Mr. Pugh! Communication was great — so many laughs as he engaged us with stories and facts of Jamaican culture.",
-    author: "Jocelyn S.",
-    date: "August 2025",
-    source: "Tripadvisor",
-  },
-  {
-    quote:
-      "PPP tours was amazing. Professional, knowledgeable and provided a rich cultural and fun experience.",
+      "PPP tours was amazing. Professional, knowledgeable and provided a rich cultural and fun experience. … PPP tours provided a luxury tour experience.",
     author: "Francis R.",
     date: "October 2023",
     source: "Tripadvisor",
   },
   {
     quote:
-      "Our driver calculated a plan to get us to our destination safely even while challenged by heavy rain and near impossible visibility.",
+      "My family and I used PPP while visiting Jamaica on a cruise in August of 2022. Donovan was our driver and took us to the beach and to get some delicious food. We had a great day with him and learned so much!",
+    author: "Katie",
+    date: "February 2024",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "They proved early on it would not be my last time patronizing them and it would be the first of many. … Immediately our Driver calculated a plan to get us to our destination safely even while being challenged by the heavy rain and near impossible visibility. It was excellence on display …",
     author: "Daren H.",
     date: "April 2022",
     source: "Tripadvisor",
