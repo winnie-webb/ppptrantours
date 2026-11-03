@@ -9,6 +9,17 @@ import { testimonials, site } from "../data/site";
 const TILTS = [-2.5, 1.5, -1, 2.5, 2, -1.5, 1, -2, 1.5, -2.5, 2, -1];
 const FLOATS = [7, 8.5, 6.5, 9, 7.5, 8, 6, 9.5, 7, 8.5, 6.5, 8];
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+/** "July 2026" → a number that sorts by month. */
+function reviewMonth(date) {
+  const [month, year] = date.split(" ");
+  return Number(year) * 12 + MONTHS.indexOf(month);
+}
+
 function Stars({ className = "" }) {
   return (
     <div className={`flex text-gold-400 ${className}`} aria-label="5 out of 5 stars" role="img">
@@ -52,7 +63,10 @@ function Score({ title, t, className = "" }) {
 
 export default function Testimonials({ dict, limit }) {
   const t = dict?.testimonials ?? {};
-  const shown = limit ? testimonials.slice(0, limit) : testimonials;
+  // Newest first, so the swipeable row on phones opens on the latest reviews.
+  const shown = [...testimonials]
+    .sort((a, b) => reviewMonth(b.date) - reviewMonth(a.date))
+    .slice(0, limit);
 
   /*
    * Score and count are substituted from site.rating rather than written into
