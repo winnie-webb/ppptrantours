@@ -78,12 +78,18 @@ module.exports = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        // Review cards bob gently around the rating.
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
       },
       animation: {
         "fade-up": "fade-up .7s cubic-bezier(.22,1,.36,1) both",
         "fade-in": "fade-in .9s ease both",
         "slow-zoom": "slow-zoom 22s ease-out both",
         marquee: "marquee 60s linear infinite",
+        float: "float 7s ease-in-out infinite",
       },
     },
   },

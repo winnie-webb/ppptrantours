@@ -1,6 +1,54 @@
-import { FaStar, FaQuoteLeft, FaTripadvisor } from "react-icons/fa";
+import { FaStar, FaTripadvisor } from "react-icons/fa";
 import { testimonials, site } from "../data/site";
-import SectionHeading from "./SectionHeading";
+
+/*
+ * Small tilts and float timings, one per card, so the cloud never moves in
+ * step. Fixed values rather than random ones keep server and client renders
+ * identical.
+ */
+const TILTS = [-2.5, 1.5, -1, 2.5, 2, -1.5, 1, -2, 1.5, -2.5, 2, -1];
+const FLOATS = [7, 8.5, 6.5, 9, 7.5, 8, 6, 9.5, 7, 8.5, 6.5, 8];
+
+function Stars({ className = "" }) {
+  return (
+    <div className={`flex text-gold-400 ${className}`} aria-label="5 out of 5 stars" role="img">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <FaStar key={i} />
+      ))}
+    </div>
+  );
+}
+
+/**
+ * The rating sits in the middle and the reviews float around it on desktop;
+ * on phones it heads the section and the reviews become a swipeable row.
+ * Owner picked this layout from three sketches (2026-11-03).
+ */
+function Score({ title, t, className = "" }) {
+  return (
+    <div className={`flex-col items-center justify-center text-center ${className}`}>
+      <p className="font-display text-7xl font-semibold leading-none text-ink lg:text-8xl">
+        {site.rating.score}
+      </p>
+      <Stars className="mt-3 gap-1 text-xl" />
+      <h2 className="mt-4 max-w-sm font-display text-2xl font-semibold leading-snug text-ink">
+        {title}
+      </h2>
+      <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink/60">
+        {t.description ?? "Private transfers and tours, reviewed by the guests who took them."}
+      </p>
+      <a
+        href={site.social.tripadvisor}
+        target="_blank"
+        rel="noreferrer"
+        className="btn-ghost mt-6"
+      >
+        <FaTripadvisor className="text-base text-crimson-600" />
+        {t.readAllReviews ?? "Read all reviews on Tripadvisor"}
+      </a>
+    </div>
+  );
+}
 
 export default function Testimonials({ dict, limit }) {
   const t = dict?.testimonials ?? {};
@@ -21,50 +69,48 @@ export default function Testimonials({ dict, limit }) {
   )
     .replace("{score}", site.rating.score)
     .replace("{count}", String(site.rating.count));
-  return (
-    <section className="bg-sand py-16 lg:py-24">
-      <div className="shell">
-        <SectionHeading
-          align="center"
-          title={title}
-          description={t.description ?? "Private transfers and tours, reviewed by the guests who took them."}
-        />
 
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {shown.map((review) => (
+  return (
+    <section className="overflow-hidden bg-sand py-16 lg:py-24">
+      <div className="shell">
+        <Score title={title} t={t} className="flex lg:hidden" />
+
+        {/*
+         * One list for both layouts: a snap-scrolling row on phones, and on
+         * desktop a four-column grid whose middle 2×2 is the score, with the
+         * cards filling the ring around it.
+         */}
+        <div className="no-scrollbar -mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 py-4 sm:-mx-8 sm:px-8 lg:mx-0 lg:mt-0 lg:grid lg:grid-flow-row-dense lg:grid-cols-4 lg:items-center lg:gap-x-6 lg:gap-y-8 lg:overflow-visible lg:px-0">
+          <Score
+            title={title}
+            t={t}
+            className="hidden px-6 lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-2 lg:flex"
+          />
+          {shown.map((review, i) => (
             <figure
               key={review.author}
-              className="break-inside-avoid rounded-2xl border border-ink/[0.07] bg-white p-6 shadow-card transition-shadow hover:shadow-lift"
+              style={{
+                "--tilt": `${TILTS[i % TILTS.length]}deg`,
+                animationDuration: `${FLOATS[i % FLOATS.length]}s`,
+                animationDelay: `-${i * 1.3}s`,
+              }}
+              className="w-[78%] shrink-0 snap-center motion-safe:lg:animate-float sm:w-[46%] lg:w-auto"
             >
-              <FaQuoteLeft className="text-lg text-crimson-200" />
-              <blockquote className="mt-4 text-[0.95rem] leading-relaxed text-ink/80">
-                “{review.quote}”
-              </blockquote>
-              <figcaption className="mt-5 flex items-center justify-between border-t border-ink/[0.07] pt-4">
-                <div>
+              <div className="rounded-2xl border border-ink/[0.07] bg-white p-5 shadow-card transition duration-300 [transform:rotate(var(--tilt))] hover:shadow-lift hover:[transform:rotate(0deg)_scale(1.03)]">
+                <Stars className="gap-0.5 text-[0.7rem]" />
+                <blockquote className="mt-3 text-[0.9rem] leading-relaxed text-ink/80">
+                  “{review.quote}”
+                </blockquote>
+                <figcaption className="mt-4 border-t border-ink/[0.07] pt-3">
                   <p className="text-sm font-semibold text-ink">{review.author}</p>
-                  <p className="text-xs text-ink/60">{review.date}</p>
-                </div>
-                <div className="flex text-gold-400">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <FaStar key={i} className="text-[0.7rem]" />
-                  ))}
-                </div>
-              </figcaption>
+                  <p className="mt-0.5 text-xs text-ink/60">
+                    {review.date}
+                    {review.trip && <> · {review.trip}</>}
+                  </p>
+                </figcaption>
+              </div>
             </figure>
           ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <a
-            href={site.social.tripadvisor}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-ghost"
-          >
-            <FaTripadvisor className="text-base text-crimson-600" />
-            {t.readAllReviews ?? "Read all reviews on Tripadvisor"}
-          </a>
         </div>
       </div>
     </section>

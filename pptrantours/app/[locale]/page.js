@@ -68,7 +68,7 @@ export default async function Home({ params }) {
         dict={client}
       />
 
-      <Testimonials dict={dict} limit={3} />
+      <Testimonials dict={dict} />
 
       <TransferBand locale={locale} dict={dict} />
 

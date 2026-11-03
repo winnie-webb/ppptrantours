@@ -477,7 +477,10 @@ export const brandReel = [
 /**
  * Verbatim Tripadvisor reviews. At most one that is mainly about Mr. Pugh
  * (owner, 2026-11-02): the rest should show PPP's service from different
- * angles, so the company never reads as a one-man operation.
+ * angles, so the company never reads as a one-man operation. Nicole R. is
+ * that one. Long reviews are cut with "…", never reworded.
+ *
+ * `trip` is the Tripadvisor product the review was left on, shortened.
  */
 export const testimonials = [
   {
@@ -489,6 +492,22 @@ export const testimonials = [
   },
   {
     quote:
+      "Our driver was Noel and he was nothing short of amazing. … Noel shared with us Jamaicas culture and history as we were driving, he was very informative. … I would highly recommend using this service.",
+    author: "koniaustin",
+    date: "August 2025",
+    trip: "Negril & Rick's Café",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Booking with PPP Tran Tours was a great decision; they truly did an amazing job & i had the best time!",
+    author: "Shantora W.",
+    date: "July 2026",
+    trip: "Negril & Rick's Café",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
       "My family and I used PPP while visiting Jamaica on a cruise in August of 2022. Donovan was our driver and took us to the beach and to get some delicious food. We had a great day with him and learned so much!",
     author: "Katie",
     date: "February 2024",
@@ -496,9 +515,65 @@ export const testimonials = [
   },
   {
     quote:
+      "PPP Trans is extremely responsive and accommodating not to mention reasonably priced. … Noel picked us up at our resort right on time and had us back for dinner which was what we requested. If you are looking for a tour that has flexibility, privacy and most importantly great people then I cannot recommend PPP Trans enough!",
+    author: "Joel D.",
+    date: "March 2026",
+    trip: "Negril & Rick's Café",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Great communication and service from PPP. Highly recommend for your transportation needs.",
+    author: "michaellK2949PD",
+    date: "October 2025",
+    trip: "Negril & Rick's Café",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "If im going to Jamaica PPP transfer is my only option. This is my second trip with Mr. Pugh and it was an excellent experience. He is reliable, punctual, flexible and accommodating. … Always safe and a good time!",
+    author: "Nicole R.",
+    date: "July 2026",
+    trip: "Airport transfer",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Donavan's attention to details made my daughter's trip very memorable, As parents we were very comfortable knowing our daughter was well taken care of.",
+    author: "Tripadvisor guest",
+    date: "April 2025",
+    trip: "Martha Brae rafting",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Had an amazing time!! Ricks Cafe was fun! Our driver Noel was amazing. He waited for us. Let us take our time and was extremely friendly. And even cracked a few jokes!",
+    author: "Cassie D.",
+    date: "August 2025",
+    trip: "Negril & Rick's Café",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
       "They proved early on it would not be my last time patronizing them and it would be the first of many. … Immediately our Driver calculated a plan to get us to our destination safely even while being challenged by the heavy rain and near impossible visibility. It was excellence on display …",
     author: "Daren H.",
     date: "April 2022",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Professional and friendly Customizable transportation/ to River tubing and other beautiful sites!",
+    author: "Jananda F.",
+    date: "March 2026",
+    trip: "River tubing & Martha Brae",
+    source: "Tripadvisor",
+  },
+  {
+    quote:
+      "Noel was our driver and he was absolutely great—on time for pickup, patient at every stop, and always ready to go when we were. He made each drive smooth, fun, and informative.",
+    author: "Kierra B.",
+    date: "August 2025",
+    trip: "Negril & Rick's Café",
     source: "Tripadvisor",
   },
 ];
