@@ -58,7 +58,6 @@ them) and the homepage `PhotoReel` (all but `guests-zipline` and
 re-saved at up to 1080px (EXIF stripped): `donovan-guests-ppp-tees`,
 `guests-juici-patties`, `guests-cruise-port-group`, `guests-beach-duo`,
 `guests-dunns-river`, `guests-bridal-party`, `guests-bamboo-bridge`, plus
-`ppp-drivers-vans` (the drivers in uniform with three branded vans),
 `guests-zipline` (523×260, small), `guests-missionary-group` (keeps its
 "Missionaries" caption) and `guests-river-ppp-tees` (an old banner; its
 corner box with the outdated info@ email was painted out with the rock behind

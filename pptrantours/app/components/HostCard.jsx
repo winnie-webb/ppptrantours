@@ -16,8 +16,10 @@ export default function HostCard({ locale, dict, className = "" }) {
   const t = dict?.host ?? {};
   const body = (
     t.body ??
-    "He still drives most days, and most of our {count} Tripadvisor reviews mention him by name."
-  ).replace("{count}", site.rating.count);
+    "He handpicks every PPP driver: patient, polite and licensed to drive islandwide. Rated {score} across {count} Tripadvisor reviews."
+  )
+    .replace("{score}", site.rating.score)
+    .replace("{count}", site.rating.count);
 
   return (
     <div

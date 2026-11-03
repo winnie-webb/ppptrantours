@@ -298,14 +298,6 @@ export const gallery = [
     alt: "A fisherman on the shore at Montego Bay holding up two strings of red snapper, cruise ship behind him",
   },
   {
-    src: "/ppp/ppp-drivers-vans.jpg",
-    w: 1350,
-    h: 900,
-    place: "The PPP team",
-    caption: "Uniformed, on time, sign in hand.",
-    alt: "Three PPP Tran Tours drivers in yellow uniform shirts beside three PPP-branded vans, one holding the PPP pickup sign",
-  },
-  {
     src: "/ppp/guests-zipline.jpg",
     w: 523,
     h: 260,
@@ -465,8 +457,6 @@ export const brandReel = [
     { src: "/ppp/guests-cruise-port-group.jpg", alt: "A large group of cruise guests giving thumbs up outside the cruise port" },
     { src: "/ppp/tee-portrait-beach.jpg", alt: "A smiling guest in a sun hat wearing the PPP Tran Tours shirt on the beach" },
     { src: "/ppp/guests-dunns-river.jpg", alt: "A chain of guests holding hands as they climb the cascades at Dunn's River Falls" },
-    // The three drivers stand in the left two-thirds; pin the crop there.
-    { src: "/ppp/ppp-drivers-vans.jpg", alt: "Three PPP Tran Tours drivers in yellow uniform shirts beside PPP-branded vans", focus: "0% center" },
     { src: "/ppp/guests-bridal-party.jpg", alt: "A bride and four bridesmaids in matching tops on a wooden footbridge" },
     { src: "/ppp/waterfall-ppp-sign.jpg", alt: "A guest under a waterfall holding a yellow PPP Tran Tours sign" },
     { src: "/ppp/guests-airport-arrival.jpg", alt: "A couple with their luggage beside a PPP Tran Tours van and their uniformed driver at Sangster International Airport" },
@@ -484,7 +474,11 @@ export const brandReel = [
   ],
 ];
 
-/** Verbatim Tripadvisor reviews. */
+/**
+ * Verbatim Tripadvisor reviews. At most one that is mainly about Mr. Pugh
+ * (owner, 2026-11-02): the rest should show PPP's service from different
+ * angles, so the company never reads as a one-man operation.
+ */
 export const testimonials = [
   {
     quote:
@@ -495,30 +489,9 @@ export const testimonials = [
   },
   {
     quote:
-      "The hospitality and care we received from Mr. Pugh was absolutely amazing. His attention to details and making sure we had a great experience was on point.",
-    author: "Trevor H.",
-    date: "May 2025",
-    source: "Tripadvisor",
-  },
-  {
-    quote:
-      "Mr Pugh was professional, knowledgeable and very pleasant to be with. White River tubing was fun hanging out with native Jamaicans.",
-    author: "Jamal B.",
-    date: "January 2024",
-    source: "Tripadvisor",
-  },
-  {
-    quote:
       "PPP tours was amazing. Professional, knowledgeable and provided a rich cultural and fun experience.",
     author: "Francis R.",
     date: "October 2023",
-    source: "Tripadvisor",
-  },
-  {
-    quote:
-      "Mr Pugh was so friendly, polite and professional all day long. We saw things you wouldn't normally see on trips.",
-    author: "Debs T.",
-    date: "November 2022",
     source: "Tripadvisor",
   },
   {
@@ -531,11 +504,6 @@ export const testimonials = [
 ];
 
 export const faqs = [
-  {
-    key: "pricing",
-    q: "How is the price worked out?",
-    a: "Per person, with a four-person minimum. For bookings of 1 to 4 people the total is based on the 4-person rate, so one, two, three and four travellers all pay the same total; from the fifth passenger on, each one simply adds the rate. You never have to work it out — the booking form shows your total as you fill it in.",
-  },
   {
     key: "entry",
     q: "Do your prices include the attraction entry fees?",

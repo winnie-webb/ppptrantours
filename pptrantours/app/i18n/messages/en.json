@@ -456,7 +456,7 @@
   "testimonials": {
     "eyebrow": "Guest reviews",
     "title": "Rated {score} on Tripadvisor, across {count} reviews.",
-    "description": "Most of them mention Mr. Pugh by name. Reviews are shown in the language they were written in.",
+    "description": "Private transfers and tours, reviewed by the guests who took them. Reviews are shown in the language they were written in.",
     "readAllReviews": "Read all reviews on Tripadvisor"
   },
   "reel": {
@@ -599,7 +599,7 @@
     "meetOwner": "Meet the owner",
     "ownerRole": "Owner & Managing Director",
     "ownerBio": "Educated in the melting pot of New York City, Mr. Pugh was exposed to cultural diversity at an early age. It inspired PPP's mission from the very beginning: to keep it real with our customers by making sure they have down-to-earth, homegrown Jamaican experiences. PPP: always private, with a personalized and professional touch.",
-    "ownerNote": "Providing private services only allows PPP to pay close attention to detail, so we can deliver exactly what our customers want — which is why, across {count} Tripadvisor reviews, most people praise PPP for being precise and mention Donovan (\"Mr. Pugh\") by name.",
+    "ownerNote": "Providing private services only allows PPP to pay close attention to detail, so we can deliver exactly what our customers want — which is why, across {count} Tripadvisor reviews, guests keep praising PPP for being precise.",
     "planDay": "Plan a day with us",
     "whyEyebrow": "Why choose PPP",
     "whyTitle": "The standard hasn't moved in fifteen years.",
@@ -676,11 +676,6 @@
     "requiredNote": "Required. Everything else helps but is optional."
   },
   "faqs": [
-    {
-      "key": "pricing",
-      "q": "How is the price worked out?",
-      "a": "Per person, with a four-person minimum. For bookings of 1 to 4 people the total is based on the 4-person rate, so one, two, three and four travellers all pay the same total; from the fifth passenger on, each one simply adds the rate. You never have to work it out — the booking form shows your total as you fill it in."
-    },
     {
       "key": "entry",
       "q": "Do your prices include the attraction entry fees?",
@@ -761,7 +756,7 @@
   "host": {
     "eyebrow": "Your host",
     "role": "Owner & driver since 2010 · Licensed by the Jamaica Tourist Board",
-    "body": "He still drives most days, and most of our {count} Tripadvisor reviews mention him by name.",
+    "body": "He handpicks every PPP driver: patient, polite and licensed to drive islandwide. Rated {score} across {count} Tripadvisor reviews.",
     "meet": "Meet Mr. Pugh"
   }
 }

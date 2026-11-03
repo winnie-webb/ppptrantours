@@ -27,7 +27,7 @@ export default function Testimonials({ dict, limit }) {
         <SectionHeading
           align="center"
           title={title}
-          description={t.description ?? "Most of them mention Mr. Pugh by name."}
+          description={t.description ?? "Private transfers and tours, reviewed by the guests who took them."}
         />
 
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
