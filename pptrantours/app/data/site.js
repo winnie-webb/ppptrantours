@@ -30,8 +30,8 @@ export const site = {
     short: "Mr. Pugh",
     // Title as he signs it himself (from his email signature block).
     role: "Owner & Managing Director",
-    // His own words (2026-11-02), lightly polished.
-    bio: "Educated in the melting pot of New York City, Mr. Pugh was exposed to cultural diversity at an early age. It inspired PPP's mission from the very beginning: to keep it real with our customers by making sure they have down-to-earth, homegrown Jamaican experiences. PPP: always private, with a personalized and professional touch.",
+    // His own words (2026-11-02, revised the same evening), lightly polished.
+    bio: "Educated in the melting pot of New York City, Mr. Pugh was exposed at an early age to cultural diversity, which had a major influence on the direction of PPP's mission from the very beginning. We keep it real with our customers and always make sure that our services have an authentic, homegrown, down-to-earth flavour, with a private, personalized, professional touch.",
     // His personal profile, not a company page — so it is the founder's
     // `sameAs` in schema.js, never the organization's.
     linkedin: "https://www.linkedin.com/in/donovan-pugh-8b1593170/",

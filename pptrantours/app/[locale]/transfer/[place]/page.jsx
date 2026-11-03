@@ -25,6 +25,7 @@ import { getDictionary } from "@/app/i18n/dictionaries";
 import { breadcrumbSchema, transferSchema } from "@/app/data/schema";
 import { clientDict } from "@/app/i18n/client";
 import HostCard from "@/app/components/HostCard";
+import AirportSign from "@/app/components/AirportSign";
 import { languageAlternates } from "../../layout";
 
 /**
@@ -254,6 +255,8 @@ export default async function TransferPage({ params }) {
               {t.pricingNote ??
                 "No fuel levy, no airport surcharge, no late-night premium. What you see is the whole fare."}
             </p>
+
+            <AirportSign dict={dict} className="mt-10" />
 
             <HostCard locale={locale} dict={dict} className="mt-10" />
 

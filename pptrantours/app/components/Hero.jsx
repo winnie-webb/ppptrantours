@@ -1,63 +1,105 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { FaWhatsapp, FaPlane, FaMapMarkedAlt } from "react-icons/fa";
 import { site } from "../data/site";
 import { localePath } from "@/app/i18n/config";
 
 /*
- * PPP's original company banner (owner, 2026-11-02): the big logo in front of
- * the setting sun, the cruise ship, the plane and the real shimmer on the
- * water. Cropped to 16:9 from the top of the owner's pppsignbanner.psd,
- * which drops the "AIRPORT TRANSFERS & TOURS" line along its bottom; the h1
- * says that as text. One picture only: the sunset/moonlight crossfade went
- * because the fade showed a black frame while the next picture loaded.
+ * The original crossfading photos are back (owner, 2026-11-02), with the PPP
+ * logo standing in their midst. The company banner moved to the transfers
+ * page as "Look for this sign".
  */
-const HERO = {
-  src: "/brand/hero/hero-ppp-original.jpg",
-  alt: "The PPP Tran Tours logo in front of the setting sun over a shimmering Jamaican sea, with a cruise ship on the horizon and a plane overhead",
-};
+const SLIDES = ["/local/hero-5.jpg", "/local/hero-3.jpg", "/local/hero-8.jpg"];
 
 export default function Hero({ locale = "en", dict }) {
   const t = dict?.hero ?? {};
   const slogan = dict?.slogan ?? {};
+  const [index, setIndex] = useState(0);
+
+  /*
+   * The first slide is the LCP image; the others mount once it has had the
+   * network to itself. They are absolutely positioned in the viewport, so
+   * lazy loading would not hold them back.
+   */
+  const [armed, setArmed] = useState(false);
+
+  // Slides whose image has finished loading. The rotation never moves to one
+  // that hasn't: fading to an unloaded slide showed a black frame.
+  const loaded = useRef(new Set());
+
+  useEffect(() => {
+    const arm = setTimeout(() => setArmed(true), 2500);
+    const rotate = setInterval(
+      () =>
+        setIndex((i) => {
+          const next = (i + 1) % SLIDES.length;
+          return loaded.current.has(next) ? next : i;
+        }),
+      7000
+    );
+    return () => {
+      clearTimeout(arm);
+      clearInterval(rotate);
+    };
+  }, []);
 
   return (
     <>
-    <section className="relative -mt-[4.5rem] overflow-hidden bg-ink pt-[4.5rem] lg:-mt-20 lg:pt-20">
+    <section className="relative -mt-[4.5rem] flex min-h-[38rem] items-end overflow-hidden bg-ink sm:min-h-[42rem] lg:-mt-20 lg:min-h-[44rem] lg:items-center">
+      {/* Crossfading backdrop */}
+      {(armed ? SLIDES : SLIDES.slice(0, 1)).map((src, i) => (
+        <div
+          key={src}
+          aria-hidden
+          className={`absolute inset-0 transition-opacity duration-[1600ms] ease-out ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            onLoad={() => loaded.current.add(i)}
+            className={`object-cover ${i === index ? "animate-slow-zoom" : ""}`}
+          />
+        </div>
+      ))}
+
+      {/* Legibility scrims: darker behind the words on the left. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-32 top-10 hidden h-[32rem] w-[32rem] rounded-full bg-crimson-600/15 blur-3xl lg:block"
+        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/35 lg:via-ink/25 lg:to-ink/30"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-transparent"
       />
 
-      {/*
-        Split (2026-11-02): the words on the left, the banner on the right,
-        uncropped at 16:9 and never covered, so the logo, the ship on the sea
-        line and the plane all stay in view. On phones the artwork runs full
-        width on top and fades into the ink the text sits on.
-      */}
-      <div className="relative lg:shell lg:grid lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-12 lg:pb-16 lg:pt-10 xl:gap-16">
-      <div className="relative aspect-video w-full lg:order-2 lg:overflow-hidden lg:rounded-2xl lg:shadow-lift lg:ring-1 lg:ring-white/10">
+      <div className="shell relative w-full pb-10 pt-28 sm:pb-14 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12 lg:pb-16 lg:pt-32">
+      {/* The PPP logo, in the midst of the photos. */}
+      <div className="mb-6 flex justify-center lg:order-2 lg:mb-0">
         <Image
-          src={HERO.src}
-          alt={HERO.alt}
-          fill
+          src="/brand/logo-master.png"
+          alt="PPP Tran Tours: Private, Personalized, Professional"
+          width={1531}
+          height={1502}
           priority
-          sizes="(min-width: 1024px) 60vw, 100vw"
-          className="object-cover"
-        />
-
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-ink to-transparent lg:hidden"
+          sizes="(min-width: 1024px) 26rem, 12rem"
+          className="h-auto w-44 animate-fade-up drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)] sm:w-56 lg:w-[24rem] xl:w-[26rem]"
         />
       </div>
 
-      <div className="shell relative pb-10 pt-5 sm:pb-12 lg:order-1 lg:px-0 lg:py-0">
+      <div className="lg:order-1">
         <div className="max-w-2xl">
           {/* The page's one h1, keyword-led for search (owner, 2026-11-02),
               worded the way guests search: Montego Bay airport transfers,
               private Jamaica tours. */}
-          <h1 className="animate-fade-up font-display text-[1.65rem] font-semibold leading-[1.12] text-white sm:text-4xl lg:text-[2.4rem] xl:text-[2.85rem]">
+          <h1 className="animate-fade-up font-display text-[1.75rem] font-semibold leading-[1.1] text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.45)] sm:text-4xl lg:text-[2.6rem] xl:text-[3rem]">
             {t.h1Keywords ?? "Montego Bay Airport Transfers & Private Jamaica Tours"}
           </h1>
 
@@ -83,7 +125,7 @@ export default function Hero({ locale = "en", dict }) {
             and he cut it to keep this paragraph custom-fit. Don't reinstate it.
           */}
           <p
-            className="mt-5 animate-fade-up text-[0.98rem] leading-relaxed text-white/75 sm:text-lg lg:text-base xl:text-[1.05rem]"
+            className="mt-5 animate-fade-up text-[0.98rem] leading-relaxed text-white/85 sm:text-lg"
             style={{ animationDelay: "80ms" }}
           >
             <strong className="font-semibold uppercase tracking-[0.06em] text-gold-300">

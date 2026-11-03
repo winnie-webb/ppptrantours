@@ -1043,7 +1043,7 @@ export default function BookingForm({
                   key: "card",
                   // Processed through PayPal's checkout (named in the hint).
                   icon: <CardLogos />,
-                  label: t.payWithCard ?? "Pay with card",
+                  label: t.payWithCard ?? "Pay with card in advance",
                   hint:
                     cardTotal != null
                       ? (t.payCardPriceHint ?? "{amount}, including the card fee · secured by PayPal").replace(

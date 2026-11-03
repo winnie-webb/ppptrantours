@@ -3,6 +3,7 @@ import { money, minimumFare, MIN_BILLED_PAX } from "@/app/products/pricing";
 import PageHeader from "@/app/components/PageHeader";
 import TransferBooking from "@/app/components/TransferBooking";
 import CtaBand from "@/app/components/CtaBand";
+import AirportSign from "@/app/components/AirportSign";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import JsonLd from "@/app/components/JsonLd";
@@ -74,6 +75,10 @@ export default async function TransfersPage({ params }) {
           paymentsEnabled={paymentsConfigured("USD")}
           paypal={paypalPublicConfig("USD")}
         />
+      </section>
+
+      <section className="shell pb-16 lg:pb-20">
+        <AirportSign dict={dict} wide />
       </section>
 
       <CtaBand locale={locale} dict={dict} />
