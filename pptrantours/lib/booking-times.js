@@ -60,3 +60,18 @@ export function formatDateTime(date, time) {
   const t = formatTime12(time);
   return [date, t].filter(Boolean).join(" at ");
 }
+
+/**
+ * Which flight time a transfer booking is missing — "arrival", "departure" or
+ * null. Both are required (owner, 2026-11-02 and 2026-11-04): a driver cannot
+ * meet a flight without its landing time, and the hotel pickup for a departure
+ * is set from its take-off time. A departure must also have its date.
+ * Mirrors `validate()` in BookingForm.jsx.
+ */
+export function missingFlightTime(booking) {
+  const { arrival, departure } = transferLegs(booking);
+  if (arrival && !String(arrival.time).trim()) return "arrival";
+  if (departure && (!String(departure.date).trim() || !String(departure.time).trim()))
+    return "departure";
+  return null;
+}

@@ -43,3 +43,20 @@ test("transferLegs splits a booking into arrival and departure", () => {
     departure: null,
   });
 });
+
+test("missingFlightTime requires every leg's flight time", async () => {
+  const { missingFlightTime } = await import("./booking-times.js");
+  const base = { kind: "transfer", date: "2026-11-03", time: "17:20", returnDate: "", returnTime: "" };
+  // PPP-N495SH: a one-way arrival with no landing time.
+  assert.equal(missingFlightTime({ ...base, direction: "to-hotel", time: "" }), "arrival");
+  assert.equal(missingFlightTime({ ...base, direction: "to-hotel" }), null);
+  assert.equal(missingFlightTime({ ...base, direction: "to-airport", time: "" }), "departure");
+  assert.equal(missingFlightTime({ ...base, direction: "to-airport" }), null);
+  assert.equal(missingFlightTime({ ...base, direction: "both", time: "" }), "arrival");
+  assert.equal(missingFlightTime({ ...base, direction: "both" }), "departure");
+  assert.equal(
+    missingFlightTime({ ...base, direction: "both", returnDate: "2026-11-10", returnTime: "09:00" }),
+    null
+  );
+  assert.equal(missingFlightTime({ kind: "tour", date: "2026-11-03" }), null);
+});

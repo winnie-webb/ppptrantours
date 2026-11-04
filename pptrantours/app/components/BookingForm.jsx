@@ -332,6 +332,14 @@ export default function BookingForm({
   // fields; for "both" they are `returnDate`/`returnTime`.
   const needsDepartureTime = isTransfer && (direction === "to-airport" || direction === "both");
 
+  // And the arrival leg's time (owner, 2026-11-04): a driver cannot meet a
+  // flight without knowing when it lands — PPP-N495SH came in with none. For
+  // "to-hotel" and "both" it is the first time field.
+  const needsArrivalTime = needsArrivalFlight;
+
+  // The first time field is required whichever leg it belongs to.
+  const firstTimeRequired = needsArrivalTime || (needsDepartureTime && direction === "to-airport");
+
   const pax = adults + children;
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -383,6 +391,8 @@ export default function BookingForm({
       t.errDepartureTime ?? "Please add your departure flight time.";
     if (needsDepartureTime && direction === "to-airport" && !form.time)
       errs.time = errDepartureTime;
+    if (needsArrivalTime && !form.time)
+      errs.time = t.errArrivalTime ?? "Please add your arrival flight time.";
     if (needsDepartureTime && direction === "both") {
       if (!form.returnDate)
         errs.returnDate = t.errDepartureDate ?? "Please add your departure date.";
@@ -394,7 +404,7 @@ export default function BookingForm({
 
 
     return errs;
-  }, [form, isTransfer, direction, needsArrivalFlight, needsDepartureTime, needsPlace, t]);
+  }, [form, isTransfer, direction, needsArrivalFlight, needsArrivalTime, needsDepartureTime, needsPlace, t]);
 
   // Derived, not stored: the errors are a pure function of the form's values,
   // so there is nothing to keep in sync and no effect to run.
@@ -722,13 +732,13 @@ export default function BookingForm({
                   ? t.departureTime ?? "Departure flight time"
                   : t.landingTime ?? "Arrival flight time"
                 : t.pickupTime ?? "Pickup time"}
-              {isTransfer && direction === "to-airport" && <Req />}
+              {firstTimeRequired && <Req />}
             </label>
             <input
               id="time"
               type="time"
-              required={isTransfer && direction === "to-airport"}
-              aria-required={isTransfer && direction === "to-airport" ? "true" : undefined}
+              required={firstTimeRequired}
+              aria-required={firstTimeRequired ? "true" : undefined}
               aria-invalid={showError("time") ? "true" : undefined}
               aria-describedby={showError("time") ? "time-err" : undefined}
               value={form.time}

@@ -196,6 +196,7 @@
     "errReturnBeforeArrival": "Your return cannot be before you arrive.",
     "errPickPlace": "Please choose where you are staying.",
     "errFlightNumber": "Please add your arrival flight number.",
+    "errArrivalTime": "Please add your arrival flight time.",
     "errDepartureDate": "Please add your departure date.",
     "errDepartureTime": "Please add your departure flight time.",
     "bookNow": "Book now",

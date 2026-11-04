@@ -16,6 +16,7 @@ import { resolveDirection } from "@/app/products/resolve-direction";
 import { paymentsConfigured } from "@/lib/payments";
 import { makeLookupToken, sweepAbandoned } from "@/lib/payments/store";
 import { getPlace } from "@/app/data/places";
+import { missingFlightTime } from "@/lib/booking-times";
 
 // firebase-admin needs Node built-ins; it cannot run on the edge runtime.
 export const runtime = "nodejs";
@@ -203,20 +204,28 @@ export async function POST(request) {
   }
 
   /*
-   * A transfer with a departure leg must say when that flight leaves: PPP
-   * sets the hotel pickup from it (two hours at the airport, plus the drive
-   * and a buffer for traffic). Mirrors `validate()` in BookingForm.jsx.
+   * A transfer must say when each of its flights lands or leaves: PPP meets
+   * the arrival flight, and sets the hotel pickup from the departure one (two
+   * hours at the airport, plus the drive and a buffer for traffic).
+   * Mirrors `validate()` in BookingForm.jsx.
    */
   if (isTransfer && !isEnquiry) {
-    const departure =
-      direction === "to-airport"
-        ? { date, time: str(body.time, 20) }
-        : direction === "both"
-          ? { date: str(body.returnDate, 30), time: str(body.returnTime, 20) }
-          : null;
-    if (departure && (!departure.date || !departure.time)) {
+    const missing = missingFlightTime({
+      kind: "transfer",
+      direction,
+      date,
+      time: str(body.time, 20),
+      returnDate: str(body.returnDate, 30),
+      returnTime: str(body.returnTime, 20),
+    });
+    if (missing) {
       return NextResponse.json(
-        { error: "Please add your departure flight date and time." },
+        {
+          error:
+            missing === "arrival"
+              ? "Please add your arrival flight time."
+              : "Please add your departure flight date and time.",
+        },
         { status: 422 }
       );
     }

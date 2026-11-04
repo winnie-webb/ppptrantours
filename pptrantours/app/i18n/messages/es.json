@@ -180,6 +180,7 @@
     "errEmail": "Eso no parece una dirección de correo.",
     "errPhone": "Ese número parece demasiado corto.",
     "errReturnBeforeArrival": "La vuelta no puede ser antes de la llegada.",
+    "errArrivalTime": "Por favor, añada la hora de llegada de su vuelo.",
     "errConfirmPlace": "Confirma dónde te alojas.",
     "errPickPlace": "Elige dónde te alojas.",
     "rememberedTitle": "Comprueba que esto sigue siendo correcto",
