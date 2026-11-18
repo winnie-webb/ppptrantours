@@ -94,19 +94,7 @@ export default function FleetSection({ dict, className = "bg-sand py-16 lg:py-24
         </div>
 
         <p className="mt-5 text-center text-xs text-ink/50">
-          {t.photoNote ?? "Photos show the vehicle models we run."}{" "}
-          {/* Required attribution: two of the three are CC BY-SA 4.0. */}
-          Photos via Wikimedia Commons, PPP logo added: Voxy by Benespit and Hiace
-          by Thitichai R (
-          <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline"
-          >
-            CC BY-SA 4.0
-          </a>
-          ), Coaster by Ypy31 (CC0).
+          {t.photoNote ?? "Photos show the vehicle models we run."}
         </p>
       </div>
     </section>
