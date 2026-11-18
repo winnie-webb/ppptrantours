@@ -6,15 +6,15 @@
 
 export const site = {
   /*
-   * Canonical origin. The 2014 domain, not ppptrantours.com — it carries twelve
-   * years of backlinks and the Tripadvisor references, and the other domain
-   * redirects to it.
+   * Canonical origin: www. on the 2014 domain. It carries twelve
+   * years of backlinks and the Tripadvisor references. The bare domain,
+   * ppptrantours.com and ppptrantoursja.com all 308 to it (set in Vercel).
    *
    * Overridable by SITE_URL so a tunnel can stand in during local testing of
    * anything that needs an absolute callback URL. No trailing slash: every
    * caller concatenates a path that starts with one.
    */
-  url: (process.env.SITE_URL || "https://ppptrantoursjamaica.com").replace(
+  url: (process.env.SITE_URL || "https://www.ppptrantoursjamaica.com").replace(
     /\/+$/,
     ""
   ),
