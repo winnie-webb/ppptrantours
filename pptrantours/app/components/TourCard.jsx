@@ -4,6 +4,7 @@ import { FaClock, FaArrowRight } from "react-icons/fa";
 import { localePath } from "@/app/i18n/config";
 import { getCategoryShort } from "../products/product";
 import TourPrice from "./TourPrice";
+import DriveTime from "./DriveTime";
 
 export default function TourCard({
   tour,
@@ -43,9 +44,13 @@ export default function TourCard({
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink/70 backdrop-blur">
           {badge}
         </span>
-        <span className="absolute bottom-3 left-3 flex items-center gap-1.5 text-xs font-medium text-white/90">
-          <FaClock className="text-[0.65rem]" />
-          {dict?.durations?.[tour.duration] ?? tour.duration}
+        <span className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2 text-xs font-medium text-white/90">
+          <span className="flex items-center gap-1.5">
+            <FaClock className="text-[0.65rem]" />
+            {dict?.durations?.[tour.duration] ?? tour.duration}
+          </span>
+          {/* From the guest's own hotel or cruise port, once it is known. */}
+          <DriveTime tour={tour} dict={dict} />
         </span>
       </div>
 

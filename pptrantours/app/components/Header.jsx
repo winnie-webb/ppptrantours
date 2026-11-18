@@ -3,8 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes, FaPhoneAlt, FaWhatsapp, FaArrowRight } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaPhoneAlt,
+  FaWhatsapp,
+  FaArrowRight,
+  FaChevronDown,
+} from "react-icons/fa";
 import { site } from "../data/site";
+import { TOUR_ORIGINS } from "../data/tour-origins";
 import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -96,11 +104,28 @@ export default function Header({ locale = "en", dict }) {
       href: path("/tours"),
       label: nav.tours ?? "Tours",
       short: nav.toursShort ?? nav.tours ?? "Tours",
+      /*
+       * Tours by where the guest is picked up (owner, 2026-11-18): the two
+       * cruise ports and hotels, each its own page. The one menu that opens,
+       * because "Tours" alone did not tell a cruise passenger where to go.
+       */
+      children: [
+        ...TOUR_ORIGINS.map((o) => ({
+          href: path(`/tours/from/${o.slug}`),
+          label: nav[o.navKey] ?? o.menu,
+        })),
+        { href: path("/tours"), label: nav.allTours ?? "All tours", exact: true },
+      ],
     },
     {
       href: path("/about-us"),
       label: nav.about ?? "About PPP",
       short: nav.aboutShort ?? "About",
+    },
+    {
+      href: path("/faq"),
+      label: nav.faq ?? "FAQs",
+      short: nav.faq ?? "FAQs",
     },
     {
       href: path("/contact-us"),
@@ -111,6 +136,26 @@ export default function Header({ locale = "en", dict }) {
 
   const isActive = (href) =>
     href === path("/") ? pathname === href : pathname.startsWith(href);
+
+  // Desktop "Tours" dropdown: opens on hover or click, closes on Escape,
+  // a click elsewhere, or picking a link.
+  const [toursOpen, setToursOpen] = useState(false);
+  const toursRef = useRef(null);
+  useEffect(() => {
+    if (!toursOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setToursOpen(false);
+    };
+    const onDown = (e) => {
+      if (!toursRef.current?.contains(e.target)) setToursOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onDown);
+    };
+  }, [toursOpen]);
 
   /*
    * The header CTA is "Book a transfer" everywhere except the page that IS
@@ -176,23 +221,65 @@ export default function Header({ locale = "en", dict }) {
 
           {/* Desktop nav */}
           <nav className="ml-1 hidden items-center gap-0.5 lg:flex">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium transition ${
-                  overHero
-                    ? `text-white/90 hover:bg-white/10 hover:text-white ${
-                        isActive(l.href) ? "bg-white/10" : ""
-                      }`
-                    : `text-ink/75 hover:bg-ink/5 hover:text-ink ${
-                        isActive(l.href) ? "bg-ink/5 text-ink" : ""
-                      }`
-                }`}
-              >
-                {l.short}
-              </Link>
-            ))}
+            {links.map((l) => {
+              const cls = `flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium transition ${
+                overHero
+                  ? `text-white/90 hover:bg-white/10 hover:text-white ${
+                      isActive(l.href) ? "bg-white/10" : ""
+                    }`
+                  : `text-ink/75 hover:bg-ink/5 hover:text-ink ${
+                      isActive(l.href) ? "bg-ink/5 text-ink" : ""
+                    }`
+              }`;
+              if (!l.children) {
+                return (
+                  <Link key={l.href} href={l.href} className={cls}>
+                    {l.short}
+                  </Link>
+                );
+              }
+              return (
+                <div
+                  key={l.href}
+                  ref={toursRef}
+                  className="relative"
+                  onMouseEnter={() => setToursOpen(true)}
+                  onMouseLeave={() => setToursOpen(false)}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setToursOpen((v) => !v)}
+                    aria-expanded={toursOpen}
+                    aria-controls="tours-menu"
+                    className={cls}
+                  >
+                    {l.short}
+                    <FaChevronDown
+                      className={`text-[0.6rem] transition-transform ${toursOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {toursOpen && (
+                    <div id="tours-menu" className="absolute left-0 top-full pt-2">
+                      <ul className="w-80 overflow-hidden rounded-2xl border border-ink/[0.07] bg-white p-2 shadow-lift">
+                        {l.children.map((c) => (
+                          <li key={c.href}>
+                            <Link
+                              href={c.href}
+                              onClick={() => setToursOpen(false)}
+                              className={`block rounded-xl px-4 py-2.5 text-[0.92rem] transition hover:bg-crimson-50 hover:text-crimson-700 ${
+                                c.exact ? "text-ink/60" : "font-semibold text-ink"
+                              }`}
+                            >
+                              {c.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-1.5">
@@ -254,15 +341,34 @@ export default function Header({ locale = "en", dict }) {
             </div>
 
             <nav className="flex-1 px-3 pb-4 pt-3">
-              {links.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="block rounded-xl px-4 py-3 text-base font-semibold text-ink transition hover:bg-crimson-50"
-                >
-                  {l.label}
-                </Link>
-              ))}
+              {links.map((l) =>
+                l.children ? (
+                  <div key={l.href} className="py-1">
+                    <p className="px-4 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink/50">
+                      {l.label}
+                    </p>
+                    {l.children.map((c) => (
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        className={`block rounded-xl px-4 py-2.5 text-[0.95rem] transition hover:bg-crimson-50 ${
+                          c.exact ? "text-ink/60" : "font-semibold text-ink"
+                        }`}
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="block rounded-xl px-4 py-3 text-base font-semibold text-ink transition hover:bg-crimson-50"
+                  >
+                    {l.label}
+                  </Link>
+                )
+              )}
             </nav>
 
             <div className="space-y-2 border-t border-ink/[0.07] p-4">

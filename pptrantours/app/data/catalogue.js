@@ -305,9 +305,9 @@ const QUOTED = [
     region: "montego-bay",
     duration: "Half day",
     image: "/tours/dolphin-cove-montego-bay.jpg",
-    desc: "The same dolphin programmes as Ocho Rios, twenty minutes from most Montego Bay hotels instead of two hours. The cheapest way to get a dolphin swim into a half day and still have the afternoon at the beach.",
+    desc: "The same dolphin programmes as Ocho Rios, about 40 minutes from the Montego Bay Hip Strip, at Lucea in Hanover, instead of two hours. The cheapest way to get a dolphin swim into a half day and still have the afternoon at the beach.",
     highlights: [
-      "Twenty minutes from most MoBay resorts",
+      "About 40 minutes from the Hip Strip",
       "Encounter, Swim Adventure and Royal Swim",
       "General admission for non-swimmers",
       "Infants free, kids priced from 3.3 ft tall",
@@ -643,10 +643,10 @@ const QUOTED = [
     duration: "Full day",
     image: "/tours/combo-blue-hole-dunns-river.jpg",
     imageCredit: { author: "Thank You (23 Millions+) views", licence: "CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Blue_Hole,_Ocho_Rios_2019.jpg" },
-    desc: "Both of St. Ann's great waterfalls in one day. They are twenty minutes apart, so the only thing a second stop really costs is a little more driving and waiting — which is exactly what the combo price covers.",
+    desc: "Both of St. Ann's great waterfalls in one day. They are half an hour apart, so the only thing a second stop really costs is a little more driving and waiting — which is exactly what the combo price covers.",
     highlights: [
       "Two headline waterfalls, one day",
-      "Twenty minutes between them",
+      "Half an hour between them",
       "Cheaper than booking the two apart",
       "Do them in either order",
     ],
@@ -821,7 +821,7 @@ export const TRANSFERS = [
     region: "montego-bay",
     duration: "Door to door",
     image: "/at/at-1.webp",
-    desc: "Fifteen to forty minutes from the terminal to almost every Montego Bay resort. Exit through the glass doors beside the taxi stand, turn left, and your driver is waiting at the curb at Column E with a PPP sign. The vehicle is yours alone.",
+    desc: "Ten to twenty-five minutes from the terminal to almost every Montego Bay resort. Exit through the glass doors beside the taxi stand, turn left, and your driver is waiting at the curb at Column E with a PPP sign. The vehicle is yours alone.",
     places: [
       "toby-resort", "royal-decameron-cornwall", "s-hotel", "deja-resort",
       "club-montego-bay", "altamont", "hotel-39", "caribic-house",
@@ -839,7 +839,7 @@ export const TRANSFERS = [
     region: "falmouth",
     duration: "Door to door",
     image: "/at/at-2.webp",
-    desc: "About an hour east along the coast road to the Trelawny resorts. Flight tracked, luggage handled, no stops unless you ask for one.",
+    desc: "Forty minutes to an hour east along the coast road to the Trelawny resorts. Flight tracked, luggage handled, no stops unless you ask for one.",
     places: [
       "excellence-oyster-bay", "riu-aquarelle", "royalton-blue-waters",
       "ocean-eden-bay", "ocean-coral-spring", "bahia-principe", "franklyn-d",
@@ -853,7 +853,7 @@ export const TRANSFERS = [
     region: "hanover",
     duration: "Door to door",
     image: "/at/at-5.webp",
-    desc: "West along the north coast to Round Hill, Tryall, Grand Palladium and the Princess resorts. A pretty drive, and a short one.",
+    desc: "West along the north coast to Round Hill, Tryall, Grand Palladium and the Princess resorts. A pretty drive: half an hour to Round Hill, under an hour to Grand Palladium.",
     places: ["round-hill", "tryall", "grand-palladium", "lady-hamilton", "princess-jamaica"],
   },
   {
@@ -864,7 +864,7 @@ export const TRANSFERS = [
     region: "ocho-rios",
     duration: "Door to door",
     image: "/at/at-6.webp",
-    desc: "Two hours east to the St. Ann resorts, along the coast the whole way. Ask and your driver will stop for a jerk lunch or a photograph without charging you for it.",
+    desc: "An hour and a quarter to Runaway Bay and about two hours to Ocho Rios, along the coast the whole way. Ask and your driver will stop for a jerk lunch or a photograph without charging you for it.",
     places: [
       "riu-ocho-rios", "sandals-dunns-river", "moon-palace", "sandals-ochi",
       "sandals-royal-plantation", "jamaica-inn", "couples-sans-souci",
@@ -879,7 +879,7 @@ export const TRANSFERS = [
     region: "negril",
     duration: "Door to door",
     image: "/at/at-9.webp",
-    desc: "An hour and a half down the west coast to Negril, or two and a half over the hills to Sandals South Coast. Both are long enough that a private, air-conditioned vehicle is worth having.",
+    desc: "About an hour and a half down the west coast to Negril, or the same again over the hills to Sandals South Coast. Both are long enough that a private, air-conditioned vehicle is worth having.",
     places: ["negril-beach", "negril-west-end", "sandals-south-coast"],
   },
 ];

@@ -4,17 +4,16 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
+  FaArrowRight,
 } from "react-icons/fa";
+import Link from "next/link";
 import PageHeader from "@/app/components/PageHeader";
-import FaqAccordion from "@/app/components/FaqAccordion";
 import SectionHeading from "@/app/components/SectionHeading";
 import ContactForm from "./ContactForm";
 import { site } from "@/app/data/site";
-import { faqSchema } from "@/app/data/schema";
 import CtaBand from "@/app/components/CtaBand";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
-import JsonLd from "@/app/components/JsonLd";
 import { clientDict } from "@/app/i18n/client";
 import { languageAlternates } from "../layout";
 
@@ -75,9 +74,6 @@ export default async function ContactPage({ params }) {
 
   return (
     <>
-      {/* The eleven Q&As rendered by the accordion below, same source. */}
-      <JsonLd data={faqSchema(dict.faqs)} />
-
       <PageHeader
         eyebrow={t.eyebrow ?? "Get in touch"}
         title={t.title ?? "Tell us your dates. We'll do the rest."}
@@ -193,16 +189,21 @@ export default async function ContactPage({ params }) {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-sand py-16 lg:py-24">
-        <div className="shell">
+      {/* Every FAQ now lives on /faq; this points there instead of repeating it. */}
+      <section className="bg-sand py-16 lg:py-20">
+        <div className="shell text-center">
           <SectionHeading
             align="center"
-            title={t.faqTitle ?? "Everything else, answered."}
+            title={t.faqTitle ?? "Looking for answers?"}
+            description={
+              t.faqBody ??
+              "Prices, payment, cancellations, weather, drive times and our vehicles — every question we get asked is on one page."
+            }
           />
-          <div className="mx-auto max-w-3xl">
-            <FaqAccordion items={dict.faqs ?? []} />
-          </div>
+          <Link href={localePath(locale, "/faq")} className="btn-primary">
+            {dict.faqPage?.seeAll ?? "See all FAQs"}
+            <FaArrowRight className="text-xs" />
+          </Link>
         </div>
       </section>
 

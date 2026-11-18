@@ -2,6 +2,7 @@ import { site } from "./data/site";
 import { TOURS } from "./data/catalogue";
 import { transferPlaces } from "./data/places";
 import { CATEGORIES } from "./products/product";
+import { TOUR_ORIGINS } from "./data/tour-origins";
 import { DEFAULT_LOCALE, LOCALES, localePath } from "./i18n/config";
 
 const BASE = site.url;
@@ -27,6 +28,12 @@ export default function sitemap() {
     { path: "/transfers", priority: 0.9, changeFrequency: "weekly" },
     { path: "/about-us", priority: 0.6, changeFrequency: "yearly" },
     { path: "/contact-us", priority: 0.7, changeFrequency: "yearly" },
+    { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
+    ...TOUR_ORIGINS.map((o) => ({
+      path: `/tours/from/${o.slug}`,
+      priority: 0.9,
+      changeFrequency: "weekly",
+    })),
     { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
     { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
 

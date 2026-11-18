@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { site } from "../data/site";
 import { CATEGORIES } from "../products/product";
+import { TOUR_ORIGINS } from "../data/tour-origins";
 import { localePath } from "@/app/i18n/config";
 import Logo from "./Logo";
 
@@ -117,9 +118,21 @@ export default function Footer({ locale = "en", dict }) {
                   {t.about ?? "About PPP"}
                 </Link>
               </li>
+              {TOUR_ORIGINS.filter((o) => o.place).map((o) => (
+                <li key={o.slug}>
+                  <Link href={path(`/tours/from/${o.slug}`)} className="inline-block py-1.5 transition hover:text-crimson-300">
+                    {dict?.nav?.[o.navKey] ?? o.menu}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href={path("/faq")} className="inline-block py-1.5 transition hover:text-crimson-300">
+                  {t.faq ?? "FAQs"}
+                </Link>
+              </li>
               <li>
                 <Link href={path("/contact-us")} className="inline-block py-1.5 transition hover:text-crimson-300">
-                  {t.contact ?? "Contact & FAQ"}
+                  {t.contact ?? "Contact"}
                 </Link>
               </li>
             </ul>

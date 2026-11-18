@@ -30,6 +30,7 @@ const CLIENT_NAMESPACES = [
   "fare",
   "gallery",
   "contactForm",
+  "drive",
 ];
 
 export function clientDict(dict) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import TourCard from "./TourCard";
@@ -43,6 +43,15 @@ export default function TourGrid({
    * category page, which is already filtered by its route.
    */
   categoryFilter = "select",
+  /*
+   * A PLACES key this grid prices from, for the "Tours from a cruise port"
+   * pages: the pier becomes the guest's pickup and the hotel picker is
+   * replaced by a fixed label. `hotelsOnly` is the "Tours from Hotels" page,
+   * where a remembered cruise pier is dropped so the guest picks a hotel.
+   */
+  presetPlace = null,
+  pickupLabel = null,
+  hotelsOnly = false,
 }) {
   const [query, setQuery] = useState("");
 
@@ -69,8 +78,14 @@ export default function TourGrid({
   const category = categoryChoice ?? urlCategory ?? "all";
   const [sort, setSort] = useState("price-asc");
   const [page, setPage] = useState(1);
-  const { place, zone } = usePlace();
+  const { place, zone, ready, choose, clear } = usePlace();
   const t = dict?.grid ?? {};
+
+  useEffect(() => {
+    if (!ready) return;
+    if (presetPlace && place?.key !== presetPlace) choose(presetPlace);
+    else if (hotelsOnly && place?.kind === "pier") clear();
+  }, [ready, presetPlace, hotelsOnly, place, choose, clear]);
 
   const priceOf = useMemo(
     () => (tour) => {
@@ -224,12 +239,20 @@ export default function TourGrid({
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-ink/[0.07] bg-white px-4 py-3 shadow-card">
         {/* With no hotel chosen the button itself says "Choose your hotel…",
             so a label saying the same thing is dropped. */}
-        {place && (
-          <span className="text-sm text-ink/70">
-            {`${t.pricesFor ?? "Prices for"} ${place.name}`}
+        {presetPlace ? (
+          <span className="text-sm font-semibold text-ink">
+            {pickupLabel ?? `${t.pricesFor ?? "Prices for"} ${place?.name ?? ""}`}
           </span>
+        ) : (
+          <>
+            {place && (
+              <span className="text-sm text-ink/70">
+                {`${t.pricesFor ?? "Prices for"} ${place.name}`}
+              </span>
+            )}
+            <HotelSearch variant="compact" dict={dict} id="tour-grid-hotel" />
+          </>
         )}
-        <HotelSearch variant="compact" dict={dict} id="tour-grid-hotel" />
       </div>
 
       <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-ink/[0.07] bg-white p-4 shadow-card lg:flex-row lg:items-center">

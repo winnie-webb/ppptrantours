@@ -115,9 +115,15 @@ export default async function Home({ params }) {
                 "Anything else, just message us — someone answers seven days a week."
               }
             />
-            <Link href={localePath(locale, "/contact-us")} className="btn-primary">
-              {t.askUs ?? "Ask us something"}
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link href={localePath(locale, "/faq")} className="btn-primary">
+                {dict.faqPage?.seeAll ?? "See all FAQs"}
+                <FaArrowRight className="text-xs" />
+              </Link>
+              <Link href={localePath(locale, "/contact-us")} className="btn-ghost">
+                {t.askUs ?? "Ask us something"}
+              </Link>
+            </div>
           </div>
           <FaqAccordion items={(dict.faqs ?? []).slice(0, 6)} />
         </div>

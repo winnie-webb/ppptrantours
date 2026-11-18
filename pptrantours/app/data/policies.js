@@ -6,9 +6,10 @@
  *
  * Every clause marked `confirm: true` is a DRAFT. It is what is normal for a
  * private-transfer operator in the Caribbean, not something Mr. Pugh has said.
- * The numbers in particular — the 24-hour notice window, the no-show rule, the
+ * The numbers in particular — the no-show rule, the
  * 48-hour flight-details request — were written to be reasonable, not because
- * anyone quoted them.
+ * anyone quoted them. The 48-hour / 100% refund window and weather rescheduling
+ * are the owner's own (2026-11-18), which is why those sections carry no flag.
  *
  * They render with a visible "to be confirmed" marker for exactly that reason,
  * and the marker should come off clause by clause as he signs each one off. A
@@ -66,10 +67,9 @@ export const bookingTerms = [
   {
     key: "cancel",
     heading: "Cancelling or changing a booking",
-    confirm: true,
     body: [
-      "You may cancel or change a confirmed booking free of charge up to 24 hours before the agreed pickup time. Tell us by WhatsApp, telephone or email and quote your PPP- reference.",
-      "Inside 24 hours we will always try to move the booking rather than charge for it. Where a vehicle and driver have already been committed and cannot be reassigned, we may retain any amount already paid, up to 50% of the transport price.",
+      "Cancel at least 48 hours before the agreed pickup time and you receive a 100% refund of anything you have paid us. Tell us by WhatsApp, telephone or email and quote your PPP- reference.",
+      "Inside 48 hours we will always try to move the booking to another date rather than charge for it. Where a vehicle and driver have already been committed and cannot be reassigned, we may retain any amount already paid, up to 50% of the transport price.",
       "If you do not appear at the agreed pickup point and we cannot reach you on the number you gave us, after 60 minutes the booking is treated as a no-show and any amount paid is not refunded.",
       "We do not charge for changes we cause ourselves, and we do not charge for a cancellation arising from a flight cancellation outside your control.",
     ],
@@ -77,11 +77,10 @@ export const bookingTerms = [
   {
     key: "refunds",
     heading: "Refunds",
-    confirm: true,
     body: [
       "Where a refund is due it is returned to the card that paid, in full, within 10 working days. We cannot refund to a different card or to cash.",
       "You are refunded in full, without exception, if we cannot service your confirmed date, if we cannot supply a vehicle, or if we cancel for any reason of our own.",
-      "You are refunded in full for a cancellation made more than 24 hours before pickup.",
+      "You are refunded 100% for a cancellation made at least 48 hours before pickup.",
       "Attraction entry fees are never part of a refund from us, because we never collected them. Refunds of gate fees are a matter for the attraction.",
     ],
   },
@@ -92,7 +91,8 @@ export const bookingTerms = [
     body: [
       "Give us your flight number and we track the flight. If you land late, your driver waits, and there is no extra charge for a delay to a tracked flight.",
       "We ask for flight details at least 48 hours before arrival so a driver can be assigned. Later than that we will still do our best, but we cannot promise the vehicle class you asked for.",
-      "Jamaica's weather occasionally closes an attraction — a river runs too high, a boat cannot sail. Where that happens we will offer an alternative for the same day or a full refund of the transport for the part not delivered. We do not control gate closures and cannot compensate for them beyond that.",
+      "A tour cancelled because of bad weather can be rescheduled to another day of your stay at no extra cost, subject to availability.",
+      "Jamaica's weather occasionally closes an attraction — a river runs too high, a boat cannot sail. Where that happens on the day we will offer a reschedule, an alternative for the same day, or a full refund of the transport for the part not delivered. We do not control gate closures and cannot compensate for them beyond that.",
     ],
   },
   {

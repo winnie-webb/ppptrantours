@@ -1,95 +1,113 @@
 import Image from "next/image";
-import { FaUsers, FaSuitcase, FaSnowflake } from "react-icons/fa";
+import { FaUsers, FaSnowflake } from "react-icons/fa";
 import SectionHeading from "./SectionHeading";
 
 /**
- * Spec-only tiles, deliberately without photos. The previous images were
- * another operator's vehicles; the one genuine PPP vehicle photo we have
- * leads the section instead. Add per-vehicle `image` keys back once Mr. Pugh
- * supplies his own shots of each class.
+ * The three vehicle classes PPP runs, as the owner listed them (2026-11-18):
+ * a new box-shaped Toyota Coaster bus, a new 10–15 seater Toyota Hiace, and a
+ * modern Toyota Voxy.
+ *
+ * The photos are freely licensed pictures of each model (credited in
+ * public/CREDITS.md) with the PPP logo added on the passenger-side door, as he
+ * asked. Swap in his own photos of the actual vehicles when he has them.
+ *
+ * Shown on the About page and on /transfers, beside the transfer form.
  */
 const FLEET = [
   {
-    key: "sedan",
-    name: "Executive sedan",
-    blurb: "Saloon car for couples and solo travellers who want the quiet ride.",
-    seats: "1–3 guests",
-    bags: "3 bags",
+    key: "voxy",
+    image: "/fleet/voxy.jpg",
+    name: "Toyota Voxy",
+    tag: "Modern minivan",
+    blurb: "Quiet, comfortable and modern — for couples, families and small groups.",
+    seats: "Up to 6 guests",
   },
   {
-    key: "minivan",
-    name: "Private minivan",
-    blurb: "Our workhorse. Room to spread out on the long runs to Kingston or Port Antonio.",
-    seats: "4–6 guests",
-    bags: "6 bags",
+    key: "hiace",
+    image: "/fleet/hiace.jpg",
+    name: "Toyota Hiace",
+    tag: "New 10–15 seater bus",
+    blurb: "Our workhorse for families and groups travelling together, with room for the luggage.",
+    seats: "10–15 guests",
   },
   {
-    key: "touring",
-    name: "Touring van",
-    blurb: "For families and groups travelling together, with luggage space to match.",
-    seats: "7–14 guests",
-    bags: "14 bags",
+    key: "coaster",
+    image: "/fleet/coaster.jpg",
+    name: "Toyota Coaster",
+    tag: "New box-shaped Coaster bus",
+    blurb: "For weddings, cruise groups and big parties who want to travel together.",
+    seats: "Up to 29 guests",
   },
 ];
 
-export default function FleetSection({ dict }) {
+export default function FleetSection({ dict, className = "bg-sand py-16 lg:py-24" }) {
   const t = dict?.fleet ?? {};
   return (
-    <section className="bg-sand py-16 lg:py-24">
+    <section id="vehicles" className={`scroll-mt-24 ${className}`}>
       <div className="shell">
         <SectionHeading
           align="center"
-          title={t.title ?? "Accommodations for all groups, big or small"}
+          title={t.title ?? "Our vehicles"}
           description={
             t.description ??
-            "Every vehicle is air-conditioned, inspected and insured for passenger service. Larger coaches are available for weddings and groups of up to thirty."
+            "New and modern Toyotas, every one air-conditioned, inspected and insured for passenger service. Just book, and we send the right one for your group size."
           }
         />
 
-        <figure className="mb-8 overflow-hidden rounded-2xl bg-ink">
-          <div className="relative aspect-[16/9] sm:aspect-[21/9]">
-            <Image
-              src="/ppp/donovan-airport-van.jpg"
-              alt="Donovan Pugh meeting guests beside a PPP Tran Tours van at Sangster International Airport"
-              fill
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              className="object-cover object-center"
-            />
-          </div>
-          <figcaption className="px-5 py-3 text-xs text-white/60">
-            {t.caption ??
-              "Mr. Pugh meeting arrivals at Sangster International, Montego Bay."}
-          </figcaption>
-        </figure>
-
-        <div className="grid gap-5 sm:grid-cols-3">
-          {FLEET.map((v) => (
-            <article key={v.key} className="card overflow-hidden">
-              <div className="p-6">
-                <h3 className="font-display text-xl font-semibold text-ink">
-                  {t.vehicles?.[v.key]?.name ?? v.name}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                  {t.vehicles?.[v.key]?.blurb ?? v.blurb}
-                </p>
-                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/[0.07] pt-4 text-xs text-ink/70">
-                  <li className="flex items-center gap-1.5">
-                    <FaUsers className="text-crimson-600" />
-                    {t.vehicles?.[v.key]?.seats ?? v.seats}
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <FaSuitcase className="text-crimson-600" />
-                    {t.vehicles?.[v.key]?.bags ?? v.bags}
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <FaSnowflake className="text-crimson-600" />
-                    A/C
-                  </li>
-                </ul>
-              </div>
-            </article>
-          ))}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {FLEET.map((v) => {
+            const copy = t.vehicles?.[v.key] ?? {};
+            const name = copy.name ?? v.name;
+            return (
+              <article key={v.key} className="card overflow-hidden">
+                <div className="relative aspect-[4/3] bg-ink/5">
+                  <Image
+                    src={v.image}
+                    alt={`${name} with the PPP Tran Tours logo on the passenger door`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-crimson-700">
+                    {copy.tag ?? v.tag}
+                  </p>
+                  <h3 className="mt-1 font-display text-xl font-semibold text-ink">{name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                    {copy.blurb ?? v.blurb}
+                  </p>
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/[0.07] pt-4 text-xs text-ink/70">
+                    <li className="flex items-center gap-1.5">
+                      <FaUsers className="text-crimson-600" />
+                      {copy.seats ?? v.seats}
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <FaSnowflake className="text-crimson-600" />
+                      {t.ac ?? "A/C"}
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            );
+          })}
         </div>
+
+        <p className="mt-5 text-center text-xs text-ink/50">
+          {t.photoNote ?? "Photos show the vehicle models we run."}{" "}
+          {/* Required attribution: two of the three are CC BY-SA 4.0. */}
+          Photos via Wikimedia Commons, PPP logo added: Voxy by Benespit and Hiace
+          by Thitichai R (
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
+            CC BY-SA 4.0
+          </a>
+          ), Coaster by Ypy31 (CC0).
+        </p>
       </div>
     </section>
   );

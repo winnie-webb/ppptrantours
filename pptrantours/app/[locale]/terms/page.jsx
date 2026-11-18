@@ -57,7 +57,7 @@ export default async function TermsPage({ params }) {
         breadcrumbs={[{ label: t.crumb ?? "Booking terms" }]}
       />
 
-      <PolicyDocument sections={bookingTerms} updated="10 September 2026" />
+      <PolicyDocument sections={bookingTerms} updated="18 November 2026" />
 
       <CtaBand locale={locale} dict={client} />
     </>

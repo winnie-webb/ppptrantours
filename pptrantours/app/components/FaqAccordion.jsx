@@ -4,16 +4,17 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { faqs } from "../data/site";
 
-export default function FaqAccordion({ items = faqs }) {
-  const [open, setOpen] = useState(0);
+export default function FaqAccordion({ items = faqs, initialOpen = 0 }) {
+  const [open, setOpen] = useState(initialOpen);
 
   return (
     <div className="divide-y divide-ink/[0.07] overflow-hidden rounded-2xl border border-ink/[0.07] bg-white shadow-card">
       {items.map((item, i) => {
         const isOpen = open === i;
-        const panelId = `faq-panel-${i}`;
+        // Keyed, not indexed: the FAQ page renders several accordions at once.
+        const panelId = `faq-panel-${item.key ?? i}`;
         return (
-          <div key={item.q}>
+          <div key={item.q} id={item.key ? `faq-${item.key}` : undefined} className="scroll-mt-28">
             <h3>
               <button
                 type="button"

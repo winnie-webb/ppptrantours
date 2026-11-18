@@ -1,0 +1,552 @@
+{
+ "places": {
+  "toby-resort": {
+   "lat": 18.4906511,
+   "lon": -77.9270835,
+   "hit": "Toby Resort, Godfrey Dyer Boulevard / Sunset Boulevard, Montego Bay, Saint James, Cornwall",
+   "q": "Toby Resort"
+  },
+  "royal-decameron-cornwall": {
+   "lat": 18.4886701,
+   "lon": -77.9282884,
+   "hit": "Royal Decameron Cornwall Beach, 2, Gloucester Avenue, Montego Bay, Saint James, Cornwall C",
+   "q": "Royal Decameron Cornwall Beach"
+  },
+  "s-hotel": {
+   "lat": 18.487501,
+   "lon": -77.9285806,
+   "hit": "S Hotel Jamaica, 7, Gloucester Avenue/Jimmy Cliff Boulevard, Montego Bay, Saint James, Cor",
+   "q": "S Hotel Jamaica"
+  },
+  "deja-resort": {
+   "lat": 18.4866134,
+   "lon": -77.9287029,
+   "hit": "Deja Resort, 92, Gloucester Avenue, Montego Bay, Saint James, Cornwall County, Jamaica",
+   "q": "Deja Resort"
+  },
+  "club-montego-bay": {
+   "lat": 18.4877383,
+   "lon": -77.9198732,
+   "hit": "Mango Walk Country Club, Montego Bay, Saint James, Cornwall County, Jamaica",
+   "q": "Club Montego Bay"
+  },
+  "altamont": {
+   "lat": 18.0030493,
+   "lon": -76.7869051,
+   "hit": "Altamont Court Hotel, 1-5, Altamont Crescent, New Kingston, Kingston, Saint Andrew, Surrey",
+   "q": "Altamont Hotel"
+  },
+  "caribic-house": {
+   "lat": 18.4859127,
+   "lon": -77.9289147,
+   "hit": "Caribic House, 69, Gloucester Avenue, Montego Bay, Saint James, Cornwall County, Jamaica",
+   "q": "Caribic House"
+  },
+  "secrets-wild-orchid": {
+   "lat": 18.4587456,
+   "lon": -77.9507189,
+   "hit": "Secrets Wild Orchid Montego Bay, Sunset Drive, Montego Bay, Saint James, Cornwall County, ",
+   "q": "Secrets Wild Orchid"
+  },
+  "secrets-st-james": {
+   "lat": 18.4603792,
+   "lon": -77.9482709,
+   "hit": "Secrets St. James, Sunset Drive, Montego Bay, Saint James, Cornwall County, Jamaica",
+   "q": "Secrets St. James"
+  },
+  "breathless": {
+   "lat": 18.4599479,
+   "lon": -77.9470509,
+   "hit": "Breathless Montego Bay Resort & Spa, Sunset Drive, Montego Bay, Saint James, Cornwall Coun",
+   "q": "Breathless Montego Bay Resort & Spa"
+  },
+  "sandals-montego-bay": {
+   "lat": 18.5216992,
+   "lon": -77.881707,
+   "hit": "Sandals Cay, Montego Bay, Jamaica",
+   "q": "Sandals Montego Bay"
+  },
+  "riu-montego-bay": {
+   "lat": 18.5177891,
+   "lon": -77.8811612,
+   "hit": "Hotel Riu Montego Bay, Northern Coastal Highway, Montego Bay, Saint James, Cornwall County",
+   "q": "Riu Montego Bay"
+  },
+  "riu-palace": {
+   "lat": 18.5164978,
+   "lon": -77.8835927,
+   "hit": "Hotel Riu Palace Jamaica, Northern Coastal Highway, Montego Bay, Saint James, Cornwall Cou",
+   "q": "Riu Palace Jamaica"
+  },
+  "riu-reggae": {
+   "lat": 18.5161016,
+   "lon": -77.8849934,
+   "hit": "Hotel Riu Reggae, Northern Coastal Highway, Montego Bay, Saint James, Cornwall County, Jam",
+   "q": "Riu Reggae"
+  },
+  "sandals-royal-caribbean": {
+   "lat": 18.5196072,
+   "lon": -77.8801327,
+   "hit": "Sandals Royal Caribbean Resort, Northern Coastal Highway, Saint James, Cornwall County, Ja",
+   "q": "Sandals Royal Caribbean"
+  },
+  "half-moon": {
+   "lat": 18.5229663,
+   "lon": -77.851939,
+   "hit": "Half Moon Resort, Half Moon Road, Saint James, Cornwall County, Jamaica",
+   "q": "Half Moon Resort"
+  },
+  "jewel-grande": {
+   "lat": 18.5236808,
+   "lon": -77.8285579,
+   "hit": "Jewel Grande Montego Bay Resort and Spa, Jewel Grande Road, Saint James, Cornwall County, ",
+   "q": "Jewel Grande Montego Bay"
+  },
+  "iberostar-waves": {
+   "lat": 18.51792,
+   "lon": -77.800827,
+   "hit": "Rose Hall, Northern Coastal Highway, Barrett Town, Saint James, Cornwall County, Jamaica",
+   "q": "Rose Hall, Jamaica"
+  },
+  "iberostar-selection": {
+   "lat": 18.5153434,
+   "lon": -77.7694232,
+   "hit": "Iberostar Selection Rose Hall Suites, Northern Coastal Highway, Montego Bay, Saint James, ",
+   "q": "Iberostar Selection Rose Hall Suites"
+  },
+  "iberostar-joia": {
+   "lat": 18.5151966,
+   "lon": -77.7706907,
+   "hit": "JOIA Rose Hall by Iberostar, Northern Coastal Highway, Montego Bay, Saint James, Cornwall ",
+   "q": "Iberostar Joia Rose Hall"
+  },
+  "hyatt-ziva-rose-hall": {
+   "lat": 18.5229184,
+   "lon": -77.8333022,
+   "hit": "Hyatt Ziva Rose Hall, Hyatt Road, Saint James, Cornwall County, Jamaica",
+   "q": "Hyatt Ziva Rose Hall"
+  },
+  "hyatt-zilara-rose-hall": {
+   "lat": 18.522885,
+   "lon": -77.8340635,
+   "hit": "Hyatt Zilara Rose Hall, Hyatt Road, Saint James, Cornwall County, Jamaica",
+   "q": "Hyatt Zilara Rose Hall"
+  },
+  "hilton-rose-hall": {
+   "lat": 18.5216346,
+   "lon": -77.8106911,
+   "hit": "Hilton Rose Hall Resort & Spa, Hilton Road, Barrett Town, Saint James, Cornwall County, Ja",
+   "q": "Hilton Rose Hall Resort & Spa"
+  },
+  "dreams-rose-hall": {
+   "lat": 18.51792,
+   "lon": -77.800827,
+   "hit": "Rose Hall, Northern Coastal Highway, Barrett Town, Saint James, Cornwall County, Jamaica",
+   "q": "Rose Hall, Jamaica"
+  },
+  "sea-castles": {
+   "lat": 18.51792,
+   "lon": -77.800827,
+   "hit": "Rose Hall, Northern Coastal Highway, Barrett Town, Saint James, Cornwall County, Jamaica",
+   "q": "Rose Hall, Jamaica"
+  },
+  "holiday-inn-rose-hall": {
+   "lat": 18.51792,
+   "lon": -77.800827,
+   "hit": "Rose Hall, Northern Coastal Highway, Barrett Town, Saint James, Cornwall County, Jamaica",
+   "q": "Rose Hall, Jamaica"
+  },
+  "riu-aquarelle": {
+   "lat": 18.4852852,
+   "lon": -77.6126669,
+   "hit": "Hotel Riu Palace Aquarelle, 1220, Coopers Pen Road, Coopers Pen, Falmouth, Trelawny, Cornw",
+   "q": "Riu Aquarelle"
+  },
+  "ocean-eden-bay": {
+   "lat": 18.4884893,
+   "lon": -77.5708541,
+   "hit": "Ocean Eden Bay, Ocean Coral Spring Road, Stewart Castle, Trelawny, Cornwall County, Jamaic",
+   "q": "Ocean Eden Bay"
+  },
+  "ocean-coral-spring": {
+   "lat": 18.4870063,
+   "lon": -77.5737674,
+   "hit": "Ocean Coral Spring, Ocean Coral Spring Road, Stewart Castle, Trelawny, Cornwall County, Ja",
+   "q": "Ocean Coral Spring"
+  },
+  "franklyn-d": {
+   "lat": 17.9771114,
+   "lon": -76.7742463,
+   "hit": "Franklyn Town, Kingston, Surrey County, Kingston 16, Jamaica",
+   "q": "Franklyn D."
+  },
+  "royalton-white-sands": {
+   "lat": 18.4827261,
+   "lon": -77.6092806,
+   "hit": "Royalton White Sands Resort, Coopers Pen Road, Coopers Pen, Florence Hall, Trelawny, Cornw",
+   "q": "Royalton White Sands"
+  },
+  "melia-braco-village": {
+   "lat": 18.4811771,
+   "lon": -77.4715846,
+   "hit": "Melia Braco Village Hotel & Spa, Duncans Bypass, Kettering, Silver Sands, Duncans, Trelawn",
+   "q": "Meliá Braco Village"
+  },
+  "glistening-waters": {
+   "lat": 18.48305,
+   "lon": -77.628235,
+   "hit": "Glistening Waters, Northern Coastal Highway, Coopers Pen, Florence Hall, Trelawny, Cornwal",
+   "q": "Glistening Waters"
+  },
+  "round-hill": {
+   "lat": 17.8579948,
+   "lon": -77.3752381,
+   "hit": "Round Hill, Manchester, Middlesex County, Jamaica",
+   "q": "Round Hill"
+  },
+  "tryall": {
+   "lat": 18.4527274,
+   "lon": -78.0547364,
+   "hit": "Country Club Drive, Tryall, Hanover, Cornwall County, Jamaica",
+   "q": "Tryall Club"
+  },
+  "grand-palladium": {
+   "lat": 18.4573486,
+   "lon": -78.1531897,
+   "hit": "Grand Palladium Jamaica Resort & Spa, Northern Coastal Highway, Kenilworth, Kew, Hanover, ",
+   "q": "Grand Palladium Jamaica"
+  },
+  "lady-hamilton": {
+   "lat": 18.4472235,
+   "lon": -78.1729253,
+   "hit": "Lucea, Hanover, Cornwall County, Jamaica",
+   "q": "Lucea, Jamaica"
+  },
+  "princess-jamaica": {
+   "lat": 18.3887509,
+   "lon": -78.2737894,
+   "hit": "Green Island, Hanover, Cornwall County, Jamaica",
+   "q": "Green Island, Jamaica"
+  },
+  "riu-ocho-rios": {
+   "lat": 18.4313496,
+   "lon": -77.166096,
+   "hit": "Hotel Riu Ocho Rios, Mammee Estate Road, Drax Hall, Ocho Rios, Saint Ann, Middlesex County",
+   "q": "Riu Ocho Rios"
+  },
+  "moon-palace": {
+   "lat": 18.4122211,
+   "lon": -77.1050142,
+   "hit": "Moon Palace Jamaica, Main Street, Buckfield, Ocho Rios, Saint Ann, Middlesex County, Jamai",
+   "q": "Moon Palace Jamaica"
+  },
+  "sandals-ochi": {
+   "lat": 18.4118083,
+   "lon": -77.0860675,
+   "hit": "Sandals Ochi Beach Club, Main Street, Old Buckfield, Ocho Rios, Saint Ann, Middlesex Count",
+   "q": "Sandals Ochi Beach"
+  },
+  "sandals-royal-plantation": {
+   "lat": 18.4121966,
+   "lon": -77.082154,
+   "hit": "Sandals Royal Plantation, Northern Coastal Highway, Ocho Rios, White River, Saint Ann, Mid",
+   "q": "Sandals Royal Plantation"
+  },
+  "jamaica-inn": {
+   "lat": 18.4132751,
+   "lon": -77.0784742,
+   "hit": "Jamaica Inn, Old Road, Content Garden, Ocho Rios, White River, Saint Ann, Middlesex County",
+   "q": "Jamaica Inn"
+  },
+  "goldeneye": {
+   "lat": 18.4107691,
+   "lon": -76.9448183,
+   "hit": "Goldeneye Bridge, Liberty Castle, Coleraine, Oracabessa, Saint Mary, Middlesex County, Jam",
+   "q": "GoldenEye"
+  },
+  "hibiscus-lodge": {
+   "lat": 18.41234,
+   "lon": -77.1000553,
+   "hit": "Hibiscus Lodge Hotel, James Avenue, Buckfield, Ocho Rios, Saint Ann, Middlesex County, Jam",
+   "q": "Hibiscus Lodge Hotel"
+  },
+  "fishermans-point": {
+   "lat": 18.4078838,
+   "lon": -77.109608,
+   "hit": "Fisherman's Point Apartments, Ocho Rios, Saint Ann, Middlesex County, Jamaica",
+   "q": "Fisherman's Point"
+  },
+  "jewel-paradise-cove": {
+   "lat": 18.4593532,
+   "lon": -77.3409447,
+   "hit": "Runaway Bay, Saint Ann, Middlesex County, Jamaica",
+   "q": "Runaway Bay, Jamaica"
+  },
+  "cardiff-hotel-spa": {
+   "lat": 18.4593532,
+   "lon": -77.3409447,
+   "hit": "Runaway Bay, Saint Ann, Middlesex County, Jamaica",
+   "q": "Runaway Bay, Jamaica"
+  },
+  "negril-beach": {
+   "lat": 18.307417,
+   "lon": -78.3385878,
+   "hit": "Seven Mile Beach, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Seven Mile Beach, Jamaica"
+  },
+  "negril-west-end": {
+   "lat": 18.2642805,
+   "lon": -78.3624745,
+   "hit": "West End, Westmoreland, Cornwall County, Jamaica",
+   "q": "West End, Jamaica"
+  },
+  "sandals-negril": {
+   "lat": 18.3350585,
+   "lon": -78.3383199,
+   "hit": "Sandals Negril Beach Resort & Spa, Norman Manley Boulevard, Hanover, Cornwall County, Jama",
+   "q": "Sandals Negril"
+  },
+  "beaches-negril": {
+   "lat": 18.314191,
+   "lon": -78.3374996,
+   "hit": "Beaches Negril, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "Beaches Negril"
+  },
+  "couples-negril": {
+   "lat": 18.3424268,
+   "lon": -78.3354917,
+   "hit": "Couples Negril, Norman Manley Boulevard, Hanover, Cornwall County, Jamaica",
+   "q": "Couples Negril"
+  },
+  "couples-swept-away": {
+   "lat": 18.310599,
+   "lon": -78.3380875,
+   "hit": "Couples Swept Away, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "Couples Swept Away"
+  },
+  "royalton-negril": {
+   "lat": 18.3408947,
+   "lon": -78.3369832,
+   "hit": "Royalton Negril, Norman Manley Boulevard, Hanover, Cornwall County, Jamaica",
+   "q": "Royalton Negril"
+  },
+  "azul-beach-negril": {
+   "lat": 18.3281436,
+   "lon": -78.3363961,
+   "hit": "Azul Beach Resort Negril, Norman Manley Boulevard, Hanover, Cornwall County, Jamaica",
+   "q": "Azul Beach Resort Negril"
+  },
+  "hedonism-ii": {
+   "lat": 18.3378129,
+   "lon": -78.3430185,
+   "hit": "Hedonism II, Hanover, Cornwall County, Jamaica",
+   "q": "Hedonism II"
+  },
+  "grand-lido-negril": {
+   "lat": 18.2774013,
+   "lon": -78.3517795,
+   "hit": "Grand Lido Negril, Hermitage Road, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Grand Lido Negril"
+  },
+  "riu-palace-tropical-bay": {
+   "lat": 18.3456416,
+   "lon": -78.3336698,
+   "hit": "Riu Palace Tropical Bay, Norman Manley Boulevard, Hanover, Cornwall County, Jamaica",
+   "q": "Riu Palace Tropical Bay"
+  },
+  "coco-la-palm": {
+   "lat": 18.307417,
+   "lon": -78.3385878,
+   "hit": "Seven Mile Beach, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Seven Mile Beach, Jamaica"
+  },
+  "firefly-beach-cottages": {
+   "lat": 18.3022405,
+   "lon": -78.338076,
+   "hit": "Firefly Beach Cottages and Suites, Norman Manley Boulevard, Westmoreland, Cornwall County,",
+   "q": "Firefly Beach Cottages"
+  },
+  "white-sands-negril": {
+   "lat": 18.2989122,
+   "lon": -78.3379693,
+   "hit": "White Sands Negril, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "White Sands Negril"
+  },
+  "charela-inn": {
+   "lat": 18.2999416,
+   "lon": -78.337719,
+   "hit": "Charela Inn, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "Charela Inn"
+  },
+  "travellers-beach-resort": {
+   "lat": 18.307417,
+   "lon": -78.3385878,
+   "hit": "Seven Mile Beach, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Seven Mile Beach, Jamaica"
+  },
+  "negril-palms": {
+   "lat": 18.3069128,
+   "lon": -78.3378703,
+   "hit": "Negril Palms, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "Negril Palms Hotel"
+  },
+  "idle-awhile": {
+   "lat": 18.3003275,
+   "lon": -78.3377255,
+   "hit": "Idle Awhile the Beach, Norman Manley Boulevard, Westmoreland, Cornwall County, Jamaica",
+   "q": "Idle Awhile Beach"
+  },
+  "rondel-village": {
+   "lat": 18.307417,
+   "lon": -78.3385878,
+   "hit": "Seven Mile Beach, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Seven Mile Beach, Jamaica"
+  },
+  "rockhouse": {
+   "lat": 18.2654394,
+   "lon": -78.3669585,
+   "hit": "Rockhouse Hotel, West End Drive, West End, Westmoreland, Cornwall County, Jamaica",
+   "q": "Rockhouse Hotel"
+  },
+  "tensing-pen": {
+   "lat": 18.2564201,
+   "lon": -78.365006,
+   "hit": "Tensing Pen, West End Drive, West End, Westmoreland, Cornwall County, Jamaica",
+   "q": "Tensing Pen"
+  },
+  "catcha-falling-star": {
+   "lat": 18.2550187,
+   "lon": -78.3645056,
+   "hit": "Catcha Falling Star, West End Drive, West End, Westmoreland, Cornwall County, Jamaica",
+   "q": "Catcha Falling Star"
+  },
+  "xtabi-resort": {
+   "lat": 18.2698677,
+   "lon": -78.3680343,
+   "hit": "Xtabi On The Cliffs, West End Road, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Xtabi"
+  },
+  "sandals-south-coast": {
+   "lat": 18.0908625,
+   "lon": -77.9669634,
+   "hit": "Whitehouse, Westmoreland, Cornwall County, Jamaica",
+   "q": "Whitehouse, Jamaica"
+  },
+  "south-coast-all-inclusive": {
+   "lat": 18.0908625,
+   "lon": -77.9669634,
+   "hit": "Whitehouse, Westmoreland, Cornwall County, Jamaica",
+   "q": "Whitehouse, Jamaica"
+  },
+  "bluefields-on-the-bay": {
+   "lat": 18.0908625,
+   "lon": -77.9669634,
+   "hit": "Whitehouse, Westmoreland, Cornwall County, Jamaica",
+   "q": "Whitehouse, Jamaica"
+  },
+  "jakes-hotel": {
+   "lat": 17.8803657,
+   "lon": -77.7565098,
+   "hit": "Treasure Beach, Saint Elizabeth, Cornwall County, Jamaica",
+   "q": "Treasure Beach, Jamaica"
+  },
+  "idlers-rest": {
+   "lat": 18.0241677,
+   "lon": -77.8480102,
+   "hit": "Black River, Saint Elizabeth, Cornwall County, Jamaica",
+   "q": "Black River, Jamaica"
+  }
+ },
+ "attractions": {
+  "blue-hole": {
+   "lat": 18.3721147,
+   "lon": -77.0513537,
+   "hit": "Irie Blue Hole, Cascade Road, Newstead, Saint Mary, Middlesex County, Jamaica",
+   "q": "Irie Blue Hole"
+  },
+  "dunns-river-falls": {
+   "lat": 18.416759,
+   "lon": -77.1399235,
+   "hit": "Dunn's River Falls, Ocho Rios, Saint Ann, Middlesex County, Jamaica",
+   "q": "Dunn's River Falls"
+  },
+  "mystic-mountain": {
+   "lat": 18.4146549,
+   "lon": -77.1271661,
+   "hit": "Mystic Mountain, Northern Coastal Highway, Columbus Heights, Ocho Rios, Saint Ann, Middles",
+   "q": "Mystic Mountain"
+  },
+  "dolphin-cove-ocho-rios": {
+   "lat": 18.4589088,
+   "lon": -78.1309336,
+   "hit": "Dolphin Cove, Northern Coastal Highway, Kenilworth, Kew, Hanover, Cornwall County, Jamaica",
+   "q": "Dolphin Cove"
+  },
+  "bob-marley-nine-mile": {
+   "lat": 18.2976479,
+   "lon": -77.2782774,
+   "hit": "Bob Marley Mausoleum, Nine Mile Road, Syms Run, Nine Mile, Saint Ann, Middlesex County, Ja",
+   "q": "Bob Marley Mausoleum"
+  },
+  "rose-hall-great-house": {
+   "lat": 18.5163038,
+   "lon": -77.8192239,
+   "hit": "Rose Hall Great House (1770), Rose Hall Road, Mount Zion, Saint James, Cornwall County, Ja",
+   "q": "Rose Hall Great House"
+  },
+  "chukka-sandy-bay": {
+   "lat": 18.459192,
+   "lon": -77.9381719,
+   "hit": "CHUKKA Head Office, Mantica Way, Montego Bay, Saint James, Cornwall County, Jamaica",
+   "q": "Chukka Montego Bay"
+  },
+  "great-river": {
+   "lat": 18.3956808,
+   "lon": -77.9668324,
+   "hit": "Great River, Unity Hall, Hanover, Cornwall County, Jamaica",
+   "q": "Great River Jamaica"
+  },
+  "martha-brae-rafting": {
+   "lat": 18.4720993,
+   "lon": -77.6586735,
+   "hit": "Martha Brae, Trelawny, Cornwall County, Jamaica",
+   "q": "Martha Brae"
+  },
+  "luminous-lagoon": {
+   "lat": 18.48305,
+   "lon": -77.628235,
+   "hit": "Glistening Waters, Northern Coastal Highway, Coopers Pen, Florence Hall, Trelawny, Cornwal",
+   "q": "Glistening Waters"
+  },
+  "negril-seven-mile-beach": {
+   "lat": 18.307417,
+   "lon": -78.3385878,
+   "hit": "Seven Mile Beach, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Seven Mile Beach Negril"
+  },
+  "ricks-cafe": {
+   "lat": 18.2542315,
+   "lon": -78.363284,
+   "hit": "Rick's Cafe, West End Road, Ironshore, Negril, Westmoreland, Cornwall County, Jamaica",
+   "q": "Rick's Cafe"
+  },
+  "ys-falls": {
+   "lat": 18.1543273,
+   "lon": -77.824425,
+   "hit": "YS Falls Trading Post, Redgate Road, Redgate, Saint Elizabeth, Cornwall County, Jamaica",
+   "q": "YS Falls"
+  },
+  "black-river-safari": {
+   "lat": 18.0241677,
+   "lon": -77.8480102,
+   "hit": "Black River, Saint Elizabeth, Cornwall County, Jamaica",
+   "q": "Black River, Saint Elizabeth"
+  },
+  "airport": {
+   "lat": 18.5037807,
+   "lon": -77.9114681,
+   "hit": "Sangster International Airport, Codac Drive, Flankers, Montego Bay, Saint James, Cornwall ",
+   "q": "Sangster International Airport"
+  }
+ }
+}

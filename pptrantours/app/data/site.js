@@ -622,7 +622,7 @@ export const faqs = [
   {
     key: "group",
     q: "How large a group can you take?",
-    a: "Any size, big or small. Vehicles run from a sedan for two up to a coach for thirty. Tell us the number and we will put the right vehicle on it.",
+    a: "Any size, big or small. Vehicles run from a sedan for two up to a coach for thirty. Just book, and we send the right vehicle for your group size.",
   },
   {
     key: "advance",

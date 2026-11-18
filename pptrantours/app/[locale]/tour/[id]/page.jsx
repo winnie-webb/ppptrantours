@@ -20,6 +20,8 @@ import TourCard from "@/app/components/TourCard";
 import SectionHeading from "@/app/components/SectionHeading";
 import JsonLd from "@/app/components/JsonLd";
 import HostCard from "@/app/components/HostCard";
+import PolicyNote from "@/app/components/PolicyNote";
+import DriveTime from "@/app/components/DriveTime";
 import { LOCALES, localePath } from "@/app/i18n/config";
 import { getDictionary } from "@/app/i18n/dictionaries";
 import { breadcrumbSchema, tourSchema } from "@/app/data/schema";
@@ -200,6 +202,7 @@ export default async function TourPage({ params }) {
               <FaClock className="text-[0.65rem]" />
               {dict.durations?.[base.duration] ?? base.duration}
             </span>
+            <DriveTime tour={base} dict={client} className="text-xs text-white/60" />
           </div>
 
           <h1 className="mt-4 max-w-4xl font-display text-3xl font-semibold leading-[1.1] text-white sm:text-4xl lg:text-[3.25rem]">
@@ -311,6 +314,8 @@ export default async function TourPage({ params }) {
                 {base.entry.note}
               </p>
             )}
+
+            <PolicyNote locale={locale} dict={dict} className="mt-10" />
 
             <HostCard locale={locale} dict={dict} className="mt-10" />
           </div>
