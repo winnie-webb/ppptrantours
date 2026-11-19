@@ -2,8 +2,6 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import PageHeader from "@/app/components/PageHeader";
 import FaqAccordion from "@/app/components/FaqAccordion";
-import DriveTimes from "@/app/components/DriveTimes";
-import SectionHeading from "@/app/components/SectionHeading";
 import CtaBand from "@/app/components/CtaBand";
 import JsonLd from "@/app/components/JsonLd";
 import { site } from "@/app/data/site";
@@ -91,12 +89,6 @@ export default async function FaqPage({ params }) {
                 {g.title}
               </a>
             ))}
-            <a
-              href="#drive-times"
-              className="rounded-full border border-ink/10 bg-white px-3.5 py-1.5 text-sm text-ink/75 shadow-card transition hover:border-crimson-200 hover:text-crimson-700"
-            >
-              {dict.driveTimes?.eyebrow ?? "Drive times"}
-            </a>
           </nav>
 
           <div className="space-y-12">
@@ -110,23 +102,16 @@ export default async function FaqPage({ params }) {
         </div>
       </section>
 
-      <section id="drive-times" className="scroll-mt-24 bg-sand py-16 lg:py-20">
-        <div className="shell">
-          <SectionHeading
-            title={dict.driveTimes?.title ?? "How long is the drive?"}
-            description={dict.driveTimes?.description}
-          />
-          <DriveTimes dict={dict} />
-          <p className="mt-6 text-sm text-ink/70">
-            <Link href={`${localePath(locale, "/about-us")}#vehicles`} className="font-semibold text-crimson-700 hover:underline">
-              {dict.fleet?.title ?? "Our vehicles"}
-            </Link>
-            {" · "}
-            <Link href={`${localePath(locale, "/terms")}#cancel`} className="font-semibold text-crimson-700 hover:underline">
-              {dict.policyNote?.terms ?? "Read the booking terms"}
-            </Link>
-          </p>
-        </div>
+      <section className="border-y border-ink/[0.06] bg-sand py-8">
+        <p className="shell text-center text-sm text-ink/70">
+          <Link href={`${localePath(locale, "/about-us")}#vehicles`} className="font-semibold text-crimson-700 hover:underline">
+            {dict.fleet?.title ?? "Our vehicles"}
+          </Link>
+          {" · "}
+          <Link href={`${localePath(locale, "/terms")}#cancel`} className="font-semibold text-crimson-700 hover:underline">
+            {dict.policyNote?.terms ?? "Read the booking terms"}
+          </Link>
+        </p>
       </section>
 
       <section className="shell py-14 text-center">

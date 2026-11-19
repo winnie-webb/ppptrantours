@@ -4,7 +4,6 @@ import PageHeader from "@/app/components/PageHeader";
 import TransferBooking from "@/app/components/TransferBooking";
 import CtaBand from "@/app/components/CtaBand";
 import AirportSign from "@/app/components/AirportSign";
-import DriveTimes from "@/app/components/DriveTimes";
 import PolicyNote from "@/app/components/PolicyNote";
 import FleetSection from "@/app/components/FleetSection";
 import { LOCALES, localePath } from "@/app/i18n/config";
@@ -81,10 +80,7 @@ export default async function TransfersPage({ params }) {
       </section>
 
       <section className="shell pb-12 lg:pb-16">
-        <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
-          <DriveTimes dict={dict} only={["airport"]} className="!grid-cols-1" />
-          <PolicyNote locale={locale} dict={dict} className="self-start" />
-        </div>
+        <PolicyNote locale={locale} dict={dict} />
       </section>
 
       {/* The vehicles, beside the form that books them (owner, 2026-11-18). */}

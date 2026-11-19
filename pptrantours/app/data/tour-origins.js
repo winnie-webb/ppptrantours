@@ -6,7 +6,7 @@
  * pier instead of first having to find the pier in the hotel picker.
  *
  * `place` is the PLACES key the page sets as the pickup; `null` means the
- * guest picks their own hotel. `drive` is the DRIVE_TABLE group shown on it.
+ * guest picks their own hotel.
  * Menu order is the owner's.
  */
 export const TOUR_ORIGINS = [
@@ -16,7 +16,6 @@ export const TOUR_ORIGINS = [
     navKey: "toursFromFalmouth",
     menu: "Tours from Falmouth Cruise Port",
     image: "/local/hero-6.jpg",
-    drive: "falmouth-pier",
   },
   {
     slug: "montego-bay-cruise-port",
@@ -24,7 +23,6 @@ export const TOUR_ORIGINS = [
     navKey: "toursFromMobay",
     menu: "Tours from Montego Bay Cruise Port",
     image: "/ppp/guests-cruise-port-group.jpg",
-    drive: "mobay-pier",
   },
   {
     slug: "hotels",
@@ -32,7 +30,6 @@ export const TOUR_ORIGINS = [
     navKey: "toursFromHotels",
     menu: "Tours from Hotels",
     image: "/ppp/guests-van-resort.jpg",
-    drive: "hotels",
   },
 ];
 

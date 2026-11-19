@@ -10,7 +10,6 @@
  *
  *   - Sangster International (MBJ) to a hotel   → `airportDriveMinutes(place)`
  *   - a hotel or cruise pier to a tour          → `tourDriveMinutes(tour, placeKey)`
- *   - the summary lists on /faq and /transfers  → `DRIVE_TABLE`
  */
 
 import { AIRPORT_MINUTES, SPOTS, TOUR_MINUTES } from "./drive-times.generated.js";
@@ -41,86 +40,16 @@ export function tourDriveMinutes(tour, placeKey) {
 /* ── Formatting ───────────────────────────────────────────────────────────── */
 
 /**
- * "20 min drive", "90 min drive", "2 hr 30 min drive". Minutes are kept up to
- * two hours because that is how the owner writes them.
+ * "45 min drive", "1 hr 25 min drive", "2 hr drive" — hours and minutes once
+ * the drive reaches an hour (owner, 2026-11-18).
  */
 export function formatDrive(minutes, labels = {}) {
   if (minutes == null) return null;
   const min = labels.min ?? "min";
   const hr = labels.hr ?? "hr";
   const drive = labels.drive ?? "drive";
-  if (minutes <= 120) return `${minutes} ${min} ${drive}`;
+  if (minutes < 60) return `${minutes} ${min} ${drive}`;
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   return `${h} ${hr}${m ? ` ${m} ${min}` : ""} ${drive}`;
 }
-
-/* ── Summary lists ────────────────────────────────────────────────────────── */
-
-/**
- * The at-a-glance lists, grouped the way the owner listed them. Each row names
- * a representative place (and, for attractions, a tour id); the minutes are
- * looked up from the routed data, so they can never drift from it.
- */
-const GROUPS = [
-  {
-    key: "airport",
-    title: "Airport to hotels",
-    rows: [
-      ["Montego Bay Hip Strip hotels", "s-hotel"],
-      ["Rose Hall resorts", "hilton-rose-hall"],
-      ["Montego Bay cruise port", "mobay-cruise-pier"],
-      ["Falmouth & Trelawny resorts", "royalton-white-sands"],
-      ["Grand Palladium, Lucea", "grand-palladium"],
-      ["Runaway Bay", "jewel-paradise-cove"],
-      ["Negril (Seven Mile Beach)", "sandals-negril"],
-      ["Whitehouse, South Coast", "sandals-south-coast"],
-      ["Ocho Rios", "moon-palace"],
-    ],
-  },
-  {
-    key: "hotels",
-    from: "s-hotel",
-    title: "Montego Bay hotels to attractions",
-    rows: [
-      ["Rose Hall Great House", "rose-hall-great-house"],
-      ["Martha Brae rafting", "martha-brae-rafting"],
-      ["Negril & Rick's Café", "ricks-cafe"],
-      ["YS Falls", "ys-falls"],
-      ["Dunn's River Falls", "dunns-river-falls"],
-    ],
-  },
-  {
-    key: "mobay-pier",
-    from: "mobay-cruise-pier",
-    title: "Montego Bay cruise port to attractions",
-    rows: [
-      ["Doctor's Cave Beach", "montego-bay-highlights"],
-      ["Rose Hall Great House", "rose-hall-great-house"],
-      ["Martha Brae rafting", "martha-brae-rafting"],
-      ["Negril & Rick's Café", "ricks-cafe"],
-      ["Dunn's River Falls", "dunns-river-falls"],
-    ],
-  },
-  {
-    key: "falmouth-pier",
-    from: "falmouth-cruise-pier",
-    title: "Falmouth cruise port to attractions",
-    rows: [
-      ["Martha Brae rafting", "martha-brae-rafting"],
-      ["Luminous Lagoon", "luminous-lagoon"],
-      ["Rose Hall Great House", "rose-hall-great-house"],
-      ["Dunn's River Falls", "dunns-river-falls"],
-      ["Blue Hole", "blue-hole"],
-    ],
-  },
-];
-
-export const DRIVE_TABLE = GROUPS.map((g) => ({
-  key: g.key,
-  title: g.title,
-  rows: g.rows.map(([label, key]) => [
-    label,
-    g.from ? spotMinutes(g.from, key) : AIRPORT_MINUTES[key] ?? null,
-  ]),
-}));

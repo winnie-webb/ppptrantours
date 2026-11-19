@@ -769,7 +769,7 @@
       "key": "drive",
       "group": "transfers",
       "q": "How long is the drive from the airport to my hotel?",
-      "a": "About 12 minutes to the Montego Bay Hip Strip hotels, 17 minutes to Rose Hall, 40 minutes to the Falmouth resorts, 45 minutes to Grand Palladium, 85 minutes to Negril and about 115 minutes to Ocho Rios. Every resort's transfer page shows its own drive time, and the full table is further down this page."
+      "a": "About 12 minutes to the Montego Bay Hip Strip hotels, 17 minutes to Rose Hall, 40 minutes to the Falmouth resorts, 45 minutes to Grand Palladium, 1 hr 25 min to Negril and about 1 hr 55 min to Ocho Rios. Choose your hotel on the booking form and it shows the exact drive time for that hotel."
     },
     {
       "key": "cruise",
@@ -852,18 +852,8 @@
     "min": "min",
     "hr": "hr",
     "drive": "drive",
-    "fromAirport": "from Sangster International (MBJ)"
-  },
-  "driveTimes": {
-    "eyebrow": "Drive times",
-    "title": "How long is the drive?",
-    "description": "Approximate one-way times in ordinary traffic. Each tour card shows the drive from your own pickup point once you have chosen it.",
-    "groups": {
-      "airport": "Airport to hotels",
-      "hotels": "Montego Bay hotels to attractions",
-      "mobay-pier": "Montego Bay cruise port to attractions",
-      "falmouth-pier": "Falmouth cruise port to attractions"
-    }
+    "fromAirport": "from Sangster International (MBJ)",
+    "from": "from"
   },
   "policyNote": {
     "title": "Booking with confidence",

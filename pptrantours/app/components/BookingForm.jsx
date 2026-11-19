@@ -38,6 +38,7 @@ import { createBooking, startPayment } from "@/lib/bookings";
 import { localePath } from "@/app/i18n/config";
 import { usePlace } from "./PlaceProvider";
 import HotelSearch from "./HotelSearch";
+import DriveNote from "./DriveNote";
 import AirlineSearch from "./booking/AirlineSearch";
 import CardLogos from "./booking/CardLogos";
 import DirectionPicker from "./DirectionPicker";
@@ -690,6 +691,14 @@ export default function BookingForm({
             <FieldError id="place-err">{showError("place")}</FieldError>
           </div>
         )}
+
+        {/* Live drive time for this hotel (airport run, or pickup to the tour). */}
+        <DriveNote
+          tour={isTransfer ? undefined : tour}
+          place={isTransfer ? transferPlace : undefined}
+          dict={dict}
+          className="-mt-2"
+        />
 
         {/*
           Q-02 (09_DECISIONS.md): PPP sets the pickup time from the flight,

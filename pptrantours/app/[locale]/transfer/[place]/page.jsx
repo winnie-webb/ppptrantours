@@ -27,7 +27,6 @@ import { clientDict } from "@/app/i18n/client";
 import HostCard from "@/app/components/HostCard";
 import AirportSign from "@/app/components/AirportSign";
 import PolicyNote from "@/app/components/PolicyNote";
-import { airportDriveMinutes, formatDrive } from "@/app/data/drive-times";
 import { languageAlternates } from "../../layout";
 
 /**
@@ -126,8 +125,6 @@ export default async function TransferPage({ params }) {
     ]),
   ];
 
-  const drive = formatDrive(airportDriveMinutes(place), dict.drive);
-
   const included = [
     { Icon: FaPlane, text: t.inc1 ?? "Met at the curb outside arrivals, Column E, by a driver with a PPP sign" },
     { Icon: FaClock, text: t.inc2 ?? "Flight tracked — delays cost you nothing" },
@@ -209,11 +206,6 @@ export default async function TransferPage({ params }) {
             {t.introTotal?.replace("{resort}", place.name) ??
               `From Sangster International (MBJ) to ${place.name}. Your driver meets you at the curb outside arrivals (Column E) with a PPP sign and takes you straight there. Your total is worked out in the form below.`}
           </p>
-          {drive && (
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-white">
-              <FaCar className="text-xs text-crimson-300" aria-hidden />({drive}) {dict.drive?.fromAirport ?? "from Sangster International (MBJ)"}
-            </p>
-          )}
 
           {/*
             The two fare pills that stood here showed a per-head rate with a

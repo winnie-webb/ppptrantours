@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { FaPlane, FaSyncAlt } from "react-icons/fa";
 import { quoteTransfer, money } from "@/app/products/pricing";
 import HotelSearch from "./HotelSearch";
+import DriveNote from "./DriveNote";
 import DirectionPicker from "./DirectionPicker";
 import BookingForm, { Stepper } from "./BookingForm";
 import { usePlace } from "./PlaceProvider";
@@ -138,6 +139,8 @@ export default function TransferBooking({
       <div>
         <span className="label">{t.destination ?? "Where are you staying?"}</span>
         <HotelSearch variant="field" id="transfer-hotel" dict={dict} />
+        {/* Live airport-to-hotel drive time, changing with the hotel. */}
+        <DriveNote dict={dict} className="mt-2.5" />
       </div>
 
       <DirectionPicker value={direction} onChange={setDirection} t={t} />

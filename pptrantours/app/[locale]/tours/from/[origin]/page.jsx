@@ -2,9 +2,7 @@ import { notFound } from "next/navigation";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import PageHeader from "@/app/components/PageHeader";
 import TourGrid from "@/app/components/TourGrid";
-import DriveTimes from "@/app/components/DriveTimes";
 import PolicyNote from "@/app/components/PolicyNote";
-import SectionHeading from "@/app/components/SectionHeading";
 import CtaBand from "@/app/components/CtaBand";
 import { TOURS } from "@/app/data/catalogue";
 import { TOUR_ORIGINS, getTourOrigin } from "@/app/data/tour-origins";
@@ -79,6 +77,7 @@ export default async function ToursFromPage({ params }) {
             {t.pickupNote}
           </p>
         )}
+        <PolicyNote locale={locale} dict={dict} className="mb-6" />
         <TourGrid
           tours={tours}
           locale={locale}
@@ -88,19 +87,6 @@ export default async function ToursFromPage({ params }) {
           pickupLabel={t.pickupLabel}
           hotelsOnly={!o.place}
         />
-      </section>
-
-      <section className="bg-sand py-16 lg:py-20">
-        <div className="shell">
-          <SectionHeading
-            title={dict.driveTimes?.title ?? "How long is the drive?"}
-            description={dict.driveTimes?.description}
-          />
-          <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
-            <DriveTimes dict={dict} only={[o.drive]} className="!grid-cols-1" />
-            <PolicyNote locale={locale} dict={dict} className="self-start bg-white" />
-          </div>
-        </div>
       </section>
 
       <CtaBand locale={locale} dict={dict} />

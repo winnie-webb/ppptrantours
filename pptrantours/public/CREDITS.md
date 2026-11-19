@@ -190,13 +190,13 @@ Stock photos of the three vehicle types Mr. Pugh named (Coaster, Hiace, Voxy),
 with the PPP logo composited onto the passenger-side panel/door as a mock door
 decal. **These are not PPP's own vehicles** — they illustrate the vehicle
 class only; replace with photos of the real fleet when available. 1600×1200
-(4:3), EXIF stripped.
+(4:3), EXIF stripped. All three sit on the same dark studio backdrop (the Hiace's own).
 
 | File | Source | Author | Licence | Credit required | Modified |
 | --- | --- | --- | --- | --- | --- |
-| coaster.jpg | [*Toyota Coaster EX XZB70*](https://commons.wikimedia.org/wiki/File:Toyota_Coaster_EX_XZB70.jpg) | Ypy31 | CC0 | no | PPP logo added, plate blurred, cropped; **mirrored**; sky and road extended at top/bottom to fit 4:3 |
+| coaster.jpg | [*Toyota Coaster EX XZB70*](https://commons.wikimedia.org/wiki/File:Toyota_Coaster_EX_XZB70.jpg) | Ypy31 | CC0 | no | PPP logo added, plate blurred, cropped; **mirrored**; cut out and placed on a studio backdrop matching hiace.jpg |
 | hiace.jpg | [*2020 HiAce Commuter (Thai-Spec) 2.8 6AT*](https://commons.wikimedia.org/wiki/File:2020_HiAce_Commuter_(Thai-Spec)_2.8_6AT.jpg) | Thitichai R | CC BY-SA 4.0 | **yes** | PPP logo added, cropped (no plate in source) |
-| voxy.jpg | [*Toyota Voxy (R90) in White Pearl Crystal Shine, front left*](https://commons.wikimedia.org/wiki/File:Toyota_Voxy_(R90)_in_White_Pearl_Crystal_Shine,_front_left.jpg) | Benespit | CC BY-SA 4.0 | **yes** | PPP logo added, plate and windscreen sticker blurred, cropped; road extended slightly at bottom |
+| voxy.jpg | [*Toyota Voxy R90 Hybrid S-Z*](https://commons.wikimedia.org/wiki/File:Toyota_Voxy_R90_Hybrid_S-Z.jpg) | TTTNIS | CC0 | no | **mirrored**; PPP logo added on the front passenger door, plate blurred; cut out and placed on a studio backdrop matching hiace.jpg |
 
 CC BY-SA 4.0 also requires the modified image to be shared under the same
 licence. ⚠️ Showing a stock vehicle with PPP's logo on it may read as PPP's own
