@@ -813,9 +813,9 @@
   },
   "host": {
     "eyebrow": "Your host",
-    "role": "Owner & driver since 2010 · Licensed by the Jamaica Tourist Board",
-    "body": "He handpicks every PPP driver: patient, polite and licensed to drive islandwide. Rated {score} across {count} Tripadvisor reviews.",
-    "meet": "Meet Mr. Pugh"
+    "starsLabel": "5 out of 5 stars",
+    "tagline": "Building a family with customers worldwide since 2010.",
+    "meet": "Meet the family"
   },
   "tourOrigins": {
     "falmouth-cruise-port": {

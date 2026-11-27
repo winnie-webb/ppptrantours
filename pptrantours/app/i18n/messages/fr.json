@@ -1000,9 +1000,9 @@
   },
   "host": {
     "eyebrow": "Votre hôte",
-    "role": "Propriétaire et chauffeur depuis 2010 · Agréé par le Jamaica Tourist Board",
-    "body": "Il conduit encore presque tous les jours, et la plupart de nos {count} avis Tripadvisor le citent par son nom.",
-    "meet": "Découvrir M. Pugh"
+    "starsLabel": "5 étoiles sur 5",
+    "tagline": "Une famille qui grandit avec des clients du monde entier depuis 2010.",
+    "meet": "Rencontrez la famille"
   },
   "hotelSearch": {
     "typeHotel": "Tapez le nom de votre hôtel…",

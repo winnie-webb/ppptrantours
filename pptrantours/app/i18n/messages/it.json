@@ -1000,9 +1000,9 @@
   },
   "host": {
     "eyebrow": "Il tuo host",
-    "role": "Titolare e autista dal 2010 · Licenza del Jamaica Tourist Board",
-    "body": "Guida ancora quasi ogni giorno, e la maggior parte delle nostre {count} recensioni su Tripadvisor lo cita per nome.",
-    "meet": "Conosci Mr. Pugh"
+    "starsLabel": "5 stelle su 5",
+    "tagline": "Costruiamo una famiglia con clienti da tutto il mondo dal 2010.",
+    "meet": "Conosci la famiglia"
   },
   "hotelSearch": {
     "typeHotel": "Scrivi il nome del tuo hotel…",
